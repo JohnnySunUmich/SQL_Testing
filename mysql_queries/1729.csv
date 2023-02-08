@@ -1,0 +1,177 @@
+SELECT DISTINCT user_id, COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT DISTINCT user_id, COUNT(follower_id) OVER(PARTITION BY user_id) AS followers_count FROM Followers
+SELECT DISTINCT user_id, COUNT(user_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT USER_ID as user_id, COUNT(FOLLOWER_ID) as followers_count FROM FOLLOWERS GROUP BY USER_ID ORDER BY USER_ID ASC
+SELECT USER_ID, COUNT(*) AS FOLLOWERS_COUNT FROM FOLLOWERS GROUP BY USER_ID ORDER BY USER_ID ASC
+SELECT USER_ID, COUNT(DISTINCT FOLLOWER_ID) AS followers_count FROM FOLLOWERS GROUP BY USER_ID
+SELECT f1.user_id,COUNT(distinct f1.follower_id) as followers_count FROM Followers f1 JOIN Followers f2 ON f1.user_id=f2.user_id GROUP BY f1.user_id
+SELECT user_id , COUNT(follower_id) AS followers_count FROM Followers GROUP BY(user_id) ORDER BY user_id ASC
+SELECT user_id , count(0) as followers_count FROM Followers group by user_id order by user_id
+SELECT user_id ,COUNT(DISTINCT follower_id) AS 'followers_count' FROM Followers GROUP BY user_id
+SELECT user_id, COUNT(*) AS followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, COUNT(*) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(*) as followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(*) as followers_count FROM Followers GROUP BY user_id ORDER BY user_id ASC
+SELECT user_id, COUNT(*) as followers_count FROM Followers GROUP BY user_id order by user_id
+SELECT user_id, COUNT(*) as followers_count FROM followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(DISTINCT follower_id) AS 'followers_count' FROM Followers GROUP BY user_id
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY 1
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY user_id
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY 1
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(DISTINCT follower_id) as followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, COUNT(DISTINCT follower_id) as followers_count FROM Followers GROUP BY user_id
+SELECT user_id, COUNT(DISTINCT follower_id) followers_count FROM Followers GROUP BY user_id
+SELECT user_id, COUNT(DISTINCT follower_id) followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(Distinct follower_id) as followers_count FROM Followers GROUP BY user_id
+SELECT user_id, COUNT(follower_id = user_id) as followers_count FROM Followers GROUP BY user_id ORDER BY user_id ASC
+SELECT user_id, COUNT(follower_id) AS 'followers_count' FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY 1
+SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id ASC
+SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers GROUP BY user_id order by user_id
+SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers f1 GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(follower_id) as 'followers_count' FROM Followers group by user_id order by user_id
+SELECT user_id, COUNT(follower_id) as followers_count FROM Followers GROUP BY 1 ORDER BY user_id
+SELECT user_id, COUNT(follower_id) as followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(follower_id) as followers_count FROM followers GROUP BY 1 ORDER BY 1 asc
+SELECT user_id, COUNT(follower_id) as followers_count FROM followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(follower_id) followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, COUNT(follower_id) followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, COUNT(user_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id ASC
+SELECT user_id, IFNULL(COUNT(follower_id),0) as followers_count FROM Followers GROUP BY user_id ORDER BY 1 asc
+SELECT user_id, IFNULL(COUNT(follower_id),0) as followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, IFNULL(COUNT(follower_id),0) followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, SUM(1) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, count(*) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, count(*) as followers_count FROM Followers group by user_id order by user_id
+SELECT user_id, count(*) followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, count(distinct follower_id) as followers_count FROM Followers GROUP BY 1 ORDER BY user_id
+SELECT user_id, count(distinct follower_id) as followers_count FROM Followers GROUP BY user_id
+SELECT user_id, count(distinct follower_id) as followers_count FROM followers GROUP BY 1 ORDER BY 1
+SELECT user_id, count(distinct follower_id) followers_count FROM Followers GROUP BY user_id
+SELECT user_id, count(follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, count(follower_id) AS followers_count FROM followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, count(follower_id) as 'followers_count' FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id, count(follower_id) followers_count FROM Followers GROUP BY 1 ORDER BY 1
+SELECT user_id, count(follower_id) followers_count FROM Followers GROUP BY user_id order by 1
+SELECT user_id, count(follower_id) followers_count from Followers group by user_id order by 1
+SELECT user_id, count(user_id) as followers_count FROM followers group by user_id order by user_id
+SELECT user_id,COUNT(*) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id,COUNT(*) as "followers_count" FROM Followers group by user_id order by user_id
+SELECT user_id,COUNT(DISTINCT follower_id) AS followers_count FROM Followers GROUP BY user_id
+SELECT user_id,COUNT(DISTINCT follower_id) As followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+SELECT user_id,COUNT(follower_id ) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id
+Select distinct user_id, count(follower_id) as followers_count FROM followers GROUP BY user_id order by user_id
+Select distinct user_id,count(follower_id) as followers_count from followers group by user_id order by user_id
+Select user_id , count(distinct follower_id) as followers_count from Followers group by user_id order by user_id
+Select user_id, Count(follower_id) as followers_count From Followers Group by user_id order by user_id
+Select user_id, count(distinct follower_id) as followers_count from Followers group by 1
+Select user_id, count(distinct follower_id) as followers_count from Followers group by user_id
+Select user_id, count(follower_id) as followers_count from Followers group by user_id order by user_id
+Select user_id, count(follower_id) as followers_count from followers group by user_id order by user_id
+Select user_id, count(follower_id) followers_count from Followers group by 1 order by 1
+Select user_id, count(follower_id) followers_count from followers group by user_id order by 1
+Select user_id,count(*) as followers_count from Followers group by user_id order by user_id
+Select user_id,count(distinct follower_id) as followers_count from followers group by user_id
+Select user_id,count(user_id) as followers_count from Followers group by user_id order by user_id
+select User_id, count(follower_id) as followers_count from followers GROUP BY USER_ID ORDER BY user_id
+select a.user_id, count(b.user_id) as 'followers_count' from Followers a left join (select distinct user_id from Followers) b on a.user_id = b.user_id group by a.user_id order by a.user_id
+select cou.user_id, cou.co as followers_count from (select user_id, count(*) as co from Followers group by user_id) cou order by user_id
+select distinct user_id, count(*) as followers_count from Followers group by user_id order by user_id
+select distinct user_id, count(distinct follower_id) as followers_count from Followers group by user_id order by user_id
+select distinct user_id, count(distinct follower_id) as followers_count from followers group by 1
+select distinct user_id, count(distinct follower_id) as followers_count from followers group by 1 order by 1
+select distinct user_id, count(follower_id) OVER (partition by user_id) as followers_count from followers
+select distinct user_id, count(follower_id) as followers_count From followers Group by user_id order by user_id
+select distinct user_id, count(follower_id) as followers_count from Followers group by 1 order by 1
+select distinct user_id, count(follower_id) followers_count from Followers group by 1 order by 1
+select distinct user_id, count(follower_id) over (partition by user_id) as followers_count from Followers
+select distinct user_id, count(follower_id) over (partition by user_id) as followers_count from Followers order by user_id
+select distinct user_id, count(follower_id) over (partition by user_id) as followers_count from followers order by user_id
+select distinct user_id, count(user_id) as followers_count from followers group by 1 order by 1
+select f.user_id , count(follower_id) as followers_count from followers f group by user_id order by user_id
+select f.user_id, count(*) followers_count from followers f group by f.user_id order by f.user_id
+select user_id , count(*) followers_count from Followers group by 1 order by 1
+select user_id , count(distinct follower_id) as followers_count from Followers user_id group by user_id
+select user_id , count(distinct follower_id) as followers_count from followers group by user_id order by user_id
+select user_id , count(distinct follower_id) followers_count from followers group by user_id order by 1
+select user_id , count(follower_id ) as followers_count from Followers group by user_id order by user_id
+select user_id , count(follower_id) as followers_count from Followers group by user_id order by user_id asc
+select user_id ,count(*) as followers_count from Followers group by 1 order by user_id
+select user_id as "user_id", count(*) as "followers_count" from Followers group by user_id order by user_id
+select user_id, COUNT(DISTINCT(follower_id)) as followers_count from followers group by user_id
+select user_id, count( follower_id) as followers_count from Followers group by user_id order by user_id
+select user_id, count(*) as followers_count from (select distinct * from followers)t group by 1 order by 1
+select user_id, count(*) as followers_count from Followers group by 1 order by 1
+select user_id, count(*) as followers_count from Followers group by user_id order by 1
+select user_id, count(*) as followers_count from Followers group by user_id order by user_id
+select user_id, count(*) as followers_count from followers group by 1 order by 1
+select user_id, count(*) as followers_count from followers group by user_id order by user_id
+select user_id, count(*) followers_count from Followers group by 1 order by user_id
+select user_id, count(*) followers_count from Followers group by user_id order by user_id
+select user_id, count(1) as followers_count from followers group by 1 order by 1
+select user_id, count(DISTINCT follower_id) as followers_count from followers group by user_id order by user_id
+select user_id, count(distinct follower_id) as followers_count From Followers f Group by user_id Order by user_id
+select user_id, count(distinct follower_id) as followers_count from Followers group by 1 order by 1
+select user_id, count(distinct follower_id) as followers_count from Followers group by user_Id
+select user_id, count(distinct follower_id) as followers_count from Followers group by user_id
+select user_id, count(distinct follower_id) as followers_count from Followers group by user_id order by 1
+select user_id, count(distinct follower_id) as followers_count from Followers group by user_id order by user_id
+select user_id, count(distinct follower_id) as followers_count from Followers where user_id != follower_id group by 1 order by user_id asc
+select user_id, count(distinct follower_id) as followers_count from followers group by 1
+select user_id, count(distinct follower_id) as followers_count from followers group by 1 order by 1
+select user_id, count(distinct follower_id) as followers_count from followers group by user_id
+select user_id, count(distinct follower_id) as followers_count from followers group by user_id order by 1
+select user_id, count(distinct follower_id) as followers_count from followers group by user_id order by user_id
+select user_id, count(distinct follower_id) followers_count from Followers group by user_id
+select user_id, count(distinct follower_id) followers_count from followers group by user_id
+select user_id, count(distinct follower_id) followers_count from followers group by user_id order by 1
+select user_id, count(distinct follower_id) followers_count from followers group by user_id order by user_id
+select user_id, count(distinct(follower_id)) as followers_count from followers group by user_id
+select user_id, count(follower_Id) as followers_Count from followers group by 1 order by 1
+select user_id, count(follower_id) as 'followers_count' from Followers group by user_id order by user_id
+select user_id, count(follower_id) as 'followers_count' from followers group by user_id order by user_id
+select user_id, count(follower_id) as followers_count from Followers GROUP BY user_id ORDER BY user_id
+select user_id, count(follower_id) as followers_count from Followers group by 1 order by 1
+select user_id, count(follower_id) as followers_count from Followers group by user_id order by 1
+select user_id, count(follower_id) as followers_count from Followers group by user_id order by user_id
+select user_id, count(follower_id) as followers_count from Followers group by user_id order by user_id asc
+select user_id, count(follower_id) as followers_count from followers group by 1 order by 1
+select user_id, count(follower_id) as followers_count from followers group by user_id order by 1
+select user_id, count(follower_id) as followers_count from followers group by user_id order by user_id
+select user_id, count(follower_id) followers_count from Followers group by 1 order by 1
+select user_id, count(follower_id) followers_count from Followers group by 1 order by user_id
+select user_id, count(follower_id) followers_count from Followers group by user_id order by user_id
+select user_id, count(follower_id) followers_count from followers group by 1 order by 1
+select user_id, count(follower_id) followers_count from followers group by user_id order by user_id
+select user_id, count(follower_id)as followers_count from Followers group by user_id order by user_id
+select user_id, count(user_id) as followers_count from Followers group by 1 order by 1
+select user_id, count(user_id) as followers_count from Followers group by user_id order by user_id
+select user_id, count(user_id) as followers_count from followers group by 1 order by 1
+select user_id, count(user_id) as followers_count from followers group by user_id order by user_id
+select user_id, count(user_id) followers_count from Followers group by 1 order by 1
+select user_id,count( distinct follower_id) followers_count from followers group by user_id order by user_id
+select user_id,count(*) as followers_count from Followers group by user_id order by user_id
+select user_id,count(*) as followers_count from followers group by user_id order by user_id
+select user_id,count(distinct follower_id ) as followers_count from Followers group by user_id
+select user_id,count(distinct follower_id) as followers_count from Followers group by 1
+select user_id,count(distinct follower_id) as followers_count from Followers group by 1 order by 1
+select user_id,count(distinct follower_id) as followers_count from Followers group by user_id
+select user_id,count(distinct follower_id) as followers_count from Followers group by user_id order by user_id
+select user_id,count(distinct follower_id) as followers_count from followers group by 1
+select user_id,count(distinct follower_id) as followers_count from followers group by 1 order by 1
+select user_id,count(distinct follower_id) as followers_count from followers group by user_id order by 1
+select user_id,count(distinct follower_id) as followers_count from followers group by user_id order by user_id
+select user_id,count(distinct follower_id) followers_count from followers group by user_id
+select user_id,count(distinct follower_id)as followers_count from Followers group by user_id
+select user_id,count(distinct(follower_id)) as followers_count from followers group by 1
+select user_id,count(distinct(follower_id)) followers_count from Followers group by user_id order by user_id
+select user_id,count(follower_id) as followers_count from Followers group by user_id order by user_id
+select user_id,count(follower_id) as followers_count from followers group by 1 order by 1
+select user_id,count(follower_id) as followers_count from followers group by user_id order by 1
+select user_id,count(follower_id) followers_count from followers group by user_id order by user_id
+select user_id,count(user_id) as followers_count from followers group by user_id order by user_id
+select user_id,count(user_id)as followers_count from followers group by user_id order by user_id

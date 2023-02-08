@@ -1,0 +1,293 @@
+(SELECT s1.id - 1 as id, s1.student FROM Seat s1 WHERE s1.id % 2 = 0) UNION (SELECT s2.id + 1 as id, s2.student FROM Seat s2 WHERE s2.id % 2 = 1 AND s2.id != (SELECT MAX(id) FROM Seat)) UNION (SELECT s3.id, s3.student FROM Seat s3 WHERE s3.id % 2 = 1 AND s3.id = (SELECT MAX(id) FROM Seat)) ORDER BY id ASC
+(select s1.id as id, s2.student as student from seat s1 inner join seat s2 on s2.id = (s1.id+1) and (s1.id mod 2) = 1) union (select s2.id as id, s1.student as student from seat s1 inner join seat s2 on s2.id = (s1.id+1) and (s2.id mod 2) = 0) union (select * from seat where id = (select count(*) from seat) and id mod 2 = 1) order by id asc
+FROM seat a, seat b WHERE IF(a.id % 2 != 0, a.id + 1 = b.id, a.id - 1 = b.id) UNION SELECT id, student FROM seat WHERE id IN (SELECT MAX(id) FROM seat) AND IF(id % 2 != 0, id, NULL)
+SELECT ( CASE WHEN MOD(id, 2) != 0 AND id != (SELECT MAX(id) FROM seat) THEN id + 1 WHEN MOD(id, 2) != 0 AND id = (SELECT MAX(id) FROM seat) THEN id ELSE id -1 END ) AS id, student FROM seat ORDER BY id ASC
+SELECT ( CASE WHEN MOD(id,2) != 0 AND id != (SELECT COUNT(*) FROM seat) THEN id + 1 WHEN MOD(id,2) = 0 THEN id - 1 ELSE id END ) AS id, student FROM seat ORDER by id ASC
+SELECT ( CASE WHEN MOD(id,2)=1 AND id!=(SELECT COUNT(*) FROM seat) THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END ) id, student FROM seat ORDER BY 1
+SELECT ( CASE WHEN MOD(id,2)=1 AND id!=(SELECT COUNT(*) FROM seat) THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END) AS id, student FROM seat ORDER BY id
+SELECT ( CASE WHEN mod(id, 2) <> 0 AND counts <> id THEN id + 1 WHEN mod(id, 2) <> 0 AND counts = id THEN id ELSE id - 1 END) as id, student FROM seat, ( SELECT COUNT(*) AS counts FROM seat ) as seat_counts ORDER BY id ASC
+SELECT ( CASE WHEN mod(id,2) = 1 and id = (select max(id) from seat) then id WHEN mod(id, 2) = 1 then id + 1 else id - 1 END ) id, student from seat order by id
+SELECT ( CASE WHEN seat.id % 2 = 1 AND seat.id != temp.seatCount THEN seat.id + 1 WHEN seat.id % 2 = 0 THEN seat.id - 1 ELSE seat.id END ) AS id, seat.student FROM seat, ( SELECT COUNT(*) AS seatCount FROM seat ) AS temp ORDER BY id ASC
+SELECT (CASE WHEN (SELECT max(id) FROM seat) % 2 = 1 AND id = (SELECT MAX(id) FROM seat) THEN id WHEN id % 2 = 1 THEN id + 1 ELSE id - 1 END) AS id, student FROM seat ORDER BY id
+SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM SEAT) AS seat_counts ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id
+SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) as seat_counts ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat)as seat_count ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) as id, student FROM seat, (SELECT COUNT(id) AS counts FROM seat) as seat_count ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) != 0 AND num_students != id THEN id + 1 WHEN MOD(id, 2) != 0 AND num_students = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS num_students FROM seat) AS seat_counts ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) !=0 AND id != (SELECT MAX(id) FROM seat) THEN id+1 WHEN MOD(id, 2) !=0 AND id = (SELECT MAX(id) FROM seat) THEN id ELSE id-1 END) AS id, student FROM seat ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) = 0 THEN id-1 WHEN MOD(id, 2) != 0 AND id!=(SELECT COUNT(id) FROM seat) THEN id+1 ELSE id END) AS id, student FROM seat ORDER BY id
+SELECT (CASE WHEN MOD(id, 2) = 0 THEN id-1 WHEN MOD(id, 2) = 1 AND id = (SELECT COUNT(*) FROM seat) THEN id ELSE id+1 END) AS id, student FROM seat ORDER BY id
+SELECT (CASE WHEN MOD(id, 2) = 0 THEN id-1 WHEN id = seatcounts THEN id ELSE id+1 END) AS id, student FROM seat, (SELECT count(*) AS seatcounts FROM seat) AS seatcounts ORDER BY id
+SELECT (CASE WHEN MOD(id, 2) = 1 AND (SELECT COUNT(*) FROM seat) != id THEN id + 1 WHEN MOD(id, 2) = 0 THEN id-1 ELSE id END) AS id, student FROM seat ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) = 1 AND id != counts THEN id + 1 WHEN MOD(id, 2) = 1 AND id = counts THEN id ELSE id -1 END) as id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) = 1 AND id != number THEN id+1 WHEN MOD(id, 2) = 1 AND id = number THEN id ELSE id-1 END) AS id, student FROM seat, (SELECT COUNT(*) AS number FROM seat) AS cnt_number ORDER BY id
+SELECT (CASE WHEN MOD(id, 2) = 1 AND id != tmp.TotalCount THEN id+1 WHEN MOD(id, 2) = 1 AND id = tmp.TotalCount THEN ID ELSE id-1 END) id, student FROM seat, (SELECT COUNT(student) AS TotalCount FROM seat) tmp ORDER BY id ASC
+SELECT (CASE WHEN MOD(id, 2) = 1 and id != num_seats THEN id+1 WHEN MOD(id, 2) = 1 and id = num_seats THEN id ELSE id-1 END) as id, student FROM seat, (select count(*) as num_seats from seat) as count_alias ORDER BY id asc
+SELECT (CASE WHEN MOD(id, 2)!=0 AND cnt!=id THEN id+1 WHEN MOD(id,2)!=0 AND cnt=id THEN id ELSE id-1 END) AS id, student FROM seat, (SELECT COUNT(*) as cnt FROM seat) as seat_counts ORDER BY id
+SELECT (CASE WHEN MOD(id,2) !=0 AND id = tc THEN id WHEN MOD(id,2) !=0 THEN id+1 ELSE id-1 END) AS ID, STUDENT FROM SEAT, (SELECT count(*) as tc FROM SEAT) AS total_counts ORDER BY ID
+SELECT (CASE WHEN MOD(id,2) = !0 and id != (SELECT COUNT(*) FROM seat) THEN id +1 WHEN MOD(id,2) = 0 THEN id - 1 ELSE id END)id, student FROM seat ORDER BY 1
+SELECT (CASE WHEN MOD(id,2) = 1 AND id != (SELECT COUNT(*) FROM seat) THEN id + 1 WHEN MOD(id,2) = 0 THEN id - 1 ELSE id END )as id, student FROM seat ORDER BY id ASC
+SELECT (CASE WHEN MOD(id,2)!= 0 AND id != total THEN id + 1 WHEN MOD(id,2) != 0 AND id = total THEN id ELSE id -1 END) AS id, student FROM seat, (SELECT COUNT(*) AS total FROM seat) tmp ORDER BY id
+SELECT (CASE WHEN MOD(id,2)!=0 AND counts != id THEN id+1 WHEN MOD(id,2)!=0 AND counts = id THEN id ELSE id-1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id ASC
+SELECT (CASE WHEN MOD(id,2)!=0 AND id<counts THEN id+1 WHEN MOD(id,2)!=0 AND id=counts THEN id ELSE id-1 END) AS id, student FROM seat, (SELECT COUNT(*) AS 'counts' FROM seat) AS seat_counts ORDER BY id
+SELECT (CASE WHEN MOD(id,2)=1 AND id!=(SELECT COUNT(*) FROM seat) THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END)id, student FROM seat ORDER BY 1
+SELECT (CASE WHEN MOD(id,2)=1 AND id!=(SELECT count(*) FROM seat) THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END)id, student FROM seat ORDER BY id
+SELECT (CASE WHEN id % 2 != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id ASC
+SELECT (CASE WHEN id % 2 = 0 THEN id -1 WHEN id = (SELECT MAX(id) FROM seat) THEN id ELSE id + 1 END) id, student FROM seat ORDER BY id
+SELECT (CASE WHEN id % 2 = 1 AND id != counts THEN id + 1 WHEN id % 2 = 1 AND id = counts THEN id ELSE id - 1 END) as id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat ) seat_count ORDER by id
+SELECT (CASE WHEN id%2!=0 AND counts!=id THEN id+1 WHEN id%2!=0 AND counts=id THEN id ELSE id-1 END) AS id,student FROM seat,(SELECT COUNT(*) AS counts FROM seat) AS C ORDER BY id
+SELECT (CASE WHEN id%2!=0 AND id!=(SELECT COUNT(1) FROM seat) THEN id+1 WHEN id%2=0 THEN id-1 ELSE id END) as id, student FROM seat ORDER BY 1
+SELECT (CASE WHEN id%2=1 AND counts != id THEN id+1 WHEN id%2=1 AND counts = id THEN id ELSE id-1 END) as id, student FROM seat, (SELECT count(*) as counts FROM seat) as seat_counts ORDER BY id ASC
+SELECT (CASE WHEN id%2=1 AND id != (SELECT COUNT(student) FROM seat) then id+1 WHEN id%2=0 then id-1 else id END) AS id, student FROM seat ORDER BY id ASC
+SELECT (CASE WHEN id%2=1 AND id<>(SELECT COUNT(*) FROM seat) THEN id+1 WHEN id%2=0 THEN id-1 ELSE id END) AS id, student FROM seat ORDER BY id
+SELECT (CASE WHEN mod(id, 2) != 0 AND id != (SELECT max(id) FROM seat) THEN id+1 WHEN mod(id, 2) = 0 THEN id-1 ELSE id END) AS id, student FROM seat s ORDER BY id ASC
+SELECT (CASE WHEN mod(id, 2) != 0 and records != id THEN id + 1 WHEN mod(id, 2) != 0 and records = id THEN id ELSE id - 1 END) AS id, student FROM seat, (select count(*) as records from seat) as seat_records ORDER BY id asc
+SELECT (CASE WHEN mod(id,2) !=0 AND id != counts then id +1 WHEN mod(id,2) !=0 AND id = counts then id ELSE id -1 END ) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) T ORDER BY id ASC
+SELECT * FROM (SELECT CASE WHEN id MOD 2 = 0 THEN id - 1 ELSE (CASE WHEN id MOD 2 = 1 AND id = (SELECT COUNT(*) FROM seat) THEN id ELSE id + 1 END) END AS id, student FROM seat) temp_table ORDER BY id
+SELECT * FROM (SELECT id+1 as id, student FROM seat WHERE id%2=1 AND id not in (select max(id) from seat) UNION SELECT id-1 as id, student FROM seat WHERE id%2=0 UNION SELECT id, student FROM seat WHERE id%2=1 and id in (select max(id) from seat) ) as s ORDER BY id
+SELECT CASE WHEN ((SELECT MAX(id) FROM seat)%2 = 1) AND id = (SELECT MAX(id) FROM seat) THEN id WHEN id%2 = 1 THEN id + 1 ELSE id - 1 END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN (SELECT MAX(id) FROM seat)%2=0 AND id%2 = 0 THEN id-1 WHEN (SELECT MAX(id) FROM seat)%2=0 AND id%2 = 1 THEN id+1 WHEN (SELECT MAX(id) FROM seat)%2=1 AND id <> (SELECT MAX(id) FROM seat) AND id%2 = 0 THEN id-1 WHEN (SELECT MAX(id) FROM seat)%2=1 AND id <> (SELECT MAX(id) FROM seat) AND id%2 = 1 THEN id+1 WHEN (SELECT MAX(id) FROM seat)%2=1 AND id = (SELECT MAX(id) FROM seat) THEN id END AS id ,student FROM seat ORDER BY id
+SELECT CASE WHEN ID!=CNT.TOTAL AND ID%2!=0 THEN (ID+1) WHEN ID!=CNT.TOTAL AND ID%2=0 THEN (ID-1) WHEN ID=CNT.TOTAL AND ID%2=0 THEN (ID-1) WHEN ID=CNT.TOTAL AND ID%2!=0 THEN ID END AS ID,STUDENT FROM SEAT S INNER JOIN ( SELECT COUNT(*) TOTAL FROM seat) CNT ON 1=1 ORDER BY ID
+SELECT CASE WHEN ID%2 = 0 THEN ID-1 WHEN ID%2 =1 AND ID =(SELECT COUNT(*) FROM SEAT)THEN ID ELSE ID+1 END AS ID, STUDENT FROM SEAT ORDER BY ID ASC
+SELECT CASE WHEN Id % 2 = 0 THEN Id - 1 WHEN Id = (SELECT MAX(Id) FROM seat) THEN Id ELSE Id + 1 END AS Id, student FROM seat ORDER BY Id
+SELECT CASE WHEN LEAD (`id`,1) OVER (ORDER BY `id`) IS NULL AND (`id` % 2) = 1 THEN `id` ELSE (`id` + (`id` % 2) - ((`id`+1)% 2) ) END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN MOD(Id,2)!=0 AND c.cnt!=Id THEN Id+1 WHEN MOD(Id,2)!=0 AND c.cnt=Id THEN Id ELSE Id-1 END id,student FROM seat as s, (SELECT COUNT(*) as cnt FROM seat) as c ORDER BY id
+SELECT CASE WHEN MOD(id , 2) = 1 AND id != total_rows THEN id + 1 WHEN MOD(id , 2) = 1 AND id = total_rows THEN id ELSE id - 1 END id , student FROM ( SELECT id , student , COUNT(*) OVER() AS total_rows FROM Seat ) sub ORDER BY id
+SELECT CASE WHEN MOD(id, 2) != 0 AND id = tc THEN id WHEN MOD(id, 2) !=0 THEN id + 1 ELSE id - 1 END as id, student FROM seat, (select count(id) as tc from seat) as tmp ORDER BY id
+SELECT CASE WHEN MOD(id, 2) = 0 THEN id - 1 WHEN MOD(id ,2) = 1 AND id <> (SELECT MAX(id) FROM seat) THEN id + 1 WHEN MOD(id, 2) = 1 AND id = (SELECT MAX(id) FROM seat) THEN id END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN MOD(id, 2) = 1 AND id != (SELECT COUNT(*) FROM seat) THEN id + 1 WHEN MOD(id, 2) = 0 THEN id - 1 ELSE id END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN MOD(id,2) = 0 THEN id - 1 WHEN MOD(id,2) != 0 AND id < (SELECT MAX(id) FROM seat) THEN id + 1 ELSE id END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN MOD(id,2)=1 AND id!=(SELECT COUNT(*) FROM seat) THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END as id , student FROM seat ORDER BY 1
+SELECT CASE WHEN id % 2 != 0 AND id = (SELECT MAX(id) FROM seat) THEN id WHEN id % 2 = 0 THEN id - 1 ELSE id + 1 END id, student FROM seat ORDER BY id ASC
+SELECT CASE WHEN id % 2 != 0 and id = (SELECT MAX(id) FROM seat) THEN id WHEN id % 2 != 0 THEN id + 1 ELSE id - 1 END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN id % 2 = 0 THEN id - 1 WHEN id % 2 = 1 AND id < (SELECT COUNT(*) FROM seat) THEN id + 1 ELSE id END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN id = a.totalSeat AND MOD(a.totalSeat,2) != 0 THEN id WHEN MOD(s.id, 2) = 0 THEN id-1 ELSE id + 1 END as 'id', student FROM ( SELECT COUNT(*) as 'totalSeat' FROM seat) a JOIN seat s ON 1=1 ORDER BY 1
+SELECT CASE WHEN id = mx AND MOD(id, 2) = 1 THEN id WHEN MOD(id, 2) = 1 THEN id + 1 WHEN MOD(id, 2) = 0 THEN id - 1 END as "id" , student FROM seat, (SELECT COUNT(*) mx FROM seat) a ORDER BY id
+SELECT CASE WHEN id mod 2 = 1 AND id != (SELECT max(id) FROM seat) THEN id+1 WHEN id mod 2 = 0 THEN id - 1 ELSE id END AS id, student FROM seat ORDER by id
+SELECT CASE WHEN id%2 = 0 THEN (id-1) WHEN id = (SELECT max(id) from seat) THEN id ELSE (id+1) END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN id%2 = 0 THEN id - 1 WHEN id <> cnt THEN id +1 ELSE id END as id, student FROM seat, (SELECT COUNT(*) as cnt FROM seat) a ORDER BY 1
+SELECT CASE WHEN id%2 = 0 THEN id - 1 WHEN id%2 <> 0 AND id = (SELECT COUNT(*) FROM seat) THEN id ELSE id + 1 END AS id, student FROM seat ORDER BY id ASC
+SELECT CASE WHEN id%2 = 0 THEN id-1 WHEN ((id%2 != 0) AND (id != (SELECT COUNT(id) FROM seat))) THEN id+1 ELSE id END AS 'id', student FROM seat ORDER BY 1
+SELECT CASE WHEN id%2 = 0 THEN id-1 WHEN (id%2 != 0) AND (id != (SELECT COUNT(id) FROM seat)) THEN id+1 ELSE id END AS id ,student FROM seat ORDER BY id
+SELECT CASE WHEN id%2 = 0 THEN id-1 WHEN id%2 = 1 AND id+1 in (SELECT id FROM seat) THEN id+1 ELSE id END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN id%2 = 0 THEN id-1 WHEN id%2 = 1 and id != s.row_count THEN id+1 ELSE id END AS id, student FROM seat, (SELECT COUNT(*) AS row_count FROM seat) s ORDER BY 1
+SELECT CASE WHEN id%2!=0 AND id =counts THEN id WHEN id%2!=0 AND id!= counts THEN id+1 ELSE id-1 END AS id , student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id
+SELECT CASE WHEN id%2!=0 AND id=(SELECT count(*) FROM seat) THEN id WHEN id%2=0 THEN id-1 ELSE id+1 END as id, student FROM seat ORDER BY id
+SELECT CASE WHEN max.id IS NOT NULL AND MOD(s.id,2) = 0 THEN s.id-1 WHEN max.id IS NOT NULL AND MOD(s.id,2) = 1 THEN s.id WHEN MOD(s.id,2) = 0 THEN s.id-1 WHEN MOD(s.id,2) = 1 THEN s.id+1 END AS id, student FROM seat AS s LEFT JOIN (SELECT MAX(id) AS id FROM seat) AS max ON s.id = max.id ORDER BY id
+SELECT CASE WHEN mod(id, 2) = 1 AND id = total_rows THEN id WHEN mod(id, 2) = 1 AND id != total_rows THEN id + 1 ELSE id - 1 END id , student FROM ( SELECT id , student , COUNT(*) OVER() total_rows FROM Seat ) t ORDER BY id
+SELECT CASE WHEN seat.Id % 2 = 1 AND seat.Id <> (SELECT COUNT(*) FROM seat) THEN seat.Id + 1 WHEN seat.Id % 2 = 0 THEN seat.Id - 1 ELSE seat.Id END AS Id, student FROM seat ORDER BY Id
+SELECT CASE WHEN seat.id % 2 != 0 AND seat.id = (SELECT COUNT(*) FROM seat) THEN seat.id WHEN seat.id % 2 = 0 Then seat.id - 1 ELSE seat.id + 1 END AS id, student FROM seat ORDER BY id
+SELECT CASE WHEN seat.id % 2 <> 0 AND seat.id = (SELECT COUNT(*) FROM seat) THEN seat.id WHEN seat.id % 2 <> 0 AND seat.id < (SELECT COUNT(*) FROM seat) THEN seat.id+1 ELSE seat.id-1 END as id, student FROM seat ORDER BY id
+SELECT CASE WHEN seat.id % 2 <> 0 AND seat.id = (SELECT COUNT(*) FROM seat) THEN seat.id WHEN seat.id % 2 = 0 THEN seat.id - 1 ELSE seat.id + 1 END as id, student FROM seat ORDER BY id
+SELECT CASE WHEN t.id = c.total AND c.total % 2 != 0 THEN t.id WHEN t.id % 2 = 0 THEN t.id - 1 ELSE t.id + 1 END as id, t.student as student FROM seat as t, (SELECT count(*) total from seat) as c ORDER BY id
+SELECT IF( id < (SELECT COUNT(*) FROM seat), if( id mod 2 = 0, id-1, id+1 ), if( id mod 2 = 0, id-1, id ) ) as id, student from seat order by id asc
+SELECT IF(Id % 2 = 0, Id - 1, LEAST(Id + 1, (SELECT MAX(Id) FROM seat))) Id, student FROM seat ORDER BY Id
+SELECT IF(MOD(id, 2) > 0 AND id IN (SELECT COUNT(*) FROM seat) , id, IF(MOD(id, 2) > 0, id + 1, id - 1)) as id, student FROM SEAT ORDER BY id
+SELECT IF(cnt % 2 = 1 AND id = cnt, id, IF(id % 2 = 1, id + 1, id - 1)) AS id, student FROM seat, (SELECT COUNT(*) AS cnt FROM seat) AS t ORDER BY id
+SELECT IF(id < (SELECT COUNT(*) FROM seat), IF(MOD(id, 2) = 0, id - 1, id + 1), IF(MOD(id, 2) = 0, id - 1, id) ) AS id, student FROM seat ORDER BY id
+SELECT IF(id < (SELECT COUNT(id) FROM seat),IF(id%2=0, id-1, id+1), IF(id%2=0, id-1, id)) AS id, student FROM seat ORDER BY id
+SELECT IF(id < (SELECT MAX(id) FROM SEAT), IF(id%2=0,id-1,id+1), IF(id%2=0,id-1,id)) as id, student FROM SEAT ORDER BY id
+SELECT IF(id < (SELECT MAX(id) FROM seat),IF(id % 2=0, id - 1,id + 1), IF(id % 2=0, id-1, id)) AS id, student FROM seat order by id
+SELECT IF(id < (SELECT MAX(id) FROM seat),IF(mod(id,2)=0,id-1,id+1),IF(mod(id,2)=0,id-1,id)) as id,student FROM seat ORDER BY id ASC
+SELECT IF(id < counts, IF(mod(id,2) = 0, id - 1, id + 1 ), IF(mod(id,2) = 0, id - 1, id)) AS id, student FROM seat, (select COUNT(id) as counts from seat) as seat_counts ORDER BY id
+SELECT RANK() OVER (ORDER BY CASE WHEN id % 2 = 1 THEN id+1 ELSE id-1 END) AS id, student FROM seat ORDER BY id
+SELECT ROW_NUMBER() OVER (ORDER BY new_id) as id, student FROM ( SELECT (CASE WHEN MOD (id, 2) = 1 THEN id + 1 ELSE id - 1 END) as new_id, student FROM seat) as new_tab
+SELECT ROW_NUMBER() OVER() Id, student FROM seat ORDER BY IF(Id % 2 = 0, Id - 1, Id + 1)
+SELECT ROW_NUMBER() OVER() id, student FROM seat ORDER BY IF(MOD(id, 2) = 0, id-1, id+1)
+SELECT a.id, COALESCE(b.student, a.student) AS student FROM seat AS a LEFT JOIN seat AS b ON (a.id - 1) ^ 1 = b.id - 1
+SELECT a.id, coalesce(b.student,a.student) as student FROM (SELECT id, student, case when mod(id,2) = 0 THEN -1 ELSE 1 END AS MOVEMENT_TYPE FROM seat ) a LEFT JOIN seat b ON a.id + a.MOVEMENT_TYPE = b.id order by a.id
+SELECT case WHEN id%2=1 and id <> (select max(id) from seat) THEN id+1 WHEN id%2=0 THEN id-1 ELSE id end AS id ,student FROM seat ORDER BY id
+SELECT case When id%2=0 then id-1 when id%2<>0 and id=(select max(id) from seat ) then id else id+1 End as id,student From seat order by 1
+SELECT case when id%2 = 0 then id-1 when id=(select max(id) from seat) and id%2=1 then id else id+1 end AS id, student FROM seat order by 1
+SELECT case when id%2=0 then id-1 when id%2=1 and id<N then id+1 else id end as id, student FROM seat LEFT JOIN (select count(*) as N FROM seat) base On 1=1 ORDER BY id
+SELECT id, (CASE WHEN id % 2 = 1 THEN LEAD(student, 1, student) OVER(ORDER BY id) ELSE LAG(student,1,NULL) OVER(ORDER BY id) END) AS student FROM seat
+SELECT id, (CASE WHEN id % 2 = 1 THEN LEAD(student,1,student) OVER(ORDER BY id) ELSE LAG(student) OVER(ORDER BY id) END) AS "student" FROM seat
+SELECT id, CASE WHEN (MOD(id,2) = 1 AND id <> (SELECT MAX(id) FROM seat)) THEN (LEAD(student,1) OVER (ORDER BY id)) WHEN MOD(id,2) = 0 THEN (LAG(student,1) OVER (ORDER BY id)) ELSE student END AS student FROM seat
+SELECT id, CASE WHEN id % 2 != 0 THEN LEAD(student,1,student) OVER() ELSE LAG(student,1) OVER() END AS student FROM seat
+SELECT id, CASE WHEN id % 2 = 0 THEN LEAD(student, 1, student) OVER(ORDER BY id DESC) ELSE LEAD(student, 1, student) OVER(ORDER BY id) END AS student FROM seat ORDER BY id
+SELECT id, CASE WHEN id % 2 = 1 THEN COALESCE(LEAD(student, 1) OVER (ORDER BY id), student) ELSE LAG(student, 1) OVER (ORDER BY id) END AS student FROM seat
+SELECT id, CASE WHEN id % 2 = 1 THEN LEAD(student, 1, student) OVER(ORDER BY id) ELSE LAG(student) OVER(ORDER BY id) END AS student FROM seat
+SELECT id, CASE WHEN id%2 = 0 THEN (SELECT student FROM seat WHERE id = (s.id - 1)) WHEN id%2 != 0 AND id<(SELECT count(*) FROM seat) THEN (SELECT student FROM seat WHERE id = (s.id + 1)) ELSE student END as student FROM seat s
+SELECT id, COALESCE((CASE WHEN id%2=1 THEN LEAD(student) OVER(ORDER BY id) ELSE LAG(student) OVER (ORDER BY id) END), student) student FROM seat
+SELECT id, COALESCE(student, s1_student) as student FROM (SELECT s1_id as id, s1_student, CASE WHEN s1_id%2 = 0 THEN s2_student ELSE s3_student END AS student FROM (SELECT s1_id, s1_student, s2_student, s3.student as s3_student FROM (SELECT s1.id as s1_id, s1.student as s1_student, s2.student as s2_student FROM seat s1 LEFT JOIN seat s2 ON s1.id = s2.id + 1) s12 LEFT JOIN seat s3 ON s12.s1_id = s3.id-1) joined) as final
+SELECT id, IF(CASE WHEN FLOOR(id/2)=id/2 THEN LAG(student) OVER (ORDER BY id) ELSE LEAD(student) OVER (ORDER BY id) END IS NULL, student, CASE WHEN FLOOR(id/2)=id/2 THEN LAG(student) OVER (ORDER BY id) ELSE LEAD(student,1) OVER (ORDER BY id) END) as student FROM seat
+SELECT id, IFNULL(CASE WHEN id % 2 != 0 THEN LEAD(student,1) OVER() ELSE LAG(student,1) OVER() END, student) AS student FROM seat
+SELECT id, Ifnull(CASE WHEN id%2=1 THEN lead(student, 1) over(order by id) ELSE lag(student, 1) over(order by id) END, student) AS student FROM seat
+SELECT id, coalesce(col2,case when mod(id,2)=1 and id=(select max(id) from seat) then student else col1 end) as student FROM ( SELECT id, student, case when mod(id,2)=1 then lead(student) over () else null end as col1, case when mod(id,2)=0 then lag(student) over () else null end as col2 FROM seat ) a
+SELECT id, student FROM seat WHERE id%2 = 1 AND id = (SELECT MAX(id) FROM seat) UNION SELECT id-1, student FROM seat WHERE id%2=0 UNION SELECT id+1, student FROM seat WHERE id%2 = 1 AND id != (SELECT MAX(id) FROM seat) ORDER BY id ASC
+SELECT id1 AS id, IFNULL((CASE WHEN MOD(id1,2) = 1 THEN student2 WHEN MOD(id1, 2) = 0 THEN s3.student END), student1) AS student FROM (SELECT s1.id AS id1, s2.id AS id2, s2.student AS student2, s1.student AS student1 FROM seat s1 LEFT JOIN seat s2 ON s1.id = s2.id - 1) a LEFT JOIN seat s3 ON a.id1 = s3.id + 1
+SELECT if((id+1)^1-1 < maxVal.maxVal,(id+1)^1-1,maxVal.maxVal) as id,student FROM seat, ( SELECT MAX(id) as maxVal FROM seat ) as maxVal ORDER BY id
+SELECT p3.id, IF(p3.student is null, p5.student, (IF (p3.id%2 = 0, p4.student, p3.student))) AS student FROM (SELECT p1.id, IF (p2.student is null, p1.student, p2.student) AS student FROM seat as p1 LEFT JOIN seat as p2 ON p1.id = p2.id-1) AS p3 LEFT JOIN seat as p4 ON p3.id = p4.id+1 LEFT JOIN seat as p5 ON p5.id = p3.id
+SELECT s.id as id, (SELECT s1.student FROM seat as s1 WHERE (s1.id % 2 = 1 AND s1.id = s.id -1) OR (s1.id % 2 = 0 AND s1.id = s.id + 1) OR (s1.id = s.id AND s1.id = (SELECT COUNT(*) FROM seat) AND s1.id % 2 = 1)) as student FROM seat as s
+SELECT s1.id as id, s2.student as student FROM seat s1, seat s2 WHERE mod(s1.id, 2) = 1 AND s1.id = s2.id - 1 OR mod(s1.id, 2) = 0 AND s1.id = s2.id + 1 UNION SELECT s3.id, s3.student FROM seat s3 WHERE s3.id = (SELECT COUNT(id) FROM seat) AND mod(s3.id, 2) = 1 ORDER BY id ASC
+SELECT s1.id, COALESCE(s2.student, s1.student) AS student FROM seat s1 LEFT JOIN seat s2 ON ((s1.id + 1) ^ 1) - 1 = s2.id ORDER BY s1.id
+SELECT s1.id, COALESCE(s2.student, s1.student) AS student FROM seat s1 LEFT JOIN seat s2 ON s1.id + 1 = s2.id AND s1.id % 2 = 1 OR s1.id = s2.id + 1 AND s1.id % 2 = 0
+SELECT s1.id, coalesce(s2.student, s1.student) as student from seat s1 left join seat s2 on (s1.id+1)^1-1 = s2.id order by s1.id asc
+SELECT s1.id, s2.student FROM seat s1, seat s2 WHERE( CASE WHEN MOD(s1.Id,2)!=0 AND s1.Id = (SELECT MAX(id) FROM seat) THEN s2.id=s1.id WHEN MOD(s1.Id,2)=0 THEN s2.id =s1.id-1 ELSE s2.id = s1.id+1 END ) ORDER BY s1.id
+SELECT s1.id, s2.student FROM seat s1, seat s2, (SELECT MAX(id) AS max FROM seat) AS seat_max WHERE (CASE WHEN MOD(s1.id, 2) != 0 AND max = s1.id THEN s1.id = s2.id WHEN MOD(s1.id, 2) != 0 AND max != s1.id THEN s1.id = s2.id - 1 ELSE s1.id = s2.id + 1 END) ORDER BY s1.id
+SELECT s1.id-1 AS id, s1.student FROM seat s1 WHERE s1.id MOD 2 = 0 UNION SELECT s2.id+1 AS id, s2.student FROM seat s2 WHERE s2.id MOD 2 = 1 AND s2.id != (SELECT MAX(id) from seat) UNION SELECT s3.id AS id, s3.student FROM seat s3 WHERE s3.id MOD 2 = 1 AND s3.id = (SELECT MAX(id) from seat) ORDER BY id
+SELECT t.id, CASE WHEN t.row_num % 2 = 1 and lead_1 is not NULL THEN lead_1 WHEN t.row_num % 2 = 0 and lag_1 is not NULL THEN lag_1 ELSE t.student END as student FROM ( SELECT ROW_NUMBER() OVER(ORDER BY id) as row_num, LAG(student, 1) OVER(ORDER BY id) as lag_1, LEAD(student, 1) OVER(ORDER BY id) as lead_1, id, student FROM SEAT ) as t
+SELECT x.id, x.student FROM ( SELECT id+1 AS id, student FROM seat WHERE id%2=1 AND id NOT IN (SELECT max(id) AS max_id FROM seat) UNION SELECT id-1 AS id, student FROM seat WHERE id%2=0 UNION SELECT id AS id, student FROM seat WHERE id%2=1 AND id IN (SELECT max(id) AS max_id FROM seat) )x ORDER BY x.id ASC
+Select ( CASE When Mod(id,2)!=0 and counts!=id Then id+1 When Mod(id,2)!=0 and counts=id Then id Else id-1 End) As id, student From seat, (Select Count(*) As counts From seat) As seat_counts ORDER BY id Asc
+Select (CASE WHEN MOD(ID,2) != 0 AND counts != id then id + 1 WHEN MOD(ID,2) !=0 AND counts = id then id ELSE id - 1 END) AS id, student FROM seat, (SELECT COUNT(*) AS counts FROM seat) AS seat_counts ORDER BY id ASC
+Select (case when id%2=1 and id<(select count(id) from seat) then id+1 when id%2=0 then id-1 else id end) as id, student from seat order by id
+Select * from (Select s1.id, s2.student FROM seat s1, seat s2 where s2.id - s1.id = 1 and s2.id%2=0 and s1.id%2!=0 UNION Select s1.id, s2.student FROM seat s1, seat s2 where s1.id - s2.id = 1 and s2.id%2!=0 and s1.id%2=0 union (Select id, student from seat where id = (Select count(1) from seat having count(1)%2 = 1)) ) xyz order by id
+Select CASE when id % 2 = 0 then id-1 when id % 2 != 0 then IF ( id != (SELECT MAX(id) as A from seat), id+1, id ) end as id, student from seat order by id
+Select id as id, case when id % 2 = 0 then lag(student, 1, student) over (order by id asc) else lead(student, 1, student) over (order by id asc) end as student from seat
+Select id, student from seat where id = (Select max(id) from seat ) and mod(id,2)=1 union Select id+1, student from seat where mod(id,2)=1 and id != (Select max(id) from seat ) union Select id-1, student from seat where mod(id,2)=0 order by id
+Select if(id < (select count(*) from seat), if(id mod 2=0, id-1, id+1), if(id mod 2=0, id-1, id)) as id, student from seat order by id asc
+WITH LAST_ODD_RECORD_NUM AS ( SELECT MAX(id) DIV 2 * 2 + 1 AS last_odd_num FROM seat ) SELECT CASE WHEN id % 2 = 0 THEN id - 1 ELSE id + 1 END AS id , student FROM seat WHERE id < (SELECT last_odd_num FROM LAST_ODD_RECORD_NUM) UNION SELECT id , student FROM seat WHERE id = (SELECT last_odd_num FROM LAST_ODD_RECORD_NUM) ORDER BY id
+WITH ch AS ( SELECT odd.id AS odd_id, odd.student AS odd_student, even.id AS even_id, even.student AS even_student FROM (SELECT * FROM seat where id % 2) AS odd LEFT JOIN (SELECT * FROM seat where not id % 2) AS even ON odd.id =even.id -1) SELECT odd_id + 1 id, odd_student student FROM ch WHERE even_id IS NOT NULL UNION ALL SELECT even_id - 1 id, even_student student FROM ch WHERE even_id IS NOT NULL UNION ALL SELECT odd_id id, odd_student student FROM ch WHERE even_id IS NULL ORDER BY id
+WITH counts AS ( SELECT COUNT(*) FROM seat) SELECT ( CASE WHEN MOD(id, 2) != 0 AND (SELECT * FROM counts) != id THEN id + 1 WHEN MOD(id, 2) != 0 AND (SELECT * FROM counts) = id THEN id ELSE id - 1 END) AS id, student from seat order by id ASC
+WITH lastSeat as (SELECT MAX(id) as maxid FROM seat) SELECT CASE WHEN MOD(id,2)=1 AND id!=maxid THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END as id,student FROM seat CROSS JOIN lastSeat ORDER BY id
+WITH seat_counts as ( SELECT COUNT(*) AS counts FROM seat ) SELECT (CASE WHEN MOD(id, 2) != 0 AND counts != id THEN id + 1 WHEN MOD(id, 2) != 0 AND counts = id THEN id ELSE id - 1 END) AS id, student FROM seat src LEFT JOIN seat_counts seat_counts ON 1=1 ORDER BY 1
+WITH tab1 AS ( SELECT id AS oldid, student as oldseat, CASE WHEN id%2=0 THEN id-1 ELSE id+1 END AS changedseatid FROM seat), tab2 AS (SELECT *, s2.student as newseat FROM tab1 LEFT JOIN seat s2 ON tab1.changedseatid = s2.id) SELECT oldid as id, CASE WHEN newseat IS NOT NULL THEN newseat ELSE oldseat END AS student FROM tab2
+With swap AS( SELECT case when id%2 = 0 then id-1 when id=(select max(id) from seat) and id%2=1 then id else id+1 end AS id, student FROM seat order by 1) SELECT * FROM swap
+With temp AS ( SELECT CASE WHEN Id % 2 = 1 THEN Id + 1 WHEN Id %2 = 0 Then Id - 1 ELSE Id End as Id, Student FROM seat Order by Id) SELECT CASE WHEN Id - lag(Id, 1) OVER (ORDER BY Id) > 1 THEN Id - 1 WHEN Id - lag(Id, 1) OVER (ORDER BY Id) > 1 IS NULL THEN 1 ELSE Id END AS id, student FROM temp
+select ( Case when mod(id,2)!=0 and counts!=id then id+1 when mod(id,2)!=0 and counts=id then id else id-1 end) as id, student from seat,(select count(*) as counts from seat) as seat_counts order by id asc
+select ( case when id % 2 = 0 then id - 1 when id % 2 = 1 and id != len then id + 1 else id end) as id, student from seat, ( select count(id) as len from seat) as c order by id
+select ( case when mod(id, 2) != 0 and counts != id then id + 1 when mod(id, 2) != 0 and counts = id then id else id - 1 end) as id , student from seat, (select count(*) as counts from seat) as seat_counts order by id asc
+select ( case when mod(id,2) != 0 and id != (select count(*) from seat ) then id + 1 when mod(id,2) = 0 then id - 1 else id end) as id, student from seat order by id asc
+select ( case when mod(id,2) != 0 and id != counts then id + 1 when mod(id,2) != 0 and id = counts then id else id - 1 end) as id, student from seat, (select count(*) as counts from seat) s_counts order by id asc
+select (CASE WHEN MOD(id,2)=1 AND id!=(SELECT count(*) FROM seat) THEN id+1 WHEN MOD(id,2)=0 THEN id-1 ELSE id END)id,student from seat order by id asc
+select (case when id % 2 != 0 and (SELECT COUNT(distinct id) FROM seat) != id then id + 1 when id % 2 != 0 and (SELECT COUNT(distinct id) FROM seat) = id then id else id - 1 end) as id, student from seat ORDER BY id ASC
+select (case when id %2=0 then id-1 when id %2=1 and id< (select count(*) from seat) then id+1 else id end) as id, student from seat order by id
+select (case when id %2=1 and counts != id then id+1 when id %2=1 and counts =id then id else id-1 end) as id, student from seat, (select count(*) as counts from seat) as temp ORDER BY id
+select (case when id%2 <>0 and id <> (select max(id) from seat) then id+1 when id%2 <>0 and id = (select max(id) from seat) then id when id%2 = 0 then id-1 end )as id, student from seat order by id asc
+select (case when id%2 = 0 then id - 1 when id = (select max(id) from seat) then id else id+1 end) as id, student from seat order by 1
+select (case when id%2 = 0 then id - 1 when id%2 = 1 and id != counts then id + 1 else id end ) as id, student from seat,(SELECT COUNT(*) AS counts FROM seat) AS seat_counts order by id
+select (case when id%2 = 0 then id -1 when id%2 = 1 and id != counts then id+1 else id end) as id, student from seat s1, (select count(*) as counts from seat s2 ) T Order by id asc
+select (case when id%2 = 0 then id-1 when id%2 = 1 and id = (select max(id) from seat) then id else id+1 end) as id, student from seat order by id asc
+select (case when id%2 = 1 and id != (select max(id) from seat) then id+1 when id%2 = 0 then id-1 else id end) id, student from seat order by id
+select (case when id%2 = 1 and id = (select max(id) from seat) then id when id%2 = 1 and id != (select max(id) from seat) then id+1 else id-1 end) as id, student from seat order by id
+select (case when id%2 =1 and counts != id then id+1 when id%2 =1 and counts =id then id else id-1 end) as id, student from seat, (select count(*) as counts from seat) as tamp order by id
+select (case when id%2=1 and id!=(select count(*) from seat) then id+1 when id%2=0 then id-1 else id end) as id, student from seat order by id ASC
+select (case when mod(id, 2) = 0 then id - 1 when mod(id, 2) != 0 and id != (select max(id) from seat) then id + 1 else id end) as id, student from seat order by id asc
+select (case when mod(id,2) != 0 and counts != id then id+1 when mod(id,2) != 0 and counts = id then id else id-1 end )as id, student from (select count(*) as counts from seat) as seat_count, seat order by id asc
+select (case when mod(id,2) != 0 and counts != id then id+1 when mod(id,2) != 0 and counts = id then id when mod(id,2) = 0 then id-1 end) as id, student from seat, (select count(*) as counts from seat) as seat_counts order by id
+select (case when mod(id,2) != 0 and counts = id then id when mod(id,2) != 0 and counts != id then id+1 else id -1 end) as id, student from seat , (select count(*) as counts from seat) as seat_counts order by id asc
+select (case when mod(id,2) != 0 and id != counts then id+1 when mod(id,2) != 0 and id = counts then id else id-1 end) as id , student from seat , (select count(*) as counts from seat) as seat_counts order by 1 asc
+select (case when mod(id,2) !=0 and counts !=id then id+1 when mod(id,2) !=0 and counts =id then id else id-1 end) as id, student from seat, (select count(*) counts from seat) seat_counts order by id ASC
+select (case when mod(id,2) <> 0 and num = id then id when mod(id,2) <> 0 and num <> id then id+1 else id-1 end) as id, student from seat, (select count(*) as num from seat) as n order by id
+select (case when mod(id,2) <>0 and id <> (select max(id) from seat) then id+1 when mod(id,2) <>0 and id = (select max(id) from seat) then id when mod(id,2) = 0 then id-1 end )as id, student from seat order by id asc
+select (case when mod(id,2) = 0 then id - 1 when mod(id,2) = 1 and id != (select max(id) from seat) then id + 1 else id end ) as id, student from seat order by id
+select (case when mod(id,2)!=0 and count_id!=id then id+1 when mod(id,2)!=0 and count_id=id then id else id-1 end ) as id, student from seat, (select count(*) as count_id from seat) as coutn_tb order by id
+select (case when mod(id,2)=0 then id-1 when id= (select count(*) from Seat) then id else id+1 end) as id, student from Seat order by 1
+select (case when mod(id,2)=0 then id-1 when id=(select count(*) from seat) then id else id+1 end) as id,student from seat order by id
+select (case when mod(id,2)=0 then id-1 when mod(id,2)<>0 and id!= (select max(id) from seat) then id+1 else id end) as id, student from seat order by id
+select (case when mod(id,2)=1 and id!=(select count(*) from seat) then id+1 when mod(id,2) = 0 then id-1 else id end) id,student from seat order by id
+select (if(id<(select count(*) from seat), if(mod(id, 2)=1, id+1, id-1), if(mod(id, 2)=1, id, id-1))) as id, student from seat order by id
+select * from ( select id+1 as id, student from seat where id%2 = 1 and id not in (select max(id) from seat) union select id-1 as id, student from seat where id%2 = 0 union select id, student from seat where id%2 =1 and id = (select max(id) from seat) ) as sub order by id
+select CASE WHEN id % 2 = 1 THEN LEAST(maxid, id+1) ELSE id-1 END as id, student from seat, (select max(id) as maxid from seat) b order by id ASC
+select COALESCE( CASE WHEN id % 2 = 0 THEN LAG(id) OVER (ORDER BY id) ELSE LEAD(id) OVER (ORDER BY id) END, id ) as id, student from seat order by id
+select IF(MOD(id, 2) = 0, id-1, IF(id = (select count(id) as total_count from seat), id, id+1)) as id, student from seat order by id
+select IFNULL(if( id % 2 <> 0 , Lead(id)over ( order by id ) , LAG(id)over (order by id ) ), id) id , student from seat order by id
+select ROW_NUMBER() OVER (ORDER BY a.newRow) as id, a.student as student from (select *, case when mod(id, 2) = 1 then id + 1 else id - 1 end as newRow from seat order by newRow) as a
+select ROW_NUMBER() OVER(order by CASE s.id % 2 = 0 WHEN 1 THEN s.id - 1 ELSE s.id + 1 END) id, student from seat s
+select S1.id , (select S2.student from seat S2 where S2.id = case when mod(S1.Id, 2) = 0 then S1.Id -1 else case when S1.Id < (select count(*) from seat) then S1.Id + 1 else S1.Id end end ) as student from seat S1
+select a.id, b.student from (select *, case when mod(id,2) = 0 then id-1 WHEN mod(id, 2) = 1 AND id < (SELECT COUNT(*) FROM seat) THEN id + 1 ELSE id end as new_id from seat) a inner join seat b on a.new_id=b.id order by a.id
+select a.id, b.student from (select *, case when mod(id,2) = 0 then id-1 WHEN mod(id, 2) = 1 AND id < (select max(id) from seat) THEN id + 1 ELSE id end as new_id from seat) a inner join seat b on a.new_id=b.id order by a.id
+select a.id, case when b.id is null and mod(a.id, 2) = 1 then a.student when mod(a.id, 2) = 1 then b.student when mod(a.id, 2) = 0 then c.student end as student from seat a left outer join seat b on b.id = a.id + 1 left outer join seat c on c.id = a.id - 1
+select a.id, case when mod(a.id,2) = 1 then lead(student,1,student) over(order by id) when mod(a.id,2) = 0 then lag(student,1) over(order by id) end as student from seat as a
+select b.id id, a.student student from seat a inner join seat b on (a.id%2=1 and a.id+1=b.id) or (a.id%2=0 and a.id-1=b.id) or (a.id%2=1 and a.id=b.id and a.id in (select count(*) from seat))
+select case WHEN id % 2 = 1 and id = (select max(id) from seat) THEN id WHEN id % 2 = 1 THEN id + 1 ELSE id - 1 END as id, student from seat order by id
+select case when (a.id % 2 <> 0) and (a.id <> (select count(*) as max_id from seat) ) then a.id + 1 when (a.id % 2 <> 0) and (a.id = (select count(*) as max_id from seat) ) then a.id else a.id - 1 end as id, a.student from seat a order by id asc
+select case when (id=(select count(*) from seat) and mod(id,2)=1) then id when mod(id,2)=0 then id-1 when mod(id,2)=1 then id+1 end as id,student from seat order by 1
+select case when (mod(id,2) = 0) then (id-1) when (mod(id,2) !=0) and id!=(select count(*) from seat) then id+1 when id=(select count(*) from seat) then id end as id, student from seat order by 1
+select case when (mod(id,2)=1 and id =(select count(id) from seat)) then id when mod(id,2)=1 then id+1 else id-1 end as id, student from seat order by id
+select case when (select max(id) from seat) % 2 != 0 then (case when id % 2 != 0 and id != (select max(id) from seat) then id+1 when id % 2 = 0 then id-1 when id = (select max(id) from seat) then id end) when (select max(id) from seat) % 2 = 0 then (case when id % 2 != 0 then id+1 when id % 2 = 0 then id-1 end) end as id, student from seat order by id
+select case when id % 2 != 0 and id = (select count(*) from seat) then id when id %2 != 0 then id + 1 else id - 1 end as id, student from seat order by id
+select case when id % 2 <> 0 and id = (select max(id) from seat) then id when id % 2 <> 0 and id <> (select max(id) from seat) then id + 1 else id - 1 end as id, student from seat order by id
+select case when id % 2 = 0 then id - 1 when id % 2 = 1 and id != (select count(*) from seat) then id + 1 else id end as id, student from seat order by id
+select case when id % 2 = 0 then id - 1 when id % 2 = 1 and id < (select count(*) from seat)then id + 1 else id end as id, student from seat order by id
+select case when id % 2 = 0 then lag(id) over (order by id) when id % 2 <> 0 and id not in (select max(id) from seat ) then lead(id) over(order by id) else id end as id, student from seat order by id
+select case when id % 2 = 1 and id = (select max(id) from seat) then id when id % 2 = 1 and id <> (select max(id) from seat) then (id + 1) when id % 2 = 0 then (id - 1) end as id, student from seat order by id
+select case when id < (select max(id) as maxid from seat) OR 2*round((select max(id) as maxid from seat) / 2) = (select max(id) as maxid from seat) then 4*round((id-1.1)/2, 0) + 3- id else id end as id, student from seat order by id
+select case when id = (select max(id) from seat) and id % 2 = 1 then id when id % 2 = 1 then id + 1 else id - 1 end as id, student from seat order by id
+select case when id = (select max(id) from seat) and id mod 2 = 1 then id when id mod 2 = 1 then id+1 else id-1 end as id , student from seat order by id asc
+select case when id = (select max(id) from seat) and id%2 = 1 then id when id % 2 = 1 then id+1 else id - 1 end id, student from seat order by id asc
+select case when id = c and id % 2 <> 0 then id when id % 2 = 0 then id - 1 else id + 1 end as id, student from seat, (select count(*) as c from seat) c order by id
+select case when id%2 != 0 and id = (select max(id) from seat) then id when id%2 = 0 then id-1 when id%2 !=0 then id+1 end as id ,student from seat order by id
+select case when id%2 <> 0 and id = seats then id when id%2 = 0 then id - 1 when id%2 <> 0 then id + 1 end as id, student from seat, (select count(*) as seats from seat) as numseats order by id asc
+select case when id%2 = 0 then id-1 when id%2 = 1 and id = (select max(id) from seat) then id else id+1 end as id, student from seat order by 1
+select case when id%2 = 0 then id-1 when id%2 = 1 and id = (select max(id) from seat) then id else id+1 end as id, student from seat order by id
+select case when id%2 = 0 then id-1 when id%2 = 1 and id = max_id then id else id+1 end as id, student from seat, (select count(*) as max_id from seat)tmp order by id
+select case when id%2 =0 then id-1 when id%2 =1 and id = (select max(id) from seat) then id else id+1 end as id, student from seat order by id
+select case when id%2 =1 and lead(id,1)over(order by id) is null then id when id%2=1 then id+1 else id-1 end as id, student from seat order by id
+select case when id%2!= 0 and id = (select max(id) from seat) then id when id%2 = 0 then id-1 else id+1 end as id, student from seat order by id
+select case when id%2!= 0 and id = (select max(id) from seat) then id when id%2!= 0 and id != (select max(id) from seat)then id+1 when id%2 = 0 then id-1 end as id, student from seat order by id
+select case when id%2<>0 and id=(select count(*) from seat) then id when id%2=0 then id-1 else id+1 end as id,student from seat order by id asc
+select case when id%2=0 then id-1 when id%2=1 and id<(select count(*) from seat) then id+1 else id end as id, student from seat order by id
+select case when id%2=0 then id-1 when id%2=1 and id<(select count(id) from seat) then id+1 else id end as id, student from seat order by id
+select case when id%2=0 then id-1 when id%2=1 and id=(select max(id) from seat) then id else id+1 end as id, student from seat order by id
+select case when id%2=1 and lead(id,1) over ( order by id ) is not null then id+1 when id%2=0 then id-1 else id end as id , student from seat order by id
+select case when id%2>0 and id<> counts then id+1 when id%2>0 and id = counts then id else id -1 end as id, student from seat, (select count(*) as counts from seat) as seat_counts order by id
+select case when id=(select max(id) from seat) and MOD(id,2)<>0 then id when MOD(id,2)=0 then lag(id,1) over(order by id) else lead(id,1) over (order by id) end as id, student from seat order by id
+select case when id=(select max(id) from seat) and id%2=1 then id when id%2=1 then id+1 else id-1 end as id, student from seat order by 1
+select case when mod(a.id,2)!=0 and counts != a.id then a.id +1 when mod(a.id,2)!=0 and counts = a.id then a.id else a.id - 1 end as id ,student from seat a join (select count(*) as counts from seat) b order by 1
+select case when mod(id, 2) = 0 and id != (select count(*) from seat) then id - 1 when mod(id, 2) != 0 and id != (select count(*) from seat) then id + 1 when id = (select count(*) from seat) and mod(id, 2) = 0 then id-1 when id = (select count(*) from seat) and mod(id, 2) != 0 then id end as id, student from seat order by 1
+select case when mod(id,2) != 0 and counts != id then id+1 when mod(id,2) != 0 and counts = id then id else id -1 end as id, student from seat, (select count(*) as counts from seat)as a order by id
+select case when mod(id,2) != 0 and id != cnt then id + 1 when mod(id,2) != 0 and id = cnt then id when mod(id,2) = 0 then id - 1 end as id, student from seat cross join (select count(*) as cnt from seat) a order by 1
+select case when mod(id,2) = 1 and counts != id then id+1 when mod(id,2) = 1 and counts = id then id else id-1 end as id, student from seat, (select count(*) as counts from seat) dudu order by id asc
+select case when mod(id,2) = 1 and id != maxs then id +1 when mod(id,2) = 0 then id -1 else id end as 'id', student from seat, (select max(id) as maxs from seat) as seat_maxs order by 1
+select case when mod(id,2)!=0 and id=tc then id when mod(id,2)!=0 then id+1 else id-1 end as id,student from seat,(select count(*) as tc from seat ) as ts order by id
+select case when mod(id,2)=0 then id-1 when mod(id,2)=1 and id != (select max(id) from seat) then id+1 else id end as id, student from seat order by 1
+select case when mod(id,2)=0 then id-1 when mod(id,2)=1 and id!=(select max(id) from seat) then id+1 else id end as id, student from seat order by id asc
+select case when mod(id,2)=1 and ACC_id is not null then id+1 when mod(id,2)=0 then id-1 else id end as id, student from (select *, lead(id) over () ACC_id from seat) t order by id asc
+select case when mod(id,2)=1 and id != cnt then id + 1 when mod(id,2)=1 and id = cnt then id else id -1 end id, student from( select id, student, count(*) over () as cnt from seat ) sub order by id
+select case when mod(seat.id,2)<>0 and seat.id = (select count(id) from seat) then seat.id when mod(seat.id,2)=0 then seat.id-1 else seat.id+1 end as id, seat.student from seat order by id
+select case when mod(t1.cnt,2) = 1 and id = (select max(id) from seat) then id when mod(id,2)=0 then id-1 when mod(id,2)=1 then id+1 end as id, student from seat,(select count(id) as cnt from seat)t1 order by id
+select case when seat.id %2 = 0 Then seat.id -1 when not seat.id %2 =0 and seat.id = (select count(id) from seat) Then seat.id else seat.id +1 end as id, student from seat order by id
+select case when seat.id%2 <> 0 and seat.id = (select count(*) from seat) then seat.id when seat.id%2 = 0 then seat.id - 1 else seat.id + 1 end as id, student from seat order by id
+select id , a.new as student from ( select * , case when id%2=0 then lag(student,1)over() else lead(student , 1,student)over () end as new from seat ) a
+select id, IFNULL((CASE WHEN id%2 = 1 then LEAD(student,1) OVER() WHEN id%2 = 0 then lag(student,1) OVER() END),student) as student from seat
+select id, case when id % 2 <> 0 then ifnull(lead(student, 1) over (order by id), student) else lag(student, 1) over (order by id) end as student from seat
+select id, case when id % 2=0 then lag(student,1,student) over(order by Id) when id%2 !=0 then lead(student,1,student) over(order by Id) else student end as student from seat
+select id, case when id%2 != 0 then lead(student, 1, student) over(order by id) else lag(student, 1, student) over(order by id) end as student from seat
+select id, case when id%2 <> 0 then ifnull(lead(student,1) over(order by id), student) else lag(student, 1) over(order by id) end as student from seat
+select id, case when id%2 = 0 then lag(student,1,student) over (order by id) else lead(student,1,student) over (order by id) end student from seat
+select id, case when id%2 =1 then lead(student,1,student) over(order by id) else lead(student,1,student) over (order by id desc) end as student from seat order by id
+select id, case when id%2=0 then l when id%2 !=0 and d is not null then d else student end as student from( select id, student, row_number()over(order by id desc) as r, lag(student)over(order by id) as l, lead(student)over(order by id) as d from seat)x
+select id, case when id%2=1 then coalesce(lead(student,1) over(order by id),student) when id%2=0 then coalesce(lag(student,1) over(order by id),student) end as student from seat
+select id, case when id%2=1 then ifnull(lead(student) over(order by id),student) else lag(student) over(order by id) end student from seat
+select id, case when id%2=1 then lead(student,1,student) over(order by id) else lag(student) over(order by id) end as student from seat
+select id, coalesce(case when (id%2 = 0) then lag(student,1) over (order by id) else lead(student,1) over (order by id) end, student) as student from seat
+select id, coalesce(case when mod(id, 2) = 0 then lag_student else lead_student end, student ) as student from (select id, lead(student) over (order by id asc) as lead_student, lag(student) over(order by id asc) as lag_student, student from seat) c
+select id, ifnull((case when mod(id,2) = 0 then lag(student,1)over(order by id) else lead(student,1)over(order by id) end ),student) as student from seat
+select id, ifnull(case when mod(id,2) =0 then lag(student,1)over(order by id) else lead(student,1)over(order by id) end, student) as student from seat
+select id,(case when mod(id,2)=0 then lag(student,1) over (order by id asc) else COALESCE(lead(student,1) over (order by id asc),student) end) as student from seat
+select id,case when id%2=1 and lead(id,1) over ( order by id ) is not null then lead(student,1) over (order by id ) when id%2=0 then lag(student,1) over (order by id ) else student end as student from seat
+select id-1 as id, student from seat where id % 2 = 0 union select id+1 as id, student from seat where id % 2 != 0 and id != (select max(id) from seat) union select id, student from seat where id % 2 != 0 and id = (select maX(id) from seat) order by id
+select if((select max(id) from seat)%2=1 and id=(select max(id) from seat), id, if(id%2=1, id+1, id-1)) as id , student from seat order by id
+select if(id < (select count(*) from seat), if(id mod 2=0, id-1, id+1), if(id mod 2=0, id-1, id)) as id, student from seat order by id asc
+select if(id < (select max(id) from seat), if(id % 2 = 0, id-1, id+1), if(id % 2 = 0, id-1, id)) as id, student from seat order by id
+select if(id < (select max(id) from seat), if(id%2 = 0, id-1, id+1), if(id%2 = 0, id-1,id)) as id, student from seat order by id asc
+select if(id < (select max(id) from seat),if(id % 2 =0,id-1 , id+1), if(id % 2 = 0,id -1, id)) as id, student from seat order by id
+select if(id < count, if(id % 2 = 0, id - 1, id + 1), if (id % 2 = 0, id - 1, id)) as id, student from seat, (select count(*) as count from seat) as student_count order by id
+select if(id%2 = 0, id-1, if(id != (select max(id) from seat), id +1, id )) as id, student from seat order by id
+select if(id%2=0,id-1,if(id = (select count(*) from seat),id,id+1)) as id, student from seat order by id
+select if(id%2=0,id-1,if(id=(select max(id) from seat),id,id+1)) as id,student from seat order by id asc
+select if(id=(select count(id) from seat), if(id%2=0,id-1,id), if(id%2=0, id-1, id+1)) as id, student from seat order by id
+select newid as id, student from (select student, case when mod(id,2) != 0 and counts != id then id + 1 when mod(id,2) !=0 and counts = id then id else id - 1 end as newid from seat, (select count(id) as counts from seat) as seat_counts) tmp order by newid asc
+select row_number() over (order by new_id) as id, student from (select case when mod(id,2)=1 then id+1 else id-1 end as new_id, student from seat)a
+select s.id, case when s.id%2 = 0 then s1.student when s.id%2 = 1 and s.id = (select max(id) id from seat) then s.student else s2.student end student from seat s left join (select id+1 id, student from seat) s1 on s.id = s1.id left join (select id-1 id, student from seat) s2 on s.id = s2.id
+select s1.id, coalesce(s2.student, s1.student) as student from seat s1 left join seat s2 on ((s1.id+1)^1) - 1 = s2.id order by s1.id
+select s1.id, coalesce(s2.student, s1.student) as student from seat s1 left join seat s2 on s2.id = (s1.id+1)^1-1 order by s1.id
+select t.new_id as id, t.student from (select student, case when id%2=0 then id-1 when id%2=1 and id!=(select count(*) from seat) then id+1 else id end as new_id from seat)t order by t.new_id
+with CTE(seats) as (select count(id) as seats from seat) select ( CASE when id % 2 != 0 and seats != id then id + 1 when id % 2 != 0 and seats = id then id else id - 1 END ) as Id, student from seat, CTE order by id ASC
+with a as ( select id, student, lead(student) over(order by id) as lead_student, lag(student) over(order by id) as lag_student from seat) select id, case when mod(id,2) !=0 then ifnull(lead_student,a.student) when mod(id,2) = 0 then lag_student end as student from a order by id
+with base_table as ( select id, student, lag(student) over (order by id) as previous_student , lead(student) over (order by id) as next_student from seat) , max_id as (select max(id) as max_id from seat) , agg_table as ( select * from base_table cross join max_id) select id , case when id = max_id and mod(id, 2) = 1 then student when mod(id, 2) = 0 then previous_student else next_student end as student from agg_table
+with cte as ( with cte as ( Select * , count(*) over() as 'total', case when mod(id,2) = 1 then id+1 when mod(id,2) = 0 then id-1 end as 'test' from seat ) Select * , case when test > total then id else test end as 'test1' from cte ) Select test1 as 'id', student from cte order by test1
+with cte as( select id, student, lead(student,1) over(order by id) as ld, lag(student,1) over(order by id) as lg from seat ) select id, (case when id%2 = 1 and ld is not null then ld when id%2 = 0 then lg else student end) as student from cte
+with cte1 as ( select * , case when id % 2 = 0 then id - 1 else id + 1 end as new_id from seat ) select dense_rank() over (order by new_id) as id , student from cte1
+with evenSeats as ( select id,student from seat where id%2=0 ), oddSeats as ( select id,student from seat where id%2=1 ) select id,student from ( select o.id,coalesce(e.student,o.student) student from oddSeats o left join evenSeats e on o.id+1=e.id union select i.id,j.student student from evenSeats i inner join oddSeats j on i.id-1=j.id )a order by id asc
+with max_num as (select max(id) as largest from seat) select case when id = largest and id % 2 = 1 then id when id % 2 = 0 then id - 1 else id + 1 end as id, student from seat join max_num order by 1
+with st as ( select id, student, lag(student) over(order by id) student_lag, lead(student,1,student) over(order by id) student_lead from seat ) select id, (case when id%2 = 0 then student_lag when id%2 = 1 then student_lead end) as student from st
+with t1 as ( select id, student, LAG(id) OVER (ORDER BY id) as lag_id, LEAD(id) OVER (ORDER BY id) as lead_id from seat ) select COALESCE( CASE WHEN id % 2 = 0 THEN lag_id ELSE lead_id END, id ) as id, student from t1 order by id
+with temptable(id, std1, std2, std3) as (select *, lag(student, 1) over(order by id) as std2, lead(student, 1) over(order by id) as std3 from seat) select id, (case when id%2 = 0 then coalesce(std2, std1) when id%2 = 1 then coalesce(std3, std1) end) as student from temptable order by id
+with test as (select a.id, b.student from (select *, case when mod(id,2) = 0 then id-1 else id+1 end as new_id from seat) a left join seat b on a.new_id=b.id order by a.id) select a.id, case when a.student is null then b.student else a.student end as student from test a, seat b where a.id=b.id
+with tmp as ( select id, student from seat where id%2 = 1 ) select * from ( select t1.id, ifnull(t2.student, t1.student) student from tmp t1 left outer join seat t2 on t1.id+1 = t2.id and t2.id%2 = 0 union select t2.id, t1.student from tmp t1, seat t2 where t1.id+1 = t2.id and t2.id%2 = 0) a order by a.id
+with tmp as ( select max(id) as max_id from seat ) select (case when mod(id, 2) = 0 then id - 1 when mod(id, 2) != 0 and id != max_id then id + 1 else id end) as id, student from seat, tmp order by id asc
+with tmp as (select id, student, lag(student) over(order by id) as prev_s, lead(student) over(order by id) as after_s from seat) select id, (case when id%2 = 1 and after_s is not null then after_s when id%2 = 0 then prev_s else student end) as student from tmp

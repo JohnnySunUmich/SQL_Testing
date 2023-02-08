@@ -1,0 +1,138 @@
+SELECT ( CONCAT( (CASE WHEN WEEKDAY(day) = 0 THEN 'Monday' WHEN WEEKDAY(day) = 1 THEN 'Tuesday' WHEN WEEKDAY(day) = 2 THEN 'Wednesday' WHEN WEEKDAY(day) = 3 THEN 'Thursday' WHEN WEEKDAY(day) = 4 THEN 'Friday' WHEN WEEKDAY(day) = 5 THEN 'Saturday' ELSE 'Sunday' END ), ', ', (CASE WHEN MONTH(day) = 1 THEN 'January' WHEN MONTH(day) = 2 THEN 'February' WHEN MONTH(day) = 3 THEN 'March' WHEN MONTH(day) = 4 THEN 'April' WHEN MONTH(day) = 5 THEN 'May' WHEN MONTH(day) = 6 THEN 'June' WHEN MONTH(day) = 7 THEN 'July' WHEN MONTH(day) = 8 THEN 'August' WHEN MONTH(day) = 9 THEN 'September' WHEN MONTH(day) = 10 THEN 'October' WHEN MONTH(day) = 11 THEN 'November' ELSE 'December' END ) , ' ', DAY(day), ', ', YEAR(day)) ) AS day FROM Days
+SELECT (DATE_FORMAT(day, "%W, %M %e, %Y")) as day FROM days
+SELECT CONCAT( DAYNAME(day), ', ' , MONTHNAME(day), ' ' , DAY(day), ', ' , YEAR(day) ) AS day FROM Days
+SELECT CONCAT( DAYNAME(day), ', ', MONTHNAME(day) , ' ', DAY(day), ', ', YEAR(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day) , ', ' , MONTHNAME(day) , ' ' , DAY(day) , ', ' , YEAR(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day), ", ", MONTHNAME(day), " ", DAY(day), ", ", YEAR(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day), ", ", MONTHNAME(day), " ", DAY(day), ", ", YEAR(day)) day FROM Days
+SELECT CONCAT(DAYNAME(day), ", ", MONTHNAME(day), " ", DAYOFMONTH(day), ", ", YEAR(day)) as day FROM Days GROUP BY day
+SELECT CONCAT(DAYNAME(day), ', ', CONCAT(MONTHNAME(day), ' ', DAYOFMONTH(day)), ', ', YEAR(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day), ', ', MONTHNAME(day), ' ', DAYOFMONTH(day), ', ', YEAR(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day), ', ', MONTHNAME(day), ' ', day(day), ', ', year(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day), ', ', MONTHName(day), ' ', DAY(day), ', ', YEAR(day)) AS 'day' FROM Days
+SELECT CONCAT(DAYNAME(day), ', ',MONTHNAME(day),' ',DAY(day),', ', YEAR(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day),", ", MONTHNAME(day)," ",DAY(day),", ", YEAR(day))AS day FROM Days
+SELECT CONCAT(DAYNAME(day),", ",MONTHNAME(day)," ",DAY(day),", ",YEAR(DAY)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day),', ', DATE_FORMAT(day, "%M %e"),', ', YEAR(day)) AS day FROM days
+SELECT CONCAT(DAYNAME(day),', ', MONTHNAME(day), ' ', EXTRACT(DAY FROM day), ', ', EXTRACT(YEAR FROM day)) AS day FROM days
+SELECT CONCAT(DAYNAME(day),', ', MONTHNAME(day),' ',DAY(day),', ',YEAR(day)) day FROM Days
+SELECT CONCAT(DAYNAME(day),', ',MONTHNAME(day),' ',DAY(day),', ', Year(day)) AS day FROM Days
+SELECT CONCAT(DAYNAME(day),', ',MONTHNAME(day),' ',DAY(day),', ',YEAR(day)) AS day FROM Days
+SELECT CONCAT(dayname(day), ',',' ', monthname(day), ' ', day(day), ', ', YEAR(day)) AS day FROM Days
+SELECT CONCAT(temp.dayofweek,', ',temp.month, ' ',temp.dateof,', ',temp.yearof) AS day FROM (SELECT (CASE WHEN DAYOFWEEK(day) = 1 THEN 'Sunday' WHEN DAYOFWEEK(day) = 2 THEN 'Monday' WHEN DAYOFWEEK(day) = 3 THEN 'Tuesday' WHEN DAYOFWEEK(day) = 4 THEN 'Wednesday' WHEN DAYOFWEEK(day) = 5 THEN 'Thursday' WHEN DAYOFWEEK(day) = 6 THEN 'Friday' WHEN DAYOFWEEK(day) = 7 THEN 'Saturday' END) AS dayofweek, (CASE WHEN MONTH(day) = 1 THEN 'January' WHEN MONTH(day) = 2 THEN 'February' WHEN MONTH(day) = 3 THEN 'March' WHEN MONTH(day) = 4 THEN 'April' WHEN MONTH(day) = 5 THEN 'May' WHEN MONTH(day) = 6 THEN 'June' WHEN MONTH(day) = 7 THEN 'July' WHEN MONTH(day) = 8 THEN 'August' WHEN MONTH(day) = 9 THEN 'September' WHEN MONTH(day) = 10 THEN 'October' WHEN MONTH(day) = 11 THEN 'November' WHEN MONTH(day) = 12 THEN 'December' END) AS month, DAY(day) AS dateof, YEAR(day) AS yearof FROM days) temp
+SELECT CONCAT(weekday, ', ', month, ' ', day, ', ', year) as day FROM (SELECT CASE WHEN WEEKDAY(day) = 0 THEN 'Monday' WHEN WEEKDAY(day) = 1 THEN 'Tuesday' WHEN WEEKDAY(day) = 2 THEN 'Wednesday' WHEN WEEKDAY(day) = 3 THEN 'Thursday' WHEN WEEKDAY(day) = 4 THEN 'Friday' WHEN WEEKDAY(day) = 5 THEN 'Saturday' WHEN WEEKDAY(day) = 6 THEN 'Sunday' END AS weekday, CASE WHEN MONTH(day) = 1 THEN 'January' WHEN MONTH(day) = 2 THEN 'February' WHEN MONTH(day) = 3 THEN 'March' WHEN MONTH(day) = 4 THEN 'April' WHEN MONTH(day) = 5 THEN 'May' WHEN MONTH(day) = 6 THEN 'June' WHEN MONTH(day) = 7 THEN 'July' WHEN MONTH(day) = 8 THEN 'August' WHEN MONTH(day) = 9 THEN 'September' WHEN MONTH(day) = 10 THEN 'October' WHEN MONTH(day) = 11 THEN 'November' WHEN MONTH(day) = 12 THEN 'December' End AS month, DAY(day) AS day, YEAR(day) AS year FROM Days) as t
+SELECT Concat(Dayname(day), ', ', Date_format(day, '%M %e, %Y')) AS day FROM days
+SELECT Concat(dayname(day),', ', monthname(day), ' ', day(day),', ', year(day)) AS day FROM Days
+SELECT DATE_FORMAT (day, "%W, %M %e, %Y") as day from Days
+SELECT DATE_FORMAT (day, '%W, %M %e, %Y') as day FROM Days
+SELECT DATE_FORMAT(D.day, '%W, %M %e, %Y') AS day FROM Days D
+SELECT DATE_FORMAT(`day`,'%W, %M %e, %Y') as day FROM Days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") AS day FROM Days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") AS day FROM days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") as "day" FROM Days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") as day FROM Days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") as day From Days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") as day from Days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") as day from days
+SELECT DATE_FORMAT(day, "%W, %M %e, %Y") day FROM Days
+SELECT DATE_FORMAT(day, '%W, %M %e, %Y') AS day FROM Days
+SELECT DATE_FORMAT(day, '%W, %M %e, %Y') AS day FROM days
+SELECT DATE_FORMAT(day, '%W, %M %e, %Y') as day FROM Days
+SELECT DATE_FORMAT(day, '%W, %M %e, %Y')as day from Days
+SELECT DATE_FORMAT(day,"%W, %M %e, %Y") AS day FROM Days
+SELECT DATE_FORMAT(day,"%W, %M %e, %Y") AS day FROM days
+SELECT DATE_FORMAT(day,"%W, %M %e, %Y") as 'day' FROM Days
+SELECT DATE_FORMAT(day,"%W, %M %e, %Y") as day FROM Days
+SELECT DATE_FORMAT(day,"%W, %M %e, %Y")day FROM days
+SELECT DATE_FORMAT(day,'%W, %M %e, %Y') AS day FROM days
+SELECT DATE_FORMAT(day,'%W, %M %e, %Y') AS day from Days
+SELECT DATE_FORMAT(day,'%W, %M %e, %Y') as day FROM Days
+SELECT DATE_FORMAT(day,'%W, %M %e, %Y') as day from Days
+SELECT DATE_FORMAT(day,'%W, %M %e, %Y') day FROM Days
+SELECT concat(dayname(day), ', ', date_format(day, '%M'), ' ',day(day), ', ', year(day)) as day FROM days
+SELECT concat(dayname(day),", ",monthname(day)," ",day(day),", ",year(day)) as day FROM Days
+SELECT concat(dayname(day),', ',monthname(day),' ',day(day),', ',year(day)) as day FROM Days
+SELECT concat(dayname(day),', ',monthname(day),' ',day(day),', ',year(day)) day FROM Days
+SELECT date_format(day, '%W, %M %e, %Y') AS day FROM days
+SELECT date_format(day, '%W, %M %e, %Y') as 'day' FROM Days
+SELECT date_format(day, '%W, %M %e, %Y') as day FROM Days
+SELECT date_format(day, '%W, %M %e, %Y') as day FROM days
+SELECT date_format(day,"%W, %M %e, %Y") as day FROM Days
+SELECT date_format(day,'%W, %M %e, %Y') AS day FROM Days
+SELECT date_format(day,'%W, %M %e, %Y')as day from Days
+Select DATE_FORMAT(day, "%W, %M %e, %Y") as day from Days
+Select DATE_FORMAT(day, '%W, %M %e, %Y') as 'day' From Days
+Select DATE_FORMAT(day,'%W, %M %e, %Y') as day from days
+Select Date_format(day, "%W, %M %e, %Y") as day from Days
+Select Date_format(day,'%W, %M %e, %Y')as day from days
+Select concat(DAYNAME(day), ', ', MONTHNAME(day), ' ', day(day), ', ', year(day)) as day from Days
+Select concat(dayname(day), ', ', monthname(day), ' ', day(day), ', ', year(day)) as day from days
+Select concat(dayname(day),', ', monthname(day),' ',dayofmonth(day),', ', year(day)) as Day from Days
+Select concat(dayname(day),',',' ',monthname(day),' ',day(day),',',' ',year(day)) as day From days
+Select date_format(day,"%W, %M %e, %Y") as day from days
+select (date_format(day, '%W, %M %e, %Y')) as day from days
+select CONCAT(DAYNAME(day),', ',DATE_FORMAT(day,'%M %e'),', ',YEAR(day)) as day from Days
+select DATE_FORMAT(day , "%W, %M %e, %Y") day from Days
+select DATE_FORMAT(day, "%W, %M %e, %Y") as day from Days
+select DATE_FORMAT(day, "%W, %M %e, %Y") as day from days
+select DATE_FORMAT(day, "%W, %M %e, %Y") day from Days
+select DATE_FORMAT(day, "%W, %M %e, %Y")as day from Days
+select DATE_FORMAT(day, '%W, %M %e, %Y') as day from Days
+select DATE_FORMAT(day, '%W, %M %e, %Y') as day from days
+select DATE_FORMAT(day,"%W, %M %e, %Y") as day from days
+select Date_Format(day, '%W, %M %e, %Y') as day from Days
+select Date_format(day, "%W, %M %e, %Y") as day from Days
+select Date_format(day, "%W, %M %e, %Y")as day from days
+select concat( ( case when dayofweek(day) = 1 then 'Sunday' when dayofweek(day) = 2 then 'Monday' when dayofweek(day) = 3 then 'Tuesday' when dayofweek(day) = 4 then 'Wednesday' when dayofweek(day) = 5 then 'Thursday' when dayofweek(day) = 6 then 'Friday' else 'Saturday' end ), ', ', ( case when month(day) = 1 then 'January' when month(day) = 2 then 'February' when month(day) = 3 then 'March' when month(day) = 4 then 'April' when month(day) = 5 then 'May' when month(day) = 6 then 'June' when month(day) = 7 then 'July' when month(day) = 8 then 'August' when month(day) = 9 then 'September' when month(day) = 10 then 'October' when month(day) = 11 then 'November' else 'December' end ), ' ', day(day), ', ', year(day) ) as 'day' from Days
+select concat( case when dayofweek(day) = 1 then 'Sunday' when dayofweek(day) = 2 then 'Monday' when dayofweek(day) = 3 then 'Tuesday' when dayofweek(day) = 4 then 'Wednesday' when dayofweek(day) = 5 then 'Thursday' when dayofweek(day) = 6 then 'Friday' when dayofweek(day) = 7 then 'Saturday' else null end , ", " , MONTHNAME(day) , " " , DAYOFMONTH(day) , ", " , substring(day, 1, 4) ) as day from days
+select concat( case when dayofweek(day) = 1 then 'Sunday' when dayofweek(day) = 2 then 'Monday' when dayofweek(day) = 3 then 'Tuesday' when dayofweek(day) = 4 then 'Wednesday' when dayofweek(day) = 5 then 'Thursday' when dayofweek(day) = 6 then 'Friday' when dayofweek(day) = 7 then 'Saturday' else null end , ", " , MONTHNAME(day) , " " , DAYOFMONTH(day) , ", " , year(day) ) as day from days
+select concat( dayname(day) , ", ", monthname(day), " ", day(day), ", ", year(day) ) as day from Days
+select concat( dayname(day), ", ", monthname(day), " ", dayofmonth(day), ", ", year(day) ) as day from Days
+select concat(DAYNAME(d.day), ", ", MONTHNAME(d.day), " ", DAY(d.day), ", ", YEAR(d.day)) as `day` from Days d
+select concat(DAYNAME(day), ', ', MONTHNAME(day), ' ', DAY(day), ', ', YEAR(day)) as day from Days
+select concat(DAYNAME(day), ', ', MONTHNAME(day),' ', Day(day), ', ', year(day)) as day from Days
+select concat(DAYNAME(day),", " , monthname (day),' ',day(day),", " ,year(day)) as day from Days
+select concat(Dayname(day),', ', date_format(day,'%M %e'),', ', year(day)) as day from days
+select concat(dayname(day), ", ", monthname(day), " ", day(day), ", ", year(day)) AS day from Days
+select concat(dayname(day), ", ", monthname(day), " ", day(day), ", ", year(day)) as day from Days
+select concat(dayname(day), ", ", monthname(day), " ", day(day), ", ", year(day)) day from Days
+select concat(dayname(day), ", ", monthname(day), " ", day(day), ", ", year(day)) day from days
+select concat(dayname(day), ", ", monthname(day), " ", day(day), ', ', year(day)) as day from Days
+select concat(dayname(day), ", ", monthname(day), " ", dayofmonth(day), ", ", year(day)) as day from Days
+select concat(dayname(day), ", ", monthname(day)," ", day(day), ", ", year(day)) as day from Days
+select concat(dayname(day), ","," ", monthname(day), " ",day(day),",", " ",year(day)) as day from Days
+select concat(dayname(day), ', ', monthname(day), ' ' , day(day), ', ', year(day)) as day from days
+select concat(dayname(day), ', ', monthname(day), ' ', day(day), ', ', year(day)) as day from Days
+select concat(dayname(day), ', ', monthname(day), ' ', day(day), ', ', year(day)) as day from days
+select concat(dayname(day), ', ', monthname(day), ' ', dayofmonth(day), ', ', year(day)) as day from Days
+select concat(dayname(day), ', ',monthname(day), ' ', day(day), ', ', year(day)) as day from days
+select concat(dayname(day), ', ',monthname(day), ' ',DAY(day), ', ', year(day)) day from Days
+select concat(dayname(day),", ", monthname(day), " ", extract(day from day), ", ", extract(year from day)) as day from days
+select concat(dayname(day),", ", monthname(day)," ", day(day), ", ", year(day)) as day from Days
+select concat(dayname(day),", ",monthname(day)," ",day(day),", ",year(day)) as day from Days
+select concat(dayname(day),", ",monthname(day)," ",day(day),", ",year(day)) as day from days
+select concat(dayname(day),', ',monthname(day),' ', day(day),', ',year(day)) as day from Days
+select concat(dayname(day),', ',monthname(day),' ',day(day),', ',year(day)) as day from days
+select concat(dayname(day),',', ' ', monthname(day),' ', day(day),',',' ', year(day)) as day from Days
+select concat_ws(', ',dayname(day), concat_ws(' ',monthname(day), day(day)), year(day)) as day from Days
+select concat_ws(', ',dayname(day), concat_ws(' ',monthname(day), dayofmonth(day)), year(day)) as day from days
+select convert(date_format(day, '%W, %M %e, %Y'),char) as day from days
+select date_format(day, "%W, %M %e, %Y" ) as day from days
+select date_format(day, "%W, %M %e, %Y") as day from Days
+select date_format(day, "%W, %M %e, %Y") as day from days
+select date_format(day, "%W, %M %e, %Y") day from days
+select date_format(day, '%W, %M %e, %Y' ) as day from Days
+select date_format(day, '%W, %M %e, %Y') as day FROM Days
+select date_format(day, '%W, %M %e, %Y') as day from Days
+select date_format(day, '%W, %M %e, %Y') as day from days
+select date_format(day, '%W, %M %e, %Y') day from Days
+select date_format(day, '%W, %M %e, %Y') day from days
+select date_format(day,"%W, %M %e, %Y") as day from Days
+select date_format(day,"%W, %M %e, %Y") as day from days
+select date_format(day,"%W, %M %e, %Y") day from days
+select date_format(day,'%W, %M %e, %Y') AS day from Days
+select date_format(day,'%W, %M %e, %Y') as day from Days
+select date_format(day,'%W, %M %e, %Y') as day from days
+select date_format(day,'%W, %M %e, %Y') as day from days order by 1 desc
+select date_format(day,'%W, %M %e, %Y') day from days
+select group_concat(dayname(day),',', ' ', monthname(day), ' ', dayofmonth(day),',',' ', year(day) ) as day from Days group by day

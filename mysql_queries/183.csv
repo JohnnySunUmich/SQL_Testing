@@ -1,0 +1,405 @@
+(SELECT c.Name as Customers from Customers c left join Orders o on c.Id = o.CustomerId where o.CUstomerId IS NULL)
+SELECT A.Name AS Customers FROM Customers A LEFT JOIN Orders B on A.Id = B.CustomerId WHERE B.Id IS NULL
+SELECT A.Name AS Customers from Customers A LEFT JOIN Orders B on a.Id = B.CustomerId WHERE b.CustomerId is NULL
+SELECT A.Name as 'Customers' from Customers A WHERE NOT EXISTS (SELECT B.id FROM Orders B WHERE A.Id = B.CustomerId)
+SELECT A.Name as Customers FROM Customers A LEFT JOIN Orders B ON A.Id = B.CustomerId WHERE B.CustomerId IS NULL
+SELECT A.Name as Customers FROM Customers A WHERE NOT EXISTS (SELECT 1 FROM Orders B WHERE B.CustomerId = A.Id)
+SELECT A.Name as Customers from Customers A LEFT JOIN Orders B on a.Id = B.CustomerId WHERE b.CustomerId is NULL
+SELECT A.Name as Customers from Customers A WHERE A.Id NOT IN (SELECT B.CustomerId from Orders B)
+SELECT A.Name as Customers from Customers A WHERE NOT EXISTS (SELECT 1 FROM Orders B WHERE A.Id = B.CustomerId)
+SELECT C.NAME AS 'Customers' FROM CUSTOMERS C LEFT JOIN ORDERS O ON C.ID = O.CUSTOMERID WHERE O.ID IS NULL
+SELECT C.NAME AS CUSTOMERS FROM CUSTOMERS C LEFT JOIN ORDERS O ON C.ID = O.CUSTOMERID WHERE O.CUSTOMERID IS NULL
+SELECT C.NAME AS Customers FROM CUSTOMERS C LEFT JOIN ORDERS O ON C.ID = O.CUSTOMERID WHERE O.CUSTOMERID IS NULL
+SELECT C.NAME AS Customers FROM CUSTOMERS C LEFT JOIN ORDERS O ON C.ID = O.CustomerId WHERE O.CustomerId IS NULL
+SELECT C.Name AS Customers FROM Customers C WHERE C.Id NOT IN (SELECT X.Id FROM Customers X INNER JOIN Orders R ON R.CustomerId = X.Id)
+SELECT C.Name as 'Customers' FROM Customers C Left JOIN Orders O On C.Id = O.CustomerId Where O.Id is null
+SELECT C.Name as Customers FROM Customers C LEFT JOIN Orders O ON C.Id = O.CustomerId WHERE O.CustomerId IS NULL
+SELECT C.Name as Customers FROM Customers C WHERE not exists (SELECT D.* FROM Customers D JOIN Orders O ON C.Id=O.CustomerId)
+SELECT C.name as Customers FROM Customers C WHERE C.Id NOT IN (SELECT DISTINCT CustomerId FROM Orders)
+SELECT CUSTOMERS.Name AS Customers from Customers WHERE CUSTOMERS.Id NOT IN (SELECT Orders.CustomerId from Orders)
+SELECT Customers FROM (SELECT c.Name as Customers, o.Id FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.Id IS NULL) T
+SELECT Customers.Name AS "Customers" FROM Customers WHERE Customers.Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Customers.Name AS "Customers" FROM Customers WHERE Customers.Id not in ( SELECT CustomerId FROM Orders )
+SELECT Customers.Name AS 'Customers' FROM Customers LEFT JOIN Orders on Customers.Id = Orders.CustomerId WHERE Orders.CustomerId IS NULL
+SELECT Customers.Name AS 'Customers' FROM Customers WHERE Customers.Id NOT IN (Select customerId FROM Orders)
+SELECT Customers.Name AS 'Customers' FROM Customers WHERE Customers.Id NOT IN(select CustomerId from Orders)
+SELECT Customers.Name AS Customers FROM Customers LEFT JOIN Orders ON Customers.ID = Orders.CustomerID WHERE Orders.CustomerID IS NULL
+SELECT Customers.Name AS Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.CustomerId is null
+SELECT Customers.Name AS Customers FROM Customers LEFT JOIN Orders ON Customers.Id= Orders.CustomerId WHERE Orders.CustomerId IS NULL
+SELECT Customers.Name AS Customers FROM Customers WHERE Customers.ID NOT IN (SELECT CustomerID From Orders)
+SELECT Customers.Name AS Customers FROM Customers WHERE Customers.Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Customers.Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerID GROUP BY Customers.Id HAVING COUNT(Orders.Id) = 0
+SELECT Customers.Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.Id IS NULL
+SELECT Customers.Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE orders.CustomerId IS NULL
+SELECT Customers.Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId group by Customers.Id having COUNT(Orders.Id)=0
+SELECT Customers.Name as Customers FROM Customers LEFT JOIN Orders on Customers.ID=Orders.CustomerID Where Orders.ID is null
+SELECT Customers.Name as Customers FROM Customers left outer join Orders ON Customers.Id = Orders.CustomerId Where Orders.CustomerId is Null
+SELECT Customers.Name as Customers from CUSTOMERS WHERE Customers.Id not in (SELECT CustomerId FROM Orders)
+SELECT Customers.Name as Customers from Customers where Customers.Id not in (SELECT CustomerId from Orders)
+SELECT Customers.name AS Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.CustomerId IS NULL
+SELECT Customers.name AS Customers FROM Customers LEFT JOIN Orders ON Customers.id = Orders.CustomerId WHERE Orders.Customerid IS NULL
+SELECT Customers.name AS Customers FROM Customers LEFT JOIN orders ON Customers.id = Orders. customerid WHERE Customerid IS NULL
+SELECT Customers.name as Customers FROM Customers WHERE Customers.id not in ( select customerid from orders )
+SELECT NAME AS CUSTOMERS FROM CUSTOMERS AS C LEFT JOIN ORDERS AS O ON C.ID = O.CUSTOMERID WHERE O.CUSTOMERID IS NULL
+SELECT NAME AS CUSTOMERS FROM CUSTOMERS WHERE ID NOT IN (SELECT DISTINCT CUSTOMERID FROM ORDERS)
+SELECT NAME AS Customers FROM CUSTOMERS WHERE ID NOT IN (Select Distinct CustomerID FROM Orders)
+SELECT NAME AS Customers FROM Customers WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name AS "Customers" FROM Customers AS c WHERE c.Id NOT IN ( Select CustomerId FROM Orders )
+SELECT Name AS "Customers" FROM Customers WHERE Customers.id NOT IN (SELECT CustomerId FROM ORDERS)
+SELECT Name AS "Customers" FROM Customers WHERE Id NOT IN ( SELECT CustomerId FROM Orders )
+SELECT Name AS "Customers" FROM Customers WHERE Id NOT IN (SELECT DISTINCT CustomerId FROM Orders)
+SELECT Name AS "Customers" FROM Customers WHERE customers.id NOT IN (SELECT customerID FROM Orders)
+SELECT Name AS 'Customers' FROM Customers AS c LEFT JOIN Orders AS o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT Name AS 'Customers' FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.CustomerId IS NULL
+SELECT Name AS 'Customers' FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.Id IS NULL
+SELECT Name AS 'Customers' FROM Customers WHERE Customers.Id not in (SELECT CustomerId FROM Orders)
+SELECT Name AS 'Customers' FROM Customers WHERE Id NOT IN (SELECT CustomerId FROM orders)
+SELECT Name AS 'Customers' FROM Customers WHERE Id NOT IN(SELECT CustomerId FROM Orders)
+SELECT Name AS 'Customers' FROM Customers WHERE id NOT IN ( SELECT CustomerId from orders )
+SELECT Name AS 'Customers' FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT Name AS Customers FROM ( SELECT Customers.Name, Orders.CustomerId FROM Customers LEFT OUTER JOIN Orders ON Customers.Id = Orders.CustomerId ) AS Temp WHERE Temp.CustomerId IS NULL
+SELECT Name AS Customers FROM (SELECT C.Id, C.Name, O.Id AS OID FROM Customers C LEFT JOIN Orders O ON C.Id = O.CustomerId) temp WHERE temp.OID IS NULL
+SELECT Name AS Customers FROM Customers AS c LEFT JOIN Orders AS o ON c.Id = o.CustomerId WHERE o.CustomerId is null
+SELECT Name AS Customers FROM Customers AS c LEFT JOIN Orders AS o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT Name AS Customers FROM Customers AS c WHERE Id NOT IN ( SELECT CustomerId FROM Orders)
+SELECT Name AS Customers FROM Customers C WHERE Id Not in (SELECT C.Id FROM Customers C INNER JOIN Orders O ON C.Id = O.CustomerId)
+SELECT Name AS Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE CustomerId IS NULL
+SELECT Name AS Customers FROM Customers LEFT JOIN Orders ON Customers.Id=Orders.CustomerId WHERE CustomerId IS NULL
+SELECT Name AS Customers FROM Customers LEFT OUTER JOIN Orders ON Customers.Id = Orders.CustomerId WHERE CustomerID IS NULL
+SELECT Name AS Customers FROM Customers WHERE Customers.Id NOT IN ( SELECT CustomerId FROM Orders )
+SELECT Name AS Customers FROM Customers WHERE Customers.Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Customers.Id NOT IN (SELECT Customers.Id FROM Orders JOIN Customers ON Orders.CustomerId = Customers.Id)
+SELECT Name AS Customers FROM Customers WHERE Customers.Id NOT IN( SELECT Orders.CustomerId FROM Orders )
+SELECT Name AS Customers FROM Customers WHERE Customers.Id NOT in ( SELECT CustomerId FROM Orders )
+SELECT Name AS Customers FROM Customers WHERE Customers.id NOT IN (SELECT Customers.Id FROM Customers INNER JOIN Orders ON(Customers.id = Orders.CustomerId))
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN ( SELECT DISTINCT CustomerId FROM Orders )
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN (SELECT DISTINCT CustomerID FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN (SELECT DISTINCT CustomerId FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN (SELECT Distinct CustomerId FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN (Select CustomerId FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN( SELECT CustomerID FROM Orders)
+SELECT Name AS Customers FROM Customers WHERE Id NOT IN( SELECT Customers.Id FROM Customers,Orders WHERE Customers.Id = Orders.CustomerId)
+SELECT Name AS Customers FROM Customers WHERE Id not in( SELECT DISTINCT(CustomerId) FROM Orders )
+SELECT Name AS Customers FROM Customers WHERE NOT EXISTS ( SELECT * FROM Orders WHERE CustomerId = Customers.Id )
+SELECT Name AS Customers FROM Customers WHERE id NOT IN ( SELECT DISTINCT CustomerID as id FROM Orders )
+SELECT Name AS Customers FROM Customers WHERE id NOT IN (SELECT customerid FROM Orders)
+SELECT Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerID WHERE o.CustomerID IS NULL
+SELECT Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id=o.CustomerId WHERE o.Id IS NULL
+SELECT Name AS Customers FROM Customers c WHERE NOT EXISTS ( SELECT CustomerId FROM Orders o WHERE o.CustomerId = c.Id )
+SELECT Name AS Customers FROM Customers c WHERE c.Id NOT IN ( SELECT CustomerId FROM Orders o WHERE o.CustomerId = c.Id )
+SELECT Name AS `Customers` FROM Customers WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name AS customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT Name As Customers From Customers WHERE Id not IN (SELECT CustomerId FROM Orders)
+SELECT Name Customers FROM Customers WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name Customers FROM Customers where Id not in(select CustomerId from Orders)
+SELECT Name as "Customers" FROM Customers WHERE NOT EXISTS (SELECT * FROM Orders WHERE Orders.CustomerId = Customers.Id)
+SELECT Name as "Customers" From Customers WHERE Customers.Id NOT IN (Select CustomerId FROM Orders)
+SELECT Name as "Customers" from Customers WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name as 'Customers' FROM Customers WHERE Customers.Id Not in (SELECT CustomerId FROM orders)
+SELECT Name as 'Customers' FROM Customers WHERE Customers.Id not in (SELECT CustomerId FROM Orders)
+SELECT Name as Customers FROM Customers LEFT JOIN ( SELECT CustomerId, count(*) as num_orders FROM Orders GROUP BY CustomerId ) orders ON Customers.Id = orders.CustomerId WHERE orders.num_orders is NULL
+SELECT Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.Id is NULL
+SELECT Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.Id is null
+SELECT Name as Customers FROM Customers WHERE ID NOT IN ( SELECT CustomerID FROM Orders)
+SELECT Name as Customers FROM Customers WHERE ID NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name as Customers FROM Customers WHERE Id NOT IN ( SELECT DISTINCT CustomerId FROM Orders )
+SELECT Name as Customers FROM Customers WHERE Id NOT IN (SELECT CustomerID FROM Orders)
+SELECT Name as Customers FROM Customers WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT Name as Customers FROM Customers WHERE Id NOT IN (SELECT customerId FROM Orders)
+SELECT Name as Customers FROM Customers WHERE Id NOT IN( (SELECT C.Id FROM Customers C, Orders O WHERE C.Id = O.CustomerId))
+SELECT Name as Customers FROM Customers WHERE Id not in (SELECT CustomerId FROM Orders)
+SELECT Name as Customers FROM Customers WHERE NOT EXISTS (SELECT * FROM Orders WHERE Customers.Id = Orders.CustomerId)
+SELECT Name as Customers FROM Customers Where id not in (Select customerId from Orders)
+SELECT Name as Customers from Customers WHERE Id NOT IN (SELECT CustomerId from Orders)
+SELECT Name as Customers from Customers WHERE id not in (SELECT CustomerId from Orders)
+SELECT Name as `Customers` FROM Customers WHERE Customers.Id NOT IN (SELECT Orders.CustomerId FROM Orders)
+SELECT a.NAME customers FROM Customers a LEFT JOIN Orders b ON a.Id = b.CustomerId WHERE b.CustomerId is NULL
+SELECT a.Name "Customers" FROM Customers a LEFT JOIN Orders b ON a.id = b.CustomerId WHERE CustomerId IS NULL
+SELECT a.Name AS 'Customers' FROM Customers AS a LEFT JOIN Orders AS b On a.Id = b.CustomerId WHERE b.CustomerId IS NULL
+SELECT a.Name AS Customers FROM Customers as a LEFT JOIN Orders as b ON a.Id = b.CustomerId WHERE b.CustomerId IS NULL
+SELECT a.Name AS Customers from Customers a LEFT JOIN Orders b ON a.Id = b.CustomerId WHERE b.CustomerId IS NULL
+SELECT a.Name as Customers FROM Customers a LEFT JOIN Orders b ON a.ID = b.CustomerID WHERE b.customerID is null
+SELECT a.Name as Customers FROM Customers a LEFT JOIN Orders b ON a.Id = b.CustomerId WHERE b.CustomerId is NULL
+SELECT a.Name as Customers from Customers as a LEFT JOIN Orders as b on a.Id = b.CustomerId where b.CustomerId is NULL
+SELECT c.NAME AS Customers FROM Customers AS c LEFT JOIN Orders AS o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name AS "Customers" FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.Id WHERE CustomerId IS NULL
+SELECT c.Name AS "Customers" FROM Customers c LEFT JOIN Orders o on c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name AS 'Customers' FROM Customers AS c LEFT JOIN Orders AS o ON c.Id=o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name AS 'Customers' FROM Customers c WHERE c.Id NOT IN ( SELECT CustomerId FROM Orders)
+SELECT c.Name AS 'Customers' FROM Customers c WHERE c.Id NOT IN (SELECT o.Customerid FROM Orders o)
+SELECT c.Name AS Customers FROM Customers AS c LEFT JOIN Orders AS o ON c.ID = o.CustomerID WHERE o.ID IS NULL
+SELECT c.Name AS Customers FROM Customers AS c LEFT JOIN Orders AS o ON c.ID = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name AS Customers FROM Customers AS c LEFT JOIN Orders AS o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT c.Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = O.CustomerId WHERE o.id IS NULL
+SELECT c.Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerID IS NULL
+SELECT c.Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT c.Name AS Customers FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.Id WHERE o.Id IS NULL
+SELECT c.Name AS Customers FROM Customers c LEFT OUTER JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name AS Customers FROM Customers c WHERE c.Id NOT IN (SELECT o.CustomerId FROM Orders o)
+SELECT c.Name AS Customers FROM customers AS c LEFT JOIN orders AS o ON c.id = o.customerid WHERE o.customerid IS NULL
+SELECT c.Name AS Customers FROM customers c where c.id not in (select customerid from orders)
+SELECT c.Name Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE CustomerId IS NULL
+SELECT c.Name Customers FROM Customers c WHERE c.Id NOT IN (SELECT o.CustomerId FROM Orders o)
+SELECT c.Name as "Customers" FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.id WHERE o.customerid IS NULL
+SELECT c.Name as "Customers" FROM Customers c WHERE c.Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT c.Name as "Customers" FROM customers as c LEFT OUTER JOIN orders as o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT c.Name as 'Customers' FROM Customers as c left join Orders as o on c.Id = o.CustomerId where o.CustomerId Is Null
+SELECT c.Name as 'Customers' FROM Customers c WHERE c.Id NOT IN ( SELECT DISTINCT o.CustomerId FROM Orders o)
+SELECT c.Name as 'Customers' FROM Customers c WHERE c.Id NOT IN ( SELECT o.CustomerId FROM Orders o)
+SELECT c.Name as 'Customers' from Customers c where c.Id NOT IN ( SELECT CustomerId from Orders )
+SELECT c.Name as Customers FROM Customers AS c LEFT JOIN Orders AS o USING(Id) WHERE c.ID NOT IN ( SELECT DISTINCT CustomerId FROM Orders)
+SELECT c.Name as Customers FROM Customers as c LEFT JOIN Orders as o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name as Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE c.Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT c.Name as Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name as Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.Id is null
+SELECT c.Name as Customers FROM Customers c LEFT JOIN Orders o on c.Id = o.CustomerId WHERE o.CustomerId is Null
+SELECT c.Name as Customers FROM Customers c LEFT OUTER JOIN Orders o ON c.Id = o.CustomerId WHERE o.CustomerId IS NULL
+SELECT c.Name as Customers FROM Customers c WHERE c.Id NOT IN (select CustomerId from Orders)
+SELECT c.Name as Customers From Customers as c WHERE c.Id NOT IN (SELECT CustomerId From Orders)
+SELECT c.Name as Customers From Customers as c WHERE c.Id NOT IN (SELECT DISTINCT CustomerId From Orders)
+SELECT c.name AS "Customers" FROM customers c WHERE c.id NOT IN (SELECT o.customerid FROM Orders o)
+SELECT c.name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE ISNULL(o.CustomerId)
+SELECT c.name AS Customers FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.ID WHERE o.ID IS NULL
+SELECT c.name as Customers FROM Customers c left join Orders o on c.id = o.CustomerId WHERE o.id IS NULL
+SELECT c.name as Customers FROM customers c LEFT JOIN orders o ON c.id = o.customerid WHERE o.id IS NULL
+SELECT c.name as Customers From Customers c Left join Orders o on c.id = o.customerId where CustomerId is null
+SELECT c.name as customers FROM customers c left join (select o.customerid as new from orders o) as t1 on c.id= t1.new where t1.new is NULL
+SELECT c1.name as "Customers" FROM customers c1 WHERE Id NOT IN( SELECT CustomerId FROM orders )
+SELECT customers.Name AS Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE customerId IS NULL
+SELECT customers.Name AS customers FROM Customers LEFT OUTER JOIN Orders ON Customers.id = Orders.customerid WHERE Orders.id IS NULL
+SELECT customers.Name as Customers FROM Customers as customers WHERE NOT EXISTS ( SELECT * FROM Orders as orders WHERE customers.Id = orders.CustomerId )
+SELECT customers.Name as Customers FROM customers LEFT JOIN Orders ON customers.id = Orders.CustomerId WHERE customerId IS NULL
+SELECT customers.name AS "Customers" FROM customers WHERE customers.id NOT IN (SELECT customerid FROM orders)
+SELECT customers.name AS 'Customers' FROM customers WHERE customers.id not in ( SELECT customerid FROM orders)
+SELECT customers.name as 'Customers' FROM Customers where customers.id not in ( select customerid from orders)
+SELECT customers.name as 'Customers' from customers WHERE customers.id not in (select customerid from orders)
+SELECT customers.name as Customers from customers where id not in (select orders.customerid from orders)
+SELECT j.Name Customers FROM (SELECT c.Name, o.Id FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId) j WHERE j.Id is NULL
+SELECT name AS 'Customers' FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.CustomerId IS NULL
+SELECT name AS Customers FROM Customers WHERE Customers.Id NOT IN (SELECT CustomerId FROM Orders)
+SELECT name AS Customers FROM Customers c LEFT JOIN Orders o ON c.Id = o.CustomerId WHERE o.Id IS NULL
+SELECT name AS Customers FROM customers WHERE id NOT IN( SELECT CustomerID FROM orders)
+SELECT name as 'Customers' FROM Customers WHERE id NOT IN (SELECT DISTINCT CustomerId FROM Orders)
+SELECT name as Customers FROM customers WHERE id NOT IN (SELECT customerid FROM orders)
+SELECT name as Customers FROM customers c LEFT JOIN orders o ON c.id = o.customerid WHERE o.id is null
+SELECT name as customers FROM Customers c LEFT JOIN Orders o ON c.id = o.CustomerId WHERE o.id IS NULL
+Select Customers.Name AS Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where Orders.CustomerId IS NULL
+Select Customers.Name as Customers from Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId WHERE Orders.CustomerId IS NULL
+Select Customers.Name as Customers from Customers where Customers.Id not in (Select CustomerId from Orders )
+Select Customers.name as Customers From Customers Left join Orders on Customers.Id=Orders.CustomerId Where Orders.Id is null
+Select Customers.name as Customers from Customers where Customers.Id not in ( select CustomerId from Orders )
+Select Name Customers FROM Customers WHERE Id NOT IN ( SELECT CustomerId FROM Orders)
+Select Name as 'Customers' FROM Customers WHERE Id NOT IN ( SELECT CustomerID FROM Orders )
+Select Name as Customers From Customers left join orders on customers.id = orders.customerid where orders.customerid is null
+Select Name as Customers From Customers where Id not in (Select CustomerId from Orders)
+Select Name as Customers from Customers Left Join Orders ON Customers.ID = Orders.CustomerID WHERE Orders.CustomerId IS NULL
+Select Name as Customers from Customers Left Join Orders On Customers.Id = Orders.CustomerId Where CustomerId is null
+Select Name as Customers from Customers Where Customers.id != All (Select CustomerId from Orders)
+Select Name as Customers from Customers Where Id not in (Select CustomerId from Orders)
+Select Name as Customers from Customers Where Id not in (Select distinct CustomerId from Orders)
+Select Name as Customers from Customers as C LEFT JOIN Orders O on C.Id = O.CustomerId where O.CustomerId is null
+Select Name as Customers from Customers as c where c.Id not in (Select CustomerId from Orders)
+Select Name as Customers from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is null
+Select Name as Customers from Customers left Join Orders on Customers.id = Orders.customerid where Orders.customerid is null
+Select Name as Customers from Customers where Customers.Id not in (Select CustomerId from Orders )
+Select Name as Customers from Customers where Id not in (Select CustomerId from Orders)
+Select Name as Customers from Customers where Id not in (select CustomerId from Orders)
+Select a.Name as Customers from Customers a where a.Id not in (select CustomerId from Orders)
+Select c.Name Customers From Customers c Left Join Orders o On c.Id = o.CustomerId Where o.CustomerId IS NULL
+Select c.Name as 'Customers' from Customers c WHERE NOT EXISTS (SELECT c.Name FROM Orders o WHERE c.ID = o.CustomerId)
+Select c.Name as 'Customers' from Customers c where c.Id not in (select CustomerId from Orders)
+Select c.Name as Customers From Customers as c Where not exists ( Select * From Orders as o Where c.Id = o.CustomerId)
+Select c.Name as Customers from Customers c where c.Id not in (select CustomerId from Orders)
+Select c1.Name as Customers from Customers c1 left join Orders o on c1.Id = o.CustomerId where o.CustomerId is null
+Select c1.Name as Customers from Customers c1 where c1.Id not in(Select c.Id from Customers c , Orders o where c.Id=o.CustomerId)
+Select name as Customers FROM customers where id NOT IN( Select CustomerID From orders)
+WITH CTE AS ( SELECT T1.ID, T1.NAME FROM CUSTOMERS T1 JOIN ORDERS T2 ON T1.ID = T2.CUSTOMERID ) SELECT t1.NAME AS Customers FROM CUSTOMERS T1 LEFT JOIN CTE T2 ON T1.ID = T2.ID WHERE T2.ID IS NULL
+WITH CustomersOrders AS ( SELECT Customers.Name, Orders.Id AS OrderId FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId ) SELECT Name AS Customers FROM CustomersOrders WHERE OrderId IS NULL
+select A.Name as Customers from Customers as A where A.Id not in (select distinct(CustomerId) from Orders)
+select A.Name as Customers from( select Name, Orders.Id as OrderId from Customers left outer join Orders on Customers.Id = Orders.CustomerId ) as A where ISNULL(A.OrderId)
+select C.Name Customers from Customers C left join Orders O on C.Id = O.CustomerId where O.CustomerId IS NULL
+select C.Name as Customers from ( select A.*, B.CustomerId from Customers A left join Orders B on A.Id = B.CustomerId ) C where C.CustomerId is null
+select C.Name as Customers from Customers C left join Orders O on C.Id = O.CustomerId where O.CustomerId is null
+select Customers.Name as "Customers" from Customers where NOT Customers.id in ( select Orders.CustomerId from Orders )
+select Customers.Name as 'Customers' from Customers left join Orders on Customers.Id = Orders.CustomerId where Orders.CustomerId is null
+select Customers.Name as 'Customers' from Customers where Customers.Id not in ( select customerId from Orders )
+select Customers.Name as 'Customers' from Customers where Customers.Id not in (select CustomerId from Orders)
+select Customers.Name as 'Customers' from Customers where Customers.Id not in (select Orders.CustomerId from Orders)
+select Customers.Name as 'Customers' from Customers where Id not in ( select CustomerId from orders )
+select Customers.Name as Customers FROM Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId Where Orders.Id IS NULL
+select Customers.Name as Customers from Customers left Join Orders on Customers.Id = Orders.CustomerId where Orders.CustomerId is null
+select Customers.Name as Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where Orders.CustomerId is NULL
+select Customers.Name as Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where Orders.Id is null
+select Customers.Name as Customers from Customers where Customers.Id NOT IN (select Orders.CustomerId from Orders)
+select Customers.Name as Customers from Customers where Customers.Id Not In (select Orders.CustomerId from Orders)
+select Customers.Name as Customers from Customers where Customers.id not In (select Orders.CustomerId from Orders)
+select Customers.Name as Customers from Customers where Id NOT IN (Select CustomerId from Orders)
+select Customers.Name as Customers from Customers where customers.id not in ( select customerId from orders )
+select Customers.name as 'Customers' from Customers LEFT Join Orders on Customers.Id = Orders.customerId where orders.customerid IS NULL
+select Name "Customers" from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is null
+select Name AS Customers from customers WHERE Id NOT IN (SELECT CustomerId from Orders)
+select Name Customers from Customers c where c.Id not in(select CustomerId from Orders)
+select Name as "Customers" from Customers where Customers.Id not in ( select CustomerId from Orders)
+select Name as "Customers" from Customers where Customers.Id not in (select CustomerId from Orders)
+select Name as "Customers" from Customers where Id not in ( select CustomerId from Orders )
+select Name as 'Customers' from Customers c left join Orders o on c.Id=o.CustomerId where o.CustomerId is Null
+select Name as 'Customers' from Customers where Id not in (select CustomerId from Orders)
+select Name as Customers From Customers Where Id NOT IN ( select CustomerId from Orders)
+select Name as Customers from ( select Name,CustomerId from Customers left outer join Orders on Orders.CustomerId=Customers.Id where CustomerId IS NULL ) as t
+select Name as Customers from (select Name, CustomerId from Customers c left join Orders o on c.Id = o.CustomerId) as new where new.CustomerId is null
+select Name as Customers from Customers Where Id not in (SELECT CustomerId FROM Orders )
+select Name as Customers from Customers as c where c.id not in (select CustomerID from Orders)
+select Name as Customers from Customers c Left join Orders o on c.ID=o.CustomerID where o.CustomerID is null
+select Name as Customers from Customers c left join Orders o on c.ID = o.CustomerID where o.id is null
+select Name as Customers from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is NULL
+select Name as Customers from Customers c left join Orders o on c.Id=o.CustomerId where o.CustomerId is null
+select Name as Customers from Customers c left join Orders o on c.Id=o.CustomerId where o.Id is null
+select Name as Customers from Customers c where Id not in (select CustomerId from Orders)
+select Name as Customers from Customers c where c.Id not in (select CustomerId from Orders)
+select Name as Customers from Customers c where c.id not in (select CustomerId from Orders o)
+select Name as Customers from Customers c where not exists (select 1 from orders o where o.customerId = c.id)
+select Name as Customers from Customers cust where cust.id not in (select CustomerId from Orders)
+select Name as Customers from Customers left Join Orders on (Customers.Id=Orders.CustomerId) where Orders.CustomerId is null
+select Name as Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where CustomerId is null
+select Name as Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where Orders.CustomerId is null
+select Name as Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where Orders.Id is null
+select Name as Customers from Customers left join Orders on Customers.Id=Orders.CustomerId where CustomerId is null
+select Name as Customers from Customers left join Orders on Customers.Id=Orders.CustomerId where Orders.CustomerId is NULL
+select Name as Customers from Customers left join Orders on Customers.id = Orders.CustomerId where Orders.Id is null
+select Name as Customers from Customers left join Orders on orders.CustomerID = Customers.Id where Orders.ID is Null
+select Name as Customers from Customers where (Id not in (select CustomerId from Orders))
+select Name as Customers from Customers where Customers.Id not in ( select CustomerId from Orders)
+select Name as Customers from Customers where Customers.Id not in (select CustomerId from Orders)
+select Name as Customers from Customers where Customers.Id not in(select CustomerId from Orders)
+select Name as Customers from Customers where ID not in (select distinct CustomerId from orders)
+select Name as Customers from Customers where Id NOT in(select CustomerId from Orders)
+select Name as Customers from Customers where Id Not In (select CustomerId from Orders)
+select Name as Customers from Customers where Id not in ( select CustomerId from Orders )
+select Name as Customers from Customers where Id not in ( select c.Id from Customers c inner join Orders o on c.Id = o.CustomerId)
+select Name as Customers from Customers where Id not in ( select t1.Id from Customers t1 inner join Orders t2 on t2.CustomerId = t1.Id )
+select Name as Customers from Customers where Id not in (Select CustomerId from Orders)
+select Name as Customers from Customers where Id not in (Select distinct CustomerId from Orders)
+select Name as Customers from Customers where Id not in (select CustomerID from Orders)
+select Name as Customers from Customers where Id not in (select CustomerId from Orders group by CustomerId Having count(CustomerId)>0 )
+select Name as Customers from Customers where Id not in (select CustomerId from Orders)
+select Name as Customers from Customers where Id not in (select Customers.Id from Customers,Orders where Orders.CustomerId = Customers.Id)
+select Name as Customers from Customers where Id not in(select CustomerId from Orders)
+select Name as Customers from Customers where customers.id not in ( select customerid from orders )
+select Name as Customers from Customers where id not in (select CustomerId from Orders)
+select Name as Customers from Customers where id not in (select distinct CustomerId from Orders)
+select Name as Customers from Customers where id not in (select distinct(CustomerId) from Orders)
+select Name as Customers from Customers where id not in(select CustomerId from orders)
+select Name as Customers from customers c left join orders o on c.id=o.customerid where o.customerid is null
+select Name as Customers from customers c left join orders o on o.customerId = c.id where customerid is null
+select Name as Customers from( select Name, CustomerId from customers left join orders on customers.Id = Orders.CustomerId ) as a where CustomerId is null
+select Name as `Customers` from Customers where Id not in (select CustomerId from Orders)
+select T.Name as Customers from (select C.Name as Name, O.CustomerId from Customers C left join Orders O on C.Id = O.CustomerId) T where T.CustomerId is null
+select a.Name as Customers from Customers a left join Orders b on a.Id = b.CustomerId where b.CustomerId is Null
+select a.Name as Customers from Customers a left join Orders b on a.Id=b.CustomerId where b.CustomerId is null
+select a.Name as Customers from customers a left join orders b on a.Id = b.customerId where b.customerid is NULL
+select a.name as Customers from customers a left join orders b on a.id = b.customerid where b.customerid is null
+select a.name as Customers from customers a left join orders b on a.id = b.customerid where b.id is null
+select a.name as customers from customers a left join orders b on a.id=b.customerid where b.customerid is null
+select aa.Name as Customers from(select c.Id, Name, o.Id as num, CustomerId from Customers c left join Orders o on c.Id = O.CustomerID) as aa where aa.num is null
+select c.Name 'Customers' from Customers c left join Orders o ON c.Id = o.CustomerId where o.CustomerId is null
+select c.Name Customers from Customers c left join Orders o on c.Id=o.CustomerId where o.CustomerId is null
+select c.Name as "Customers" from Customers as c where c.Id not in (select CustomerId from Orders)
+select c.Name as Customers from Customers as c left join Orders as o on c.Id = o.CustomerId where o.CustomerId is null
+select c.Name as Customers from Customers as c left join Orders as o on c.Id = o.CustomerId where o.Id is NULL
+select c.Name as Customers from Customers as c where c.Id not in (select CustomerId from Orders)
+select c.Name as Customers from Customers as c where c.Id not in (select distinct CustomerId from Orders) order by Name
+select c.Name as Customers from Customers as c where c.id not in (select CustomerId from Orders)
+select c.Name as Customers from Customers c left join Orders o ON c.Id = o.CustomerId where o.Id is NULL
+select c.Name as Customers from Customers c left join Orders o on c.Id = o.CustomerId where o.CustomerId is NULL
+select c.Name as Customers from Customers c left join Orders o on c.Id = o.CustomerId where o.CustomerId is null
+select c.Name as Customers from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is null
+select c.Name as Customers from Customers c left join Orders o on c.Id=o.CustomerId where o.Id is null
+select c.Name as Customers from Customers c left join Orders o on o.CustomerId = c.Id where o.CustomerId is null
+select c.Name as Customers from Customers c where ID not in (select CustomerId from Orders)
+select c.Name as Customers from Customers c where c.Id Not in (select CustomerId from Orders)
+select c.Name as Customers from Customers c where c.Id not in ( select distinct CustomerId from Orders )
+select c.Name as Customers from Customers c where c.Id not in (select distinct CustomerId as cid from Orders)
+select c.Name as Customers from Customers c where c.Id not in (select distinct CustomerId from Orders)
+select c.Name as Customers from Customers c where c.id not in (select CustomerId from Orders)
+select c.Name as Customers from Customers c where c.id not in(select orders.CustomerId from orders)
+select c.Name as Customers from Customers c where not exists ( select 1 from Orders where c.Id = CustomerId)
+select c.Name as Customers from customers c left join orders o on c.Id = o.CustomerId where o.Id is null
+select c.Name as Customers from customers c left join orders o on c.id = o.CustomerId where c.id not in (select customerId from orders)
+select c.Name as Customers from customers c left join orders o on o.CustomerId = c.Id where c.id not in (Select customerID from orders )
+select c.Name as Customers from customers c where c.Id not in(select CustomerId from Orders)
+select c.Name as Customers from customers c where c.id not in (select customerId from Orders)
+select c.Name as `Customers` from Customers c where c.id not in (select CustomerId from Orders o)
+select c.name Customers from Customers c left join orders o on c.id = o.customerid where o.customerId is null
+select c.name as 'Customers' from Customers c left join Orders o on c.id = o.CustomerId where o.CustomerId is null
+select c.name as 'Customers' from customers c where c.id not in (select customerid from orders)
+select c.name as Customers from (select count(*) as order_count, CustomerID from Orders group by CustomerID) as o right join Customers as c on (o.CustomerID = c.Id) where o.order_count is Null
+select c.name as Customers from Customers c left join Orders o on c.id = o.customerid where o.customerid is null
+select c.name as Customers from Customers c left join orders o on c.id = o.customerid where o.customerid is NULL
+select c.name as Customers from customers as c where c.id not in (select customerid from orders)
+select c.name as Customers from customers c left join Orders o on c.id = o.CustomerId where o.customerId is null
+select c.name as Customers from customers c left join orders o on (c.id = o.customerid) where o.id is null
+select c.name as Customers from customers c left join orders o on c.Id = o.CustomerId group by c.name, c.id having count(o.id)=0
+select c.name as Customers from customers c left join orders o on c.id=o.customerid where o.id is null
+select c.name as Customers from customers c left join orders o on o.customerid = c.id where o.customerid is null
+select c.name as Customers from customers c where c.id not in ( select customerid from orders )
+select c.name as Customers from customers c where c.id not in (select customerid from orders)
+select c.name as customers from customers c left join orders o on c.id=o.customerid where o.customerid is null
+select cu.Name as 'Customers' from Customers cu where id not in (select CustomerId from Orders)
+select cust.Name as 'Customers' from Customers cust left join Orders ord on cust.Id = ord.CustomerId where ord.CustomerId is NULL
+select customers.name as 'Customers' from Customers where customers.id not in ( SELECT customerid from orders )
+select customers.name as 'Customers' from customers where customers.id not in ( select customerId from orders)
+select customers.name as 'Customers' from customers where customers.id not in ( select customerid from orders )
+select customers.name as 'Customers' from customers where customers.id not in (select customerid from orders)
+select customers.name as 'customers' from customers left join orders on customers.id = orders.customerid where customerid is null
+select customers.name as 'customers' from customers where customers.id not in ( select customerid from orders )
+select customers.name as Customers from customers left join orders on customers.ID = orders.CustomerId where orders.ID is null
+select customers.name as Customers from customers left join orders on customers.id = orders.CustomerId where orders.CustomerId is null
+select customers.name as Customers from customers where customers.id not in (select customerid from orders)
+select customers.name as customers from customers left join ( select distinct customerid from orders ) ords on customers.id = ords.customerid where ords.customerid is null
+select name AS Customers from customers c where not exists(select CustomerId from orders where orders.CustomerId = c.id)
+select name Customers from Customers where Id not in (select CustomerId from Orders)
+select name Customers from customers c where not exists ( select 1 from orders o where o.customerid = c.id)
+select name as "Customers" from customers where id not in (select customerid from orders)
+select name as 'Customers' from (select c.name from customers c left join orders o on c.id=o.customerid where o.id is null) as table2
+select name as 'Customers' from customers left join orders on (customers.id = orders.customerid) where customerid is Null
+select name as 'Customers' from customers left join orders on customers.Id = orders.customerid where orders.customerid is null
+select name as 'Customers' from customers where customers.id not in( select customerid from orders )
+select name as 'customers' from customers where id not in ( select CustomerId from orders)
+select name as Customers from Customers c left outer join Orders o on o.CustomerId = c.Id where o.Id is null
+select name as Customers from Customers c where not exists (select 1 from Orders where CustomerId = c.Id)
+select name as Customers from Customers left join Orders on Customers.Id = Orders.CustomerId where CustomerId is null
+select name as Customers from Customers left join Orders on Customers.id=Orders.CustomerId where Orders.CustomerId is null
+select name as Customers from Customers where id not in ( select customerid from orders)
+select name as Customers from Customers where id not in (select CustomerId from Orders)
+select name as Customers from Customers where id not in (select customerId from orders)
+select name as Customers from Customers where id not in (select customerid from orders)
+select name as Customers from Customers where id not in (select distinct CustomerId from Orders )
+select name as Customers from customers as c left join orders as o on c.id = o.customerid where o.customerid is null
+select name as Customers from customers c left join Orders o on c.id = o.customerid where o.id is null
+select name as Customers from customers c left join orders o on c.id = o.customerid where o.customerid is null
+select name as Customers from customers c where not exists(select 1 from Orders where customerid = c.id)
+select name as Customers from customers left join orders on customers.id = orders.customerid where customerid is null
+select name as Customers from customers left join orders on customers.id= orders.customerid where customerid is null
+select name as Customers from customers where customers.id not in ( select customerid from orders )
+select name as Customers from customers where customers.id not in (select customerid from orders)
+select name as Customers from customers where id not in (select c.id from Customers c inner join Orders o on c.id = o.customerid)
+select name as Customers from customers where id not in (select customerid from orders)
+select name as customers from (select name, id from customers where id not in (select customerid from orders) ) as subq
+select name as customers from Customers a left join orders b on a.Id=b.CustomerId where b.CustomerId is null
+select name as customers from customers as c left join orders as o on c.id=o.customerid where o.customerid is null
+select name as customers from customers c left join orders o on c.id = o.CustomerId where o.CustomerId is null
+select name as customers from customers left join orders on customers.id = orders.customerid where customerid is null
+select name as customers from customers left join orders on customers.id = orders.customerid where orders.customerid is null
+select name as customers from customers left join orders on customers.id = orders.customerid where orders.id is null
+select name as customers from customers left join orders on orders.customerid=customers.id where orders.customerid is null
+select name as customers from customers where customers.Id not in (select customerId from orders)
+select name as customers from customers where id not in (select CustomerId from orders)
+select name as customers from customers where id not in (select customerid from orders)
+select t.Name customers from customers t where t.id not in ( select c.id from customers c,orders o where c.id = o.customerId)
+select t1.name as customers from customers t1 left join orders t2 on t1.id=t2.customerid where t2.customerid is null
+with cc as (select Name as 'Customers', Customers.ID as Id1, Orders.Id as Id2, CustomerId from Customers left join Orders on Customers.Id = Orders.CustomerId ) select Customers from cc where CustomerId is null
+with master_tbl as ( select t1.*,t2.customerid from customers t1 left join orders t2 on t1.id = t2.customerid ) select name as customers from master_tbl where customerid is null

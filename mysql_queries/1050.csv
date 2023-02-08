@@ -1,0 +1,159 @@
+') AS pair, ', 1), DECIMAL) AS actor_id, ', 2), DECIMAL) AS director_id SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*) >= 3
+SELECT ACTOR_ID,DIRECTOR_ID FROM ACTORDIRECTOR GROUP BY ACTOR_ID,DIRECTOR_ID HAVING COUNT(TIMESTAMP)>2
+SELECT DISTINCT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*)>=3
+SELECT X.ACTOR_ID, X.DIRECTOR_ID FROM ( SELECT ACTOR_ID, DIRECTOR_ID, COUNT(*) FROM ACTORDIRECTOR GROUP BY ACTOR_ID, DIRECTOR_ID HAVING COUNT(*) >= 3 ) X
+SELECT a.actor_id ACTOR_ID, a.director_id DIRECTOR_ID FROM (SELECT actor_id, director_id, count(*) total FROM ActorDirector group by actor_id, director_id having total >= 3) a
+SELECT a.actor_id, a.director_id FROM ActorDirector AS a GROUP BY a.actor_id, a.director_id HAVING COUNT(a.timestamp) >= 3
+SELECT a.actor_id,a.director_id FROM ( select actor_id,director_id,count(timestamp) as cooperation from ActorDirector group by actor_id,director_id ) a where a.cooperation >=3
+SELECT actor_id , director_id FROM ActorDirector GROUP BY 1,2 HAVING COUNT(1) >= 3
+SELECT actor_id , director_id FROM ActorDirector GROUP BY actor_id , director_id HAVING COUNT(1) >= 3
+SELECT actor_id ,director_id FROM ActorDirector GROUP BY 1,2 HAVING COUNT(*) >= 3
+SELECT actor_id, (director_id) FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*) >= 3
+SELECT actor_id, director_id FROM ( SELECT actor_id, director_id, COUNT(*) AS times FROM ActorDirector GROUP BY actor_id, director_id HAVING times >= 3 ) sub
+SELECT actor_id, director_id FROM ( SELECT actor_id, director_id, COUNT(*) From ActorDirector GROUP BY actor_id , director_id Having COUNT(*)>=3) A
+SELECT actor_id, director_id FROM (SELECT actor_id, director_id, COUNT(*) AS times FROM ActorDirector GROUP BY actor_id, director_id) AS A WHERE A.times>=3
+SELECT actor_id, director_id FROM (SELECT actor_id, director_id, COUNT(timestamp) cooperated_frq FROM actorDirector GROUP BY 1,2 ) a WHERE a.cooperated_frq >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY 1, 2 HAVING COUNT(*) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY 1, 2 HAVING COUNT(timestamp) > 2
+SELECT actor_id, director_id FROM ActorDirector GROUP BY 1, 2 HAVING count(distinct timestamp) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY 1, 2 HAVING count(timestamp) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY 1,2 HAVING COUNT(DISTINCT timestamp) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY 1,2 having count(*)>=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*) >=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*)>=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(1) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(CONCAT(actor_id, director_id))>=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(DISTINCT(timestamp)) > 2
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(actor_id) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(actor_id) >= 3 AND COUNT(director_id) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(concat('actor_id','director_id'))>2
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(director_id) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(timestamp) > 2 ORDER BY COUNT(timestamp) DESC
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(timestamp) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(timestamp)>=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING count(timestamp)>=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id Having count(*) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id having count(*) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(*) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(1) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(director_id) >= 3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(director_id) >=3
+SELECT actor_id, director_id FROM ActorDirector GROUP BY director_id, actor_id HAVING COUNT(*) >= 3
+SELECT actor_id, director_id FROM ActorDirector a GROUP BY actor_id, director_id HAVING COUNT(DISTINCT timestamp) >= 3
+SELECT actor_id, director_id FROM actorDirector GROUP BY 1,2 HAVING COUNT(timestamp) >=3
+SELECT actor_id, director_id FROM actordirector GROUP BY actor_id, director_id HAVING count(timestamp) >=3
+SELECT actor_id, director_id from ActorDirector a group by actor_id, director_id having count(timestamp)>=3
+SELECT actor_id,director_id FROM ( SELECT COUNT(*) cnt,actor_id,director_id FROM actordirector GROUP BY actor_id,director_id HAVING cnt >= 3 ) fyi
+SELECT actor_id,director_id FROM ActorDirector GROUP BY 1,2 HAVING count(*)>=3
+SELECT actor_id,director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(director_id)>=3
+SELECT actor_id,director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(*) >= 3
+SELECT actor_id,director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(director_id)>=3
+SELECT actor_id,director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING COUNT(timestamp)>=3
+SELECT actor_id,director_id FROM ActorDirector GROUP BY actor_id,director_id HAVING count(timestamp)>=3
+SELECT actor_id,director_id FROM ActorDirector GROUp BY actor_id,director_id having count(timestamp)>=3
+SELECT ad.actor_id, ad.director_id FROM actordirector AS ad GROUP BY ad.actor_id, ad.director_id HAVING COUNT(*) >=3
+SELECT t1.actor_id, t1.director_id FROM ( SELECT actor_id, director_id, COUNT(timestamp) times_cooperated FROM ActorDirector GROUP BY 1, 2 ) t1 WHERE t1.times_cooperated >= 3
+Select actor_id, director_id From ActorDirector Group by actor_id, director_id Having count(*) >= 3
+Select actor_id, director_id From ActorDirector group by 1,2 Having count(actor_id)>=3
+Select actor_id, director_id from ActorDirector group by actor_id, director_id having count(actor_id)>=3
+Select actor_id, director_id from ActorDirector group by actor_id, director_id having count(director_id)>=3
+Select actor_id, director_id from ActorDirector group by actor_id, director_id having count(timestamp)>2
+Select actor_id, director_id from actordirector group by actor_id, director_id having count(*)>=3
+Select actor_id,director_id from ActorDirector group by actor_id , director_id having count(timestamp)>2
+Select actor_id,director_id from ActorDirector group by actor_id,director_id having count(distinct timestamp) >= 3
+Select actor_id,director_id from ActorDirector group by actor_id,director_id having count(timestamp) >=3
+WITH temp AS ( SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(timestamp) >= 3 ) SELECT * FROM temp
+select a.actor_id, a.director_id from ActorDirector a group by 1,2 having count(*)>=3
+select a.actor_id, a.director_id from ActorDirector a group by a.actor_id, a.director_id having count(a.timestamp) >= 3
+select a.actor_id, a.director_id from( select actor_id, director_id, count(timestamp) as cnt from ActorDirector a group by actor_id,director_id) a where a.cnt >= 3
+select a1.actor_id, a1.director_id from actordirector a1 group by a1.actor_id, a1.director_id having count(a1.timestamp) >= 3
+select actor_id , director_id from ActorDirector group by actor_id , director_id having (count((timestamp))) >=3
+select actor_id , director_id from ActorDirector group by actor_id , director_id having count(*) >=3
+select actor_id ACTOR_ID, director_id as DIRECTOR_ID from ActorDirector group by actor_id,director_id having count(*) >=3
+select actor_id as 'ACTOR_ID', director_id as 'DIRECTOR_ID' from ActorDirector group by actor_id, director_id having count(1) > 2
+select actor_id as ACTOR_ID ,director_id as DIRECTOR_ID from ActorDirector group by actor_id,director_id having count(director_id) >= 3
+select actor_id as ACTOR_ID, director_id as DIRECTOR_ID from ActorDirector group by actor_id, director_id having count(concat(actor_id, director_id)) >= 3
+select actor_id, director_id FROM ActorDirector GROUP BY 1,2 HAVING COUNT(concat(actor_id,director_id)) >=3
+select actor_id, director_id From ActorDirector Group by actor_id, director_id Having count(*) >=3
+select actor_id, director_id frOm ActorDirector group by actor_id,director_id having count(distinct timestamp) >= 3
+select actor_id, director_id from ( select actor_id, director_id , concat(actor_id, '-', director_id) as pair, count(*) as ct from actorDirector group by pair ) p where ct >= 3
+select actor_id, director_id from ( select actor_id, director_id, count(*) as num_coop from ActorDirector group by actor_id, director_id ) anr_counter where num_coop>=3
+select actor_id, director_id from (select actor_id, director_id, concat(actor_id, '-', director_id) as pair, count(*) as cnt from ActorDirector group by pair having cnt >= 3) as t
+select actor_id, director_id from (select actor_id, director_id, count(*) as counts from ActorDirector group by actor_id,director_id) t1 where counts >= 3
+select actor_id, director_id from (select actor_id, director_id, count(*) as total_count from ActorDirector group by 1,2) a where total_count >= 3
+select actor_id, director_id from (select actor_id, director_id, count(timestamp) as times from ActorDirector group by actor_id, director_id) as timestable where times >= 3
+select actor_id, director_id from ActorDirector a group by 1,2 having count(a.timestamp) >= 3
+select actor_id, director_id from ActorDirector group by 1, 2 having count(timestamp) >= 3
+select actor_id, director_id from ActorDirector group by 1,2 having count(*) >= 3
+select actor_id, director_id from ActorDirector group by 1,2 having count(*) >=3
+select actor_id, director_id from ActorDirector group by 1,2 having count(*)>=3
+select actor_id, director_id from ActorDirector group by 1,2 having count(distinct `timestamp`) >= 3
+select actor_id, director_id from ActorDirector group by 1,2 having count(timestamp) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having (count(*) >= 3)
+select actor_id, director_id from ActorDirector group by actor_id, director_id having COUNT(*) >=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(*) > 2
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(*) >2
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(*) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(*) >=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(*)>2
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(*)>=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(1) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(1) >=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(DISTINCT timestamp)>2
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(actor_id = director_id) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(actor_id) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(actor_id) >=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(actor_id)>=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(concat(actor_id, director_id)) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(director_id)>=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(distinct timestamp) >=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(distinct(timestamp)) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(timestamp) > 2
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(timestamp) >= 3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(timestamp) >=3
+select actor_id, director_id from ActorDirector group by actor_id, director_id having count(timestamp)>2
+select actor_id, director_id from ActorDirector group by director_id, actor_id having count(*) >= 3
+select actor_id, director_id from actordirector group by 1,2 having count(*) >= 3
+select actor_id, director_id from actordirector group by 1,2 having count(*)>=3
+select actor_id, director_id from actordirector group by 1,2 having count(timestamp) >=3
+select actor_id, director_id from actordirector group by 1,2 having count(timestamp)>2
+select actor_id, director_id from actordirector group by 1,2 having count(timestamp)>=3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(*) >= 3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(*)>2
+select actor_id, director_id from actordirector group by actor_id, director_id having count(*)>=3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(1)>=3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(concat(actor_id, director_id)) >= 3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(concat(actor_id,director_id))>=3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(director_id)>=3
+select actor_id, director_id from actordirector group by actor_id, director_id having count(timestamp) >= 3
+select actor_id, director_id from actordirector group by actor_id,director_id having count(*) > 2
+select actor_id, director_id from actordirector group by actor_id,director_id having count(*)>=3
+select actor_id, director_id from actordirector group by actor_id,director_id having count(actor_id)>=3
+select actor_id, director_id from actordirector group by actor_id,director_id having count(distinct timestamp) >=3
+select actor_id, director_id from( select *, count(distinct timestamp) as num from actordirector group by actor_id, director_id having num>=3) as result
+select actor_id, director_id from( select actor_id, director_id , count(*) cnt from ActorDirector group by actor_id, director_id having cnt >=3)T
+select actor_id,director_id from ActorDirector group by 1,2 having count(*)>=3
+select actor_id,director_id from ActorDirector group by 1,2 having count(timestamp)>=3
+select actor_id,director_id from ActorDirector group by actor_id, director_id having count(*)>=3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count('timestamp') >= 3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(*) >= 3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(*) >=3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(*)>=3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(1) >=3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(1)>2
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(actor_id)>=3
+select actor_id,director_id from ActorDirector group by actor_id,director_id having count(distinct timestamp)>=3
+select actor_id,director_id from actordirector as a group by actor_id,director_id having count(*)>=3
+select actor_id,director_id from actordirector group by 1,2 having count(*)>=3
+select actor_id,director_id from actordirector group by actor_id,director_id having count(*)>=3
+select actor_id,director_id from actordirector group by actor_id,director_id having count(actor_id) >2
+select distinct a.actor_id, a.director_id from ( select actor_id, director_id, count(distinct timestamp) as co_times from ActorDirector group by actor_id, director_id ) a where co_times>=3
+select distinct actor_id, director_id from ( select actor_id, director_id, count(*) over(partition by actor_id, director_id) ct from ActorDirector) a where ct>=3
+select distinct actor_id, director_id from ( select actor_id, director_id, count(actor_id) over(partition by actor_id, director_id order by actor_id, director_id) as cnt from actordirector ) as a where cnt >= 3
+select distinct actor_id, director_id from ActorDirector group by 1,2 having count(timestamp) >= 3
+select distinct actor_id, director_id from ActorDirector group by actor_id, director_id having count(timestamp) >= 3
+select distinct x.actor_id, x.director_id from ActorDirector as x inner join (select actor_id, director_id, count(timestamp) as freq from ActorDirector group by actor_id, director_id) as y on x.actor_id = y.actor_id and x.director_id = y.director_id and y.freq >= 3
+with cnt as ( select actor_id, director_id, count(*) as coop from ActorDirector group by actor_id, director_id ) select actor_id, director_id from cnt where coop >= 3
+with count_table as ( select actor_id , director_id, count(timestamp) as num_cooperated from ActorDirector group by actor_id, director_id having count(timestamp) >= 3 ) select actor_id , director_id from count_table
+with cte as (select actor_id, director_id , count(actor_id) over(partition by actor_id, director_id order by actor_id, director_id) as cnt from ActorDirector) select distinct actor_id, director_id from cte where cnt >= 3

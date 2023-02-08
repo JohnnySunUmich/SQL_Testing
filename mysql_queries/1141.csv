@@ -1,0 +1,240 @@
+SELECT A.activity_date AS day, COUNT(DISTINCT A.user_id) AS active_users FROM Activity A WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY day
+SELECT Activity.activity_date AS 'day', COUNT(DISTINCT Activity.user_id) AS 'active_users' FROM Activity WHERE datediff('2019-07-27', Activity.activity_date) < 30 GROUP BY Activity.activity_date
+SELECT DISTINCT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM ACTIVITY WHERE activity_date > DATE_SUB("2019-07-27", INTERVAL 30 DAY) GROUP BY activity_date
+SELECT DISTINCT activity_date as day, count(distinct user_id) as active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date 'day', COUNT(DISTINCT user_id) 'active_users' FROM activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY activity_date ORDER BY day
+SELECT activity_date 'day', COUNT(DISTINCT user_id) 'active_users' FROM activity WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY activity_date ORDER BY day
+SELECT activity_date AS "day", COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF("2019-07-27", activity_date) < 30 GROUP BY activity_date
+SELECT activity_date AS 'day', COUNT(DISTINCT user_id) AS 'active_users' FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date AS 'day', COUNT(DISTINCT user_id) AS 'active_users' FROM Activity WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY activity_date ORDER BY activity_date ASC
+SELECT activity_date AS day ,COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27',activity_date)<30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id ) AS active_users FROM Activity WHERE activity_date BETWEEN ("2019-07-27" - INTERVAL 29 DAY) AND "2019-07-27" GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM ( SELECT DISTINCT activity_date, user_id FROM Activity WHERE activity_date > DATE_SUB("2019-07-27", INTERVAL 30 DAY) GROUP BY activity_date, user_id HAVING COUNT(DISTINCT activity_type) >= 1 ) AS tmp GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity GROUP BY activity_date HAVING activity_date <= '2019-07-27' AND activity_date > '2019-06-27'
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity GROUP BY activity_date HAVING activity_date BETWEEN '2019-6-28' and '2019-07-27'
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity GROUP BY activity_date HAVING activity_date BETWEEN date_sub('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity GROUP BY activity_date HAVING activity_date between date_sub('2019-07-27', INTERVAL 29 DAY) and '2019-07-27'
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 AND DATEDIFF('2019-07-27', activity_date) >= 0 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date HAVING COUNT(activity_type) >= 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY day
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) <30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date)<=29 GROUP BY activity_date HAVING COUNT(activity_type)>=1 ORDER BY day
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date)>=0 AND DATEDIFF(activity_date, DATE_SUB('2019-07-27', INTERVAL 30 DAY))>0 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27',activity_date) < 30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27',activity_date)<30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27',activity_date)<30 GROUP BY activity_date ORDER BY activity_date ASC, COUNT(DISTINCT user_id)
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-28',activity_date)<=30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date <= '2019-07-27' AND activity_date > '2019-06-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date > DATE_ADD('2019-07-27', INTERVAL -30 DAY) GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN "2019-06-28" AND "2019-07-27" GROUP BY activity_date HAVING active_users > 0
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY activity_date ORDER BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY day HAVING COUNT(DISTINCT user_id) > 0
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY day ORDER BY day
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28'AND'2019-07-27' GROUP BY day ORDER BY day
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-07-27' - INTERVAL 29 DAY AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-07-28' - INTERVAL 30 DAY AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN DATE_ADD('2019-07-27', INTERVAL -29 DAY) AND '2019-07-27' GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN DATE_ADD('2019-07-27', INTERVAL -29 DAY) AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN DATE_ADD('2019-07-27', interval -29 DAY) AND '2019-07-27' GROUP BY day
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY activity_date HAVING COUNT(activity_type)>=1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN DATE_SUB(DATE("2019-07-27"), INTERVAL 29 DAY) AND DATE("2019-07-27") GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN date_add('2019-07-27', INTERVAL -29 DAY) AND '2019-07-27' GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date BETWEEN date_add('2019-07-27', interval -29 day) AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date<"2019-07-27" AND activity_date>"2019-06-27" GROUP BY activity_date HAVING COUNT(session_id)>=1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity a WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM activity GROUP BY activity_date HAVING activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM activity WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM activity WHERE activity_date BETWEEN SUBDATE('2019-07-27', 29) AND '2019-07-27' GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) as active_users FROM (SELECT DISTINCT * FROM Activity) a WHERE activity_date <= '2019-07-27' AND activity_date >= SUBDATE('2019-07-27', INTERVAL 29 DAY) GROUP BY 1 HAVING COUNT(DISTINCT user_id) >= 1
+SELECT activity_date AS day, COUNT(DISTINCT user_id) as active_users FROM Activity WHERE (DATEDIFF("2019-07-27", activity_date) <=29) AND (DATEDIFF("2019-07-27", activity_date) >=0) GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT(user_id )) AS active_users FROM Activity WHERE activity_date >= '2019-06-28' AND activity_date <= '2019-07-27' GROUP BY 1
+SELECT activity_date AS day, COUNT(DISTINCT(user_id)) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date AS day, COUNT(DISTINCT(user_id)) AS active_users FROM Activity WHERE activity_date <='2019-07-27' AND activity_date>'2019-06-27' GROUP BY activity_date HAVING active_users>0
+SELECT activity_date AS day, COUNT(DISTINCT(user_id)) AS active_users FROM Activity WHERE activity_date BETWEEN '2019-07-27' - INTERVAL 29 DAY AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(distinct user_id) AS active_users FROM activity WHERE activity_date <= '2019-07-27' AND activity_date > '2019-06-27' GROUP BY activity_date
+SELECT activity_date AS day, COUNT(user_id) AS active_users FROM (SELECT user_id,activity_date FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY 1,2 HAVING COUNT(activity_type)>=1) t GROUP BY 1
+SELECT activity_date AS day,COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) <=29 GROUP BY activity_date
+SELECT activity_date AS day,COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27',activity_date) < 30 GROUP BY activity_date
+SELECT activity_date AS day,count(distinct user_id) AS active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) <30 Group By activity_date
+SELECT activity_date as day , COUNT(DISTINCT user_id) AS active_users FROM activity GROUP BY activity_date HAVING activity_date BETWEEN date_sub('2019-07-27', INTERVAL 29 DAY) and '2019-07-27'
+SELECT activity_date as day , COUNT(DISTINCT user_id) AS active_users FROM activity GROUP BY activity_date HAVING activity_date between date_sub('2019-07-27', INTERVAL 29 DAY) and '2019-07-27'
+SELECT activity_date as day , COUNT(DISTINCT user_id) AS active_users from ACTIVITY where DATEDIFF('2019-07-27',activity_date)<30 group by activity_date
+SELECT activity_date as day ,COUNT(DISTINCT(user_id)) as active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date as day, COUNT(DISTINCT user_id ) as active_users FROM Activity WHERE datediff('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date as day, COUNT(DISTINCT user_id) AS active_users FROM Activity WHERE activity_date <= '2019-07-27' AND activity_date >= '2019-06-28' GROUP BY activity_date
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM Activity GROUP BY activity_date HAVING DATEDIFF('2019-07-27', activity_date) < 30
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM Activity WHERE activity_date <= '2019-07-27' AND activity_date>DATE_SUB('2019-07-27', INTERVAL 30 DAY) GROUP BY 1 ORDER BY 1 ASC
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM Activity a WHERE activity_date > DATE_ADD('2019-07-27', INTERVAL -30 DAY) AND activity_type IS NOT NULL GROUP BY 1 ORDER BY activity_date
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM Activity where datediff('2019-07-27', activity_date) <30 GROUP BY 1
+SELECT activity_date as day, COUNT(DISTINCT(user_id)) as active_users FROM Activity WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27' GROUP BY activity_date HAVING COUNT(session_id) >=1
+SELECT activity_date as day, COUNT(DISTINCT(user_id)) as active_users FROM Activity WHERE activity_date Between DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY activity_date
+SELECT activity_date as day, COUNT(distinct user_id ) as active_users FROM Activity WHERE datediff('2019-07-27', activity_date)<=29 GROUP BY activity_date
+SELECT activity_date as day, COUNT(distinct user_id) as active_users FROM Activity WHERE activity_date > DATE_SUB('2019-07-27', INTERVAL 30 DAY) AND activity_date <='2019-07-27' GROUP BY activity_date HAVING COUNT(distinct user_id) > 0
+SELECT activity_date as day, count(distinct user_id) as active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date as day, count(distinct user_id) as active_users FROM Activity WHERE activity_date BETWEEN DATE_SUB("2019-07-28", INTERVAL 30 DAY) AND "2019-07-27" GROUP BY activity_date
+SELECT activity_date as day, count(distinct user_id) as active_users FROM Activity WHERE activity_date BETWEEN date_add('2019-07-27', interval -29 day) and '2019-07-27' GROUP BY activity_date
+SELECT activity_date as day, count(distinct user_id) as active_users FROM activity where datediff('2019-07-27', activity_date)< 30 group by activity_date HAVING count(session_id)>=1
+SELECT activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date_sub("2019-07-27", INTERVAL 29 DAY) and "2019-07-27" group by activity_date
+SELECT activity_date as day, count(distinct user_id) as active_users from Activity where datediff("2019-07-27", activity_date) < 30 group by activity_date
+SELECT activity_date as day, count(distinct(user_id)) As active_users FROM Activity where activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' GROUP BY activity_date
+SELECT activity_date as day,COUNT(distinct user_id) as active_users FROM Activity WHERE activity_date BETWEEN date_sub('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27'and session_id!=0 group by 1
+SELECT activity_date day, COUNT(DISTINCT user_id) active_users FROM Activity WHERE DATEDIFF('2019-07-27', activity_date) < 30 GROUP BY activity_date
+SELECT activity_date day, COUNT(DISTINCT user_id) active_users FROM activity WHERE DATEDIFF('2019-07-27', activity_date)<30 GROUP BY activity_date
+SELECT activity_date day, COUNT(DISTINCT(CASE WHEN activity_type != 'open_session' OR activity_type != 'end_session' OR activity_type != 'scroll_down' OR activity_type != 'send_message' THEN user_id ELSE 0 END)) active_users FROM activity where activity_date>date_sub('2019-07-27', interval 30 day) GROUP BY activity_date
+SELECT activity_date day, count(distinct user_id) active_users FROM Activity WHERE activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' GROUP BY 1
+SELECT activity_date day,count(distinct user_id) active_users FROM Activity where datediff('2019-07-27', activity_date) <30 group by activity_date
+SELECT t1.activity_date as day, COUNT(DISTINCT user_id) as active_users FROM (SELECT activity_date , user_id FROM Activity WHERE activity_type is not NULL AND activity_date BETWEEN DATE_SUB('2019-07-28',INTERVAL 30 DAY) AND '2019-07-28') t1 GROUP BY 1
+Select activity_date as day, count(DISTINCT user_id) as active_users from Activity where activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' group by activity_date
+Select activity_date as day, count(distinct user_id) as active_users From Activity Where activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' Group by activity_date
+Select activity_date as day, count(distinct user_id) as active_users From Activity where datediff(activity_date, '2019-07-27') > -30 Group by activity_date
+Select activity_date as day, count(distinct user_id) as active_users from activity where DATEDIFF('2019-07-27',ACTIVITY_DATE)<30 group by activity_date having count(distinct user_id)>0
+Select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between DATE_SUB('2019-07-27',INTERVAL 29 DAY) and "2019-07-27" group by activity_date
+Select activity_date as day, count(distinct(user_id)) as active_users from Activity where activity_date between "2019-06-28" and "2019-07-27" group by activity_date
+Select activity_date as day, count(distinct(user_id)) as active_users from Activity where datediff('2019-07-27', activity_date)<30 group by activity_date
+Select activity_date as day,ifnull(count(distinct user_id),0) as active_users from Activity where activity_date between SUBDATE('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' group by activity_date
+Select activity_date day, count(distinct user_id) active_users From Activity Where activity_date between '2019-06-28' and '2019-07-27' Group by activity_date
+Select day, sum(active_users) as active_users from ( select activity_date as day, user_id, count(distinct user_id) as active_users from Activity where activity_date>='2019-06-28' group by activity_date,user_id ) t group by day
+select a.activity_date day, count(distinct user_id) as active_users from Activity a where a.activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' group by a.activity_date
+select activity_Date as day, count(distinct a.user_id) as active_users from activity a where a.activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' group by activity_date
+select activity_date AS day, count(distinct user_id) as active_users from Activity group by activity_date having activity_date between date_sub(date("2019-07-27"),INTERVAL 29 DAY) AND date("2019-07-27")
+select activity_date AS day, count(distinct user_id) as active_users from Activity where activity_date between date_sub(date("2019-07-27"),INTERVAL 29 DAY) AND date("2019-07-27") group by activity_date
+select activity_date as "day", count(distinct user_id) as "active_users" from Activity where datediff('2019-07-27', activity_date) < 30 group by activity_date
+select activity_date as "day", count(distinct(user_id)) as active_users from activity where activity_date > date_sub("2019-07-27", interval 30 day) group by activity_date
+select activity_date as 'day', count(distinct user_id) as 'active_users' from Activity group by activity_date having datediff('2019-07-27', activity_date) < 30
+select activity_date as 'day', count(user_id) as 'active_users' from ( select distinct user_id, activity_date from activity where datediff('2019-07-27',activity_date) < 30) as A group by activity_date order by day
+select activity_date as day , count( distinct user_id) as active_users from Activity group by activity_date having activity_date between '2019-06-28' and '2019-07-27'
+select activity_date as day , count(distinct user_id) as active_users FROM Activity Where activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day , count(distinct user_id) as active_users from Activity where activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' group by day having active_users <> 0
+select activity_date as day , count(distinct user_id) as active_users from Activity where activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' group by 1 having active_users <> 0
+select activity_date as day , count(distinct user_id) as active_users from activity group by activity_date having activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27'
+select activity_date as day , count(distinct user_id)as active_users from activity where activity_date between DATE_SUB('2019-07-27', INTERVAL 30 DAY)+1 and '2019-07-27' group by 1
+select activity_date as day ,count( distinct user_id) as active_users from Activity group by activity_date having activity_date >'2019-06-27'
+select activity_date as day ,count(distinct user_id) as active_users from Activity group by activity_date having activity_date between subdate("2019-07-27" ,interval 29 day) and "2019-07-27"
+select activity_date as day ,count(distinct user_id) as active_users from activity where activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id ) as active_users from Activity where datediff('2019-07-27',activity_date ) < 30 group by activity_date
+select activity_date as day, count(distinct user_id )as active_users from Activity where date(activity_date) > date_sub('2019-07-27',interval 30 day) group by activity_date
+select activity_date as day, count(distinct user_id) active_users from Activity where datediff('2019-07-27', activity_date) < 30 group by 1 having count(distinct user_id) >=1 order by 1
+select activity_date as day, count(distinct user_id) as active_users from Activity group by 1 having datediff( '2019-07-27', activity_date)<=29
+select activity_date as day, count(distinct user_id) as active_users from Activity group by activity_date HAVING activity_date between CAST('2019-06-28' AS date ) and CAST('2019-07-27' as date)
+select activity_date as day, count(distinct user_id) as active_users from Activity group by activity_date having activity_date > '2019-06-27' and activity_date <= '2019-07-27'
+select activity_date as day, count(distinct user_id) as active_users from Activity group by activity_date having activity_date between '2019-06-28' and '2019-07-27' and count(activity_type)>=1
+select activity_date as day, count(distinct user_id) as active_users from Activity group by activity_date having date(activity_date) between date('2019-06-28') and date('2019-07-27')
+select activity_date as day, count(distinct user_id) as active_users from Activity group by activity_date having datediff('2019-07-27', activity_date) between 0 and 29
+select activity_date as day, count(distinct user_id) as active_users from Activity group by day having day between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27'
+select activity_date as day, count(distinct user_id) as active_users from Activity where DATEDIFF('2019-07-27', activity_date) < 30 group by day
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date <= '2019-07-27' and activity_date > '2019-06-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date <= '2019-07-27' and activity_date >=' 2019-06-28' group by day
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date >= date_sub('2019-07-27',interval 29 day) and activity_date <= '2019-07-27' group by 1 order by 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between "2019-06-28" and "2019-07-27" group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28' and '2019-07-27' and activity_type in ('open_session', 'end_session', 'scroll_down', 'send_message') group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28' and '2019-07-27' and activity_type is not null group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date having count(activity_type)>=1
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date having count(distinct user_id) >= 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date having count(distinct user_id, activity_type) >= 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between '2019-06-28'and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between adddate('2019-07-27', interval -29 day) and '2019-07-27' group by activity_date order by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date('2019-07-27' -interval 29 day) and '2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date_add('2019-07-27', INTERVAL -29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date_sub('2019-07-27', INTERVAL 29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' group by activity_date having active_users <>0
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' group by 1 having active_users <>0
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between subdate("2019-07-27", interval 29 day ) and "2019-07-27" group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date between subdate('2019-07-27', 29) and '2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where activity_date<=date('2019-07-27') and activity_date>date('2019-06-27') group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date) < 30 group by 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date) < 30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date) < 30 group by activity_date having count(distinct user_id, activity_type) >= 1
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date) < 30 group by day
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date) <30 and activity_date <= '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date) <30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27', activity_date)<30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27',activity_date) < 30 and datediff('2019-07-27',activity_date) >= 0 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27',activity_date) < 30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27',activity_date) < 30 group by day having active_users > 0
+select activity_date as day, count(distinct user_id) as active_users from Activity where datediff('2019-07-27',activity_date) < 30 group by day order by day
+select activity_date as day, count(distinct user_id) as active_users from Activity where timestampdiff(day, activity_date, '2019-07-27') <30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity group by activity_date having activity_date <='2019-07-27' and activity_date > '2019-06-27'
+select activity_date as day, count(distinct user_id) as active_users from activity group by activity_date having activity_date >= '2019-07-27' - interval 29 day and activity_date <= '2019-07-27'
+select activity_date as day, count(distinct user_id) as active_users from activity group by activity_date having datediff('2019-07-27',activity_date)<30
+select activity_date as day, count(distinct user_id) as active_users from activity where '2019-06-27' < activity_date and activity_date <= '2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date <= '2019-07-27' and activity_date >= '2019-06-28' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date <= '2019-07-27' and activity_date>'2019-06-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date > '2019-06-27' and activity_date <= '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date > '2019-06-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date > date_add('2019-07-27', interval -30 day) group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between "2019-06-28" and "2019-07-27" group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' and activity_type is not null group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date order by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between DATE_ADD('2019-07-27', INTERVAL -29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between DATE_SUB(cast('2019-07-27' as date), INTERVAL 29 DAY) and cast('2019-07-27' as date) group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_add('2019-07-27', INTERVAL -29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_add('2019-07-27', interval - 29 day) and '2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_add('2019-07-27', interval -29 day) and '2019-07-27' group by activity_date order by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_sub("2019-07-27", interval 29 day) and "2019-07-27" group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' group by 1 having active_users != 0
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_sub('2019-07-27', interval 29 day) and '2019-07-27' group by activity_date having active_users > 0
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between date_sub('2019-07-27',INTERVAL 29 DAY) and '2019-07-27' group by activity_date having sum(activity_type) <>0
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between subdate("2019-07-27", INTERVAL 29 DAY) and "2019-07-27" group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date>date_add('2019-07-27', interval -30 day) and activity_date<='2019-07-27' group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date>date_sub('2019-07-27', interval 30 day) and (activity_type='open_session' or activity_type='end_session' or activity_type='scroll_down' or activity_type='send_message') group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where activity_date>date_sub('2019-07-27', interval 30 day) group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff("2019-07-27", activity_date) < 30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff("2019-07-27", activity_date)<30 group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27', activity_date) < 30 group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27', activity_date) < 30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27', activity_date) < 30 group by activity_date having count(distinct user_id) >= 1
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27', activity_date) < 30 group by day
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27', activity_date) <30 group by activity_date
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27',activity_Date) < 30 group by 1
+select activity_date as day, count(distinct user_id) as active_users from activity where datediff('2019-07-27',activity_date) < 30 group by activity_date
+select activity_date as day, count(distinct(user_id)) as 'active_users' from activity where activity_date between date_add('2019-07-27', INTERVAL -29 DAY) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from Activity group by activity_date having (activity_date <= '2019-07-27' and activity_date > '2019-06-27')
+select activity_date as day, count(distinct(user_id)) as active_users from Activity group by activity_date having datediff('2019-07-27',activity_date) < 30
+select activity_date as day, count(distinct(user_id)) as active_users from Activity group by activity_date having datediff('2019-07-27',activity_date) <= 29
+select activity_date as day, count(distinct(user_id)) as active_users from Activity where activity_date between DATE_SUB('2019-07-27', INTERVAL 30-1 day) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from Activity where datediff('2019-07-27', activity_date) <30 group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from Activity where datediff('2019-07-27',activity_date) < 30 group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from Activity where datediff('2019-07-27',activity_date) <30 group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from activity where activity_date between date_sub('2019-07-27', Interval 29 Day) and '2019-07-27' group by activity_date
+select activity_date as day, count(distinct(user_id)) as active_users from activity where datediff('2019-07-27', activity_date) < 30 group by activity_date
+select activity_date as day, ifnull(count(distinct user_id),0) as active_users from Activity where datediff('2019-07-27',activity_date) <30 group by day having active_users > 0
+select activity_date as day,(count(distinct user_id)) as active_users from Activity where activity_Date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' group by activity_date
+select activity_date as day,count(distinct (user_id)) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by day order by day asc
+select activity_date as day,count(distinct user_id) active_users from activity where datediff('2019-07-27',activity_date) <30 group by 1
+select activity_date as day,count(distinct user_id) as active_users from Activity where activity_date between DATE_ADD("2019-07-27",INTERVAL -29 DAY) and "2019-07-27" group by activity_date
+select activity_date as day,count(distinct user_id) as active_users from Activity where activity_date between subdate('2019-07-27',interval 29 day) and '2019-07-27' group by activity_date
+select activity_date as day,count(distinct user_id) as active_users from Activity where activity_date>='2019-06-28' group by activity_date
+select activity_date as day,count(distinct user_id) as active_users from activity where activity_date between "2019-06-28" and "2019-07-27" group by day order by day
+select activity_date as day,count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' and activity_type is not null group by activity_date having count(distinct user_id) > 0
+select activity_date day , count(distinct user_id) active_users from activity where activity_date <= '2019-07-27' and activity_date > '2019-06-27' group by activity_date
+select activity_date day, count(DISTINCT user_id) active_users from Activity a group by activity_date having activity_date between Date_sub('2019-07-27', interval 29 DAY) and '2019-07-27'
+select activity_date day, count(distinct user_id) active_users from Activity group by 1 having activity_date > date_add('2019-07-27', interval -30 day)
+select activity_date day, count(distinct user_id) active_users from Activity group by activity_date having datediff('2019-07-27', activity_date) < 30
+select activity_date day, count(distinct user_id) active_users from Activity where activity_date < '2019-07-27' and activity_date > '2019-06-27' group by activity_date
+select activity_date day, count(distinct user_id) active_users from Activity where activity_date > date_add('2019-07-27', interval -30 day) group by 1
+select activity_date day, count(distinct user_id) active_users from Activity where activity_date between cast('2019-06-28' as date) and cast('2019-07-27' as date) group by day
+select activity_date day, count(distinct user_id) active_users from activity where activity_date <= '2019-07-27' and activity_date > adddate('2019-07-27',-30) group by activity_date
+select activity_date day, count(distinct user_id) active_users from activity where activity_date >= date_add("2019-07-28", INTERVAL -30 DAY) group by day having active_users>0
+select activity_date day, count(distinct user_id) active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date
+select day,sum(active_users) as active_users from ( select activity_date as day,user_id,count(distinct user_id) as active_users from Activity where activity_date>='2019-06-28' group by activity_date,user_id) as otr group by day
+select distinct activity_date as day, count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by activity_date
+select distinct activity_date as day, count(distinct user_id) as active_users from activity where activity_date between"2019-06-28" and "2019-07-27" group by activity_date
+select distinct activity_date day, count(distinct user_id) active_users from Activity where activity_date <= '2019-07-27' and activity_date > date_sub('2019-07-27', interval 30 day) group by activity_date
+select refined_activity.day, count(*) as 'active_users' from ( select activity_date as 'day', count(*) from activity group by activity_date, user_id having activity_date >= '2019-06-28' ) as refined_activity group by refined_activity.day
+with count_a as ( select activity_date as day, count(distinct user_id) as active_users from activity where activity_date between '2019-06-28' and '2019-07-27' group by day) select day, active_users from count_a order by day ASC
+with cte as ( select activity_date, user_id, count(session_id) as active from activity group by activity_date, user_id) select activity_date as day, count(user_id) as active_users from cte where activity_date < '2019-07-28' and activity_date > '2019-06-27' group by activity_date
+with t as ( SELECT activity_date, user_id, COUNT(user_id) As 'user_num' FROM Activity WHERE activity_date BETWEEN DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND '2019-07-27' GROUP BY activity_date, user_id ) SELECT activity_date As 'day', COUNT(user_id) As 'active_users' FROM t WHERE user_num >= 1 GROUP BY activity_date ORDER BY activity_date
+with temp as (select * , count(activity_type) over(partition by activity_date, user_id) as session_count from activity) select distinct(activity_date) as day , count(distinct user_id) as active_users from temp where activity_date > DATE_SUB("2019-07-27", INTERVAL 30 DAY) and activity_date <= date('2019-07-27') group by activity_date

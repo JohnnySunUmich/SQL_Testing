@@ -1,0 +1,409 @@
+SELECT B.session_id FROM (SELECT A.session_id, MAX(A.label) AS max_label FROM (SELECT p.session_id, CASE WHEN a.timestamp < p.start_time OR a.timestamp > p.end_time OR a.timestamp IS NULL THEN 0 ELSE 1 END AS label FROM Playback AS p LEFT JOIN Ads AS a ON p.customer_id = a.customer_id) AS A GROUP BY A.session_id) AS B WHERE B.max_label = 0
+SELECT DISTINCT P.session_id FROM Playback P LEFT JOIN Ads A on P.customer_id = A.customer_id GROUP BY P.session_id HAVING SUM(CASE WHEN A.timestamp Between P.start_time and P.end_time THEN 1 ELSE 0 END) = 0
+SELECT DISTINCT p.session_id FROM Playback p LEFT JOIN Ads a ON (p.customer_id = a.customer_id AND (a.timestamp BETWEEN p.start_time AND p.end_time)) WHERE a.timestamp IS NULL
+SELECT DISTINCT p.session_id FROM Playback p LEFT JOIN Ads a ON (p.customer_id = a.customer_id AND a.timestamp >= p.start_time AND a.timestamp <= p.end_time) WHERE a.timestamp IS NULL
+SELECT DISTINCT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time and p.end_time WHERE a.ad_id IS NULL
+SELECT DISTINCT p.session_id FROM Playback p WHERE p.session_id NOT IN (SELECT p1.session_id FROM Playback p1 JOIN Ads a1 ON a1.customer_id = p1.customer_id WHERE a1.timestamp BETWEEN p1.start_time AND p1.end_time)
+SELECT DISTINCT session_id FROM Playback WHERE NOT session_id IN (SELECT DISTINCT p.session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN ( SELECT DISTINCT p.session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time )
+SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN ( SELECT DISTINCT session_id FROM Playback p INNER JOIN Ads a ON p.customer_id = a.customer_id AND timestamp BETWEEN start_time AND end_time)
+SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN ( SELECT DISTINCT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN ( SELECT session_id FROM Playback p INNER JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time and p.end_time )
+SELECT DISTINCT session_id FROM Playback WHERE session_id not in ( SELECT session_id From Playback LEFT JOIN Ads on Playback.customer_id = Ads.customer_id Where Ads.timestamp between Playback.start_time and Playback.end_time )
+SELECT DISTINCT session_id FROM Playback p LEFT JOIN Ads a ON a.customer_id = p.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE A.customer_id IS NULL
+SELECT DISTINCT session_id FROM Playback p WHERE p.customer_id NOT IN ( SELECT a.customer_id FROM Ads a WHERE a.timestamp<=p.end_time AND a.timestamp>= p.start_time )
+SELECT DISTINCT session_id FROM playback AS p LEFT JOIN Ads AS a ON p.customer_id=a.customer_id and (a.timestamp BETWEEN p.start_time and p.end_time) where a.customer_id is NULL
+SELECT DISTINCT session_id FROM playback LEFT JOIN ads ON playback.customer_id = ads.customer_id AND ads.timestamp BETWEEN playback.start_time AND playback.end_time WHERE ads.customer_id IS NULL
+SELECT DISTINCT session_id FROM playback WHERE session_id NOT IN ( SELECT session_id FROM playback p LEFT JOIN ads a ON p.customer_id=a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT DISTINCT session_id FROM playback p LEFT JOIN ads a ON (p.customer_id = a.customer_id) AND (timestamp BETWEEN start_time AND end_time) WHERE a.customer_id IS NULL
+SELECT SESSION_ID FROM PLAYBACK LEFT JOIN ADS ON ADS.CUSTOMER_ID = PLAYBACK.CUSTOMER_ID AND TIMESTAMP BETWEEN START_TIME AND END_TIME WHERE AD_ID IS NULL
+SELECT SESSION_ID FROM PLAYBACK WHERE SESSION_ID NOT IN (SELECT SESSION_ID FROM PLAYBACK P INNER JOIN ADS A ON A.CUSTOMER_ID = P.CUSTOMER_ID WHERE TIMESTAMP BETWEEN START_TIME AND END_TIME)
+SELECT SESSION_ID FROM PLAYBACK WHERE SESSION_ID NOT IN (SELECT SESSION_ID FROM PLAYBACK P INNER JOIN ADS A ON P.CUSTOMER_ID=A.CUSTOMER_ID WHERE TIMESTAMP BETWEEN START_TIME AND END_TIME)
+SELECT Session_id from playback WHERE Session_id NOT IN (SELECT Session_id FROM Playback AS p INNER JOIN Ads as a ON p.customer_id= a.customer_id AND timestamp Between start_time AND end_time)
+SELECT a.SESSION_ID FROM PLAYBACK A LEFT JOIN ads b on a.customer_id =b.customer_id and timestamp between start_time and end_time where b.customer_id is null
+SELECT a.session_id FROM Playback a LEFT JOIN Ads b ON a.customer_id = b.customer_id AND b.timestamp BETWEEN a.start_time AND a.end_time WHERE b.ad_id IS NULL
+SELECT distinct p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id=a.customer_id AND a.timestamp BETWEEN p.start_time and p.end_time WHERE a.ad_id IS NULL
+SELECT distinct(session_id) FROM playback a LEFT JOIN ads b ON a.customer_id = b.customer_id AND b.timestamp between a.start_time and a.end_time WHERE b.ad_id IS NULL
+SELECT p.session_id FROM Playback AS p LEFT JOIN Ads AS a ON p.customer_id = a.customer_id AND (a.timestamp BETWEEN p.start_time AND p.end_time) WHERE a.ad_id IS NULL
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON (a.timestamp BETWEEN p.start_time AND p.end_time) AND (p.customer_id = a.customer_id) WHERE a.ad_id IS NULL
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE a.ad_id IS NULL
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN start_time and end_time WHERE a.customer_id IS NULL
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND start_time <= timestamp and timestamp <= end_time WHERE ad_id is null
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id and a.timestamp >= p.start_time and a.timestamp <= p.end_time WHERE a.timestamp IS NULL
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id=a.customer_id AND a.timestamp >= p.start_time AND a.timestamp <= p.end_time WHERE a.timestamp IS NULL
+SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id=a.customer_id AND a.timestamp>=p.start_time AND a.timestamp<=p.end_time WHERE a.timestamp IS NULL
+SELECT p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+SELECT p1.session_id from playback p1 where p1.session_id not in (SELECT distinct p.session_id FROM playback p, ads a where a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time)
+SELECT p2.session_id FROM Playback p2 WHERE p2.session_id NOT IN (SELECT DISTINCT p1.session_id FROM Playback p1 JOIN Ads a ON p1.customer_id = a.customer_id WHERE a.timestamp BETWEEN p1.start_time AND p1.end_time)
+SELECT pb.session_id FROM Playback AS pb LEFT JOIN Ads AS ads ON pb.customer_id = ads.customer_id AND pb.start_time <= ads.timestamp AND pb.end_time >= ads.timestamp WHERE ads.ad_id IS NULL ORDER BY pb.session_id
+SELECT pb.session_id FROM playback pb LEFT JOIN ads ad ON pb.customer_id = ad.customer_id AND ad.timestamp BETWEEN start_time and end_time WHERE ad.customer_id IS NULL
+SELECT session_id FROM (Playback AS p LEFT JOIN Ads AS a ON p.customer_id = a.customer_id AND (timestamp BETWEEN start_time AND end_time)) WHERE timestamp IS NULL
+SELECT session_id FROM Playback AS T2 WHERE T2.session_id NOT IN ( SELECT DISTINCT(session_id) FROM Playback AS P LEFT JOIN Ads AS A ON P.customer_id = A.customer_id WHERE A.timestamp BETWEEN P.start_time AND P.end_time)
+SELECT session_id FROM Playback AS T2 WHERE T2.session_id NOT IN (SELECT T.session_id FROM ( SELECT DISTINCT(session_id) session_id FROM Playback AS P LEFT JOIN Ads AS A ON P.customer_id = A.customer_id WHERE A.timestamp BETWEEN P.start_time AND P.end_time) AS T)
+SELECT session_id FROM Playback AS p LEFT JOIN Ads AS a ON p.customer_id = a.customer_id AND (timestamp BETWEEN start_time AND end_time) WHERE timestamp IS NULL
+SELECT session_id FROM Playback AS p LEFT JOIN Ads AS a ON p.customer_id = a.customer_id AND timestamp BETWEEN start_time AND end_time WHERE timestamp IS NULL
+SELECT session_id FROM Playback LEFT JOIN Ads ON Ads.timestamp BETWEEN Playback.start_time AND Playback.end_time AND Playback.customer_id = Ads.customer_id WHERE ad_id IS NULL
+SELECT session_id FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id AND Ads.timestamp BETWEEN Playback.start_time AND Playback.end_time where ad_id is null
+SELECT session_id FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id AND timestamp >= start_time AND timestamp <= end_time GROUP BY session_id HAVING COUNT(timestamp) = 0
+SELECT session_id FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id AND timestamp BETWEEN start_time AND end_time WHERE Ads.customer_id IS NULL
+SELECT session_id FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id AND timestamp between start_time AND end_time WHERE ad_id IS NULL
+SELECT session_id FROM Playback LEFT JOIN Ads ON playback.customer_id = ads.customer_id AND ads.timestamp BETWEEN playback.start_time AND playback.end_time WHERE ad_id IS NULL
+SELECT session_id FROM Playback LEFT JOIN Ads ON playback.customer_id = ads.customer_id AND timestamp BETWEEN start_time AND end_time WHERE ad_id IS NULL
+SELECT session_id FROM Playback P LEFT JOIN Ads A ON (P.customer_id = A.customer_id) AND (timestamp BETWEEN start_time AND end_time) WHERE timestamp IS NULL
+SELECT session_id FROM Playback P LEFT JOIN Ads A ON P.customer_id = A.customer_id AND timestamp BETWEEN start_time AND end_time GROUP BY session_id HAVING COUNT(ad_id) = 0
+SELECT session_id FROM Playback P WHERE session_id NOT IN (SELECT P.session_id FROM Playback P JOIN Ads A ON P.customer_id = A.customer_id AND A.timestamp BETWEEN P.start_time AND P.end_time)
+SELECT session_id FROM Playback WHERE NOT EXISTS( SELECT 1 FROM Ads WHERE 1=1 AND Ads.customer_id = Playback.customer_id AND Ads.timestamp BETWEEN Playback.start_time AND Playback.end_time )
+SELECT session_id FROM Playback WHERE NOT EXISTS( SELECT ad_id FROM Ads WHERE Ads.timestamp >= Playback.start_time AND Ads.timestamp <= Playback.end_time AND Ads.customer_id = Playback.customer_id)
+SELECT session_id FROM Playback WHERE Playback.session_id NOT IN ( SELECT DISTINCT(session_id) FROM Playback LEFT JOIN Ads ON Playback.customer_id=Ads.customer_id WHERE Ads.timestamp>=Playback.start_time AND Ads.timestamp<=end_time)
+SELECT session_id FROM Playback WHERE session_Id NOT IN ( SELECT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time )
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT DISTINCT Playback.session_id FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id WHERE Ads.timestamp BETWEEN Playback.start_time AND Playback.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT DISTINCT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp >= p.start_time AND a.timestamp <= p.end_time )
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT p.session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time )
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT p.session_id FROM playback as p JOIN ads as a ON p.customer_id=a.customer_id WHERE a.timestamp BETWEEN p.start_time and p.end_time )
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT session_id FROM Ads INNER JOIN Playback ON Ads.timestamp BETWEEN Playback.start_time AND Playback.end_time AND Playback.customer_id = Ads.customer_id )
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT session_id FROM Playback a JOIN Ads b ON a.customer_id = b.customer_id WHERE b.timestamp BETWEEN a.start_time and a.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT session_id FROM Playback a LEFT JOIN Ads b ON a.customer_id = b.customer_id WHERE timestamp BETWEEN start_time AND end_time )
+SELECT session_id FROM Playback WHERE session_id NOT IN ( SELECT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT DISTINCT P.session_id FROM Playback P LEFT JOIN Ads A ON P.customer_id = A.customer_id WHERE A.timestamp BETWEEN P.start_time AND P.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT DISTINCT p.session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp >= p.start_time AND a.timestamp <= p.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT DISTINCT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT DISTINCT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT DISTINCT(session_id) FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id WHERE Ads.timestamp >= Playback.start_time AND Ads.timestamp <= Playback.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT DISTINCT(session_id) FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time and p.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT P.session_id FROM Playback P JOIN Ads A ON P.customer_id = A.customer_id AND A.timestamp BETWEEN P.start_time AND P.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT p.session_id FROM Playback as p JOIN Ads as a ON a.customer_id = p.customer_id WHERE timestamp between start_time and end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT p.session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id=a.customer_id WHERE timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Ads as a JOIN Playback as p WHERE a.customer_id = p.customer_id AND timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback AS P LEFT JOIN Ads AS a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time )
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback AS p INNER JOIN Ads AS a ON (timestamp BETWEEN start_time AND end_time) AND p.customer_id=a.customer_id)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback JOIN Ads ON Playback.customer_id = Ads.customer_id AND Ads.timestamp BETWEEN Playback.start_time AND Playback.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback JOIN Ads USING(customer_id) WHERE timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback LEFT JOIN Ads ON Playback.customer_id = Ads.customer_id WHERE timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp >= p.start_time AND a.timestamp <= p.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback p JOIN Ads a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback p LEFT JOIN Ads a USING(customer_id) WHERE a.timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback p, Ads a WHERE p.customer_id=a.customer_id AND a.timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM Playback pb JOIN Ads ad ON pb.customer_id = ad.customer_id AND timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id NOT IN( SELECT session_id FROM Playback p join Ads a on p.customer_id = a.customer_id WHERE timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM Playback WHERE session_id not in ( SELECT session_id FROM Playback a JOIN Ads b ON b.timestamp BETWEEN a.start_time AND a.end_time AND a.customer_id = b.customer_id )
+SELECT session_id FROM Playback as P LEFT JOIN Ads as A ON P.customer_id = A.customer_id AND A.timestamp BETWEEN P.start_time and P.end_time WHERE A.customer_id IS NULL
+SELECT session_id FROM Playback as p LEFT JOIN Ads as a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN start_time AND end_time WHERE a.ad_id is NULL
+SELECT session_id FROM Playback as p LEFT JOIN Ads as a ON p.customer_id = a.customer_id AND start_time <= a.timestamp AND end_time >=a.timestamp WHERE a.ad_id is NULL
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp >= p.start_time AND a.timestamp <= p.end_time WHERE a.ad_id IS NULL
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp >= p.start_time AND a.timestamp <= p.end_time WHERE a.timestamp IS NULL
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time GROUP BY session_id HAVING COUNT(ad_id) = 0
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE a.customer_id IS NULL
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE a.customer_id IS NULL AND a.timestamp IS NULL
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE ad_id IS NULL
+SELECT session_id FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id AND p.start_time <= a.timestamp AND a.timestamp <= p.end_time WHERE a.ad_id IS NULL
+SELECT session_id FROM Playback t1 LEFT JOIN Ads t2 ON t1.customer_id = t2.customer_id AND timestamp <= end_time AND timestamp >= start_time WHERE ad_id IS NULL
+SELECT session_id FROM playback AS p LEFT JOIN ads AS a ON a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time WHERE a.customer_id IS NULL
+SELECT session_id FROM playback AS t1 LEFT JOIN ads AS t2 ON t1.customer_id = t2.customer_id AND t2.timestamp BETWEEN start_time AND end_time WHERE t2.customer_id IS NULL
+SELECT session_id FROM playback LEFT JOIN ads ON ads.customer_id = playback.customer_id and ads.timestamp between playback.start_time and playback.end_time WHERE ads.ad_id is null
+SELECT session_id FROM playback WHERE session_id NOT IN ( SELECT session_id FROM Playback LEFT JOIN Ads USING(customer_id) WHERE timestamp BETWEEN start_time and end_time )
+SELECT session_id FROM playback WHERE session_id NOT IN (SELECT session_id FROM playback AS p JOIN ads AS a ON p.customer_id = a.customer_id WHERE timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM playback WHERE session_id NOT IN (SELECT session_id FROM playback JOIN ads USING(customer_id) WHERE timestamp BETWEEN start_time AND end_time)
+SELECT session_id FROM playback WHERE session_id NOT IN (SELECT session_id FROM playback p INNER JOIN ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT session_id FROM playback WHERE session_id NOT IN (SELECT session_id FROM playback p JOIN ads a ON a.timestamp BETWEEN p.start_time AND p.end_time AND p.customer_id=a.customer_id)
+SELECT session_id FROM playback WHERE session_id not in ( SELECT session_id FROM playback p join Ads a on p.customer_id=a.customer_id AND a.timestamp between p.start_time and p.end_time )
+SELECT session_id FROM playback as p LEFT JOIN Ads as a ON a. customer_id = p.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE a.ad_id IS NULL
+SELECT session_id FROM playback p LEFT JOIN ads a ON a.customer_id = p.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time WHERE a.customer_id IS NULL
+SELECT session_id FROM playback p LEFT JOIN ads a ON p.customer_id=a.customer_id AND timestamp BETWEEN start_time AND end_time WHERE a.customer_id IS NULL
+SELECT session_id FROM playback pb LEFT JOIN ads ad ON pb.customer_id = ad.customer_id AND ad.timestamp BETWEEN start_time and end_time WHERE ad.customer_id IS NULL
+SELECT session_id FROM playback pb LEFT JOIN ads ad ON pb.customer_id = ad.customer_id AND ad.timestamp BETWEEN start_time and end_time where ad.customer_id is null
+SELECT session_id FROM playback pb LEFT JOIN ads ad ON pb.customer_id = ad.customer_id AND ad.timestamp BETWEEN start_time and end_time where ad_id is null
+SELECT session_id FROM playback where session_id NOT IN (SELECT session_id FROM playback p LEFT JOIN ads a ON p.customer_id = a.customer_id WHERE timestamp BETWEEN p.start_time AND p.end_time)
+SELECT session_id FROM playback where session_id not in ( select session_id from playback p join ads a on a.customer_id = p.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time)
+SELECT session_id FROM( SELECT p.session_id, a.ad_id, CASE WHEN timestamp BETWEEN start_time AND end_time THEN 1 ELSE 0 END AS watched_ad FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id ) as ad_master_table GROUP BY session_id HAVING SUM(watched_ad) = 0
+SELECT session_id from Playback where session_id not in (select session_id from Playback p right join Ads a on p.customer_id=a.customer_id and timestamp between start_time and end_time )
+Select a.session_id From Playback as a Left Join Ads as b On a.customer_id = b.customer_id And b.timestamp between a.start_time and a.end_time Where b.ad_id is Null
+Select distinct session_id from Playback P left join Ads A on A.customer_id=P.customer_id and A.timestamp between P.start_time and P.end_time where A.customer_id is null
+Select session_ID from playback left join ads On playback.customer_iD =ads.customer_ID and ads.timestamp between start_time and end_time where ad_id is null
+Select session_id From Playback Where session_id Not in (Select session_id From Playback p join Ads a On p.customer_id = a.customer_id And timestamp between start_time And end_time)
+Select session_id From Playback Where session_id not in (Select session_id From playback inner join Ads Where playback.customer_id = Ads.customer_id And timestamp >= start_time and timestamp <= end_time)
+Select session_id from Playback left join Ads on playback.customer_id = ads.customer_id AND timestamp between start_time AND end_time where ad_id IS NULL
+Select session_id from Playback where session_id not in (Select Distinct Playback.session_id from Playback join Ads on Ads.customer_id = Playback.customer_id where Ads.timestamp >= Playback.start_time AND Ads.timestamp <= Playback.end_time)
+Select session_id from Playback where session_id not in (Select session_id from Playback p , Ads a where a.customer_id=p.customer_id and a.timestamp<= p.end_time and a.timestamp>=start_time)
+Select session_id from playback p left join ads a on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+Select session_id from playback where session_id not in (select p.session_id from playback p join Ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+Select session_id from playback where session_id not in( select p.session_id from playback p join ads a on p.customer_id = a.customer_id where a.timestamp >= p.start_time and a.timestamp <= p.end_time)
+WITH A AS ( SELECT session_id, start_time, end_time, timestamp FROM Playback JOIN Ads ON Playback.customer_id = Ads.customer_id), B AS ( SELECT DISTINCT session_id FROM A WHERE timestamp>=start_time AND timestamp<=end_time) SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN (SELECT * FROM B)
+WITH AdSessions AS (SELECT session_id FROM Playback P INNER JOIN Ads A ON A.customer_id = P.customer_id AND A.timestamp BETWEEN P.start_time AND P.end_time) SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM AdSessions)
+WITH CTE AS ( SELECT DISTINCT a.session_id AS session_id FROM playback a INNER JOIN ads b USING(customer_id) WHERE b.timestamp BETWEEN a.start_time AND a.end_time ) SELECT session_id FROM playback WHERE session_id NOT IN (SELECT session_id FROM CTE)
+WITH CTE AS ( SELECT session_id FROM Playback JOIN Ads ON Playback.customer_id = Ads.customer_id WHERE start_time <= timestamp AND end_time >= timestamp ) SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT * FROM CTE)
+WITH CTE AS ( Select session_id from Playback p join Ads a on p.customer_id = a.customer_id AND timestamp between start_time and end_time ) Select session_id from Playback where session_id not in (Select session_id from CTE)
+WITH CTE AS (SELECT session_id, p.customer_id, start_time, end_time, timestamp FROM Playback p LEFT JOIN Ads a ON a.customer_id = p.customer_id and (timestamp >= start_time and timestamp <= end_time)) SELECT session_id FROM CTE WHERE timestamp is NULL
+WITH CTE AS( SELECT DISTINCT a.session_id FROM Playback a JOIN Ads b ON a.customer_id = b.customer_id WHERE b.timestamp BETWEEN a.start_time AND a.end_time ) SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN (SELECT * FROM CTE)
+WITH TMP AS ( SELECT DISTINCT session_id FROM Playback p JOIN ads a ON p.customer_id = a.customer_id AND timestamp <= end_time AND timestamp >= start_time ) SELECT DISTINCT session_id FROM playback p LEFT JOIN ads a ON p.customer_id = a.customer_id WHERE session_id NOT IN (SELECT session_id FROM tmp)
+WITH a AS ( SELECT playback.session_id, playback.start_time, playback.end_time, ads.timestamp FROM playback LEFT JOIN ads ON playback.customer_id = ads.customer_id), b AS ( SELECT session_id, SUM(CASE WHEN timestamp<=end_time AND timestamp>=start_time THEN 1 ELSE 0 END) AS ct FROM a GROUP BY session_id) SELECT session_id FROM b WHERE ct = 0
+WITH base_data AS ( SELECT playback.*,ads.ad_id,ads.timestamp FROM playback LEFT JOIN ads ON ads.customer_id = playback.customer_id AND ads.timestamp BETWEEN playback.start_time and playback.end_time WHERE ads.ad_id IS NULL ) SELECT DISTINCT session_id FROM base_data
+WITH customers_who_saw_ads AS ( SELECT customer_id, timestamp FROM Ads ) SELECT DISTINCT p.session_id FROM Playback p LEFT JOIN customers_who_saw_ads c ON c.customer_id = p.customer_id AND c.timestamp BETWEEN p.start_time and p.end_time WHERE c.customer_id IS NULL
+WITH fullTable AS( SELECT P.session_id, P.start_time, P.end_time, A.timestamp FROM Playback P LEFT JOIN Ads A ON P.customer_id = A.customer_id) SELECT session_id FROM( SELECT session_id, SUM(CASE WHEN timestamp BETWEEN start_time AND end_time THEN 1 ELSE 0 END) AS adsDisplay FROM fullTable GROUP BY 1) I WHERE adsDisplay = 0
+WITH getValidAds AS( SELECT DISTINCT session_id FROM Playback p INNER JOIN Ads a ON p.customer_id = a.customer_id AND a.timestamp BETWEEN p.start_time AND p.end_time ) SELECT session_id FROM Playback WHERE Playback.session_id NOT IN (SELECT session_id FROM getValidAds)
+WITH has_ads AS ( SELECT DISTINCT p.session_id FROM Playback p JOIN Ads a ON a.customer_id=p.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time) SELECT DISTINCT session_id FROM Playback WHERE session_id NOT IN (SELECT * FROM has_ads)
+WITH joinedTable AS ( SELECT session_id, ad_id FROM Playback P LEFT OUTER JOIN Ads A ON A.timestamp BETWEEN P.start_time AND P.end_time AND A.customer_id = P.customer_id HAVING ad_id is null ) SELECT session_id FROM joinedTable
+WITH playback_with_ads AS ( SELECT DISTINCT p.session_id FROM Playback AS p JOIN Ads AS a ON p.customer_id = a.customer_id WHERE a.timestamp BETWEEN p.start_time AND p.end_time ) SELECT session_id FROM Playback WHERE session_id NOT IN(SELECT session_id FROM playback_with_ads)
+WITH shown_ads AS (SELECT DISTINCT P.session_id FROM Playback AS P Inner Join Ads AS A ON P.customer_id = A.customer_id WHERE (A.timestamp >= P.start_time AND A.timestamp <= P.end_time) ) Select DISTINCT session_id FROM Playback WHERE Playback.session_id NOT IN (SELECT shown_ads.session_id FROM shown_ads)
+WITH t AS ( SELECT DISTINCT p.session_id, CASE WHEN a.timestamp < p.start_time OR a.timestamp > p.end_time OR a.timestamp IS NULL THEN 0 ELSE 1 END AS is_ad_shown FROM Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id ) SELECT session_id FROM t GROUP BY session_id HAVING SUM(is_ad_shown) = 0
+WITH tmp AS ( SELECT p.session_id FROM Playback AS p LEFT JOIN Ads AS a ON p.customer_id = a.customer_id WHERE a.timestamp >= p.start_time AND a.timestamp <= p.end_time GROUP BY p.session_id ) SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT session_id FROM tmp)
+With cte as ( Select p.session_id from Playback p inner join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time ) Select session_id from Playback where session_id not in (Select * from cte)
+select DISTINCT a.session_id from playback a LEFT JOIN Ads b ON a.customer_id=b.customer_id AND b.timestamp BETWEEN a.start_time and a.end_time WHERE b.customer_id IS NULL
+select P.session_id from Playback P left join Ads A using(customer_id) where session_id not in (select P1.session_id from playback P1 join Ads A1 using(customer_id) where (A1.customer_id = P1.customer_id) and (A1.timestamp between P1.start_time and P1.end_time)) group by 1
+select Playback.session_id from Playback left join Ads on (Ads.customer_id = Playback.customer_id) and ((Ads.timestamp>=start_time) and (Ads.timestamp<=end_time)) where (Ads.customer_id is null)
+select Playback.session_id from Playback where Playback.session_id not in (select distinct playback.session_id from ads left join playback on playback.customer_id = ads.customer_id and ads.timestamp <= playback.end_time and ads.timestamp >= playback.start_time )
+select a.session_id from Playback a left join Ads b on a.customer_id = b.customer_id and b.timestamp between a.start_time and a.end_time where b.customer_id is null
+select a.session_id from playback a left join ads b on a.customer_id = b.customer_id and b.timestamp between a.start_time and a.end_time where b.ad_id is null
+select a.session_id from playback a left join ads b on a.customer_id = b.customer_id and b.timestamp between start_time and end_time where b.timestamp is null
+select a.session_id from playback a left join ads b on a.customer_id = b.customer_id and timestamp between start_time and end_time where b.customer_id is null
+select a.session_id from playback a left join ads b on a.customer_id=b.customer_id and b.timestamp between a.start_time and a.end_time where b.ad_id is null
+select a.session_id from playback as a left join ads as b on a.customer_id = b.customer_id group by a.session_id having sum(if(a.start_time<=b.timestamp and b.timestamp<=a.end_time,1,0))=0
+select c.session_id from Playback c left join ( select a.session_id from Playback a left join Ads b on a.customer_id = b.customer_id where b.timestamp>=a.start_time and b.timestamp<=a.end_time) d on c.session_id = d.session_id where d.session_id is null
+select distinct Playback.session_id from (select distinct playback.session_id from ads left join playback on playback.customer_id = ads.customer_id and ads.timestamp <= playback.end_time and ads.timestamp >= playback.start_time ) tmp1 right join Playback on Playback.session_id = tmp1.session_id where tmp1.session_id is NULL
+select distinct a.session_id from playback a left join ads b on a.customer_id=b.customer_id and b.timestamp between a.start_time and a.end_time where b.customer_id is null
+select distinct c.session_id from playback c where c.session_id not in (select a.session_id from playback a left join ads b on a.customer_id=b.customer_id where b.timestamp >=a.start_time and b.timestamp<=a.end_time)
+select distinct p.session_id as session_id from Playback p left join Ads a on p.customer_id = a.customer_id AND a.timestamp between p.start_time and p.end_time where a.timestamp is NULL
+select distinct p.session_id from Playback as p left join Ads as a on p.customer_id = a.customer_id and timestamp between start_time and end_time where ad_id is null
+select distinct p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select distinct p.session_id from playback as p left join (select a.session_id from playback a inner join ads b on a.customer_id = b.customer_id and b.timestamp between start_time and end_time) as c on p.session_id = c.session_id where c.session_id is null
+select distinct p.session_id from playback as p left join ads as a on p.customer_id = a.customer_id and a.timestamp >= p.start_time and a.timestamp <= p.end_time where isnull(a.timestamp)
+select distinct p.session_id from playback as p left join ads as a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where isnull(a.timestamp)
+select distinct p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select distinct p1.session_id from Playback p1 left join Ads a1 on a1.customer_id=p1.customer_id and (a1.timestamp>=p1.start_time and a1.timestamp<=p1.end_time) where a1.ad_id is null
+select distinct p2.session_id from playback p2 where p2.session_id not in ( select distinct p.session_id from playback p inner join ads a on a.customer_id = p.customer_id where timestamp between p.start_time and p.end_time)
+select distinct p2.session_id session_id from playback p1 inner join ads a on a.customer_id = p1.customer_id and a.timestamp <= p1.end_time and a.timestamp >= p1.start_time right join playback p2 on p2.session_id = p1.session_id where p1.session_id is null
+select distinct pb.session_id from Playback pb left join Ads a on pb.customer_id = a.customer_id and a.timestamp between pb.start_time and pb.end_time where a.ad_id is null
+select distinct session_id from (select a.ad_id,a.customer_id,a.timestamp, b.session_id,b.start_time,b.end_time from Playback b left join Ads a on a.customer_id=b.customer_id and a.timestamp>=b.start_time and a.timestamp<=b.end_time) c where timestamp is null
+select distinct session_id from (select session_id, SUM(CASE WHEN start_time <= timestamp AND end_time >= timestamp THEN 1 ELSE 0 END) ad_ind from Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id group by session_id ) al WHERE ad_ind = 0
+select distinct session_id from Playback left join Ads on Playback.customer_id = Ads.customer_id and timestamp between start_time and end_time where ad_id is null
+select distinct session_id from Playback left join Ads using(customer_id) where session_id not in (select session_id from Playback left join Ads using(customer_id) where start_time <= timestamp and end_time >= timestamp)
+select distinct session_id from Playback left join Ads using(customer_id) where session_id not in( select session_id from Playback left join Ads using(customer_id) where timestamp between start_time and end_time group by customer_id )
+select distinct session_id from Playback p left join Ads a on p.customer_id = a.customer_id where p.session_id not in (select distinct p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id where a.timestamp >= p.start_time and a.timestamp <= p.end_time)
+select distinct session_id from Playback p where p.customer_id not in ( select distinct a.customer_id from Ads a where a.timestamp<=p.end_time and a.timestamp>= p.start_time )
+select distinct session_id from Playback p where session_id not in (select distinct session_id from Playback p left join Ads a on p.customer_id = a.customer_id where a.timestamp >= p.start_time and a.timestamp <= p.end_time)
+select distinct session_id from Playback where session_id not in ( select distinct P.session_id from Playback P inner join Ads A on P.customer_id=A.customer_id and A.timestamp between P.start_time and P.end_time)
+select distinct session_id from Playback where session_id not in ( select distinct p.session_id from Playback p inner join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time )
+select distinct session_id from Playback where session_id not in (select distinct session_id from Playback p join Ads a on a.customer_id=p.customer_id where a.timestamp between p.start_time and p.end_time)
+select distinct session_id from Playback where session_id not in (select session_id from Playback inner join Ads on Playback.customer_id = Ads.customer_id and timestamp >= start_time and timestamp <= end_time)
+select distinct session_id from Playback where session_id not in (select session_id from playback p join ads a on p.customer_id = a.customer_id where a.timestamp between start_time and end_time)
+select distinct session_id from Playback where session_id not in( select p.session_id from Playback p join Ads a on a.customer_id = p.customer_id where a.timestamp between p.start_time and p.end_time )
+select distinct session_id from Playback where session_id not in( select session_id from Playback left join Ads on Playback.customer_id = Ads.customer_id where Ads.timestamp between Playback.start_time and Playback.end_time )
+select distinct session_id from playback a left join ads b on a.customer_id = b.customer_id where session_id not in (select distinct session_id from playback a join ads b on a.customer_id = b.customer_id where timestamp between start_time and end_time)
+select distinct session_id from playback left join ads on playback.customer_id = ads.customer_id and timestamp between start_time and end_time where ads.customer_id is null
+select distinct session_id from playback p left join ads a on a.timestamp between p.start_time and p.end_time and p.customer_id=a.customer_id where ad_id is null
+select distinct session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select distinct session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is NULL
+select distinct session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select distinct session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where ad_id is null
+select distinct session_id from playback p left join ads a on p.customer_id = a.customer_id and timestamp between start_time and end_time where a.customer_id is null
+select distinct session_id from playback p where p.customer_id not in ( select distinct a.customer_id from ads a where a.timestamp<=p.end_time and a.timestamp>= p.start_time )
+select distinct session_id from playback where session_id not in ( select distinct p.session_id from playback p join ads a on p.customer_id=a.customer_id where a.timestamp between p.start_time and p.end_time )
+select distinct session_id from playback where session_id not in ( select distinct p.session_id from playback p left join ads a on p.customer_id=a.customer_id where a.timestamp between p.start_time and p.end_time )
+select distinct session_id from playback where session_id not in ( select distinct session_id from playback a left join Ads b on a.customer_id=b.customer_id where timestamp >=start_time and timestamp<=end_time )
+select distinct session_id from playback where session_id not in ( select distinct session_id from playback inner join ads on ads.timestamp between playback.start_time and playback.end_time and ads.customer_id = playback.customer_id)
+select distinct session_id from playback where session_id not in ( select session_id from ads a left join playback p on a.customer_id = p.customer_id where timestamp between start_time and end_time)
+select distinct session_id from playback where session_id not in ( select session_id from playback p join ads a on p.customer_id = a.customer_id and a.timestamp <= p.end_time and p.start_time <= a.timestamp )
+select distinct session_id from playback where session_id not in (select a.session_id from playback a left join ads b on a.customer_id = b.customer_id where b.timestamp >= a.start_time and b.timestamp <= a.end_time)
+select distinct session_id from playback where session_id not in (select distinct session_id from Playback left join ads using(customer_id) where start_time<=timestamp and timestamp<=end_time)
+select distinct session_id from playback where session_id not in (select distinct session_id from playback inner join ads on playback.customer_id = ads.customer_id where ads.timestamp between start_time and end_time)
+select distinct session_id from playback where session_id not in (select distinct session_id from playback join ads using(customer_id) where ads.timestamp between start_time and end_time)
+select distinct session_id from playback where session_id not in (select distinct session_id from playback p join ads a where p.customer_id=a.customer_id and a.timestamp<=p.end_time and a.timestamp>=p.start_time)
+select distinct session_id from playback where session_id not in (select distinct session_id from playback p left join ads s on p.customer_id = s.customer_id where timestamp between start_time and end_time)
+select distinct session_id from playback where session_id not in (select distinct x.session_id from playback x join ads y on x.customer_id=y.customer_id and y.timestamp between x.start_time and x.end_time)
+select distinct session_id from playback where session_id not in (select session_id from playback a inner join ads b on a.customer_id=b.customer_id and b.timestamp between a.start_time and a.end_time)
+select distinct session_id from playback where session_id not in (select session_id from playback p inner join ads a using(customer_id) where timestamp between start_time and end_time)
+select distinct session_id from playback where session_id not in( select distinct p.session_id from ads a left join playback p on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time)
+select distinct session_id from playback where session_id not in( select distinct session_id from playback as p join ads as a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select distinct session_id from playback where session_id not in(select session_id from Playback a join ads b on a.customer_id =b.customer_id where timestamp between start_time and end_time)
+select distinct session_id from( select session_id, case when a.timestamp between p.start_time and end_time then 1 else 0 end as ind from playback p left join ads a on p.customer_id = a.customer_id) t group by session_id having max(ind) = 0
+select distinct(p.session_id) from Playback p left join Ads a on p.customer_id = a.customer_id and (a.timestamp >=p.start_time and a.timestamp <= p.end_time) where a.customer_id is null
+select distinct(p.session_id) from playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select l.session_id from Playback as l left join ( select p.session_id from Playback as p inner join Ads as a on p.customer_id = a.customer_id and a.timestamp >= p.start_time and a.timestamp <= p.end_time ) as r on l.session_id = r.session_id where r.session_id is null
+select p.session_id as session_id from playback p left outer join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time group by p.session_id having count(a.ad_id) = 0
+select p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is Null
+select p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id group by p.session_id having sum(case when a.timestamp >= start_time and a.timestamp <= end_time then 1 else 0 end) = 0
+select p.session_id from Playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select p.session_id from playback as p left join ads as a on p.customer_id = a.customer_id and (timestamp between start_time and end_time) where a.ad_id is null
+select p.session_id from playback as p where p.session_id not in ( select session_id from playback as p1 join ads as a on p1.customer_id=a.customer_id and a.timestamp between p1.start_time and p1.end_time )
+select p.session_id from playback p left join ads a on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time where a.timestamp is null
+select p.session_id from playback p left join ads a on a.timestamp between start_time and end_time and p.customer_id=a.customer_id where a.timestamp is null
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and (a.timestamp between p.start_time and p.end_time) where a.ad_id is null
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp >= p.start_time and a.timestamp <= end_time where a.customer_id is null
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time group by (p.session_Id) having count(a.ad_id) = 0
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time group by p.session_id having count(a.ad_id) = 0
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.timestamp is null
+select p.session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp>=start_time and a.timestamp <=end_time where a.customer_id is null
+select p.session_id from playback p left join ads a on p.customer_id=a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select p.session_id from playback p left join ads on ads.customer_id = p.customer_id and ads.timestamp between p.start_time and p.end_time where ads.ad_id is null
+select p0.session_id from Playback p inner join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time right join Playback p0 on p0.session_id = p.session_id where p.session_id is null
+select p0.session_id from Playback p0 left join (select session_id from Playback p inner join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)temp on p0.session_id = temp.session_id where temp.session_id is null
+select p1.session_id from playback p1 where p1.session_id not in ( select p.session_id from playback p left join ads a on p.customer_id = a.customer_id where a.timestamp <= p.end_time and a.timestamp >= p.start_time group by session_id)
+select p2.session_id from playback p2 left join (select distinct p1.session_id session_id from playback p1 inner join ads a on a.customer_id = p1.customer_id and a.timestamp <= p1.end_time and a.timestamp >= p1.start_time ) t on t.session_id = p2.session_id where t.session_id is null
+select session_id from (select p.session_id, p.customer_id, timestamp, case when timestamp between start_time and end_time then 1 else 0 end as t from playback p left join ads a on p.customer_id = a.customer_id and timestamp between start_time and end_time) a where timestamp is null
+select session_id from Playback a left outer join Ads b on (a.customer_id = b.customer_id and b.timestamp between start_time and end_time) where b.timestamp is null
+select session_id from Playback as p left join Ads as a on p.customer_id = a.customer_id and timestamp between start_time and end_time where timestamp is null
+select session_id from Playback as pb left join Ads as a ON pb.customer_id = a.customer_id AND a.timestamp BETWEEN pb.start_time and pb.end_time where a.customer_id is NULL
+select session_id from Playback left join ads on Playback.customer_id = ads.customer_id and ads.timestamp >= Playback.start_time and ads.timestamp <= Playback.end_time where ads.ad_id is null
+select session_id from Playback p LEFT JOIN Ads a ON p.customer_id = a.customer_id and (a.timestamp >= p.start_time) and (a.timestamp <= p.end_time) WHERE ad_id is NULL
+select session_id from Playback p left join Ads a on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select session_id from Playback p left join Ads a on a.customer_id = p.customer_id and p.start_time <= a.timestamp and p.end_time >= a.timestamp where a.customer_id is null order by 1
+select session_id from Playback p left join Ads a on a.timestamp >= p.start_time and a.timestamp <= p.end_time and a.customer_id = p.customer_id where a.ad_id is null
+select session_id from Playback p left join Ads a on p.customer_id = a.customer_id and (timestamp between p.start_time and p.end_time) where timestamp is null
+select session_id from Playback p left join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select session_id from Playback p left join Ads a on p.customer_id = a.customer_id and p.start_time <= a.timestamp and a.timestamp <= p.end_time where a.ad_id is NULL
+select session_id from Playback p left join Ads a on p.customer_id = a.customer_id and start_time <= timestamp and end_time>=timestamp where ad_id is null
+select session_id from Playback p left join Ads a on p.customer_id = a.customer_id and timestamp between start_time and end_time group by session_id having count(ad_id) = 0
+select session_id from Playback p left join Ads a on p.customer_id=a.customer_id and (a.timestamp between p.start_time and p.end_time) where a.ad_id is null
+select session_id from Playback p left join Ads a on p.customer_id=a.customer_id and (timestamp between start_time and end_time) where ad_id is null
+select session_id from Playback p left join Ads a on p.customer_id=a.customer_id and a.timestamp between p.start_time and p.end_time group by session_id having count(ad_id)=0
+select session_id from Playback p left join Ads a on p.customer_id=a.customer_id and p.start_time<=a.timestamp and p.end_time>=a.timestamp where ad_id is null
+select session_id from Playback p left join ads a on p.customer_id=a.customer_id and a.timestamp>=start_time and a.timestamp<=end_time where a.ad_id is null
+select session_id from Playback p where not exists( select 1 from Ads a where a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time )
+select session_id from Playback p where session_id not in ( select session_id from Playback p join Ads a on p.customer_id= a.customer_id and timestamp between start_time and end_time )
+select session_id from Playback where session_id NOT IN (select distinct(session_id) from Playback,Ads where Playback.customer_id=Ads.customer_id and (Ads.timestamp between Playback.start_time and Playback.end_time) )
+select session_id from Playback where session_id NOT IN (select session_id from Playback join Ads on Playback.customer_id = Ads.customer_id where timestamp BETWEEN start_time AND end_time)
+select session_id from Playback where session_id not in ( Select session_id from Playback as p join Ads as a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in ( select a.session_id from Playback a left join Ads b on (a.customer_id = b.customer_id) where (b.timestamp<=a.end_time and b.timestamp>=a.start_time ))
+select session_id from Playback where session_id not in ( select distinct p.session_id from Playback as p join Ads as a on p.customer_id = a.customer_id where a.timestamp between start_time and end_time )
+select session_id from Playback where session_id not in ( select distinct p.session_id from Playback p inner join Ads a on p.customer_id=a.customer_id where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in ( select distinct session_id from Playback p JOIN Ads a ON p.customer_id=a.customer_id and p.start_time<=a.timestamp and a.timestamp<=p.end_time)
+select session_id from Playback where session_id not in ( select distinct session_id from Playback p inner join ads c on c.customer_id=p.customer_id where c.timestamp>=p.start_time and c.timestamp<=p.end_time )
+select session_id from Playback where session_id not in ( select p.session_id from Playback p join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in ( select session_id from Playback as p join ads as a on p.customer_id=a.customer_id where a.timestamp between p.start_time and p.end_time )
+select session_id from Playback where session_id not in ( select session_id from Playback drv inner join Ads ad on drv.customer_id = ad.customer_id and ad.timestamp between drv.start_time and drv.end_time )
+select session_id from Playback where session_id not in ( select session_id from Playback inner join Ads using (customer_id) where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in ( select session_id from Playback join Ads on Playback.customer_id = Ads.customer_id and timestamp >=start_time and timestamp<=end_time)
+select session_id from Playback where session_id not in ( select session_id from Playback p join Ads a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in ( select session_id from Playback p join Ads a on p.customer_id=a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in ( select session_id from playback p left join Ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in (select P.session_id from Playback P left join Ads A on P.customer_id = A.customer_id where A.timestamp>= P.start_time and A.timestamp <= P.end_time group by 1)
+select session_id from Playback where session_id not in (select distinct a.session_id from Playback a, Ads b where a.customer_id = b.customer_id and b.timestamp between a.start_time and a.end_time)
+select session_id from Playback where session_id not in (select distinct p.session_id from Playback p join Ads a on p.customer_id = a.customer_id where a.timestamp <= p.end_time and a.timestamp >= p.start_time)
+select session_id from Playback where session_id not in (select distinct p.session_id from Playback p join Ads a on p.customer_id=a.customer_id AND a.timestamp between p.start_time AND p.end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback P, Ads A where P.customer_id = A.customer_id and A.timestamp between P.start_time and P.end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback a left join Ads b on a.customer_id = b.customer_id where b.timestamp between a.start_time and a.end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback a, Ads b where a.customer_id = b.customer_id and b.timestamp between a.start_time and a.end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback join Ads using (customer_id) where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback p join Ads a on p.customer_id = a.customer_id and a.timestamp>= p.start_time and a.timestamp <= p.end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback p join Ads a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback p join Ads as a on p.customer_id = a.customer_id and p.start_time <= a.timestamp and p.end_time >= a.timestamp)
+select session_id from Playback where session_id not in (select distinct session_id from Playback p join ads a on p.customer_id =a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in (select distinct session_id from Playback play left join Ads on play.customer_id = Ads.customer_id where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select p.session_id from Playback p Join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in (select p.session_id from Playback p left join Ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in (select session_id from Playback P join Ads A on P.customer_id = A.customer_id and timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select session_id from Playback join Ads using (customer_id) where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select session_id from Playback left join Ads using (customer_id) where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select session_id from Playback p JOIN Ads a ON a.customer_id=p.customer_id where start_time <= timestamp and end_time >= timestamp)
+select session_id from Playback where session_id not in (select session_id from Playback p join Ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time )
+select session_id from Playback where session_id not in (select session_id from Playback p join Ads a on p.customer_id = a.customer_id where timestamp <= end_time and timestamp >= start_time )
+select session_id from Playback where session_id not in (select session_id from Playback p join Ads a on p.customer_id=a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from Playback where session_id not in (select session_id from Playback p left join Ads a on p.customer_id = a. customer_id where p. start_time <= a.timestamp and a.timestamp <= p.end_time)
+select session_id from Playback where session_id not in (select session_id from Playback p left join Ads a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select session_id from Playback where session_id not in (select session_id from playback a join ads b on timestamp between start_time and end_time and a.customer_id = b.customer_id)
+select session_id from Playback where session_id not in( select p.session_id from Playback p left join Ads a on p.customer_id=a.customer_id where a.timestamp between start_time and end_time)
+select session_id from Playback where session_id not in( select session_id from Playback P join Ads A on P.customer_id=A.customer_id where A.timestamp between P.start_time and P.end_time)
+select session_id from Playback where session_id not in( select session_id from Playback a left join ads b on a.customer_id =b.customer_id where timestamp between a.start_time and a.end_time)
+select session_id from ads a right join playback p on a.customer_id =p.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select session_id from playback a left join ads b on a.customer_id = b.customer_id and timestamp between start_time and end_time where ad_id is null
+select session_id from playback as p left join ads as a on p.customer_id = a.customer_id and timestamp between start_time and end_time where timestamp is null
+select session_id from playback as p where p.customer_id not in (select a.customer_id from ads as a where a.timestamp >= p.start_time and a.timestamp <= p.end_time)
+select session_id from playback left join ads on playback.customer_id = ads.customer_id and timestamp>=start_time and timestamp<=end_time where ads.customer_id is null
+select session_id from playback left join ads on playback.customer_id=ads.customer_id and ads.timestamp between playback.start_time and playback.end_time where ads.customer_id is null
+select session_id from playback p left join ads a on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select session_id from playback p left join ads a on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and `timestamp` between start_time and end_time where ad_id is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and end_time where a.ad_id is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.ad_id is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.customer_id is NULL
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where a.timestamp is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time where ad_id is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and timestamp >= start_time and timestamp <= end_time where ad_id is null
+select session_id from playback p left join ads a on p.customer_id = a.customer_id and timestamp between start_time and end_time where timestamp is null
+select session_id from playback p left join ads a on p.customer_id=a.customer_id and timestamp between start_time and end_time where timestamp is null
+select session_id from playback p left join ads ad on p.customer_id = ad.customer_id and ad.timestamp <= p.end_time and ad.timestamp >= p.start_time where ad.customer_id is null
+select session_id from playback p left join ads on p.customer_id =ads.customer_id and timestamp between start_time and end_time where ads.customer_id is null
+select session_id from playback p where p.customer_id not in (select a.customer_id from ads a where a.customer_id = p.customer_id and a.timestamp >= p.start_time and a.timestamp <= p.end_time)
+select session_id from playback where session_id not in ( select a.session_id from playback a join ads b on a.customer_id=b.customer_id and b.timestamp between a.start_time and a.end_time )
+select session_id from playback where session_id not in ( select distinct case when timestamp between start_time and end_time then session_id else 0 end as session_id from playback a left join ads b on a.customer_id = b.customer_id )
+select session_id from playback where session_id not in ( select distinct p.session_id from playback p join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in ( select distinct session_id from Playback p left join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in ( select distinct session_id from Playback p, Ads a where p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in ( select distinct session_id from playback join ads using (customer_id) where timestamp between start_time and end_time)
+select session_id from playback where session_id not in ( select distinct session_id from playback p cross join ads a where p.customer_id = a.customer_id and timestamp between start_time and end_time )
+select session_id from playback where session_id not in ( select distinct session_id from playback p join ads a on p.customer_id = a.customer_id and timestamp between start_time and end_time)
+select session_id from playback where session_id not in ( select distinct session_id from playback p join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time )
+select session_id from playback where session_id not in ( select p.session_id from playback p join ads a on a.customer_id = p.customer_id where a.timestamp between start_time and end_time group by a.customer_id )
+select session_id from playback where session_id not in ( select p.session_id from playback p join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time )
+select session_id from playback where session_id not in ( select session_id from playback a join ads b on b.timestamp between a.start_time and a.end_time and a.customer_id = b.customer_id )
+select session_id from playback where session_id not in ( select session_id from playback a join ads b on timestamp between start_time and end_time and a.customer_id = b.customer_id)
+select session_id from playback where session_id not in ( select session_id from playback as a left join ads as b on a.customer_id = b.customer_id where timestamp between start_time and end_time )
+select session_id from playback where session_id not in ( select session_id from playback as p left join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in ( select session_id from playback join ads on playback.customer_id=ads.customer_id where timestamp between start_time and end_time )
+select session_id from playback where session_id not in ( select session_id from playback join ads using (customer_id) where timestamp between start_time and end_time )
+select session_id from playback where session_id not in ( select session_id from playback p inner join ads a on p.customer_id=a.customer_id and a.timestamp between start_time and end_time)
+select session_id from playback where session_id not in ( select session_id from playback p join Ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in ( select session_id from playback p join ads a on p.customer_id = a.customer_id and (timestamp between start_time and end_time) )
+select session_id from playback where session_id not in ( select session_id from playback p join ads on p.customer_id = ads.customer_id where timestamp between start_time and end_time)
+select session_id from playback where session_id not in (SELECT distinct SESSION_ID FROM PLAYBACK P LEFT JOIN ADS A ON P.customer_id = A.customer_id where A.TIMESTAMP between start_time AND end_time)
+select session_id from playback where session_id not in (select a.session_id from playback a inner join ads b using(customer_id) where b.timestamp between a.start_time and a.end_time)
+select session_id from playback where session_id not in (select distinct a.session_id from playback a left join ads b on a.customer_id=b.customer_id where b.timestamp between start_time and end_time)
+select session_id from playback where session_id not in (select distinct p.session_id from ads a join Playback p on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct p.session_id from playback p inner join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct p.session_id from playback p,ads a where a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct session_id from Playback left join ads on Playback.customer_id = Ads.customer_id where timestamp between start_time and end_time group by session_id)
+select session_id from playback where session_id not in (select distinct session_id from Playback p, Ads a where p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct session_id from ads a join playback p on a.customer_id=p.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct session_id from playback a left join ads b on a.customer_id=b.customer_id where b.timestamp between a.start_time and a.end_time)
+select session_id from playback where session_id not in (select distinct session_id from playback p inner join ads a using(customer_id) where timestamp between start_time and end_time)
+select session_id from playback where session_id not in (select distinct session_id from playback p join ads a on p.customer_id = a.customer_id and (a.timestamp between p.start_time and p.end_time))
+select session_id from playback where session_id not in (select distinct session_id from playback p join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct session_id from playback p join ads on p.customer_id =ads.customer_id where timestamp between start_time and end_time)
+select session_id from playback where session_id not in (select distinct session_id from playback p left join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select distinct(p.session_id) from playback p inner join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time )
+select session_id from playback where session_id not in (select p.session_id from playback p inner join ads a on (p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time))
+select session_id from playback where session_id not in (select p.session_id from playback p inner join ads a on a.customer_id = p.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select p.session_id from playback p join ads a on a.customer_id = p.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select p.session_id from playback p join ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select p.session_id from playback p join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select session_id from playback a inner join ads b on a.customer_id = b.customer_id and b.timestamp between a.start_time and a.end_time)
+select session_id from playback where session_id not in (select session_id from playback a join ads b on a.customer_id = b.customer_id and b.timestamp >= a.start_time and b.timestamp <= a.end_time )
+select session_id from playback where session_id not in (select session_id from playback a join ads b on timestamp between start_time and end_time and a.customer_id = b.customer_id)
+select session_id from playback where session_id not in (select session_id from playback a, ads b where timestamp between start_time and end_time and a.customer_id = b.customer_id)
+select session_id from playback where session_id not in (select session_id from playback p join ads a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select session_id from playback where session_id not in (select session_id from playback p left join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in (select session_id from playback p left join ads a on p.customer_id = a.customer_id where p.start_time <= a.timestamp and a.timestamp <= p.end_time)
+select session_id from playback where session_id not in( select distinct session_id from Playback p inner join Ads a on p.customer_id=a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in( select distinct session_id from playback as p, ads as a where p.customer_id = a.customer_id and timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in( select p.session_id from Playback p inner join Ads a on p.customer_id=a.customer_id where a.timestamp between p.start_time and p.end_time )
+select session_id from playback where session_id not in( select p.session_id from playback p join ads a on p.customer_id=a.customer_id and a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in( select p.session_id from playback p left join ads a on p.customer_id = a.customer_id where a.timestamp between p.start_time and p.end_time)
+select session_id from playback where session_id not in( select session_id from Playback p,ads a where p.customer_id=a.customer_id and timestamp between start_time and end_time )
+select session_id from playback where session_id not in( select session_id from playback a join ads b on a.customer_id = b.customer_id where timestamp between a.start_time and a.end_time )
+select session_id from playback where session_id not in( select session_id from playback as p join ads as a on p.customer_id = a.customer_id where timestamp between start_time and end_time)
+select session_id from playback where session_id not in( select session_id from playback as p join ads as a on timestamp between start_time and end_time and p.customer_id = a.customer_id)
+select session_id from playback where session_id not in( select session_id from playback p join ads a on a.customer_id=p.customer_id where timestamp between start_time and end_time)
+select session_id from playback where session_id not in( select session_id from playback p join ads a on timestamp between p.start_time and p.end_time and p.customer_id = a.customer_id )
+select session_id from( select p.*, a.ad_id from playback p left join ads a on p.customer_id=a.customer_id and a.timestamp between p.start_time and p.end_time ) b where b.ad_id is null
+with ads_session as( select distinct session_id from playback p, ads a where p.customer_id = a.customer_id and timestamp between start_time and end_time ) select session_id from playback where session_id not in (select session_id from ads_session)
+with ads_session_id as ( select distinct session_id from (select session_id, start_time, end_time, timestamp from Playback t1 join Ads t2 on t1.customer_id = t2.customer_id) t where timestamp between start_time and end_time ) select session_id from Playback where session_id not in (select session_id from ads_session_id)
+with cte as ( SELECT p.session_id FROM Playback p JOIN Ads a ON p.customer_id= a.customer_id AND a.timestamp BETWEEN start_time AND end_time) SELECT session_id from Playback WHERE session_id NOT in (SELECT session_id from cte)
+with cte as ( select P.session_id as session_id from Playback P left join Ads A on P.customer_id=A.customer_id where A.timestamp between P.start_time and P.end_time) select session_id from Playback where session_id not in (select *from cte)
+with cte as ( select distinct session_id from playback as p join ads as a on p.customer_id=a.customer_id and a.timestamp>=p.start_time and a.timestamp<=p.end_time ) select p.session_id from playback as p left join cte on p.session_id=cte.session_id where cte.session_id is null
+with cte as ( select distinct session_id from playback p, ads a where p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time ) select session_id from playback where session_id not in (select session_id from cte)
+with cte as (select a.*, b.ad_id, b.timestamp from Playback a inner join Ads b on a.customer_id = b.customer_id and a.start_time <= b.timestamp and a.end_time >= b.timestamp) select session_id from Playback where session_id not in (select session_id from cte)
+with cte as( select p.session_id from playback p join ads a on p.customer_id=a.customer_id where p.start_time<=a.timestamp and p.end_time>=a.timestamp ) select session_id from playback where session_id not in (select * from cte)
+with data as ( select pb.session_id, pb.customer_id, pb.start_time, pb.end_time, ad.ad_id, ad.timestamp, ad.timestamp >= pb.start_time and ad.timestamp <= pb.end_time as shown from Playback pb inner join Ads ad on pb.customer_id = ad.customer_id) select session_id from Playback where session_id not in (select distinct(session_id) from data where shown = 1)
+with sessions as ( select a.*, b.ad_id, b.timestamp from playback as a left join ads as b on a.customer_id = b.customer_id and b.timestamp >= a.start_time and b.timestamp <= a.end_time ) select session_id from sessions where ad_id is null order by session_id
+with sessions_with_ads as (select a.session_id from Playback a left join Ads b on a.customer_id = b.customer_id where b.timestamp >= a.start_time and b.timestamp <= a.end_time ) select distinct session_id from Playback where session_id NOT IN ( select distinct session_id from sessions_with_ads)
+with t1 as ( select a.*, b.ad_id from Playback a LEFT JOIN Ads b ON b.timestamp between a.start_time and a.end_time and a.customer_id = b.customer_id ) select distinct session_id from t1 where ad_id is null
+with t1 as (select p.session_id, p.start_time, p.end_time, a.timestamp timee FROM Playback p LEFT Join Ads a On p.customer_id=a.customer_id and a.timestamp between p.start_time and p.end_time) select t1.session_id FROM t1 where timee is null
+with temp as ( SELECT DISTINCT(A.session_id) FROM Playback as A INNER JOIN Ads as B ON A.customer_id = B.customer_id AND B.timestamp >= A.start_time AND B.timestamp <= A.end_time ) SELECT session_id FROM Playback WHERE session_id NOT IN (SELECT * FROM temp)
+with temp as ( select distinct session_id from playback p inner join ads a on a.customer_id = p.customer_id and a.timestamp between p.start_time and p.end_time ) select session_id from playback where session_id not in (select * from temp)
+with temp as ( select session_id from playback p inner join ads on p.customer_id = ads.customer_id where ads.timestamp between p.start_time and p.end_time ) select session_id from playback where session_id not in (select session_id from temp)
+with temp1 as ( select a.*, b.ad_id from Playback a left join Ads b on a.customer_id = b.customer_id and b.timestamp >= a.start_time and b.timestamp <= a.end_time ) select distinct session_id from temp1 where ad_id is null
+with tempCte as ( select distinct p.session_id, a.customer_id, a.timestamp, p.start_time, p.end_time, case when a.timestamp between p.start_time and p.end_time then 'Yes' else 'No' end as status from Playback p, Ads a where p.customer_id = a.customer_id ) select distinct session_id from tempCte where status = 'No' and session_id not in (select distinct session_id from tempCte where status= 'Yes') union all select distinct session_id from Playback where customer_id not in (select distinct customer_id from Ads) order by session_id desc
+with w1 as ( select distinct p.session_id from Playback p inner join Ads a on p.customer_id = a.customer_id and a.timestamp between p.start_time and p.end_time ) select distinct p1.session_id from Playback p1 where p1.session_id not in (select session_id from w1) order by p1.session_id

@@ -1,0 +1,371 @@
+SELECT A.NAME AS warehouse_name, SUM(VOLUME*UNITS) AS VOLUME FROM WAREHOUSE AS A JOIN ( SELECT PRODUCT_ID, WIDTH*LENGTH*HEIGHT AS VOLUME FROM PRODUCTS GROUP BY PRODUCT_ID ) AS B ON A.PRODUCT_ID = B.PRODUCT_ID GROUP BY A.NAME
+SELECT A.name as WAREHOUSE_NAME, SUM(units*Width*Length*Height) as VOLUME FROM Warehouse A INNER JOIN Products B ON A.product_id = B.product_id GROUP BY name
+SELECT A.name as warehouse_name , SUM(B.Width*B.Length*B.Height*A.units) AS volume FROM Warehouse A LEFT JOIN Products B ON A.product_id = B.product_id GROUP BY A.name
+SELECT B.warehouse_name, SUM(B.total2) as volume FROM ( SELECT Warehouse.name as warehouse_name, A.product_id, A.total*Warehouse.units as total2 FROM ( SELECT product_id,Width*Length*Height as total FROM Products) as A,Warehouse Where Warehouse.product_id=A.product_id ) as B GROUP BY 1
+SELECT NAME AS WAREHOUSE_NAME, SUM(UNITS * V) AS VOLUME FROM WAREHOUSE W JOIN ( SELECT P0.PRODUCT_ID, WIDTH * LENGTH * HEIGHT AS V FROM PRODUCTS P0 ) P ON W.PRODUCT_ID = P.PRODUCT_ID GROUP BY NAME
+SELECT SUM(Width*Length*Height*units) AS volume, name AS warehouse_name FROM Warehouse LEFT JOIN Products USING (product_id) GROUP BY warehouse_name
+SELECT SUM(volume) AS volume, warehouse_name FROM ( SELECT Width*Length*Height*units AS volume, name AS warehouse_name FROM Warehouse LEFT JOIN Products USING (product_id) ) AS tmp GROUP BY warehouse_name
+SELECT W.name AS warehouse_name, SUM(P.Width*P.Length*P.Height*W.units) AS volume FROM Warehouse W JOIN Products P ON W.product_id = P.product_id GROUP BY warehouse_name
+SELECT W.name AS warehouse_name, SUM(W.units * P.Width * P.Length * P.Height) AS volume FROM Warehouse W LEFT JOIN Products P ON W.product_id = P.product_id GROUP BY 1
+SELECT W.name AS warehouse_name, SUM(W.units* P.volume) AS volume FROM Warehouse W JOIN (SELECT product_id, (Width*Length*Height) AS volume FROM Products) P ON W.product_id=P.product_id GROUP BY 1
+SELECT W.name AS warehouse_name, SUM(W.units*P.Width*P.Length*P.Height) AS volume FROM Warehouse AS W LEFT JOIN Products AS P ON W.product_id = P.product_id GROUP BY W.name
+SELECT W.name as warehouse_name, sum(W.units*P.Width*P.Length*P.Height) as volume FROM Warehouse W JOIN Products P on W.product_id = P.product_id Group by 1 Order by 1
+SELECT Warehouse.name AS warehouse_name, SUM(Warehouse.units * P.vol) AS volume FROM Warehouse INNER JOIN ( SELECT product_id, (Width * Length * Height) AS vol FROM Products ) AS P ON Warehouse.product_id = P.product_id GROUP BY Warehouse.name
+SELECT Warehouse.name AS warehouse_name, SUM(Warehouse.units * Products.Width * Products.Length * Products.Height ) AS volume FROM Warehouse JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY Warehouse.name
+SELECT Warehouse.name AS warehouse_name, SUM(Warehouse.units * Products.Width * Products.Length * Products.Height) AS volume FROM Warehouse JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY Warehouse.name
+SELECT Warehouse.name AS warehouse_name, SUM(Warehouse.units*Products.Width*Products.Length*Products.Height) AS volume FROM Warehouse inner JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY Warehouse.name
+SELECT a.name AS warehouse_name, SUM(a.units * b.Width* b.Length* b.Height) AS volume FROM Warehouse a LEFT JOIN Products b ON a.product_id = b.product_id GROUP BY a.name
+SELECT a.name as warehouse_name, SUM(a.units * b.volume) AS volume FROM Warehouse a LEFT JOIN ( SELECT product_id, Width * Length * Height AS volume FROM Products ) AS b ON a.product_id = b.product_id GROUP BY a.name
+SELECT a.name warehouse_name , SUM(b.width*b.length*b.height*a.units) volume FROM warehouse a INNER JOIN products b on a.product_id = b.product_id group by a.name
+SELECT ina.name AS warehouse_name, SUM(ina.units * inb.Width * inb.Length * inb.Height) AS volume FROM Warehouse AS ina, Products AS inb WHERE ina.product_id = inb.product_id GROUP BY ina.name
+SELECT name 'warehouse_name', SUM(units * Width * Length * Height) 'volume' FROM Warehouse INNER JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS 'WAREHOUSE_NAME',SUM(volume) AS 'VOLUME' FROM (SELECT w.name,(w.units*p.Width*p.Length*p.Height) AS 'volume' FROM Warehouse w, Products p WHERE w.product_id = p.product_id) r GROUP BY name
+SELECT name AS 'warehouse_name', SUM(units*Width*Length*Height) AS volume FROM Warehouse LEFT JOIN Products USING(product_id) GROUP BY name
+SELECT name AS WAREHOUSE_NAME, SUM(units * vol) AS VOLUME FROM Warehouse whouse JOIN (SELECT product_id, Width*Length*Height AS vol FROM Products) prod ON whouse.product_id = prod.product_id GROUP BY name
+SELECT name AS WAREHOUSE_NAME, SUM(units*Width* Length* Height) AS VOLUME FROM Warehouse LEFT JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS WAREHOUSE_NAME, sum(units*(Width*Length*Height)) AS VOLUME FROM Warehouse JOIN Products ON Products.product_id=Warehouse.product_id GROUP BY name
+SELECT name AS Warehouse_name, SUM(units* Width * Length * Height) AS Volume FROM Warehouse LEFT JOIN Products USING (product_id) GROUP BY name
+SELECT name AS warehouse_name , SUM(Width * Length * Height * units) as volume FROM Warehouse INNER JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS warehouse_name , SUM(Width*Length*Height*units) as volume FROM Warehouse LEFT JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY warehouse_name
+SELECT name AS warehouse_name ,SUM(units * Width * Length * Height) AS volume FROM ( SELECT w.name ,w.product_id ,w.units ,p.Width ,p.Length ,p.Height FROM Warehouse w JOIN Products p ON w.product_id = p.product_id ) AS join_product GROUP BY 1
+SELECT name AS warehouse_name, SUM((Width*Length*Height)*units) Volume FROM Warehouse JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(Width * Length * Height * units) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY 1
+SELECT name AS warehouse_name, SUM(Width*Length*Height*units) AS volume FROM Products p INNER JOIN Warehouse ON p.product_id = Warehouse.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(p_volume*units) AS volume FROM Warehouse w JOIN (SELECT product_id, Width*Length*Height AS p_volume FROM Products GROUP BY 1) t ON w.product_id=t.product_id GROUP BY 1
+SELECT name AS warehouse_name, SUM(total_volume) AS volume FROM( SELECT name, a.product_id,units*Width*Length*Height AS total_volume FROM Warehouse a LEFT JOIN Products b ON a.product_id=b.product_id ) AS t GROUP BY name
+SELECT name AS warehouse_name, SUM(units * Width * Length * Height) AS volume FROM Warehouse LEFT JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(units * t.volume) AS volume FROM Warehouse w INNER JOIN ( SELECT product_id, width * length * height AS volume FROM Products ) t ON w.product_id = t.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(units * vol) AS volume FROM Warehouse AS W INNER JOIN ( SELECT product_id, (Width * Length * Height) AS vol FROM Products ) AS P ON W.product_id = P.product_id GROUP BY W.name
+SELECT name AS warehouse_name, SUM(units*Width*Length*Height) AS volume FROM Warehouse INNER JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(units*Width*Length*Height) AS volume FROM Warehouse INNER JOIN Products USING(product_id) GROUP BY name
+SELECT name AS warehouse_name, SUM(units*Width*Length*Height) AS volume FROM Warehouse LEFT JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(units*vol) AS volume FROM warehouse W JOIN (SELECT product_id, width*length*height AS vol FROM products) P ON W.product_id=P.product_id GROUP BY name ORDER BY name
+SELECT name AS warehouse_name, SUM(units*volume) as volume FROM Warehouse AS T1 JOIN (SELECT product_id, (Width*Length*Height) as volume FROM Products) as T2 ON (T1.product_id = T2.product_id) GROUP BY name
+SELECT name AS warehouse_name, SUM(units*width*length*height) AS volume FROM Warehouse INNER JOIN Products USING(product_id) GROUP BY name
+SELECT name AS warehouse_name, SUM(units*width*length*height) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(units*width*length*height) AS volume FROM Warehouse w LEFT JOIN Products p ON w.product_id = p.product_id GROUP BY name
+SELECT name AS warehouse_name, SUM(units*width*length*height) AS volume FROM warehouse JOIN products USING(product_id) GROUP BY name
+SELECT name AS warehouse_name, sum(Width*Length*Height*units) AS volume FROM Warehouse NATURAL JOIN Products GROUP BY name
+SELECT name AS warehouse_name, sum(w.units * p.Width * p.Length * p.Height) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY name
+SELECT name AS warehouse_name,(SUM((Width*Length*Height)*Warehouse.units)) AS volume FROM Warehouse LEFT JOIN Products ON Products.product_id=Warehouse.product_id GROUP BY Warehouse.name
+SELECT name AS warehouse_name,SUM(units*Width*Length*Height) AS volume FROM Warehouse AS W JOIN Products AS P ON W.product_id=P.product_id GROUP BY warehouse_name
+SELECT name AS warehouse_name,SUM(width*length*height*units) AS volume FROM Warehouse W JOIN Products P ON W.product_id=P.product_id GROUP BY name
+SELECT name as WAREHOUSE_NAME, SUM(units*(Width*Length*Height)) AS VOLUME FROM Warehouse JOIN Products ON Products.product_id = Warehouse.product_id GROUP BY warehouse_name
+SELECT name as WAREHOUSE_NAME, sum(Width*Length*Height*units) AS VOLUME FROM Warehouse LEFT JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name as warehouse_name , SUM(units * unit_volume) as volume FROM warehouse w LEFT JOIN (SELECT product_id , (Width*Length*Height) As unit_volume From Products ) p ON w.product_id = p.product_id GROUP BY name
+SELECT name as warehouse_name , sum(p.width * p.length * p.height*units) as volume FROM Warehouse w JOIN Products p on p.product_id = w.product_id group by name order by volume desc
+SELECT name as warehouse_name, SUM(Length * Width * Height * w.units) as volume FROM Warehouse w JOIN Products p on w.product_id = p.product_id GROUP BY name
+SELECT name as warehouse_name, SUM(Width * Length * Height * units) as volume FROM Warehouse LEFT JOIN Products ON Warehouse.product_id = Products.product_id GROUP BY name
+SELECT name as warehouse_name, SUM(pvolume*units) as volume FROM Warehouse a JOIN (SELECT product_id, Width*Length*Height as pvolume FROM Products) AS b ON b.product_id = a.product_id GROUP BY warehouse_name
+SELECT name as warehouse_name, SUM(units * Width * Length * Height) as volume FROM Products JOIN Warehouse ON Products.product_id = Warehouse.product_id GROUP BY name
+SELECT name as warehouse_name, SUM(units * Width * Length * Height) as volume FROM Warehouse W LEFT JOIN Products P ON W.product_id = P.product_id GROUP BY name
+SELECT name as warehouse_name, SUM(units * Width * Length * Height) volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY name
+SELECT name as warehouse_name, SUM(units * size) as volume FROM Warehouse JOIN( SELECT product_id, Width * Length * Height as size FROM Products ) as ps ON Warehouse.product_id = ps.product_id GROUP BY name
+SELECT name as warehouse_name, SUM(units*Width*Length*Height) as volume FROM Warehouse AS w LEFT JOIN Products as p USING(product_id) GROUP BY name
+SELECT name as warehouse_name, SUM(units*width*Length*Height) as volume FROM Warehouse LEFT JOIN Products USING(product_id) GROUP BY 1
+SELECT name as warehouse_name, SUM(units*width*length*height) as volume FROM warehouse w JOIN products p ON w.product_id=p.product_id GROUP BY w.name
+SELECT name as warehouse_name, SUM(volume * units) as volume FROM (SELECT name, volume, units FROM Warehouse left join (SELECT product_id, Width*Length*Height as volume FROM Products) as Item_cost ON Warehouse.product_id=Item_cost.product_id) as Result GROUP BY name
+SELECT name as warehouse_name, sum(Units*Width*length*height) as volume From Warehouse w Left Join Products p on w.product_id = p.product_id Group by name
+SELECT name as warehouse_name,SUM(units*Width*Length*Height) as volume FROM Warehouse W LEFT JOIN Products P ON W.product_id = P.product_id GROUP BY 1
+SELECT name warehouse_name, SUM(Width*Length*Height*units) volume FROM Warehouse JOIN Products USING(product_id) GROUP BY 1
+SELECT name warehouse_name, SUM(Width*Length*Height*units) volume FROM Warehouse w JOIN Products p ON p.product_id = w.product_id GROUP BY name
+SELECT name warehouse_name, SUM(units * Width * Length * Height) volume FROM Warehouse W LEFT JOIN Products P ON W.product_id = P.product_id GROUP BY name
+SELECT name warehouse_name, SUM(units*Width*Length*Height) volume FROM Warehouse w LEFT JOIN Products p ON w.product_id = p.product_id GROUP BY 1
+SELECT t.name as warehouse_name, SUM(prod.volume * t.units) as volume FROM Warehouse t JOIN ( SELECT product_id, Width*Length*Height as volume FROM Products) as prod ON t.product_id = prod.product_id GROUP BY 1
+SELECT t.name as warehouse_name, volume FROM( SELECT p.product_id, w.name, SUM(units*Width*Length*Height) as volume FROM Products p JOIN Warehouse w ON p.product_id = w.product_id GROUP BY name) t
+SELECT t1.name as warehouse_name, SUM(t2.Width*t2.Length*t2.Height*t1.units) AS volume FROM Warehouse AS t1 LEFT JOIN Products AS t2 ON t1.product_id = t2.product_id GROUP BY t1.name
+SELECT t1.name1 as warehouse_name, sum(volume1 *unit1) as volume from (SELECT warehouse.name as name1, width*length*height as volume1, UNITS as unit1 from Warehouse inner join products on warehouse.product_id = products.product_id) as t1 group by t1.name1
+SELECT temp.name AS WAREHOUSE_NAME, SUM(temp.volume) AS VOLUME FROM ( SELECT a.name, p.Width*p.Length*p.Height*a.units as volume FROM Warehouse as a JOIN Products as p ON a.product_id = p.product_id ) AS temp GROUP BY temp.name
+SELECT w.name "Warehouse_Name",sum(w.units*p.width*p.length*p.height) volume FROM Products p INNER JOIN Warehouse w ON p.product_id=w.product_id GROUP BY w.name
+SELECT w.name 'warehouse_name', SUM(w.units*p.width*p.length*p.height) 'volume' FROM warehouse w JOIN products p ON w.product_id=p.product_id GROUP BY w.name
+SELECT w.name AS WAREHOUSE_NAME, SUM((p.Width * p.Height * p.Length)*w.units) AS VOLUME FROM Warehouse w LEFT JOIN Products p ON w.product_id = p.product_id GROUP BY WAREHOUSE_NAME
+SELECT w.name AS WAREHOUSE_NAME, SUM(p.Width * p.Length * p.Height * w.units) AS VOLUME FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS WAREHOUSE_NAME, SUM(sub.volume*w.units) AS VOLUME FROM Warehouse w JOIN ( SELECT product_id, Width*Length*Height AS volume FROM Products p GROUP BY product_id ) sub ON sub.product_id = w.product_id GROUP BY w.name
+SELECT w.name AS Warehouse_name, SUM(w.units * vol) AS volume FROM Warehouse w JOIN (select product_id, Width*Length*Height as vol from Products) p ON w.product_id = p.product_id GROUP BY Warehouse_name
+SELECT w.name AS warehouse_name, SUM((p.Width * p.Length * p.Height) * w.units) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM((p.width*p.length*p.height)*w.units) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM((width*length*height)*units) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(p.Width * p.Length * p.Height * w.units) AS volume FROM Warehouse AS w JOIN Products AS p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(p.Width * p.Length * p.Height * w.units) AS volume FROM Warehouse AS w LEFT JOIN Products AS p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(p.Width*p.Length*p.Height*w.units) AS volume FROM Warehouse w LEFT JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(units * p.width * p.length * p.height) AS volume FROM Warehouse AS w JOIN Products AS p ON w.product_id = p.product_id GROUP BY warehouse_name
+SELECT w.name AS warehouse_name, SUM(units * size) AS volume FROM Warehouse w LEFT JOIN (SELECT product_id, width*length*height AS size FROM Products) p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(w.units * (SELECT SUM(width*length*Height) FROM products WHERE product_id = w.product_id GROUP BY product_name)) AS volume FROM warehouse W JOIN Products p ON w.product_id = p.product_id GROUP BY warehouse_name
+SELECT w.name AS warehouse_name, SUM(w.units * p.Width * p.Length * p.Height) AS volume FROM Warehouse AS w JOIN Products AS p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(w.units * p.Width * p.Length * p.Height) AS volume FROM Warehouse w INNER JOIN Products p ON w.product_id=p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(w.units * p.Width * p.Length * p.Height) AS volume FROM Warehouse w LEFT JOIN Products p ON w.product_id=p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(w.units * p.width * p.length * p.height) AS volume FROM warehouse w JOIN products p ON p.product_id = w.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, SUM(w.units* p.Width*p.Length*p.Height) AS volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY warehouse_name
+SELECT w.name AS warehouse_name, SUM(w.units*p.Width*p.Length*p.Height) AS volume FROM Warehouse w LEFT JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name AS warehouse_name, sum(p.width*p.length*p.height*w.units) AS volume FROM warehouse w JOIN products p ON w.product_id = p.product_id GROUP BY 1
+SELECT w.name as WAREHOUSE_NAME, SUM(p.Width*p.Length*p.Height*w.units) as VOLUME FROM Products as p INNER JOIN Warehouse as w ON w.product_id = p.product_id GROUP BY WAREHOUSE_NAME
+SELECT w.name as warehouse_name , SUM((p.height*p.width*p.length * w.units)) as volume FROM Warehouse w JOIN Products p ON p.product_id = w.product_id GROUP BY w.name
+SELECT w.name as warehouse_name , SUM(w.units*p.width*p.length*p.height) AS volume FROM warehouse w JOIN products p ON w.product_id=p.product_id GROUP BY w.name
+SELECT w.name as warehouse_name , sum(w.units * p.width * p.length * p.height) as volume FROM warehouse AS w join products as p on p.product_id = w.product_id group by w.name
+SELECT w.name as warehouse_name ,sum(w.units*p.Width*p.Length*p.Height) as volume FROM Warehouse w INNER JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name as warehouse_name, SUM((p.width*length*height) * w.units) Volume FROM Warehouse w INNER JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name as warehouse_name, SUM((units * temp.sub_volume)) AS volume FROM Warehouse w, (SELECT product_id, (Width * Length * Height) AS sub_volume FROM Products) temp WHERE temp.product_id = w.product_id GROUP BY warehouse_name
+SELECT w.name as warehouse_name, SUM(p.width * p.length * p.height * w.units) as volume FROM Warehouse as W INNER JOIN Products as P ON (P.product_id = W.product_id) GROUP BY w.name
+SELECT w.name as warehouse_name, SUM(units * (width*length*height)) as volume FROM warehouse w INNER JOIN products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name as warehouse_name, SUM(w.units*p.Width*p.Length*p.Height) as volume FROM Warehouse as w JOIN Products as p ON w.product_id = p.product_id GROUP BY 1
+SELECT w.name as warehouse_name, sum((p.Width*p.Length*p.Height)*w.units) as volume FROM Warehouse as w LEFT JOIN Products as p on w.product_id = p.product_id GROUP BY w.name
+SELECT w.name as warehouse_name, sum((p.width*length*height) * w.units) Volume FROM Warehouse w INNER JOIN Products p ON w.product_id = p.product_id GROUP BY w.name
+SELECT w.name as warehouse_name, sum(units*width*length*height) as volume FROM warehouse as w JOIN products as p ON w.product_id = p.product_id GROUP BY 1
+SELECT warehouse.name AS warehouse_name, sum(tb.single_volume*units) AS volume FROM warehouse left join ( SELECT product_id, width*length*height AS single_volume FROM Products ) tb ON warehouse.product_id=tb.product_id GROUP BY warehouse.name
+SELECT warehouse_name, SUM(units*width*length*height) AS volume FROM ( SELECT w.name AS warehouse_name, w.units AS units, p.width AS width, p.length AS length, p.height AS height FROM Warehouse AS w LEFT JOIN Products AS p ON w.product_id = p.product_id )s GROUP BY warehouse_name
+SELECT warehouse_name, sum(units*volume) as VOLUME FROM( SELECT a.name as WAREHOUSE_NAME, a.units, (b.width*b.length*b.height) as VOLUME FROM Warehouse a INNER JOIN Products b on a.product_id=b.product_id) a GROUP BY 1
+SELECT ws.name AS warehouse_name, SUM(ws.v) as volume FROM (SELECT w.name, w.product_id, w.units * p.Width*p.Length*p.Height AS v FROM Warehouse w JOIN Products p ON w.product_id = p.product_id) ws GROUP BY ws.name
+Select Warehouse.name as warehouse_name, Sum(Products.Width*Products.Length*Products.Height*Warehouse.units) as volume From Warehouse Left Join Products On Warehouse.product_id = Products.product_id Group By Warehouse.name
+Select Warehouse.name as warehouse_name, sum(Warehouse.units*Products.Width*Products.Length*Products.Height) as volume from Warehouse Inner Join Products On Warehouse.product_id = Products.product_id group by Warehouse.name
+Select name As warehouse_name, sum(units*volume_product) volume From (Select (Width*Length*Height) As volume_product, name, units, product_name From Warehouse Inner Join Products On Warehouse.product_id = Products.product_id) temp Group by name
+Select name as warehouse_name, SUM(units* Width*Length*Height) as volume From warehouse w Join products p on w.product_id = p.product_id group by 1
+Select name as warehouse_name, sum(units*Width*Length*Height) as volume from ( select w.*, p.product_name,p.Width, p.Length, p.Height from Warehouse w left join Products p on p.product_id = w.product_id ) a group by a.name
+Select w.name as ' warehouse_name', sum(w.units*p.Width*p.Length*p.Height) as 'volume' FROM Warehouse w Left Join Products p on w.product_id = p.product_id Group by w.name
+Select w.name as 'warehouse_name', sum(w.units * p.Width * p.Length * p.Height) as 'volume' From Warehouse as w, Products as p Where w.product_id = p.product_id Group by w.name
+Select w.name as warehouse_name, Sum(w.units* p.t_Volume) as Volume from (Select product_id, (Width*length*Height) as t_Volume from Products group by 1 )p, Warehouse w where p.product_id = w.product_id group by 1
+Select w.name as warehouse_name, sum(p.Width* p.Length*p.Height*w.units) as volume from Warehouse w left join Products p on w.product_id = p.product_id group by w.name
+Select w.name warehouse_name , sum((Width*Length*Height)*w.units) Volume from Products p join Warehouse w on w.product_id = p.product_id group by w.name
+WITH A AS ( SELECT product_id, Width*Height*Length AS v FROM Products), B AS ( SELECT name, Warehouse.product_id, units*v AS vol FROM Warehouse JOIN A ON Warehouse.product_id = A.product_id) SELECT name AS warehouse_name, SUM(vol) AS volume FROM B GROUP BY name
+WITH CTE AS ( SELECT *, (width*length*height) AS volume FROM products ) SELECT a.name AS warehouse_name, SUM(b.volume*a.units) AS volume FROM warehouse a JOIN CTE b USING(product_id) GROUP BY a.name
+WITH CTE AS( SELECT product_id, (Width*Length*Height) AS 'volume' FROM Products ), CTE2 AS( SELECT w.name, (w.units*c.volume) AS 'per_item' FROM Warehouse w LEFT JOIN CTE c ON w.product_id = c.product_id ) SELECT DISTINCT name AS 'warehouse_name', SUM(per_item) AS 'volume' FROM CTE2 GROUP BY name ORDER BY warehouse_name
+WITH CTE1 AS ( SELECT PRODUCT_ID, WIDTH*LENGTH*HEIGHT AS VOL FROM PRODUCTS ) SELECT NAME AS WAREHOUSE_NAME, SUM(UNITS*VOL) VOLUME FROM WAREHOUSE JOIN CTE1 USING(PRODUCT_ID) GROUP BY WAREHOUSE_NAME
+WITH T AS ( SELECT w.name, w.units*p.Width*p.Length*p.Height as vol FROM Warehouse as w LEFT JOIN Products as p ON w.product_id=p.product_id ) SELECT name as warehouse_name, SUM(vol) as volume FROM T GROUP BY name
+WITH b AS (SELECT product_id , Width*Length*Height AS volume FROM Products) SELECT a.name AS warehouse_name , SUM(b.volume*a.units) AS volume FROM Warehouse a LEFT JOIN b ON a.product_id = b.product_id GROUP BY 1
+WITH cte AS ( SELECT w.*, p.Width*p.Length*p.Height*w.units AS 'vol' FROM Warehouse w INNER JOIN Products p ON w.product_id = p.product_id ORDER BY 1) SELECT cte.name AS 'warehouse_name', SUM(cte.vol) AS 'volume' FROM cte GROUP BY 1 ORDER BY 1
+WITH cte_p AS ( SELECT product_id, (Width * Length * Height) AS size FROM Products ), cte_volume AS ( SELECT name AS warehouse_name, SUM(p.size * w.units) AS volume FROM Warehouse w JOIN cte_p p ON w.product_id = p.product_id GROUP BY 1 ) SELECT warehouse_name, volume FROM cte_volume
+WITH product_vol AS ( SELECT product_id, Width*Length*Height AS vol FROM Products ) SELECT name AS warehouse_name, SUM(vol*units) AS volume FROM Warehouse LEFT JOIN product_vol USING(product_id) GROUP BY name
+WITH product_vol AS ( SELECT w.name, p.product_id, (p.width * p.length * p.height) * w.units as product_volume FROM Products p INNER JOIN Warehouse w ON w.product_id = p.product_id GROUP BY 1,2) SELECT pv.name as warehouse_name, SUM(pv.product_volume) as volume FROM product_vol pv GROUP BY 1 ORDER BY 1
+WITH product_volume AS ( SELECT product_id, width * length * height AS v FROM products ) SELECT name AS warehouse_name, SUM(units * v) AS volume FROM warehouse JOIN product_volume USING(product_id) GROUP BY name
+WITH t AS ( SELECT name, w.product_id, units, width * length * height AS volume FROM Products p RIGHT JOIN Warehouse w ON p.product_id = w.product_id ) SELECT name AS warehouse_name, SUM(volume * units) AS volume FROM t GROUP BY name
+WITH vol AS ( SELECT w.name warehouse_name, p.product_id, w.units * (p.Width * p.Length * p.Height) volume FROM Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY 1, 2 ) SELECT warehouse_name, SUM(volume) volume FROM vol GROUP BY warehouse_name
+WITH volume_per_product AS (SELECT product_id, (Width * Length * Height) AS volume_per_unit FROM Products), product_total_volume AS (SELECT v.product_id, w.name, (w.units * v.volume_per_unit) AS total_volume FROM Warehouse AS w JOIN volume_per_product AS v ON w.product_id = v.product_id) SELECT name AS warehouse_name, SUM(total_volume) AS volume FROM product_total_volume GROUP BY name
+With cte AS ( SELECT Warehouse.*, product_vol.volume, product_vol.volume*Warehouse.units as Totalvol FROM Warehouse JOIN (SELECT product_id, Width*Length*Height AS volume FROM Products) AS product_vol ON Warehouse.product_id = product_vol.product_id ) SELECT cte.name AS warehouse_name, sum(cte.Totalvol) AS volume FROM cte GROUP BY cte.name
+With cte as ( select name, units*(Width*Length*Height) as volumn from warehouse w join products p using (product_id) group by name, product_id ) select name as WAREHOUSE_NAME, sum(volumn) as VOLUME from cte group by 1
+select (W.name) as warehouse_name, sum((P.Width)*(P.Length)*(P.Height)*(W.units)) as volume from Warehouse W join Products P on W.product_id = P.product_id group by W.name
+select (warehouse.name) as "WAREHOUSE_NAME", SUM(products.width * products.length * products.height * warehouse.units) as "VOLUME" from warehouse left join products on warehouse.product_id = products.product_id group by warehouse.name
+select A.name as warehouse_name, sum(A.units*(B.Width*B.Length*B.Height)) as volume from Warehouse A left join Products B on A.product_id = B.product_id group by name
+select W.name as WAREHOUSE_NAME, sum(P.Width * P.Length * P.Height * W.Units) as VOLUME from Warehouse W inner join Products P on W.product_id = P.product_id group by W.name
+select W.name as warehouse_name, SUM(W.Units*P.Width*P.Length*P.Height) as volume from Warehouse W JOIN Products P ON W.product_id=P.product_id group by W.name
+select W.name as warehouse_name, sum(W.units * P.Width * P.Length * P.Height) as volume from Warehouse W inner join Products P on W.product_id = P.product_id group by W.name
+select W.name as warehouse_name, sum(units * Width * Length * Height) as volume from Warehouse W left join Products P on W.product_id = P.product_id group by W.name
+select Warehouse.name as warehouse_name, sum(Products.Width * Products.Length * Products.Height*Warehouse.units) as volume from Warehouse inner join Products on Warehouse.product_id = Products.product_id group by warehouse_name
+select Warehouse.name as warehouse_name, sum(Warehouse.units * Products.Width * Products.Length * Products.Height) as volume from Warehouse join Products on Products.product_id = Warehouse.product_id group by Warehouse.name
+select Warehouse.name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse Left join Products on Warehouse.product_id = Products.product_id group by Warehouse.name
+select a.name as WAREHOUSE_NAME, SUM(a.units*b.Width*b.Length*b.Height) as VOLUME from Warehouse as a inner join Products as b on a.product_id=b.product_id group by a.name order by a.name
+select a.name as WAREHOUSE_NAME, SUM(a.units*b.Width*b.Length*b.Height) as VOLUME from Warehouse as a join Products as b on a.product_id=b.product_id group by a.name order by a.name
+select a.name as WAREHOUSE_NAME, sum(a.units * b.Width * b.Length * b.Height) as VOLUME from Warehouse a join Products b on a.product_id = b.product_id group by WAREHOUSE_NAME
+select a.name as WAREHOUSE_NAME, sum(a.units*b.width*b.Length*b.Height) as VOLUME from Warehouse a Join Products b on a.product_id = b.product_id group by a.name
+select a.name as warehouse_name, sum((a.units*b.width*b.length*b.height)) as volume from warehouse a join products b using(product_id) group by a.name
+select a.name as warehouse_name, sum(a.units * b.width * b.length * b.height) as volume from warehouse as a left join products as b on a.product_id = b.product_id group by 1
+select a.name as warehouse_name, sum(a.units*b.volume1) as volume from Warehouse as a join (select product_id, Width*Length*Height as volume1 from Products) as b on a.product_id = b.product_id group by a.name
+select a.name as warehouse_name, sum(a.units*b.width*b.length*b.height) as volume from Warehouse a LEFT JOIN Products b on a.product_id = b.product_id GROUP BY 1 ORDER BY 1
+select a.name as warehouse_name, sum(units*(width*length*height)) as volume from warehouse as a left join products as b on a.product_id = b.product_id group by 1 order by 1
+select a.name as warehouse_name, sum(units*width*length*height) as volume from warehouse a join products b on a.product_id = b.product_id group by a.name
+select a.name as warehouse_name,sum(b.Width*b.Length*b.Height*a.units) as volume from Warehouse a left join Products b on a.product_id=b.product_id group by a.name
+select a.name warehouse_name, sum(a.units * b.vol) volume from warehouse a join (select product_id, width * length * height as vol from products) b on a.product_id = b.product_id group by a.name
+select b.name as warehouse_name, sum(width*length*height*units) as volume from products a JOIN warehouse b On a.product_id = b.product_id group by 1
+select distinct name warehouse_name,sum(units*length*width*height) over(partition by name) volume from warehouse w join products p on p.product_id=w.product_id
+select name 'warehouse_name', sum(units*v) 'volume' from warehouse w join (select product_id, width*length*height 'v' from products) as tmp on w.product_id = tmp.product_id group by name
+select name AS warehouse_name, sum(Width*Length*Height*units) AS volume from Warehouse JOIN Products on Warehouse.product_id = Products.product_id group by name
+select name AS warehouse_name, sum(Width*Length*Height*units) AS volume from Warehouse, Products where Warehouse.product_id = Products.product_id group by name
+select name as "WAREHOUSE_NAME", sum(volume) as "VOLUME" from (select w.name, p.Width*p.Length*p.Height*w.units as "volume" from Warehouse w join Products p on w.product_id=p.product_id ) v_ group by 1
+select name as WAREHOUSE_NAME , SUM((p.Width*p.Length*p.Height)*units) as VOLUME from Warehouse w join Products p USING(product_id) group by name
+select name as WAREHOUSE_NAME, SUM(units * Width * Length * Height) as VOLUME from Warehouse join Products using(product_id) group by name
+select name as WAREHOUSE_NAME, SUM(units * width * length * height) as VOLUME from products p, warehouse w where p.product_id = w.product_id group by 1
+select name as WAREHOUSE_NAME, sum(p.width*p.length*p.height*w.units) as VOLUME from warehouse w join products p using(product_id) group by w.name
+select name as WAREHOUSE_NAME, sum(units*width*length*height) AS VOLUME from warehouse join products using (product_id) group by name
+select name as WAREHOUSE_NAME, sum(volume) AS VOLUME from (select w.name, w.product_id, units*p.width*p.length*p.height as volume from warehouse w left join products p on w.product_id = p.product_id) as a group by name
+select name as Warehouse_name, sum(units*Volume) as Volume from Warehouse W, (select width*length*height as Volume, product_id, product_name from Products) P where W.product_id=P.product_id group by name
+select name as warehouse_name , sum(p.width*p.length*p.height*w.units) as volume from warehouse w left join products p on p.product_id=w.product_id group by 1
+select name as warehouse_name , sum(width * length * height * units) as volume from warehouse a join products b on a.product_id = b.product_id group by 1 order by 1
+select name as warehouse_name , sum(width*length*height*units) as volume from warehouse w inner join products p on w.product_id=p.product_id group by name
+select name as warehouse_name, SUM(units* (width*length*height)) as volume from warehouse w , products p where w.product_id = p.product_id group by warehouse_name
+select name as warehouse_name, SUM(units* width*length*height) as volume from warehouse w , products p where w.product_id = p.product_id group by warehouse_name
+select name as warehouse_name, SUM(units* width*length*height) as volume from warehouse w join products p on w.product_id = p.product_id group by warehouse_name order by volume DESC
+select name as warehouse_name, SUM(units*(width*Length*Height)) as volume from warehouse as w JOIN products as p ON w.product_id = p.product_id GROUP by name
+select name as warehouse_name, SUM(width*length*height*units) as volume from warehouse w join products p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum( units* (width*length*height)) as volume from warehouse join products on warehouse.product_id = products.product_id group by name
+select name as warehouse_name, sum(((Width *Length*Height)*units )) as Volume from Warehouse w left Join Products p on w.product_id = p.product_id group by warehouse_name
+select name as warehouse_name, sum((Units * Width*Length*Height)) as volume from Warehouse left join Products on Warehouse.product_id=Products.product_id group by name
+select name as warehouse_name, sum(Width * Length * Height * units ) volume from Warehouse inner join Products using (product_id) group by warehouse_name
+select name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse a join Products b on a.product_id=b.product_id group by name
+select name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse w inner join Products p on w.product_id=p.product_id group by name
+select name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse w left join Products p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse wh join Products prod on wh.product_id = prod.product_id group by name
+select name as warehouse_name, sum(p.width*p.length*p.height*w.units) as volume from warehouse w inner join products p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(tot*units) as volume from warehouse w inner join (select product_id, width*length*height as tot from products) a on w.product_id = a.product_id group by name
+select name as warehouse_name, sum(units * Width * Length * Height) as volume from Products p inner join Warehouse w on p.product_id = w.product_id group by 1
+select name as warehouse_name, sum(units * Width * Length * Height) as volume from Warehouse W Left join Products P on W.product_id = P.product_id group by name
+select name as warehouse_name, sum(units * t1.volume) as volume from warehouse w left join (select product_id, product_name, (width*length*height) as volume from products) t1 on (w.product_id = t1.product_id) group by name
+select name as warehouse_name, sum(units * vol) as volume from Warehouse w left join (select product_id, Width*Length*Height as vol from Products) p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(units*(Width*Length*Height)) as volume from Warehouse join Products using(product_id) group by 1
+select name as warehouse_name, sum(units*(Width*Length*Height)) as volume from Warehouse w inner join Products p on w.product_id =p.product_id group by name
+select name as warehouse_name, sum(units*(width*length*height)) as volume from warehouse w join products p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(units*Width*Length*Height) as volume from Products right join Warehouse on Warehouse.product_id = Products.product_id group by warehouse_name
+select name as warehouse_name, sum(units*Width*Length*Height) as volume from Warehouse as w join Products as p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(units*Width*Length*Height) as volume from Warehouse as w left join Products as p using (product_id) group by warehouse_name
+select name as warehouse_name, sum(units*Width*Length*Height) as volume from Warehouse w JOIN Products p ON w.product_id = p.product_id GROUP BY name
+select name as warehouse_name, sum(units*Width*Length*Height) as volume from Warehouse w join Products p on w.product_id = p.product_id group by 1
+select name as warehouse_name, sum(units*Width*Length*Height) as volume from warehouse w left join products p on w.product_id = p.product_id group by 1
+select name as warehouse_name, sum(units*Width*Length*Height) volume from Warehouse w left join Products p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(units*p_volume) as volume from ( select a.name, a.product_id, a.units, b.p_volume from Warehouse a join (select product_id, Width*Length*Height as p_volume from Products) b on a.product_id = b.product_id )sub group by 1
+select name as warehouse_name, sum(units*vol) as volume from warehouse as a inner join (select product_id, width*length*height as vol from Products) as b on a.product_id = b.product_id group by name
+select name as warehouse_name, sum(units*vol) as volume from warehouse w join (select product_id, sum(width*length*height) over (partition by product_id) as vol from products group by 1) as a on w.product_id=a.product_id group by 1
+select name as warehouse_name, sum(units*volume) as volume from ( select product_id, sum(Width*Length*Height) as volume from Products group by product_id ) a inner join Warehouse on Warehouse.product_id = a.product_id group by name
+select name as warehouse_name, sum(units*width * length * height) as volume from Warehouse join Products where Products.product_id = Warehouse.product_id group by name
+select name as warehouse_name, sum(units*width*length*height) as volume from ( select name, warehouse.product_id,units,width, length,height from warehouse join products on warehouse.product_id=products.product_id) a group by name
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse as w join products as p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse as w join products on w.product_id = products.product_id group by warehouse_name
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse join products on warehouse.product_id = products.product_id group by warehouse_name
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse w , products p where w.product_id = p.product_id group by 1 order by 1
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse w inner join products p on w.product_id=p.product_id group by name
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse w join products p on w.product_id = p.product_id group by 1
+select name as warehouse_name, sum(units*width*length*height) as volume from warehouse w, products p where w.product_id = p.product_id group by 1 order by 1
+select name as warehouse_name, sum(volume) as volume from ( select w.name, p.product_id, p.width * p.length * p.height * w.units as volume from products as p, warehouse as w where p.product_id = w.product_id ) as t group by name
+select name as warehouse_name, sum(volume) as volume from (select w.name, w.product_id, Width*Length*Height*units as volume from Warehouse w left join Products p on w.product_id = p.product_id) sub group by 1
+select name as warehouse_name, sum(w.units*p.volume) as volume from Warehouse w join (select product_id, (width*length*height) as volume from Products) p on w.product_id = p.product_id group by warehouse_name
+select name as warehouse_name, sum(width * Length * Height *units) as volume from (select b.*, a.name, a.units from Warehouse a left join Products b on a.product_id = b.product_id) t group by name
+select name as warehouse_name, sum(width * length * height * units) as volume from Warehouse join Products on Products.product_id = Warehouse.product_id group by 1
+select name as warehouse_name, sum(width * length * height * units) as volume from warehouse w inner join products p on w.product_id = p.product_id group by name
+select name as warehouse_name, sum(width*length*height*units) as volume from warehouse w join products p on w.product_id = p.product_id group by w.name
+select name as warehouse_name, sum(width*length*height*units) as volume from warehouse w join products p on w.product_id=p.product_id group by 1
+select name as warehouse_name, sum(width*length*height*units) as volume from warehouse w left join products p on w.product_id = p.product_id group by 1
+select name as warehouse_name, sum(width*length*height*units) as volume from warehouse w left join products p on w.product_id=p.product_id group by warehouse_name
+select name as warehouse_name, sum(width*length*height*units) volume from Products p join Warehouse w on p.product_id = w.product_id group by name
+select name as warehouse_name,sum(units*length*height*width) as volume from warehouse w join products p on w.product_id=p.product_id group by w.name
+select name as warehouse_name,sum(units*width*length*height)volume from warehouse join products using(product_id) group by 1 order by 1
+select name as warehouse_name,sum(vol*units) as volume from (select width*length*height as vol ,product_id from products) v join warehouse w on v.product_id = w.product_id group by name
+select name warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse natural join Products group by name
+select name warehouse_name, sum(units*Width*Length*Height) volume from Warehouse w join products p using (product_id) group by 1
+select s.name 'warehouse_name', sum(s.volume) as 'volume' from( select w.name, w.units * p.width * p.length* p.height as 'volume' from Warehouse w join Products p on w.product_id = p.product_id)s group by s.name
+select w.name as 'warehouse_name' , sum((select (width*length*Height) from Products where w.product_id = product_id)*w.units) as 'volume' from Warehouse w group by w.name
+select w.name as 'warehouse_name', Sum(w.units*p.width*p.Length*p.height) as volume from warehouse w join products p on p.product_id = w.product_id group by w.name
+select w.name as 'warehouse_name', sum(Width* Length *Height*units) as 'volume' from Warehouse w left join Products p on w.product_id = p.product_id group by w.name
+select w.name as 'warehouse_name', sum(w.units * t.volume) as 'volume' from warehouse w inner join (select product_id, product_name, width * length * height as 'volume' from products) t on t.product_id = w.product_id group by w.name
+select w.name as WAREHOUSE_NAME , sum(p.Width*p.Length*p.Height*w.units) as VOLUME from Warehouse w inner join Products p on w.product_id = p.product_id group by w.name
+select w.name as WAREHOUSE_NAME, SUM((p.Width*p.Length*p.Height)*w.units) as VOLUME from Warehouse as w join Products as p on w.product_id = p.product_id group by 1
+select w.name as WAREHOUSE_NAME, SUM(w.units * p.width * p.length * p.height) as VOLUME from warehouse w , products p where w.product_id = p.product_id GROUP BY w.name
+select w.name as WAREHOUSE_NAME, SUM(w.units*(p.Width*p.Length*p.Height)) as VOLUME from Warehouse as w left join Products as p on w.product_id=p.product_id group by name
+select w.name as WAREHOUSE_NAME, sum( w.units*p.width*p.length*p.height) as VOLUME from Warehouse as w join Products as p on p.product_id = w.product_id group by w.name
+select w.name as WAREHOUSE_NAME, sum((p.width * p. length * p.height)* (w.units)) as VOLUME from warehouse w join products p on w.product_id=p.product_id GROUP BY w.name
+select w.name as WAREHOUSE_NAME, sum(Width * Length * Height * units) AS VOLUME from Warehouse w join Products p on w.product_id = p.product_id group by 1
+select w.name as WAREHOUSE_NAME, sum(p.width * p.length * p.height * w.units) as VOLUME from warehouse w join products p on p.product_id = w.product_id group by warehouse_name
+select w.name as WAREHOUSE_NAME, sum(p.width * p.length * p.height * w.units)as volume from warehouse w join products p on w.product_id = p.product_id group by w.name
+select w.name as WAREHOUSE_NAME, sum(p.width*p.length*p.height*w.units) as VOLUME from warehouse as w left join products as p on w.product_id = p.product_id group by w.name
+select w.name as WAREHOUSE_NAME, sum(w.units*p.Width*p.Length*p.Height) as VOLUME from Warehouse w, Products p where w.product_id = p.product_id group by w.name
+select w.name as WAREHOUSE_NAME, sum(w.units*p.p_vol) as VOLUME from Warehouse w inner join( select product_id, (Width*Length*Height) as p_vol from Products) as p on w.product_id=p.product_id group by w.name
+select w.name as WAREHOUSE_NAME, sum(width* length*height *w.units) as VOLUME from warehouse w inner join products p on p.product_id=w.product_id group by w.name order by name
+select w.name as warehouse_name , sum(Width*Length*Height*units) as volume from Warehouse as w left join Products as p using (product_id) group by w.name order by w.name
+select w.name as warehouse_name , sum(p.Width*p.Length*p.Height*w.units) as volume from Warehouse w inner join Products p on w.product_id=p.product_id group by name
+select w.name as warehouse_name , sum(w.units * ifnull( p.Width * p.Length * p.Height ,0) ) as volume from Warehouse w left join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name ,sum(A.volume*w.units) as volume from Warehouse as w join ( select product_id , Width * Length * Height as volume from Products ) as A on w.product_id = A.product_id group by w.name
+select w.name as warehouse_name, SUM(W.units * (p.width*p.length*p.height)) as volume FROM warehouse w JOIN products p ON w.product_id = p.product_id GROUP BY w.name
+select w.name as warehouse_name, SUM(p.Width * p.Length * p.Height * w.units) as volume from Warehouse w join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, SUM(p.product* w.units) as volume from Warehouse w JOIN (select product_id,Width*Length*Height as product from Products) p ON w.product_id=p.product_id GROUP BY w.name
+select w.name as warehouse_name, SUM(w.units* p.Width *p.Length *p.Height) as volume from Warehouse w left join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, SUM(w.units*p.width*p.Length*p.Height) as volume from warehouse w LEFT JOIN products p ON w.product_id = p.product_id GROUP BY w.name
+select w.name as warehouse_name, sum((Width*Length*Height)*w.units) volume from Warehouse w inner join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum((p.Width * p.Length * p.Height) * w.units) as volume from warehouse w inner join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum((p.width* p.Length* p.Height)* w.units)as volume from warehouse w join products as p on w.product_id= p.product_id group by warehouse_name
+select w.name as warehouse_name, sum((p.width*p.length*p.height)*w.units) as volume from warehouse w inner join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum((w.units*t.prod_volume)) as Volume from Warehouse w inner join (select product_id as id, (width*length*Height) as prod_volume from Products ) as t on w.product_id=t.id group by w.name
+select w.name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse as w join Products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse w inner join Products p on p.product_id=w.product_id group by name
+select w.name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse w join Products p on p.product_id=w.product_id group by warehouse_name
+select w.name as warehouse_name, sum(Width*Length*Height*units) as volume from Warehouse w join Products p on w.product_id = p.product_id group by warehouse_name
+select w.name as warehouse_name, sum(p.Width * p.Length * p.Height * w.units) as volume from Warehouse w join Products p on p.product_id = w.product_id group by w.name
+select w.name as warehouse_name, sum(p.Width * p.Length * p.Height * w.units) as volume from Warehouse w left join Products p on p.product_id = w.product_id group by w.name
+select w.name as warehouse_name, sum(p.Width * p.Length * p.Height * w.units) as volume from Warehouse w left join Products p on p.product_id = w.product_id group by warehouse_name
+select w.name as warehouse_name, sum(p.Width * p.Length * p.Height * w.units) as volume from Warehouse w, Products p where w.product_id = p.product_id group by 1
+select w.name as warehouse_name, sum(p.Width*p.Length*p.Height*w.units) as volume from Warehouse as w join Products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(p.width * p.length * p.height * w.units) as volume from Warehouse w inner join Products p on w.product_id = p.product_id group by warehouse_name
+select w.name as warehouse_name, sum(p.width * p.length * p.height * w.units) as volume from Warehouse w left join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(p.width * p.length * p.height * w.units) as volume from warehouse w join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(p.width * p.length * p.height * w.units) volume from warehouse w inner join products p on p.product_id = w.product_id group by w.name
+select w.name as warehouse_name, sum(p.width*p.Length*p.Height*w.units) as volume from Warehouse as w , Products as p where w.product_id=p.product_id group by w.name
+select w.name as warehouse_name, sum(p.width*p.Length*p.Height*w.units) as volume from warehouse w join products p on w.product_id = p.product_id group by w.name order by w.name
+select w.name as warehouse_name, sum(p.width*p.length*p.height*w.units) as volume from warehouse w inner join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(p.width*p.length*p.height*w.units) as volume from warehouse w join products p using(product_id) group by w.name
+select w.name as warehouse_name, sum(tb1.volume*w.units) as volume from Warehouse w, (select product_id, (Width*Length*Height) as volume from Products) tb1 where w.product_id = tb1.product_id group by w.name
+select w.name as warehouse_name, sum(units * Width * Length * Height) as volume from Warehouse w join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(units*(p.width*p.length*p.height)) as volume FROM warehouse w left JOIN Products p on w.product_id=p.product_id group by w.name
+select w.name as warehouse_name, sum(units*Width*Length*Height) as volume from Warehouse w left join Products p on w.product_id=p.product_id group by 1
+select w.name as warehouse_name, sum(units*p.width*p.length*p.height) as volume from warehouse as w inner join products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(units*width*Length*Height) as volume from Warehouse w join Products p on w.product_id = p.product_id group by name
+select w.name as warehouse_name, sum(units*width*length*height) as volume from warehouse w inner join products p on w.product_id = p.product_id group by 1
+select w.name as warehouse_name, sum(units*width*length*height) as volume from warehouse w join products p on w.product_id = p.product_id group by 1
+select w.name as warehouse_name, sum(vol*units) as volume from warehouse w join (select product_id,(width*length*height) as vol from products group by product_id)volProd on volProd.product_id=w.product_id group by w.name
+select w.name as warehouse_name, sum(volume*units) as volume from warehouse w join (select product_id, (width*length*height) as volume from products) p on w.product_id = p.product_id group by 1
+select w.name as warehouse_name, sum(w.units * (p.width * p.length * p.height)) as volume from warehouse w left join products p on w.product_id = p.product_id group by 1
+select w.name as warehouse_name, sum(w.units * (select sum(Width * Length * Height) from Products where product_id = w.product_id group by product_name)) as volume from Warehouse w join Products p on w.product_id = p.product_id group by warehouse_name
+select w.name as warehouse_name, sum(w.units * p.Width * p.Length * p.Height) as volume from Warehouse as w join Products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units * p.Width * p.Length * p.Height) as volume from Warehouse w join Products p on w.product_id=p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units * p.Width * p.Length*p.Height ) as volume from Warehouse w inner join Products p on w.product_id = p.product_id group by w.name order by w.name
+select w.name as warehouse_name, sum(w.units * p.width * p.length * p.height) as volume from warehouse as w inner join products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units * p.width * p.length * p.height) as volume from warehouse as w join products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units * p.width * p.length * p.height) as volume from warehouse w join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units * temp.vol) as volume from Warehouse w inner join (select product_id, (Width * Length * Height) as vol from Products) temp on w.product_id = temp.product_id group by w.name
+select w.name as warehouse_name, sum(w.units *(p.Width*p.Length*p.Height)) as volume from warehouse w join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.Width*p.Length*p.Height) as volume from Warehouse as w inner join Products as p on w.product_id=p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.Width*p.Length*p.Height) as volume from Warehouse as w join Products as p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.Width*p.Length*p.Height) as volume from Warehouse w inner join Products p on w.product_id=p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.Width*p.Length*p.Height) as volume from Warehouse w join Products p using (product_id) group by warehouse_name
+select w.name as warehouse_name, sum(w.units*p.Width*p.Length*p.Height) as volume from Warehouse w left join Products p on p.product_id = w.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.width*p.length*p.height) as volume from Warehouse w left join Products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.width*p.length*p.height) as volume from warehouse w left join products p on w.product_id = p.product_id group by w.name
+select w.name as warehouse_name, sum(w.units*p.width*p.length*p.height) as volume from warehouse w left join products p on w.product_id = p.product_id group by w.name order by w.name
+select w.name as warehouse_name, sum(w.units*prod_volume) as volume from Warehouse as w left join ( select product_id, product_name, (Width*Length*Height) as prod_volume from Products ) as cte using(product_id) group by 1
+select w.name as warehouse_name, sum(w.units*vol) as volume from warehouse as w join (select product_id, sum(width*length*height) over (partition by product_id) as vol from products) a on w.product_id=a.product_id group by 1
+select w.name as warehouse_name, sum(width*length*height*units) as volume from warehouse w join products p on w.product_id = p.product_id group by 1
+select w.name as warehouse_name, sum(width*length*height*units) as volume from warehouse w join products p on w.product_id = p.product_id group by warehouse_name
+select w.name warehouse_name, sum(units*width*length*height) VOLUME from warehouse w inner join products p on p.product_id = w.product_id group by w.name
+select w.name warehouse_name, sum(w.units * p.length * p.width * p.height) volume from warehouse w inner join products p on w.product_id = p.product_id group by 1
+select w.name warehouse_name, sum(width * length * height * units) volume from Warehouse w join Products p on w.product_id = p.product_id group by name
+select w.name warehouse_name,sum(units*width*length*height) as volume from products p join warehouse w on p.product_id=w.product_id group by w.name
+select warehouse.name as WAREHOUSE_NAME, sum(units*width*length*height) as VOLUME from warehouse join products using(product_id) group by warehouse.name
+select warehouse.name as warehouse_name, sum(products.width*products.length*products.height * warehouse.units) as volume from warehouse join products on warehouse.product_id = products.product_id group by warehouse.name
+select warehouse.name as warehouse_name, sum(units*width*length*height) as volume from warehouse join products on warehouse.product_id=products.product_id group by warehouse.name
+select warehouse.name as warehouse_name, sum(warehouse.units * products.height * products.width * products.length) as volume from warehouse left outer join products on warehouse.product_id = products.product_id group by 1
+select warehouse.name as warehouse_name, sum(warehouse.units*products.width*products.length*products.height) as volume from warehouse join products on warehouse.product_id=products.product_id group by name
+select warehouse_name, sum(row_volume) as volume from (select w.name as warehouse_name, (w.units*p.Width*p.Length*p.Height) as row_volume from Warehouse w inner join Products p on w.product_id = p.product_id) as i group by warehouse_name
+select warehouse_name, sum(volume*units) as volume from (select productId,productName,width*length*height as volume,warehouse_name,units from (select Products.product_id as productId, Products.product_name as productName, Products.Width as width,Products.Length as length,Products.Height as height, Warehouse.name as warehouse_name, Warehouse.units as units from Products INNER JOIN Warehouse ON Products.product_id=Warehouse.product_id)as a)as b GROUP BY warehouse_name
+select wh.name as Warehouse_name, sum(wh.units*p.width*p.length*p.height) as volume from Warehouse wh left join products p on wh.product_id=p.product_id group by 1
+select x.name as warehouse_name,sum(vol) as volume from (select w.name,p.product_id,units*(p.width*p.length*p.height) as vol from warehouse as w join products as p on w.product_id=p.product_id)x group by x.name
+with CTE as (select product_id, (Width*Length*Height) as 'volume' from Products group by product_id) select w.name as 'warehouse_name', sum(w.units*volume) as 'volume' from CTE join Warehouse as w on w.product_id = CTE.product_id group by w.name
+with Products as (select product_id,width*length*height as vol from Products) select w.name as warehouse_name,sum(w.units*p.vol) as volume from Warehouse w join Products p on w.product_id=p.product_id group by 1
+with Products_Volume as (select product_id, Width*Length*Height as v from Products) select name as WAREHOUSE_NAME, sum(v*Warehouse.units) as VOLUME from Products_Volume join Warehouse on (Products_Volume.product_id = Warehouse.product_id) group by warehouse.name
+with WP as ( select W.name, W.units*P.Width*P.Length*P.Height volume from Warehouse as W left join Products as P on W.product_id=P.product_id ) select name as warehouse_name, sum(volume) as volume from WP group by name
+with a as ( select name, units*Width*Length*Height vol from Warehouse t1 join Products t2 on t1.product_id = t2.product_id ) select name warehouse_name, sum(vol) volume from a group by name
+with base as ( select w.name , w.product_id, w.units, p.Width, p.Length, p.Height from Warehouse w inner join Products p on w.product_id = p.product_id) select b.name as warehouse_name, sum(b.units*b.Width*b.Length*b.Height) as volume from base b group by b.name
+with c as ( select w.name , w.product_id , (p.width * p.length * p.height) * w.units as total_volume from warehouse as w inner join products as p on w.product_id = p.product_id ) select name as warehouse_name, sum(total_volume) as volume from c group by name
+with cte as ( Select name,product_id, product_name, (units*Width*Length*Height) as volume from Warehouse left join Products using(product_id) ) Select name as warehouse_name, sum(volume) as volume from cte group by warehouse_name
+with cte as ( select p.product_id,w.name warehouse_name, sum(w.units*p.width*p.length*p.height) volume from warehouse w inner join products p on w.product_id=p.product_id group by p.product_id,w.name) select warehouse_name,sum(volume) Volume from cte group by warehouse_name
+with cte as ( select product_id, product_name, (Width*Length*Height) as prod_volume from Products ) select w.name as warehouse_name, sum(w.units*c.prod_volume) as volume from Warehouse as w join cte as c using(product_id) group by 1
+with cte as (select name, Warehouse.product_id, units*Width*Length*Height as volume from Warehouse inner join Products on Warehouse.product_id = Products.product_id) select name as WAREHOUSE_NAME, sum(volume) AS VOLUME from cte group by name
+with cte as (select p.product_id,w.name, w.units*Width*Length*Height as vol from Products p inner join warehouse w on p.product_id = w.product_id group by p.product_id,w.name order by w.name) select coalesce(name) as WAREHOUSE_NAME, coalesce(sum(vol)) as VOLUME from cte group by name
+with cte as (select product_id , Width*Length*Height as Volume from Products ) select w.name as WAREHOUSE_NAME , SUM(Volume * w.units) as Volume from Warehouse as w join cte on w.product_id= cte.product_id group by w.name
+with cte as (select product_id, Width*Length*Height as volume from Products group by product_id), cte2 as (SELECT name, units, cte.product_id, volume, units*volume as quant from CTE JOIN Warehouse ON Warehouse.product_id=cte.product_id) select name as warehouse_name, sum(quant) as volume from cte2 group by name
+with cte as (select product_id, width* length*height as cubea from products group by 1) select w.name as warehouse_name, sum(cubea*units) as volume from cte c join warehouse w using(product_id) group by 1
+with cte as( select name, w.product_id, units, width*length*height as unit_vol from warehouse w inner join products p on w.product_id=p.product_id) select name as warehouse_name, sum(units*unit_vol) as volume from cte group by name
+with cte as( select*, width*length*height as total from products ), cte1 as( select *,units*total as volume from Warehouse left join cte using(product_id ) ) select name as warehouse_name, sum(volume) as volume from cte1 group by name
+with cte_product_volume as ( select product_id, Width * Length * Height as product_volume from Products ), cte_warehouse_volume as ( select name as warehouse_name, sum(w.units * product_volume) as volume from Warehouse as w join cte_product_volume as pv on w.product_id = pv.product_id group by 1 ) select * from cte_warehouse_volume
+with dims as ( select product_id, length*width*height vol from products group by product_id ) select w.name as WAREHOUSE_NAME, sum(w.units*d.vol) as VOLUME from Warehouse w left join dims d on w.product_id=d.product_id group by w.name
+with prod_volume (product_id, volume) as ( select product_id, width*length*height as volume from Products ) select name as warehouse_name, sum(unit_volume) as volume from ( select name, product_id, p.volume*w.units as unit_volume from warehouse w join prod_volume p using(product_id) ) a group by name
+with product_cte as( SELECT product_id, (Width * Length * Height) as Vol FROM Products GROUP BY 1 ) SELECT name as warehouse_name, SUM(w.units * p.Vol) as volume FROM Warehouse w JOIN product_cte p ON w.product_id = p.product_id GROUP BY 1
+with product_vol as ( select product_id, Width * Length * Height as vol from Products) select name as warehouse_name, sum(units * vol) as volume from Warehouse left join product_vol on Warehouse.product_id = product_vol.product_id group by name
+with product_volume as ( select product_id, width * length * height as volume from Products ), t1 as ( select ww.*, units * volume as total_volume from Warehouse as ww left join product_volume as pv on ww.product_id = pv.product_id ) select name as warehouse_name, sum(total_volume) as volume from t1 group by name
+with product_volume as ( select product_id, width * length * height as volume from Products) select name as warehouse_name, sum(units * volume) as volume from Warehouse w join product_volume p where w.product_id = p.product_id group by name
+with product_volume as ( select product_id, width*length*height as pdt_volume from products ) select w.name as warehouse_name, sum(pv.pdt_volume * w.units) as volume from warehouse w JOIN product_volume pv on w.product_id = pv.product_id group by w.name
+with product_volumes as ( select product_id, width * length * height as volume from products ), warehouse_product_volumes as ( select w.name, w.product_id, (w.units * v.volume) as volume from warehouse w join product_volumes v on w.product_id = v.product_id ) select name as warehouse_name, sum(volume) as volume from warehouse_product_volumes group by name
+with t as (select product_id, Width*Length*Height as Volume from Products) select name warehouse_name,sum(units*Volume) as volume from Warehouse join t using(product_id) group by 1
+with t1 as ( select product_id, (width*length*height) as vol from products ) select w.name warehouse_name, sum(t1.vol*w.units) as volume from warehouse w left join t1 on w.product_id=t1.product_id group by warehouse_name
+with t1 as (select product_id,product_name, (width*Length*Height) as volume from products) select w.name as warehouse_name, sum(w.units*t.volume) as `volume` from warehouse w join t1 t on w.product_id=t.product_id group by 1
+with temp as ( select * from Warehouse join Products Using (product_id) ) SELECT name as WAREHOUSE_NAME, SUM(vol) as VOLUME FROM( select name, (width * length* height * units) as vol from temp ) t GROUP BY WAREHOUSE_NAME
+with temp as ( select w.name, (units*width*length*height) as v from warehouse w left join products p on w.product_id = p.product_id) select name as warehouse_name, sum(v) as volume from temp group by name
+with tmp as ( select w.name, p.product_id, P.width*p.length*p.height*w.units as p_volume from warehouse as w inner join Products as P USING(product_id) ) select name as warehouse_name, sum(p_volume) as volume from tmp group by name order by name
+with tmp as ( select w.name, p.product_id, p.product_name, w.units, P.width*p.length*p.height as p_volume from warehouse as w inner join Products as P USING(product_id) ) select name as warehouse_name, sum(units * p_volume) as volume from tmp group by name order by name
+with vol as (select product_id, product_name, width*Length*Height as vol from products) select name as warehouse_name, sum(units* v.vol) as volume from warehouse w left join vol v on v.product_id=w.product_id group by name
+with vol_itemize as ( select warehouse.name as warehouse_name, (products.width*products.length*products.height*warehouse.units) as volume from products join warehouse on products.product_id = warehouse.product_id ) select warehouse_name, sum(volume) as volume from vol_itemize group by warehouse_name
+with volume as ( select product_id, (width*Length*Height) as vol from Products) select w.name as warehouse_name, sum(w.units*v.vol) as volume FROM Warehouse w JOIN volume v ON v.product_id = w.product_id group by w.name
+with volumes as (SELECT product_id, Width*Length*Height as vol FROM Products) SELECT w.name as WAREHOUSE_NAME, SUM(w.units*v.vol) as VOLUME FROM Warehouse w JOIN volumes v ON v.product_id = w.product_id GROUP BY w.name
+with warehouse_by_product as ( select a.*, b.Width * b.Length * b.Height as volume_per_unit from Warehouse as a left join Products as b on a.product_id = b.product_id ) select name as warehouse_name, sum(volume_per_unit * units) as volume from warehouse_by_product group by name

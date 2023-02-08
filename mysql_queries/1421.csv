@@ -1,0 +1,320 @@
+SELECT A.ID, A.YEAR, IFNULL(B.NPV,0) AS NPV FROM QUERIES AS A LEFT JOIN NPV AS B ON A.ID = B.ID AND A.YEAR = B.YEAR
+SELECT B.id, B.year, IF(A.year IS NULL, 0, A.npv) AS npv FROM NPV A RIGHT JOIN Queries B ON A.id = B.id AND A.year = B.year
+SELECT CAST(LEFT(queries_key, (LENGTH(queries_key) - 4)) as UNSIGNED) as id, CAST(RIGHT(queries_key, 4) as UNSIGNED) as year, COALESCE(npv, 0) as npv FROM (SELECT CONCAT(id, year) as queries_key FROM queries) A LEFT JOIN (SELECT CONCAT(id, year) as npv_key, npv FROM npv) B ON queries_key=npv_key
+SELECT Q.* ,IFNULL(N.npv,0) AS npv FROM Queries Q LEFT JOIN NPV N ON N.id = Q.id AND N.year = Q.year
+SELECT Q.ID, Q.YEAR, IFNULL(N.NPV,0) AS NPV FROM QUERIES Q LEFT JOIN NPV N ON Q.ID=N.ID AND Q.YEAR=N.YEAR
+SELECT Q.ID,Q.YEAR, CASE WHEN N.NPV IS NULL THEN 0 ELSE N.NPV END AS 'npv' FROM NPV N RIGHT OUTER JOIN QUERIES Q ON N.ID = Q.ID AND N.YEAR = Q.YEAR
+SELECT Q.id ,Q.year ,IFNULL(N.npv,0) AS npv FROM Queries Q LEFT JOIN NPV N ON N.id = Q.id AND N.year = Q.year
+SELECT Q.id, Q.year, (CASE WHEN N.npv IS NULL THEN 0 ELSE N.npv END) AS npv FROM Queries Q LEFT OUTER JOIN NPV N ON Q.id = N.id AND Q.year = N.year
+SELECT Q.id, Q.year, COALESCE(N.npv, 0) AS npv FROM Queries Q LEFT JOIN NPV N USING (id, year)
+SELECT Q.id, Q.year, COALESCE(N.npv,0) AS npv FROM Queries Q LEFT JOIN NPV N ON Q.id = N.id AND Q.year = N.year
+SELECT Q.id, Q.year, COALESCE(N.npv,0) as npv FROM Queries Q LEFT JOIN NPV N ON Q.id = N.id AND Q.year = N.year
+SELECT Q.id, Q.year, COALESCE(N.npv,0) npv FROM Queries Q LEFT JOIN NPV N ON N.id = Q.id AND Q.year = N.year
+SELECT Q.id, Q.year, COALESCE(NPV.npv, 0) AS npv FROM Queries Q LEFT JOIN NPV ON (NPV.id = Q.id) AND (NPV.year = Q.year)
+SELECT Q.id, Q.year, IFNULL(N.npv,0) AS NPV FROM Queries Q LEFT JOIN NPV N ON Q.id=N.id AND Q.year=N.year
+SELECT Q.id, Q.year, IFNULL(NPV.npv, 0) AS npv FROM Queries Q LEFT OUTER JOIN NPV ON Q.id = NPV.id AND Q.year = NPV.year
+SELECT Q.id,Q.year,COALESCE(npv,0) AS npv FROM Queries Q LEFT JOIN NPV N ON Q.id = N.id AND Q.year = N.year
+SELECT Q1.id, Q1.year, IFNULL(npv, 0) npv FROM Queries Q1 LEFT JOIN NPV N1 ON Q1.id = N1.id AND Q1.year = N1.year
+SELECT Q1.id, Q1.year, IFNULL(npv,0) npv FROM Queries Q1 LEFT JOIN NPV ON Q1.id = NPV.id AND Q1.year = NPV.year
+SELECT QUERIES.ID AS ID, QUERIES.YEAR AS YEAR, COALESCE(NPV, 0) AS NPV FROM QUERIES LEFT JOIN NPV ON QUERIES.ID = NPV.ID AND QUERIES.YEAR = NPV.YEAR
+SELECT Queries.`id`, Queries.year, IFNULL(npv,0) AS npv FROM Queries LEFT JOIN NPV ON Queries.`id` = NPV.`id` AND Queries.year = NPV.year
+SELECT Queries.id , Queries.year , IFNULL(NPV.npv, 0) AS npv FROM Queries LEFT JOIN NPV ON (Queries.id, Queries.year) = (NPV.id, NPV.year)
+SELECT Queries.id , Queries.year , IFNULL(NPV.npv, 0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year
+SELECT Queries.id, Queries.year, COALESCE((npv),0) as npv FROM Queries LEFT JOIN NPV ON NPV.id=Queries.id AND Queries.year=NPV.year ORDER BY 1,2
+SELECT Queries.id, Queries.year, COALESCE(NPV.npv, 0) AS npv FROM Queries LEFT JOIN NPV ON NPV.year=Queries.year AND Queries.id=NPV.id
+SELECT Queries.id, Queries.year, COALESCE(NPV.npv, 0) as npv FROM NPV RIGHT JOIN Queries on (NPV.id, NPV.year) = (Queries.id, Queries.year)
+SELECT Queries.id, Queries.year, COALESCE(NPV.npv,0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year
+SELECT Queries.id, Queries.year, COALESCE(npv,0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year ORDER BY id, year
+SELECT Queries.id, Queries.year, IFNULL(NPV.npv, 0) AS npv FROM Queries LEFT JOIN NPV ON NPV.year=Queries.year AND Queries.id=NPV.id
+SELECT Queries.id, Queries.year, IFNULL(NPV.npv, 0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year
+SELECT Queries.id, Queries.year, IFNULL(NPV.npv, 0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id=NPV.id AND Queries.year=NPV.year
+SELECT Queries.id, Queries.year, IFNULL(NPV.npv,0) AS npv FROM Queries LEFT JOIN NPV ON (Queries.id = NPV.id) AND (Queries.year = NPV.year) ORDER BY Queries.id, Queries.year
+SELECT Queries.id, Queries.year, IFNULL(NPV.npv,0) npv FROM Queries LEFT JOIN NPV ON NPV.id = Queries.id AND NPV.year = Queries.year
+SELECT Queries.id, Queries.year, IFNULL(npv,0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id=NPV.id AND Queries.year=NPV.year
+SELECT Queries.id, Queries.year, IFNULL(npv,0) npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year ORDER BY id
+SELECT Queries.id, Queries.year, IFNULL(npv,0)as npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year
+SELECT Queries.id, Queries.year,ifnull(NPV.npv,0) as npv From Queries left join NPV ON Queries.id = NPV.id and Queries.year = NPV.year
+SELECT Queries.id,Queries.year, coalesce(NPV.npv,0) AS npv FROM Queries LEFT JOIN NPV ON Queries.id = NPV.id AND Queries.year = NPV.year
+SELECT a.*, coalesce(b.npv, 0) as npv FROM Queries as a LEFT JOIN npv as b ON a.id = b.id AND a.year = b.year
+SELECT a.id ,a.year, case when npv is null then 0 else npv end as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year
+SELECT a.id ,a.year, coalesce(npv, 0) as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year
+SELECT a.id, a.year, coalesce(npv, 0) AS npv FROM Queries a LEFT JOIN NPV b ON a.id = b.id AND a.year = b.year
+SELECT a.id, a.year,IFNULL(b.npv,0) AS npv FROM Queries a LEFT JOIN NPV b ON a.id=b.id AND a.year=b.year
+SELECT b.id, b.year, IF(b.npv IS NULL, 0, b.npv) npv FROM (SELECT queries.id, queries.year, npv.npv FROM queries left JOIN npv ON npv.id = queries.id AND npv.year = queries.year) b
+SELECT b.id, b.year, IFNULL(a.npv,0) AS npv FROM NPV a RIGHT JOIN Queries b ON b.id = a.id AND b.year = a.year ORDER BY 1, 2
+SELECT b.id, b.year, IFNULL(npv,0) AS npv FROM NPV a RIGHT JOIN Queries b ON a.id = b.id AND a.year = b.year
+SELECT b.id, b.year, IFNULL(npv,0) AS npv FROM NPV a RIGHT JOIN Queries b ON a.id = b.id AND a.year = b.year ORDER BY 1
+SELECT id, year, COALESCE(npv, 0) AS npv FROM Queries LEFT JOIN NPV USING(id, year)
+SELECT id, year, IFNULL(npv,0) AS npv FROM Queries LEFT JOIN NPV USING(id,year)
+SELECT id, year, IFNULL(npv,0) AS npv FROM Queries NATURAL LEFT OUTER JOIN NPV
+SELECT id, year, ifnull(npv,0) AS npv FROM Queries LEFT JOIN NPV USING(id, year)
+SELECT q.*, IFNULL(n.npv, 0) AS npv FROM Queries AS q LEFT JOIN NPV AS n ON q.id = n.id AND q.year = n.year
+SELECT q.*, IFNULL(n.npv, 0) npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year ORDER BY id
+SELECT q.*, IFNULL(n.npv,0) AS npv FROM Queries q LEFT JOIN NPV n USING(id, year) ORDER BY q.id
+SELECT q.id , q.year , IFNULL(n.npv,0) AS npv FROM queries q LEFT JOIN npv n ON n.id = q.id AND q.year = n.year
+SELECT q.id , q.year , IFNULL(n.npv,0) As npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id , q.year , coalesce(n.npv,0) as npv FROM Queries q LEFT JOIN NPV n on n.id = q.id and n.year=q.year
+SELECT q.id id, q.year year, IFNULL(n.npv,0) npv FROM queries q LEFT JOIN NPV n ON q.id=n.id AND q.year=n.year
+SELECT q.id, q.year , case when n.npv is null then 0 else n.npv end as npv FROM Queries AS q LEFT JOIN NPV AS n ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year as year, IFNULL(n.npv,0) as npv FROM Queries as q LEFT JOIN NPV as n ON q.id = n.id and q.year = n.year
+SELECT q.id, q.year, CASE WHEN n.npv IS NOT NULL THEN n.npv ELSE 0 END AS npv FROM queries q LEFT JOIN npv n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, CASE WHEN npv IS NULL THEN 0 ELSE npv END AS npv FROM Queries q LEFT JOIN NPV n ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year, CASE WHEN npv IS NULL THEN 0 ELSE npv END AS npv FROM Queries q LEFT JOIN NPV n ON n.year=q.year AND n.id=q.id
+SELECT q.id, q.year, COALESCE(n.npv, 0) AS npv FROM NPV n RIGHT JOIN Queries q ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year, COALESCE(n.npv, 0) AS npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, COALESCE(n.npv, 0) as npv FROM queries as q LEFT JOIN npv as n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, COALESCE(n.npv, 0) npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id and q.year= n.year
+SELECT q.id, q.year, COALESCE(n.npv,0) as npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, COALESCE(npv, 0) AS npv FROM Queries q LEFT JOIN NPV ON q.id = NPV.id AND q.year = NPV.year
+SELECT q.id, q.year, COALESCE(npv,0) AS npv FROM NPV n RIGHT JOIN Queries q ON n.id = q.id AND n.year = q.year ORDER BY id,year
+SELECT q.id, q.year, COALESCE(npv,0) as npv FROM Queries q LEFT JOIN NPV n on q.id = n.id and q.year = n.year
+SELECT q.id, q.year, COALESCE(npv,0) npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id and q.year = n.year
+SELECT q.id, q.year, COALESCE(npv.npv,0) as npv FROM Queries as q LEFT JOIN NPV ON q.id = npv.id AND q.year = npv.year order by 1,2
+SELECT q.id, q.year, IF(n.npv IS NULL, 0, npv) AS npv FROM Queries AS q LEFT JOIN NPV as n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(NPV.npv,0) AS npv FROM NPV RIGHT JOIN Queries q ON NPV.id = q.id AND NPV.year = q.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) AS npv FROM NPV n RIGHT JOIN Queries q ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) AS npv FROM NPV n RIGHT JOIN Queries q ON n.id=q.id AND n.year=q.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) AS npv FROM Queries AS q LEFT JOIN NPV AS n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) AS npv FROM Queries as q LEFT JOIN NPV as n ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) AS npv FROM Queries q LEFT JOIN NPV n ON (q.id, q.year) = (n.id, n.year)
+SELECT q.id, q.year, IFNULL(n.npv, 0) AS npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(n.npv, 0) npv FROM queries q LEFT JOIN npv n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(n.npv,0) AS npv FROM Queries AS q LEFT JOIN NPV as n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(n.npv,0) AS npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(n.npv,0) AS npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year ORDER BY q.id
+SELECT q.id, q.year, IFNULL(n.npv,0) npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(npv, 0) AS npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(npv, 0) AS npv FROM Queries q LEFT JOIN NPV n ON q.id=n.id AND q.year = n.year
+SELECT q.id, q.year, IFNULL(npv,0) AS npv FROM queries q LEFT JOIN npv n USING (id,year)
+SELECT q.id, q.year, IFNULL(npv,0) npv FROM NPV n RIGHT JOIN Queries q ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year, coalesce(n.npv, 0) AS npv FROM npv AS n RIGHT JOIN queries AS q ON n.id = q.id AND n.year = q.year
+SELECT q.id, q.year, coalesce(n.npv,0) as npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id and q.year = n.year
+SELECT q.id, q.year, coalesce(n.npv,0) as npv FROM queries q left outer join npv n on q.id = n.id and q.year = n.year
+SELECT q.id, q.year, ifnull(NPV.npv, 0) AS NPV FROM Queries q LEFT JOIN NPV USING(id, year)
+SELECT q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on n.id = q.id and n.year = q.year
+SELECT q.id, q.year, ifnull(npv, 0) as npv FROM Queries q LEFT JOIN NPV n ON q.id = n.id and n.year = q.year
+SELECT q.id,q.year,IFNULL(n.npv,0) AS npv FROM Queries q LEFT JOIN NPV n ON (q.id,q.year) = (n.id,n.year)
+SELECT q.id,q.year,IFNULL(n.npv,0) AS npv FROM Queries q LEFT JOIN NPV n USING (id,year)
+SELECT q.id,q.year,ifnull(a.npv,0) AS NPV FROM queries q LEFT JOIN NPV a ON q.id = a.id AND q.year = a.year
+SELECT queries.id, queries.year, IFNULL(npv, 0) AS npv FROM NPV RIGHT JOIN Queries ON NPV.id = Queries.id AND NPV.year = Queries.year
+SELECT t1.id AS id,t1.year AS year,COALESCE(t2.npv,0) AS npv FROM Queries t1 LEFT JOIN NPV t2 ON t1.id=t2.id AND t1.year=t2.year
+SeLECt q.id,q.year,IFNULL(n.npv,0) as npv FROM Queries AS q LEFt join NPV AS n ON q.id=n.id AND q.year=n.year
+Select Q.id as id, Q.year as year, if(NPV.npv is null,0,NPV.npv) as npv from Queries Q left join NPV on Q.year = NPV.year and Q.id=NPV.id
+Select Q.id, Q.year, if (Isnull(N.npv), 0, N.npv) as npv From Queries as Q Left Join NPV as N on Q.id=N.id and Q.year = N.year Order by 1,2
+Select Queries.id, Queries.year, Case When NPV.npv Is Null Then 0 Else NPV.npv End As npv From Queries Left Join NPV on NPV.id = Queries.id And NPV.year = Queries.year
+Select q.id, q.year, coalesce(n.npv,0) as npv from Queries q left join NPV n on n.id = q.id and n.year = q.year
+Select q.id, q.year, ifnull(npv,0) as npv from NPV n right join Queries q on n.id=q.id and q.year = n.year order by q.id
+Select q.id, q.year, ifnull(npv,0) npv from NPV n right join Queries q on n.id=q.id and n.year = q.year order by q.id
+Select q.year,q.id,ifnull(n.npv,0) as 'npv' from Queries q left join NPV n on n.year = q.year and n.id = q.id
+select A.id, A.year, case when b.npv is null then 0 else b.npv end npv from Queries A left join NPV B on A.id = B.id and A.year = B.year
+select Q.ID,Q.YEAR, case when N.NPV is not null then NPV ELSE 0 END NPV FROM NPV N RIGHT JOIN QUERIES Q ON Q.ID = N.ID AND Q.YEAR = N.YEAR
+select Q.id, Q.year , coalesce(npv,0) as npv from Queries Q left join NPV N on Q.id=N.id and Q.year=N.year
+select Q.id, Q.year, COALESCE(N.NPV,0) as npv from Queries Q LEFT JOIN NPV N ON Q.id = N.id and Q.year =N.year
+select Q.id, Q.year, IFNULL(N.npv, 0) as npv from Queries Q left join NPV N on Q.id = N.id and Q.year = N.year
+select Q.id, Q.year, IFNULL(N.npv,0) as npv from NPV N right join Queries Q on N.id = Q.id and N.year = Q.year order by Q.id
+select Q.id, Q.year, coalesce(N.npv,0) npv from Queries Q left join NPV N on Q.id = N.id and Q.year = N.year
+select Q.id, Q.year, coalesce(npv,0) as npv from Queries Q left join NPV on Q.id = NPV.id and Q.year = NPV.year order by 1,2
+select Q.id, Q.year, ifnull(N.npv ,0) as npv from Queries Q left join NPV N on Q.id =N.id and Q.year = N.year
+select Q.id, Q.year, ifnull(N.npv, 0) as npv from Queries Q left join NPV N on Q.id = N.id and Q.year = N.year
+select Q.id, Q.year, ifnull(N.npv,0) as npv from Queries as Q left join NPV as N on Q.id=N.id and Q.year=N.year
+select Q.id, Q.year, ifnull(NPV.npv,0) as npv from Queries Q left join NPV on Q.id = NPV.id and Q.year = NPV.year
+select Q.id, Q.year, ifnull(npv, 0) as npv from NPV right join Queries Q on NPV.id = Q.id and NPV.year = Q.year
+select Q.id, Q.year, ifnull(npv,0) as npv from Queries Q left join NPV N on Q.id = N.id and Q.year = N.year
+select Q.id, Q.year,if(isnull(N.npv), 0, N.npv) as npv from Queries Q left join NPV N on Q.id=N.id and q.year=N.year order by N.id
+select Q.id,Q.year,ifnull(N.npv,0) 'npv' from Queries Q left join NPV N on (Q.id = N.id and Q.year = N.year)
+select Q.id,Q.year,ifnull(npv,0) as npv from NPV N right join Queries Q on Q.id=N.id and N.year=Q.year
+select Queries.*, if(isnull(npv), 0, npv) as npv from Queries left join NPV on Queries.id = NPV.id and Queries.year = NPV.year
+select Queries.id, QUeries.year, ifnull(NPV.npv,0) as npv from Queries left join NPV on Queries.id=NPV.id and Queries.year=NPV.year order by Queries.id
+select Queries.id, Queries.year, COALESCE(npv,0) as npv from Queries left join NPV on Queries.id = NPV.id and Queries.year=NPV.year
+select Queries.id, Queries.year, case when npv.npv is null then 0 else npv.npv end as npv from Queries left join NPV on npv.id = queries.id and npv.year = queries.year
+select Queries.id, Queries.year, coalesce(npv,0) npv from Queries left join NPV on Queries.id = NPV.id and Queries.year = NPV.year order by 1
+select Queries.id, Queries.year, ifnull(npv , 0) as npv from Queries left join NPV on Queries.id = NPV.id and Queries.year=NPV.year
+select Queries.id, Queries.year, ifnull(npv, 0) as npv from Queries left join NPV on Queries.id = NPV.id and NPV.year = Queries.year
+select Queries.id, Queries.year, ifnull(npv, 0) as npv from queries left join NPV on Queries.id=NPV.id and Queries.year=NPV.year
+select Queries.id,Queries.year,IFNULL(NPV.npv,0) as npv from Queries left join NPV on Queries.id = NPV.id and Queries.year = NPV.year
+select a.*, ifnull(b.npv,0) as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.*, ifnull(npv,0) as npv from queries a left join npv b on a.id=b.id and a.year=b.year
+select a.id as id , a.year as year ,IFNULL(b.npv,0) as npv from Queries a left outer join NPV b on a.id=b.id and a.year = b.year
+select a.id as id, a.year as year, case when npv is null then 0 else npv end as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year
+select a.id, a.year, IFNULL(b.npv, 0) as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.id, a.year, IFNULL(b.npv,0) as npv from queries as a left join npv as b on a.id=b.id and a.year=b.year
+select a.id, a.year, case when b.npv is null then 0 else b.npv end as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.id, a.year, case when b.npv is null then 0 else b.npv end npv from queries a left join npv b on (a.id=b.id and a.year=b.year)
+select a.id, a.year, coalesce (b.npv, 0) as npv from queries a left join npv b on a.id=b.id and a.year = b.year
+select a.id, a.year, coalesce(b.npv, 0) as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.id, a.year, coalesce(b.npv, 0) as npv from queries a left join npv b on a.id = b.id and a.year = b.year
+select a.id, a.year, coalesce(b.npv,0) as npv from queries a left join npv b on a.id = b.id and a.year=b.year
+select a.id, a.year, coalesce(b.npv,0) as npv from queries a left join npv b on a.id=b.id and a.year=b.year
+select a.id, a.year, coalesce(b.npv,0) as npv from queries as a left join npv as b on a.id = b.id and a.year=b.year
+select a.id, a.year, coalesce(b.npv,0) npv from queries a left join npv b on a.id = b.id and a.year = b.year
+select a.id, a.year, coalesce(b.npv,0)as npv from queries a left join NPV b on a.id=b.id and a.year = b.year
+select a.id, a.year, coalesce(npv,0) as npv from queries a left join npv b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(b.NPV,0) as npv from Queries a left join NPV b on a.id = b.id AND a.year = b.year
+select a.id, a.year, ifnull(b.npv, 0) as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year order by a.id, a.year
+select a.id, a.year, ifnull(b.npv, 0) as npv from queries a left join npv b on a.id = b.id and a.year = b.year order by 1 asc, 2 asc
+select a.id, a.year, ifnull(b.npv,0) as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(b.npv,0) as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year
+select a.id, a.year, ifnull(b.npv,0) as npv from Queries a left join npv b on a.id=b.id and a.year=b.year
+select a.id, a.year, ifnull(b.npv,0) as npv from queries a left join npv b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(n.npv, 0) as npv from queries a left join npv n on a.id = n.id and a.year = n.year
+select a.id, a.year, ifnull(npv, 0) as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(npv, 0) as npv from queries a left join npv b on (a.id, a.year) = (b.id, b.year)
+select a.id, a.year, ifnull(npv, 0) as npv from queries a left join npv b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(npv,0) as npv from Queries a left join NPV b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(npv,0) as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year
+select a.id, a.year, ifnull(npv,0) as npv from queries a left join npv b on a.id = b.id and a.year = b.year
+select a.id, a.year, ifnull(npv,0) npv from queries a left join npv b using (id, year)
+select a.id, a.year,ifnull(b.npv,0) as npv from Queries a left join NPV b on a.id=b.id and a.year=b.year
+select a.id,a.year, coalesce(npv,0) as npv from queries a left join npv b on a.id =b.id and a.year=b.year
+select a.id,a.year,ifnull(b.npv,0) as npv from queries a left join npv b on a.id=b.id &amp;&amp; a.year=b.year
+select a.id,a.year,ifnull(b.npv,0) as npv from queries a left join npv b on a.id=b.id and a.year=b.year order by a.id
+select a.id,a.year,ifnull(b.npv,0) as npv from queries as a left join npv as b on a.id = b.id and a.year=b.year
+select b.id , b.year , ifnull(a.npv, 0) as npv from NPV a right join Queries b on a.id = b.id and a.year = b.year
+select id, year, case when npv is null then 0 else npv end as 'npv' from (select q.id, q.year, n.npv from queries q left join npv n on (q.id = n.id) and (q.year = n.year)) t1
+select id, year, if(npv is null,0,npv) as npv from (select a.*, b.npv from Queries a left join NPV b on a.id = b.id and a.year = b.year) c
+select id, year, ifnull(npv, 0) as npv from queries natural left join npv
+select id, year,ifnull(npv,0) as npv from queries left join npv using(id,year)
+select n.id, n.year, ifnull(npv,0) as npv from queries n left join npv q on n.id = q.id and n.year = q.year
+select q.*, coalesce(n.npv,0) as npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.*, coalesce(npv,0) as npv from queries q left join npv on q.id = npv.id and q.year = npv.year
+select q.id , q.year , ifnull(n.npv,0) npv from Queries as q left join NPV as n on q.id = n.id and q.year=n.year
+select q.id ,q.year , ifnull(npv,0) as npv from queries as q left join npv as n on q.id = n.id and q.year = n.year
+select q.id ,q.year ,case when n.npv is null then 0 else n.npv end as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id ,q.year ,coalesce(npv,0) as npv from queries q left join npv n on n.id=q.id and n.year=q.year
+select q.id as id, q.year as year, ifnull(npv,0) as npv from queries q left join NPV n on n.id=q.id and n.year=q.year
+select q.id as id, q.year as year, ifnull(npv,0) as npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id as id, q.year as year, ifnull(npv,0) as npv from queries q left join npv on q.id = npv.id and q.year = npv.year
+select q.id id, q.year year, ifnull(npv, 0) npv from queries q left join npv on q.id = npv.id and q.year = npv.year order by 1,2
+select q.id, q.year, COALESCE(n.npv,0) AS npv from queries q LEFT JOIN npv n ON n.id = q.id AND n.year = q.year ORDER BY q.id
+select q.id, q.year, COALESCE(n.npv,0) as npv from Queries q left join NPV n on q.id=n.id and q.year=n.year
+select q.id, q.year, IFNULL(n.npv, 0) as npv from NPV as n right JOIN queries as q ON q.id = n.id AND q.year = n.year
+select q.id, q.year, IFNULL(n.npv, 0) as npv from Queries q LEFT JOIN NPV n ON q.id = n.id and q.year = n.year
+select q.id, q.year, IFNULL(n.npv, 0) as npv from Queries q LEFT JOIn NPV n ON q.id = n.id and q.year = n.year
+select q.id, q.year, IFNULL(n.npv, 0) as npv from Queries q left join NPV n on (q.id, q.year) = (n.id, n.year)
+select q.id, q.year, IFNULL(n.npv,0) as npv from queries q LEFT JOIN npv n ON q.id = n.id AND q.year = n.year
+select q.id, q.year, case when n.NPV is null then 0 else n.NPV end as 'npv' from Queries q left join NPV n on n.id = q.id and n.year = q.year
+select q.id, q.year, case when n.npv is NULL then 0 else n.npv end as npv from queries as q left join npv as n on q.id = n.id and q.year = n.year
+select q.id, q.year, case when n.npv is null then 0 else n.npv end as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, case when n.npv is null then 0 else n.npv end npv from Queries q left join NPV n on n.id = q.id and n.year = q.year
+select q.id, q.year, coalesce(NPV.npv, 0) as npv from Queries q left join NPV on NPV.id = q.id and NPV.year = q.year
+select q.id, q.year, coalesce(n.npv, 0) as npv from NPV n right join Queries q on (q.id = n.id and q.year = n.year)
+select q.id, q.year, coalesce(n.npv, 0) as npv from Queries as q left join NPV as n using (id, year)
+select q.id, q.year, coalesce(n.npv, 0) as npv from Queries q left join NPV n on n.id = q.id and n.year = q.year
+select q.id, q.year, coalesce(n.npv, 0) as npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, coalesce(n.npv, 0) as npv from npv n right join queries q on n.id = q.id and n.year = q.year
+select q.id, q.year, coalesce(n.npv, 0) npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, coalesce(n.npv,0) as 'npv' from queries q left join npv n on (q.id = n.id) and (q.year = n.year)
+select q.id, q.year, coalesce(n.npv,0) as npv from Queries as q left join NPV as n on n.id= q.id and n.year= q.year order by q.id
+select q.id, q.year, coalesce(n.npv,0) as npv from npv n right outer join queries q on n.id = q.id and n.year = q.year order by q.id, q.year asc
+select q.id, q.year, coalesce(n.npv,0) as npv from queries as q left join npv as n on q.id = n.id and q.year = n.year order by q.id, q.year
+select q.id, q.year, coalesce(n.npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, coalesce(n.npv,0) as npv from queries q left join npv n on q.id =n.id and q.year = n.year
+select q.id, q.year, coalesce(n.npv,0) npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id, q.year, coalesce(npv, 0) as npv from Queries q left join NPV npv on npv.id = q.id and npv.year = q.year
+select q.id, q.year, coalesce(npv,0) as npv from Queries as q left join NPV as n on q.id = n.id and q.year = n.year
+select q.id, q.year, coalesce(npv,0) as npv from Queries q Left Join NPV n on q.id=n.id and q.year=n.year
+select q.id, q.year, coalesce(npv,0) as npv from queries q left join npv n on (q.id, q.year) = (n.id, n.year) order by 1,2
+select q.id, q.year, coalesce(npv,0) npv from queries q left join npv n on n.id = q.id and n.year = q.year
+select q.id, q.year, coalesce(npv.npv, 0) as npv from queries q left join npv on npv.id = q.id and npv.year = q.year order by 1,2
+select q.id, q.year, coalesce(npv.npv, npv, 0) as npv from npv right join queries q using (id, year)
+select q.id, q.year, if(n.npv <> 0, n.npv,0) as npv from npv as n right join queries as q on n.id = q.id and n.year = q.year
+select q.id, q.year, if(n.npv is null, 0, n.npv) as npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, if(n.year is null,0,npv) as npv from queries q left join NPV n on n.id = q.id and n.year = q.year
+select q.id, q.year, if(npv is null,0,npv) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull( (a.npv),0) as npv from npv as a right join queries q on a.id = q.id and a.year = q.year
+select q.id, q.year, ifnull(NPV.npv, 0) npv from Queries q left join NPV on q.id = NPV.id and q.year = NPV.year
+select q.id, q.year, ifnull(n.npv, 0) as npv from Queries as q left join NPV as n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv, 0) as npv from Queries q left join NPV n on (n.id, n.year) = (q.id, q.year)
+select q.id, q.year, ifnull(n.npv, 0) as npv from Queries q left join NPV n on (q.id = n.id) and (q.year = n.year)
+select q.id, q.year, ifnull(n.npv, 0) as npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv, 0) as npv from Queries q left join NPV n on q.id=n.id and q.year=n.year
+select q.id, q.year, ifnull(n.npv, 0) as npv from queries as q left join npv as n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv, 0) as npv from queries as q left join npv as n using(id, year) order by q.id
+select q.id, q.year, ifnull(n.npv, 0) as npv from queries q left join npv n on (q.id = n.id and q.year = n.year) order by 1
+select q.id, q.year, ifnull(n.npv, 0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv, 0) npv from npv n right join queries q using(id, year)
+select q.id, q.year, ifnull(n.npv, 0) npv from queries q left join npv n on q.id = n.id and q.year = n.year order by 1
+select q.id, q.year, ifnull(n.npv, 0) npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries as q LEFT JOIN NPV as n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries as q left join NPV as n on n.id = q.id and n.year = q.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries as q left join NPV as n on n.year = q.year and n.id = q.id
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries q left join NPV n on n.id = q.id and n.year = q.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries q left join NPV n on n.id=q.id and n.year=q.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries q left join NPV n on q.id=n.id and q.year=n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries q left join NPV n using (id, year)
+select q.id, q.year, ifnull(n.npv,0) as npv from Queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from npv n right join Queries q on n.id=q.id and n.year = q.year
+select q.id, q.year, ifnull(n.npv,0) as npv from queries as q left join npv as n on (q.id, q.year) = (n.id, n.year)
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on (q.id, q.year) = (n.id, n.year)
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on n.id = q.id and n.year = q.year
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year order by 1
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year order by q.id, n.npv
+select q.id, q.year, ifnull(n.npv,0) as npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id, q.year, ifnull(n.npv,0) npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(n.npv,0) npv from queries q left join npv n on q.id=n.id and q.year= n.year
+select q.id, q.year, ifnull(n.npv,0) npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id, q.year, ifnull(n.npv,0) npv from queries q left join npv n on q.year = n.year and q.id = n.id order by q.id, q.year
+select q.id, q.year, ifnull(npv, 0) as npv from Queries q left join NPV n ON q.id = n.id AND q.year = n.year
+select q.id, q.year, ifnull(npv, 0) as npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(npv, 0) as npv from Queries q left join npv on q.id = npv.id and q.year = npv.year order by q.id, q.year
+select q.id, q.year, ifnull(npv, 0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(npv, 0) npv from queries q left join npv on npv.id = q.id and npv.year = q.year order by q.id
+select q.id, q.year, ifnull(npv,0) as 'npv' from queries q left join NPV on q.id = NPV.id and q.year = NPV.year
+select q.id, q.year, ifnull(npv,0) as npv from Queries as q left join NPV as n on q.id=n.id and q.year = n.year
+select q.id, q.year, ifnull(npv,0) as npv from Queries as q left join npv as n on n.id=q.id and q.year=n.year
+select q.id, q.year, ifnull(npv,0) as npv from Queries q left join NPV on q.id = NPV.id and q.year = NPV.year
+select q.id, q.year, ifnull(npv,0) as npv from npv n right join queries q on n.id=q.id and n.year=q.year
+select q.id, q.year, ifnull(npv,0) as npv from queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(npv,0) as npv from queries q left join npv n on (q.id, q.year) = (n.id, n.year) order by 1,2
+select q.id, q.year, ifnull(npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year order by q.id
+select q.id, q.year, ifnull(npv,0) as npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id, q.year, ifnull(npv,0) npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year, ifnull(npv,0) npv from queries q left join npv on (q.id, q.year) = (npv.id, npv.year)
+select q.id, q.year, ifnull(npv.npv,0) as npv from NPV right join Queries q on q.id = npv.id and q.year = npv.year
+select q.id, q.year, ifnull(npv.npv,0) as npv from queries q left join npv on q.id = npv.id and q.year = npv.year
+select q.id, q.year,ifnull(n.npv,0) as npv from Queries q left join NPV n on q.id = n.id and q.year = n.year
+select q.id, q.year,ifnull(n.npv,0) npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id, q.year,ifnull(npv,0) as npv from Queries q left join NPV n on q.id=n.id and q.year=n.year
+select q.id,q.year year,coalesce(npv,0) npv from npv n right join queries q on q.id=n.id and n.year=q.year
+select q.id,q.year, coalesce(n.npv,0) as npv FROM queries as q left join npv as n on n.id=q.id and q.year=n.year
+select q.id,q.year, coalesce(n.npv,0) as npv from queries q left join npv n on q.id = n.id and q.year= n.year order by q.id
+select q.id,q.year, ifnull(n.npv,0) as npv from Queries q left join NPV n on q.id=n.id and q.year=n.year
+select q.id,q.year, ifnull(n.npv,0)as npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id,q.year,coalesce(n.npv,0) 'npv' from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id,q.year,coalesce(n.npv,0) as npv from npv n right join queries q on n.id = q.id and q.year = n.year
+select q.id,q.year,coalesce(n.npv,0) as npv from queries as q left join npv as n on q.id=n.id and q.year=n.year
+select q.id,q.year,coalesce(n.npv,0) npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id,q.year,coalesce(n.npv,0)npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id,q.year,coalesce(npv,0) as npv from queries as q left join npv on q.id=npv.id and q.year=npv.year
+select q.id,q.year,coalesce(npv,0) as npv from queries q left join npv n on q.id = n.id and q.year = n.year
+select q.id,q.year,coalesce(npv,0) npv from queries q left join npv on q.id = npv.id and q.year = npv.year order by 1
+select q.id,q.year,ifnull(n.npv,0) as npv from NPV n right join Queries q on (n.id, n.year) = (q.id,q.year) order by q.id,q.year
+select q.id,q.year,ifnull(n.npv,0) as npv from NPV n right join Queries q on n.id=q.id and n.year=q.year
+select q.id,q.year,ifnull(n.npv,0) as npv from Queries as q left join NPV as n on q.id = n.id and q.year = n.year
+select q.id,q.year,ifnull(n.npv,0) as npv from queries as q left join npv as n on (q.id=n.id and q.year=n.year) order by q.id,q.year
+select q.id,q.year,ifnull(n.npv,0) as npv from queries q left join npv n on n.id=q.id and n.year=q.year
+select q.id,q.year,ifnull(n.npv,0) as npv from queries q left join npv n on q.id = n.id and n.year = q.year
+select q.id,q.year,ifnull(n.npv,0) as npv from queries q left join npv n on q.id=n.id and q.year=n.year order by 1,2
+select q.id,q.year,ifnull(n.npv,0) npv from queries q left join npv n on q.id=n.id and q.year=n.year
+select q.id,q.year,ifnull(npv,0) as npv from npv n right join queries q on n.id=q.id and n.year=q.year order by 1
+select queries.id, queries.year, COALESCE(npv, 0) as npv from queries left join npv on queries.id = npv.id and queries.year = npv.year
+select queries.id, queries.year, case when npv.npv is null then 0 else npv.npv end as npv from queries left join npv on queries.id = npv.id and queries.year = npv.year
+select queries.id, queries.year, ifnull(npv, 0) as npv from queries left join npv on queries.id=npv.id and queries.year=npv.year
+select queries.id, queries.year, ifnull(npv,0) as npv from queries left join NPV on queries.id = npv.id and queries.year = npv.year
+select queries.id, queries.year, ifnull(npv,0) as npv from queries left join npv on queries.id = npv.id and queries.year = npv.year
+select queries.id, queries.year, ifnull(npv,0) as npv from queries left join npv on queries.id=npv.id and queries.year=npv.year
+select queries.id, queries.year, ifnull(npv.npv, 0) as npv from queries left join npv on queries.id=npv.id and queries.year=npv.year
+select queries.id,queries.year, case when npv.npv is null then 0 else npv.npv end as npv from queries left join npv on queries.id = npv.id and queries.year = npv.year
+select queries.id,queries.year, coalesce(npv.npv,0) as npv from queries left join npv on queries.id = npv.id and queries.year = npv.year
+select queries.id,queries.year,ifnull(npv.npv,0) as npv from queries left join NPV on queries.id = NPV.id and queries.year = NPV.year order by queries.id
+select t1.id, t1.year, ifnull(npv, 0) as npv from queries as t1 left join NPV as t2 on t1.id = t2.id and t1.year = t2.year
+select t1.id, t1.year, ifnull(t2.npv,0) as npv from queries t1 left join npv t2 on t1.id = t2.id and t1.year = t2.year
+with NPV1 as ( select * from NPV UNION ALL select 7,2018,0 ) select a.id,a.year,ifnull(npv,0) as npv from Queries a left join NPV1 b on a.id=b.id and a.year=b.year
+with cte as ( select q.id,q.year,npv from Queries q left join NPV n on q.id = n.id and q.year = n.year ) select id, year, ifnull(npv,0) as npv from cte order by 1,2
+with cte as (select q.id, q.year, n.npv from queries q left join npv n on q.id = n.id and q.year = n.year order by q.id, q.year) select id, year, ifnull(npv, 0) as npv from cte
+with fc as (select q.id,q.year,coalesce(n.npv,0)npv from queries q left join npv n on q.id=n.id and q.year=n.year) select id,year,npv from fc

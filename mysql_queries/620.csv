@@ -1,0 +1,184 @@
+SELECT * FROM CINEMA WHERE ID % 2 <> 0 AND DESCRIPTION != 'boring' ORDER BY RATING DESC
+SELECT * FROM CINEMA WHERE id % 2 != 0 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM CINEMA WHERE id%2=1 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM cinema AS c WHERE (MOD(c.id,2) != 0) AND (c.description != 'boring') ORDER BY rating desc
+SELECT * FROM cinema WHERE (description!='boring' AND id%2=1) ORDER BY rating DESC
+SELECT * FROM cinema WHERE (id % 2 <> 0) AND (description <> "boring") ORDER BY rating DESC
+SELECT * FROM cinema WHERE (id % 2 = 1) AND (description != "boring") ORDER BY rating DESC
+SELECT * FROM cinema WHERE (id % 2 = 1) AND (description <> 'boring') ORDER BY rating DESC
+SELECT * FROM cinema WHERE (id%2 != 0) AND (description NOT LIKE '%boring%') ORDER BY rating desc
+SELECT * FROM cinema WHERE (id%2)=1 AND NOT description="boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE ID % 2 = 1 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE ID % 2 = 1 AND description <> 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE MOD(ID, 2)<>0 AND description<>'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE MOD(id, 2) = 1 AND description NOT LIKE '%boring%' ORDER BY rating DESC
+SELECT * FROM cinema WHERE MOD(id,2) <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE MOD(id,2) = 1 AND description != 'boring' ORDER BY rating desc
+SELECT * FROM cinema WHERE MOD(id,2) = 1 AND description <> 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != "boring" AND mod(id, 2) = 1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != 'boring' AND (id%2)=1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != 'boring' AND MOD(id,2) != 0 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != 'boring' AND id % 2 = 1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != 'boring' AND id %2 =1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != 'boring' AND id%2 = 1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description != 'boring' AND mod(id, 2) = 1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description <> 'boring' AND id MOD 2 = 1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description NOT LIKE '%boring%' AND id % 2 = 1 ORDER BY rating DESC
+SELECT * FROM cinema WHERE description NOT LIKE '%boring%' and id % 2 != 0 ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 != 0 AND description != "boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 != 0 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 != 0 AND description != 'boring' ORDER BY rating desc
+SELECT * FROM cinema WHERE id % 2 != 0 AND description NOT LIKE 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 <> 0 AND description <> "boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 = 1 AND NOT description = 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 = 1 AND description != "boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 = 1 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 = 1 AND description <> 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 = 1 AND description NOT LIKE '%boring%' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id % 2 = 1 and description != "boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2 !=0 AND description !="boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2 <> 0 AND (description <> 'boring') ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2 <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2!=0 AND NOT description='boring' ORDER BY rating desc
+SELECT * FROM cinema WHERE id%2!=0 AND description != "boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2!=0 AND description !='boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2!=0 AND description!='boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2=1 AND description!='boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2=1 AND description<>"boring" ORDER BY rating DESC
+SELECT * FROM cinema WHERE id%2=1 and description != 'boring' ORDER BY rating desc
+SELECT * FROM cinema WHERE id%2=1 and description != 'boring' Order by rating Desc
+SELECT * FROM cinema WHERE mod(id, 2) = 1 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE mod(id, 2) = 1 AND description != 'boring' order by rating DESC
+SELECT * FROM cinema WHERE mod(id,2) <> 0 AND description NOT LIKE 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE mod(id,2) = 1 AND description != 'boring' ORDER BY rating DESC
+SELECT * FROM cinema WHERE mod(id,2) = 1 AND description != 'boring' order by rating DESC
+SELECT * FROM cinema WHERE mod(id,2) = 1 and description != "boring" ORDER BY rating DESC
+SELECT * FROM cinema Where id%2=1 AND description!='boring' ORDER BY rating desc
+SELECT * FROM cinema c WHERE (c.id % 2) <> 0 AND c.description <> "boring" ORDER BY c.rating DESC
+SELECT * FROM cinema c WHERE Lower(c.description) NOT LIKE '%boring%' AND (c.id % 2) != 0 ORDER BY c.rating desc
+SELECT * FROM cinema where MOD(id,2)=1 AND description!='boring' ORDER BY rating desc
+SELECT * from cinema WHERE id % 2 <> 0 AND description != 'boring' ORDER BY rating DESC
+SELECT * from cinema WHERE id%2 = 1 AND description != 'boring' ORDER BY rating DESC
+SELECT * from cinema where description != "boring" and mod(id,2) = 1 order by rating DESC
+SELECT ID, MOVIE, DESCRIPTION, RATING FROM CINEMA WHERE MOD(ID,2)=1 AND DESCRIPTION NOT IN ('boring') ORDER BY 4 DESC
+SELECT id, movie, description, rating FROM cinema WHERE (description <> 'boring') AND (MOD(id, 2) = 1) ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE (id % 2 = 1) AND (description <>'boring') ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE MOD(id,2) <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description != 'Boring' AND mod(id, 2) = 1 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description != 'boring' AND (id % 2) <> 0 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description != 'boring' AND MOD(id, 2) != 0 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description != 'boring' AND id %2!=0 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description != 'boring' and id%2 != 0 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description NOT LIKE '%boring%' AND (MOD(id, 2) = 1) ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description NOT LIKE '%boring%' AND id % 2 != 0 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description NOT LIKE 'boring' AND mod(id, 2) = 1 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE description!='boring' AND MOD(id,2)=1 ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id % 2 != 0 AND description != 'boring' ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id % 2 <> 0 AND description <> "boring" ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id % 2 <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id % 2 = 1 AND description != 'boring' ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id % 2 = 1 AND description <> 'boring' ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id%2 != 0 AND description != "boring" ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id%2 != 0 and description <> 'boring' order by rating desc
+SELECT id, movie, description, rating FROM cinema WHERE id%2 <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id%2 = 1 and description != 'boring' ORDER by rating DESC
+SELECT id, movie, description, rating FROM cinema WHERE id%2=1 AND description != 'boring' ORDER BY rating DESC
+SELECT id,movie, description, rating FROM cinema WHERE description NOT IN ('boring') AND id%2!=0 ORDER BY rating DESC
+SELECT id,movie,description,rating FROM cinema WHERE (id%2 = 1) and description not in ('boring') ORDER BY rating DESC
+SELECT id,movie,description,rating FROM cinema WHERE (id%2)=1 AND description<>'boring' ORDER BY rating DESC
+SELECT id,movie,description,rating FROM cinema WHERE id % 2 != 0 AND description != 'boring' ORDER BY rating DESC
+SELECT id,movie,description,rating FROM cinema WHERE id % 2 <> 0 AND description <> 'boring' ORDER BY rating DESC
+SELECT id,movie,description,rating FROM cinema WHERE id%2!=0 &amp;&amp; description!="boring" ORDER BY rating desc
+SELECT id,movie,description,rating FROM cinema WHERE id%2=1 AND description NOT LIKE '%boring%' ORDER BY rating desc
+SELECT id,movie,description,rating from cinema WHERE (id % 2) != 0 AND description NOT LIKE 'boring' ORDER BY rating DESC
+SELECT id,movie,description,rating from cinema where id%2<>0 and description<>'boring' order by rating DESC
+Select * from cinema where description not in ('boring') and mod(id,2)=1 order by rating DESC limit 5
+Select * from cinema where id%2 != 0 and description != 'boring' order by rating desc
+Select * from cinema where id%2 = 1 AND description != 'boring' order by rating desc
+Select * from cinema where id%2 =1 and description != 'boring' order by rating desc
+Select * from cinema where id%2=1 and description !="boring" order by rating desc
+Select * from cinema where id%2=1 and description not in ('boring') order by rating DESC limit 5
+Select * from cinema where mod(id, 2) = 1 and description != 'boring' order by rating desc
+Select id, movie, description, rating from cinema where description!= "boring" and id%2=1 order by rating desc
+select * FROM cinema where description <> 'boring' and mod(id,2) !=0 order by rating desc
+select * from cinema where ((id % 2 != 0) and (description != 'boring')) order by rating desc
+select * from cinema where (description!= 'boring' and mod(id,2)=1) order by rating desc
+select * from cinema where (id % 2 <> 0) and description <> 'boring' order by rating desc
+select * from cinema where (id % 2) = 1 and description != 'boring' order by rating desc
+select * from cinema where (id % 2) = 1 and description<>"boring" order by rating desc
+select * from cinema where MOD(id,2) = 1 and description != 'boring' order by rating desc
+select * from cinema where description != "boring" and mod(id,2) = 1 order by rating desc
+select * from cinema where description != 'boring' AND id%2 = 1 order by rating DESC
+select * from cinema where description != 'boring' and (id % 2) != 0 order by rating desc
+select * from cinema where description != 'boring' and id % 2 = 1 order by rating desc
+select * from cinema where description != 'boring' and id%2 = 1 order by rating DESC
+select * from cinema where description != 'boring' and mod(id,2) != 0 order by rating desc
+select * from cinema where description != 'boring' and mod(id,2)!=0 order by rating desc
+select * from cinema where description !='boring' and mod(id,2)=1 order by rating desc
+select * from cinema where description <> 'boring' and id%2<>0 order by rating desc
+select * from cinema where description not in ("boring") and mod(id,2)!=0 order by rating desc
+select * from cinema where description not like "%boring%" and id % 2 = 1 order by rating desc
+select * from cinema where description not like '%boring%' and (id %2 = 1) order by rating desc
+select * from cinema where description not like '%boring%' and mod(id,2) <> 0 order by rating desc
+select * from cinema where description!='boring' and id%2!=0 order by rating desc
+select * from cinema where id % 2 != 0 and description != 'boring' order by rating desc
+select * from cinema where id % 2 = 1 and description != 'boring' order by rating desc
+select * from cinema where id mod 2 != 0 and not description = "boring" order by rating desc
+select * from cinema where id%2 != 0 and description != 'boring' order by rating desc
+select * from cinema where id%2 != 0 and description !='boring' order by rating desc
+select * from cinema where id%2 != 0 and description not in ('boring') order by rating desc
+select * from cinema where id%2 !=0 and description != "boring" order by rating desc
+select * from cinema where id%2 !=0 and description != 'boring' order by rating DESC
+select * from cinema where id%2 <>0 and description not like 'boring' order by rating desc
+select * from cinema where id%2 = 1 and description != 'boring' order by rating desc
+select * from cinema where id%2 =1 and description <> 'boring' order by rating DESC
+select * from cinema where id%2!=0 AND NOT description = 'boring' order by rating desc
+select * from cinema where id%2<>0 and description <>'boring' order by rating DESC
+select * from cinema where id%2<>0 and description not in ('boring') order by rating desc
+select * from cinema where id%2=1 AND description !='boring' order by rating DESC
+select * from cinema where id%2=1 and description <> 'boring' order by rating desc
+select * from cinema where id%2=1 and description!='boring' order by rating desc
+select * from cinema where mod(id, 2) != 0 and description != "boring" order by rating desc
+select * from cinema where mod(id, 2) != 0 and description not like '%boring%' order by rating desc
+select * from cinema where mod(id, 2) <> 0 and description <> 'boring' order by rating desc
+select * from cinema where mod(id, 2) = 1 and description != 'boring' order by rating DESC
+select * from cinema where mod(id, 2) = 1 and description != 'boring' order by rating desc
+select * from cinema where mod(id, 2) = 1 and description <> 'boring' order by rating desc
+select * from cinema where mod(id, 2) = 1 and description not in('boring') order by rating desc
+select * from cinema where mod(id,2) != 0 and description != 'boring' order by rating desc
+select * from cinema where mod(id,2) <> 0 and description <> 'boring' order by rating desc
+select * from cinema where mod(id,2) <> 0 and description not like '%boring%' order by rating desc
+select * from cinema where mod(id,2) = 1 and description != 'boring' order by rating Desc
+select * from cinema where mod(id,2) = 1 and description != 'boring' order by rating desc
+select * from cinema where mod(id,2)!=0 and description not in ("boring") order by rating desc
+select * from cinema where mod(id,2)=1 and description != 'boring' order by rating DESC
+select * from cinema where mod(id,2)=1 and description != 'boring' order by rating desc
+select * from cinema where mod(id,2)=1 and description !='boring' order by rating DESC
+select * from cinema where mod(id,2)=1 and description !='boring' order by rating desc
+select * from cinema where mod(id,2)=1 and description <> 'boring' order by rating desc
+select * from cinema where not id%2=0 AND NOT description = 'boring' order by rating desc
+select *from cinema where (id%2=1 and description != "boring")order by rating desc
+select id, movie, description, rating from cinema where description != "boring" AND id % 2!= 0 ORDER BY rating DESC
+select id, movie, description, rating from cinema where description != 'boring' and id % 2 != 0 order by rating desc
+select id, movie, description, rating from cinema where description != 'boring' and id%2 != 0 order by rating desc
+select id, movie, description, rating from cinema where description <> 'boring' AND id%2 = 1 order by rating desc
+select id, movie, description, rating from cinema where id % 2 != 0 and description != "boring" order by rating desc
+select id, movie, description, rating from cinema where id % 2 != 0 and description not like "%boring%" order by rating desc
+select id, movie, description, rating from cinema where id % 2 != 0 and description not like ('%boring%') order by rating desc
+select id, movie, description, rating from cinema where id%2!=0 and description!='boring' order by rating desc
+select id, movie, description, rating from cinema where id%2<>0 and description <>'boring' order by rating desc
+select id, movie, description, rating from cinema where id%2=1 and description<>'boring' order by rating desc
+select id, movie, description, rating from cinema where mod(id, 2) = 1 and description not like '%boring%' order by rating desc
+select id, movie, description, rating from cinema where mod(id, 2)=1 and description != 'boring' order by rating DESC
+select id, movie, description, rating from cinema where mod(id,2) <> 0 and description <> 'boring' order by rating desc
+select id, movie, description, rating from cinema where mod(id,2)!=0 and description not in ("boring") order by rating desc
+select id, movie, description,rating from cinema where (id &amp; 0x1) = 1 and description != 'boring' order by rating desc
+select id, movie, description,rating from cinema where id%2=1 and description != 'boring' order by rating desc
+select id, movie, description,rating from cinema where id%2=1 and description!='boring' order by rating desc
+select id,movie,description, rating from cinema where MOD(id,2)<>0 and description<>'boring' order by rating desc
+select id,movie,description,rating from cinema WHERE (id % 2) = 1 AND description != 'boring' ORDER BY rating desc
+select id,movie,description,rating from cinema where description != 'boring' and mod(id,2)=1 order by rating desc
+select id,movie,description,rating from cinema where id%2!=0 and description != "boring" order by rating desc
+select* from cinema where description <>"boring" and id %2 != 0 order by rating desc
+select* from cinema where id%2!=0 AND description!="boring" order by rating desc

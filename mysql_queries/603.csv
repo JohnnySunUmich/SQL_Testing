@@ -1,0 +1,214 @@
+(select a.seat_id from cinema a inner join cinema b on a.seat_id= b.seat_id+1 where a.free=1 and b.free =1 ) union ( select b.seat_id from cinema b inner join cinema a on a.seat_id= b.seat_id+1 where a.free=1 and b.free =1 ) order by seat_id
+SELECT C.SEAT_ID FROM (SELECT SEAT_ID, FREE, LAG(FREE, 1) OVER(ORDER BY SEAT_ID) AS LAG_S, LEAD(FREE, 1) OVER(ORDER BY SEAT_ID) AS LEA_S FROM CINEMA ) C WHERE C.FREE = 1 AND (LAG_S = 1 OR LEA_S =1) ORDER BY C.SEAT_ID
+SELECT C1.seat_id FROM cinema AS C1 LEFT JOIN cinema AS C2 ON C1.seat_id = C2.seat_id -1 LEFT JOIN cinema AS C3 ON C1.seat_id = C3.seat_id + 1 WHERE C1.free = 1 AND (C2.free = 1 OR C3.free =1)
+SELECT Cinema.seat_id FROM Cinema LEFT JOIN Cinema AS Previous ON Cinema.seat_id - Previous.seat_id = 1 LEFT JOIN Cinema AS Successive ON Successive.seat_id - Cinema.seat_id = 1 WHERE Cinema.free AND (Previous.free OR Successive.free) ORDER BY 1
+SELECT DISTINCT (a.seat_id) FROM cinema a JOIN cinema b ON abs (a.seat_id - b.seat_id) = 1 AND a.free = 1 and b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT A.SEAT_ID FROM CINEMA A JOIN CINEMA B ON ABS(A.SEAT_ID - B.SEAT_ID) = 1 AND A.FREE = TRUE AND B.FREE = TRUE ORDER BY A.SEAT_ID
+SELECT DISTINCT C1.seat_id FROM cinema C1 JOIN cinema C2 ON abs(C1.seat_id-C2.seat_id)=1 AND C1.free=1 AND C2.free=1 ORDER BY C1.seat_id
+SELECT DISTINCT C1.seat_id FROM cinema C1, cinema C2 WHERE ABS(C1.seat_id - C2.seat_id) = 1 AND C1.free = 1 AND C2.free = 1 ORDER BY C1.seat_id
+SELECT DISTINCT T1.seat_id AS seat_id FROM cinema AS T1 INNER JOIN cinema AS T2 ON T1.free = 1 AND T2.free = 1 AND (T2.seat_id = T1.seat_id + 1 OR T2.seat_id = T1.seat_id - 1)
+SELECT DISTINCT a.seat_id FROM cinema a INNER JOIN cinema b ON ABS(a.seat_id - b.seat_id) = 1 AND a.free = 1 AND b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a INNER JOIN cinema b ON abs(a.seat_id - b.seat_id) = 1 WHERE a.free = 1 AND b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a JOIN cinema b ON ABS(a.seat_id - b.seat_id) = 1 AND a.free = 1 AND b.free =1 ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a JOIN cinema b ON ABS(a.seat_id - b.seat_id) = 1 WHERE a.free = true AND b.free = true ORDER BY 1
+SELECT DISTINCT a.seat_id FROM cinema a JOIN cinema b ON a.free = 1 AND b.free = 1 AND abs(a.seat_id - b.seat_id) = 1 ORDER BY 1
+SELECT DISTINCT a.seat_id FROM cinema a JOIN cinema b ON abs(a.seat_id - b.seat_id) = 1 AND a.free = 1 AND b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a JOIN cinema b ON abs(a.seat_id - b.seat_id) = 1 AND a.free = 1 and b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a JOIN cinema b ON abs(a.seat_id - b.seat_id) = 1 AND a.free = true AND b.free = true ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a, cinema b WHERE ( a.seat_id = b.seat_id +1 AND a.free = 1 AND b.free = 1) OR ( a.seat_id = b.seat_id -1 AND a.free = 1 AND b.free = 1)
+SELECT DISTINCT a.seat_id FROM cinema a, cinema b WHERE (a.free = 1 AND b.free = 1) AND ((a.seat_id = b.seat_id + 1) OR (a.seat_id = b.seat_id - 1)) ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a, cinema b WHERE abs(a.seat_id - b.seat_id) = 1 AND a.free = true AND b.free = true ORDER BY a.seat_id
+SELECT DISTINCT a.seat_id FROM cinema a, cinema b WHERE abs(a.seat_id- b.seat_id) = 1 AND a.free = 1 AND b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT c1.seat_id FROM cinema as c1 JOIN cinema as c2 ON (c1.seat_id - c2.seat_id = 1 OR c2.seat_id - c1.seat_id = 1) AND c1.free = 1 AND c2.free = 1 ORDER BY c1.seat_id
+SELECT DISTINCT c1.seat_id FROM cinema c1 INNER JOIN cinema c2 ON ABS(c1.seat_id - c2.seat_id) = 1 WHERE c1.free = 1 AND c2.free = 1 ORDER BY 1
+SELECT DISTINCT c1.seat_id FROM cinema c1 JOIN cinema c2 ON abs(c1.seat_id-c2.seat_id)=1 and c1.free = TRUE and c2.free = TRUE ORDER BY c1.seat_id
+SELECT DISTINCT c1.seat_id FROM cinema c1 LEFT JOIN cinema c2 ON c1.seat_id = c2.seat_id - 1 LEFT JOIN cinema c4 ON c1.seat_id = c4.seat_id + 1 WHERE 1=1 AND ((c1.free = 1 AND c2.free = 1) OR (c1.free = 1 AND c4.free = 1) ) ORDER BY seat_id
+SELECT DISTINCT c1.seat_id FROM cinema c1, cinema c2 WHERE (c1.free = 1 AND c2.free = 1) AND (c1.seat_id = c2.seat_id + 1 OR c1.seat_id = c2.seat_id - 1) ORDER BY c1.seat_id
+SELECT DISTINCT c1.seat_id FROM cinema c1, cinema c2 WHERE (c1.free = 1 AND c2.free = 1) AND (c1.seat_id = c2.seat_id - 1 OR c1.seat_id = c2.seat_id + 1)
+SELECT DISTINCT c1.seat_id FROM cinema c1, cinema c2 WHERE (c1.seat_id = c2.seat_id - 1 OR c1.seat_id = c2.seat_id + 1) AND c1.free = 1 AND c2.free = 1
+SELECT DISTINCT c1.seat_id FROM cinema c1, cinema c2 WHERE ABS(c1.seat_id - c2.seat_id) = 1 AND c1.free = 1 AND c2.free = 1 ORDER BY c1.seat_id
+SELECT DISTINCT c1.seat_id FROM cinema c1, cinema c2 WHERE abs(c1.seat_id - c2.seat_id) = 1 AND c1.free = 1 AND c2.free = 1 ORDER BY c1.seat_id ASC
+SELECT DISTINCT c1.seat_id FROM cinema c1, cinema c2 WHERE c1.free = 1 and c2.free = 1 AND ( ( c2.seat_id = c1.seat_id + 1 ) or (c1.seat_id = c2.seat_id + 1) ) ORDER BY c1.seat_id ASC
+SELECT DISTINCT c1.seat_id as seat_id FROM cinema c1 join cinema c2 on c2.seat_id = c1.seat_id + 1 or c2.seat_id = c1.seat_id - 1 WHERE c1.free = 1 AND c2.free = 1
+SELECT DISTINCT c2.seat_id FROM cinema c1 JOIN cinema c2 WHERE abs(c2.seat_id - c1.seat_id) = 1 AND c2.free = TRUE AND c1.free = TRUE
+SELECT DISTINCT s.seat_id FROM cinema s LEFT JOIN cinema s1 ON s.seat_id+1=s1.seat_id OR s.seat_id-1=s1.seat_id WHERE (s.free=1 AND s1.free=1) ORDER BY s.seat_id
+SELECT DISTINCT t1.seat_id FROM cinema AS t1 INNER JOIN cinema AS t2 ON ABS(t1.seat_id - t2.seat_id) = 1 AND t1.free = 1 AND t2.free = 1 ORDER BY t1.seat_id
+SELECT DISTINCT(a.seat_id) FROM cinema AS a JOIN cinema AS b WHERE ((a.seat_id = b.seat_id - 1) OR (a.seat_id = b.seat_id + 1)) AND a.free = 1 AND b.free = 1
+SELECT DISTINCT(a.seat_id) FROM cinema a JOIN cinema b ON ABS(a.seat_id - b.seat_id) = 1 WHERE a.free = 1 AND b.free = 1 ORDER BY a.seat_id
+SELECT DISTINCT(a.seat_id) from cinema a, cinema b where abs(a.seat_id-b.seat_id)=1 AND (a.free=1 AND b.free=1) ORDER BY a.seat_id
+SELECT DISTINCT(c1.seat_id) AS seat_id FROM cinema c1 LEFT JOIN cinema c0 ON c0.seat_id = c1.seat_id + 1 LEFT JOIN cinema c2 ON c2.seat_id = c1.seat_id - 1 WHERE c1.free = 1 AND (c0.free = 1 OR c2.free = 1)
+SELECT c1.seat_id FROM cinema AS c1 INNER JOIN ( SELECT seat_id, SUM(free) OVER( ROWS BETWEEN 1 PRECEDING AND CURRENT ROW ) AS sum_free_b, SUM(free) OVER( ROWS BETWEEN CURRENT ROW AND 1 FOLLOWING ) AS sum_free_f FROM cinema AS c2 ) AS c2 ON c1.seat_id = c2.seat_id WHERE c2.sum_free_b>= 2 OR c2.sum_free_f >= 2
+SELECT c1.seat_id FROM cinema c1 JOIN cinema c2 ON (c1.seat_id = c2.seat_id - 1 OR c1.seat_id = c2.seat_id + 1) AND c1.free = 1 AND c2.free = 1 GROUP BY 1 HAVING COUNT(*) > 0 ORDER BY 1
+SELECT cinema.seat_id FROM cinema LEFT JOIN cinema as b ON b.seat_id = cinema.seat_id + 1 LEFT JOIN cinema AS c ON c.seat_id = cinema.seat_id - 1 WHERE cinema.free = 1 AND (b.free = 1 OR c.free = 1)
+SELECT distinct C1.seat_id FROM cinema C1, Cinema C2 WHERE abs(C1.seat_id - C2.seat_id) = 1 AND C1.free = 1 AND C2.free = 1 order by C1.seat_id
+SELECT distinct a.seat_id FROM cinema a JOIN cinema b ON abs(a.seat_id - b.seat_id) = 1 and a.free= True AND b.free = True order by 1
+SELECT distinct a.seat_id FROM cinema a join cinema b on a.free=b.free and ABS (a.seat_id-b.seat_id)=1 AND a.free=1 and b.free=1 GROUP BY a.seat_id order by a.seat_id asc
+SELECT distinct a.seat_id FROM cinema a join cinema b on a.free=b.free where ABS (a.seat_id-b.seat_id)=1 AND a.free=1 and b.free=1 GROUP BY a.seat_id order by a.seat_id asc
+SELECT distinct a.seat_id FROM cinema a, cinema b WHERE abs(a.seat_id-b.seat_id)=1 and a.free=1 and b.free=1 ORDER BY 1
+SELECT distinct a.seat_id from cinema a, cinema b WHERE (a.seat_id = b.seat_id+1 OR a.seat_id = b.seat_id-1 ) AND (a.free = 1 and b.free=1)
+SELECT distinct c1.seat_id FROM cinema c1 JOIN cinema c2 WHERE (c1.free = 1) and (c2.free = 1) and (abs(c1.seat_id - c2.seat_id)=1) ORDER BY c1.seat_id
+SELECT distinct c1.seat_id FROM cinema c1 JOIN cinema c2 on (c1.seat_id=c2.seat_id-1 or c1.seat_id=c2.seat_id+1) and c1.free=1 and c2.free=1 order by c1.seat_id
+SELECT seat_id FROM ( SELECT *, LAG(free, 1) OVER() AS prev, LEAD(free, 1) OVER() AS next FROM cinema ) a WHERE a.free=1 AND (a.next = 1 or a.prev=1) ORDER BY seat_id
+SELECT seat_id FROM ( SELECT seat_id, COUNT(*) OVER (PARTITION BY seat_id - rn) AS ct FROM ( SELECT seat_id, free, ROW_NUMBER() OVER (ORDER BY seat_id) AS rn FROM cinema WHERE free = 1 ) a ) b WHERE ct >= 2
+SELECT seat_id FROM ( SELECT seat_id, free, LEAD(free) OVER (ORDER BY seat_id) AS nxt, LAG(free) OVER (ORDER BY seat_id) AS pre FROM cinema ) t WHERE (free = 1 AND nxt = 1) OR (free = 1 AND pre = 1) ORDER BY seat_id
+SELECT seat_id FROM ( SELECT seat_id, free, LEAD(free) OVER(ORDER BY seat_id ASC) = 1 AS lead_free, LAG(free) OVER(ORDER BY seat_id ASC) = 1 AS lag_free FROM cinema ) z WHERE (free = 1 AND lead_free = 1) OR (free = 1 AND lag_free = 1) ORDER BY seat_id ASC
+SELECT seat_id FROM ( SELECT seat_id, free, LEAD(free) OVER(ORDER BY seat_id ASC) = 1 AS lead_free, LAG(free) OVER(ORDER BY seat_id ASC) = 1 AS lag_free FROM cinema) z WHERE (free = 1 AND lead_free = 1) OR (free = 1 AND lag_free = 1) ORDER BY seat_id ASC
+SELECT seat_id FROM ( SELECT seat_id, free, LEAD(free,1) OVER (ORDER BY seat_id) AS next_free ,LAG(free,1) OVER (ORDER BY seat_id) AS prev_free FROM cinema )Temp WHERE (free = next_free or free=prev_free ) and free!=0
+SELECT seat_id FROM ( SELECT seat_id, free, LEAD(free,1) OVER(ORDER BY seat_id ASC) AS lead_free, LAG(free,1) OVER(ORDER BY seat_id ASC) AS lag_free FROM cinema ) z WHERE (free = 1 AND lead_free = 1) OR (free = 1 AND lag_free = 1) ORDER BY seat_id ASC
+SELECT seat_id FROM (SELECT seat_id, free, LAG(free,1) OVER (ORDER BY seat_id) as free_lag, LEAD(free,1) OVER (ORDER BY seat_id) as free_lead FROM cinema ) as t WHERE (free=1 AND free_lag=1) OR (free=1 AND free_lead=1) order by seat_id
+SELECT seat_id FROM cinema WHERE free = 1 AND (seat_id + 1 IN (select seat_id from cinema WHERE free = 1) OR seat_id -1 IN (select seat_id from cinema WHERE free = 1)) ORDER BY seat_id asc
+SELECT t1.seat_id FROM (SELECT seat_id, free, COALESCE(LAG(free) OVER (), 0) previous_seat_free, COALESCE(LEAD(free) OVER(), 0) next_seat_free FROM cinema) t1 WHERE t1.free = 1 AND (t1.previous_seat_free = 1 OR t1.next_seat_free) ORDER BY t1.seat_id
+SELECT x.seat_id FROM (SELECT c.seat_id, c.free, LAG(c.free, 1)OVER(ORDER BY c.seat_id) as lag_free, LEAD(c.free, 1)OVER(ORDER BY c.seat_id) as lead_free FROM cinema c ) as x WHERE (x.free = 1 AND x.lag_free = 1) OR (x.free = 1 AND x.lead_free = 1) ORDER BY 1
+Select distinct a.seat_id From cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true order by a.seat_id
+Select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true order by a.seat_id
+Select distinct s1.seat_id From cinema s1 join cinema s2 on abs(s1.seat_id - s2.seat_id) = 1 and s1.free = 1 and s2.free = 1 Order by seat_id
+Select distinct seat_id FROM (Select seat_id, free , lead(free,1) OVER(order by seat_id) as nextfree,lag(free,1) OVER(order by seat_id) as beforefree from cinema) T where ((free = 1 and nextfree = 1) OR (free = 1 and beforefree = 1)) order by 1
+Select seat_id From (Select seat_id, free, LEAD(free, 1) OVER (ORDER BY seat_id) as free_lead, LAG(free, 1) OVER (ORDER BY seat_id) as free_lag From cinema) as cinema_1 Where (cinema_1.free = '1') And (cinema_1.free_lead = '1' Or cinema_1.free_lag = '1') Order By seat_id
+Select seat_id from (Select seat_id, free, lead(free,1) over (order by seat_id) as free_lead, lag(free,1) over (order by seat_id) as free_lag from cinema) t where (t.free = 1 and t.free_lead = 1) OR (t.free = 1 and t.free_lag = 1) order by seat_id
+Select seat_id from cinema where free =1 and( seat_id+1 IN(select seat_id from cinema where free=1) or seat_id-1 IN(select seat_id from cinema where free =1))
+Select seat_id from( select seat_id, free, lead(free,1) over() as next, lag(free,1) over() as prev from cinema) a where a.free=True and (next = True or prev=True) order by seat_id
+WITH 2_free AS ( SELECT seat_id , free AS c_free , LEAD(free, 1) OVER(ORDER BY seat_id ASC) AS cf_free , LAG(free, 1) OVER(ORDER BY seat_id ASC) AS cb_free FROM cinema ORDER BY seat_id ) SELECT seat_id FROM 2_free WHERE (c_free = 1 AND cf_free = 1 ) OR (c_free = 1 AND cb_free = 1) ORDER BY seat_id
+WITH CTE AS ( SELECT *, SUM(free) OVER (order by seat_id rows between 1 preceding and current row) AS COUNT_preceding, SUM(free) OVER (order by seat_id rows between current row and 1 FOLLOWING) as count_following FROM CINEMA) SELECT seat_id from cte where count_preceding >1 OR count_following >1
+WITH T AS( ( SELECT c1.seat_id AS seat_id FROM cinema c1, cinema c2 WHERE c1.free = 1 AND c2.free = 1 AND c1.seat_id = c2.seat_id+1 ) UNION ( SELECT c1.seat_id AS seat_id FROM cinema c1, cinema c2 WHERE c1.free = 1 AND c2.free = 1 AND c1.seat_id = c2.seat_id-1 ) ) SELECT T.seat_id AS seat_id FROM T ORDER BY seat_id
+WITH add_row_num AS ( SELECT seat_id, seat_id - ROW_NUMBER() OVER(ORDER BY seat_id) AS id_diff FROM cinema WHERE free = 1 ), add_count AS ( SELECT seat_id, COUNT(*) OVER (PARTITION BY id_diff) AS n FROM add_row_num ) SELECT seat_id FROM add_count WHERE n >= 2 ORDER BY seat_id
+WITH cte AS ( SELECT * , seat_id - ROW_NUMBER() OVER(ORDER BY seat_id) AS grouped_numbers FROM cinema WHERE free = 1 ) SELECT seat_id FROM cte WHERE grouped_numbers IN (SELECT grouped_numbers FROM cte GROUP BY grouped_numbers HAVING COUNT(grouped_numbers) > 1)
+WITH cte AS ( SELECT seat_id, free, LAG(free) OVER () AS lag_free, LEAD(free) OVER () AS lead_free FROM cinema ) SELECT seat_id FROM cte WHERE (free = 1 AND lag_free = 1) OR (free = 1 AND lead_free = 1) ORDER BY seat_id
+WITH cte AS (SELECT *, (seat_id - ROW_NUMBER() OVER(ORDER BY seat_id)) AS grp FROM Cinema WHERE free = 1) SELECT seat_id FROM cte WHERE grp IN (SELECT grp FROM cte GROUP BY grp HAVING COUNT(seat_id) >= 2)
+WITH cte AS (SELECT seat_id, seat_id-row_number() OVER (ORDER BY seat_id) AS flag FROM cinema WHERE free=1), flag AS (SELECT flag FROM cte GROUP BY flag HAVING COUNT(flag)>=2) SELECT seat_id FROM cte JOIN flag ON cte.flag=flag.flag ORDER BY seat_id
+WITH cte AS( SELECT seat_id, free, LAG(free,1) OVER(ORDER BY seat_id) AS free0, LEAD(free,1) OVER(ORDER BY seat_id) AS free1 FROM cinema ) SELECT seat_id FROM cte WHERE (free0=1 AND free !=0) OR (free1=1 AND free !=0)
+WITH cte AS( SELECT seat_id, free, LAG(free,1) over(ORDER BY seat_id) AS lg, LEAD(free,1) over(ORDER BY seat_id) AS ld FROM cinema ) SELECT seat_id FROM cte WHERE (free = 1 AND lg = 1) OR (free = 1 AND ld = 1) ORDER BY seat_id
+WITH cte as (SELECT LAG(seat_id) OVER (ORDER BY seat_id) as pre, seat_id as curr, LEAD(seat_id) OVER (ORDER BY seat_id) as nex FROM cinema WHERE free = 1 ) SELECT curr as seat_id FROM cte WHERE pre = curr -1 OR curr = nex -1 ORDER BY seat_id ASC
+WITH free AS ( SELECT seat_id, seat_id - ROW_NUMBER() OVER(ORDER BY seat_id) group_id FROM cinema WHERE free = 1 ) SELECT seat_id FROM free WHERE group_id IN (SELECT group_id FROM free GROUP BY 1 HAVING COUNT(*) >=2)
+WITH prev_next_free AS ( SELECT seat_id, free, LAG(free, 1, false) OVER (ORDER BY seat_id) AS prev_free, LEAD(free, 1, false) OVER (ORDER BY seat_id) AS next_free FROM cinema ) SELECT seat_id FROM prev_next_free WHERE free AND (prev_free OR next_free)
+WITH res AS ( SELECT seat_id, free, LAG(free,1) OVER( ORDER BY seat_id) AS prev_free, LEAD(free,1) OVER( ORDER BY seat_id) AS next_free FROM cinema ) SELECT seat_id FROM res WHERE ( free = 1 AND prev_free = 1 ) OR ( free = 1 AND next_free = 1) ORDER BY 1
+WITH sub as ( SELECT seat_id, free, lag(free, 1) OVER (ORDER BY seat_id) as prev_seat, lead(free, 1) OVER (ORDER BY seat_id) as next_seat FROM cinema ) SELECT seat_id FROM sub WHERE ((prev_seat = 1 and free = 1) or (next_seat = 1 and free = 1)) and not (prev_seat is null and next_seat is null) ORDER BY 1
+WITH t1 AS ( SELECT DISTINCT seat_id, LEAD(free, 1, 0) OVER (ORDER BY seat_id) AS next_seat_free, LAG(free, 1, 0) OVER (ORDER BY seat_id) AS previous_seat_free, free FROM cinema) SELECT seat_id FROM t1 WHERE ((free = 1) AND (next_seat_free = 1)) OR ((free = 1) AND (previous_seat_free = 1))
+WITH t1 AS ( SELECT seat_id, LEAD(free, 1, 0) OVER (ORDER BY seat_id) AS next_seat_free, LAG(free, 1, 0) OVER (ORDER BY seat_id) AS previous_seat_free, free FROM cinema) SELECT seat_id FROM t1 WHERE ((free = 1) AND (next_seat_free = 1)) OR ((free = 1) AND (previous_seat_free = 1))
+WITH temp AS ( SELECT DISTINCT A.seat_id FROM cinema A JOIN cinema B ON (A.seat_id = B.seat_id - 1 OR A.seat_id = B.seat_id + 1) AND A.free = 1 AND B.free = 1 ) SELECT * FROM temp
+select DISTINCT a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true ORDER BY a.seat_id
+select c.seat_id from (select b.seat_id, count(*) over (partition by b.diff) as ct from (select a.seat_id, (a.seat_id-a.num) as diff from (select *, row_number() over () as num from cinema where free=1)a ) b)c where c.ct>=2
+select c.seat_id from cinema c where free = 1 and (seat_id in (select seat_id - 1 from cinema where free = 1) or seat_id in (select seat_id + 1 from cinema where free = 1)) order by c.seat_id asc
+select c1.seat_id from (select seat_id from cinema where free=1) as c1 where c1.seat_id +1 in (select seat_id from cinema where free=1) or c1.seat_id-1 in (select seat_id from cinema where free=1) order by c1.seat_id
+select c1.seat_id from cinema as c1 left join cinema as c2 on c1.seat_id + 1 = c2.seat_id left join cinema as c3 on c1.seat_id = c3.seat_id + 1 where (c1.free != 0) and (c1.free = c2.free or c1.free = c3.free)
+select c1.seat_id from cinema c1 left join cinema c2 on c1.seat_id + 1 = c2.seat_id left join cinema c3 on c1.seat_id - 1 = c3.seat_id where c1.free = 1 and (c2.free = 1 or c3.free = 1)
+select c1.seat_id from cinema c1 where c1.free = 1 and exists (select * from cinema c2 where ((c2.seat_id + 1 = c1.seat_id) or (c2.seat_id - 1 = c1.seat_id)) and c2.free = 1) order by c1.seat_id asc
+select c1.seat_id from cinema c1, cinema c2 where ((c1.seat_id = c2.seat_id+1) or (c1.seat_id = c2.seat_id-1)) and (c1.free = 1) and (c2.free = 1) group by c1.seat_id
+select c1.seat_id from cinema c1, cinema c2 where c1.free = '1' and c2. free = '1' AND ((c2.seat_id = c1.seat_id-1) OR (c2.seat_id = c1.seat_id+1)) group by c1.seat_id
+select distinct (a.seat_id) from cinema a join cinema b on abs(b.seat_id - a.seat_id ) = 1 and a.free = 1 and b.free = 1 order by a.seat_id
+select distinct (a.seat_id) from cinema a, cinema b where a.free = 1 and b.free = 1 and (a.seat_id = b.seat_id+1 or b.seat_id = a.seat_id+1) order by a.seat_id
+select distinct a.seat_id from cinema a ,cinema b where a.free = 1 and b.free =1 and abs(a.seat_id - b.seat_id) = 1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on ((a.seat_id - b.seat_id) = 1 OR (b.seat_id - a.seat_id) = 1) AND a.free and b.free order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on a.free=1 and b.free=1 and abs(a.seat_id-b.seat_id)=1 order by seat_id
+select distinct a.seat_id from cinema a join cinema b on a.free=True and b.free=True and abs(a.seat_id-b.seat_id)=1 order by seat_id
+select distinct a.seat_id from cinema a join cinema b on a.seat_id = b.seat_id + 1 or a.seat_id = b.seat_id - 1 where a.free = 1 and b.free = 1
+select distinct a.seat_id from cinema a join cinema b on a.seat_id = b.seat_id + 1 or a.seat_id = b.seat_id - 1 where a.free = 1 and b.free = 1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on a.seat_id = b.seat_id + 1 or a.seat_id = b.seat_id-1 where a.free = 1 and b.free = 1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on a.seat_id=b.seat_id+1 or a.seat_id=b.seat_id-1 where a.free=1 and b.free=1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs( a.seat_id-b.seat_id) = 1 and a.free=1 and b.free=1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = 1 and b.free = 1 order by 1
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = 1 and b.free = 1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true order by 1
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true order by seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free=1 and b.free=1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free=true and b.free=true order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 where a.free=true and b.free=true order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id- b.seat_id)=1 and a.free = 1 and b.free=1 order by 1
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id-b.seat_id)=1 and a.free=1 and b.free=1 order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(a.seat_id-b.seat_id)=1 and a.free=true and b.free=true order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b on abs(b.seat_id - a.seat_id) = 1 and a.free = true and b.free = true order by a.seat_id
+select distinct a.seat_id from cinema a join cinema b where abs(a.seat_id - b.seat_id) = 1 and a.free = 1 and b.free = 1 order by 1
+select distinct a.seat_id from cinema a, cinema b where a.free = 1 and b.free = 1 and (a.seat_id+1 = b.seat_id or a.seat_id = b.seat_id+1) order by a.seat_id asc
+select distinct a.seat_id from cinema a, cinema b where a.free =1 and b.free=1 and (a.seat_id+1 = b.seat_id or b.seat_id+1 = a.seat_id) order by a.seat_id asc
+select distinct a.seat_id from cinema a, cinema b where a.free=1 and b.free =1 and (a.seat_id+1=b.seat_id or a.seat_id = b.seat_id+1) order by a.seat_id
+select distinct a.seat_id from cinema a,cinema b where a.free = 1 and b.free = 1 and abs(a.seat_id - b.seat_id) = 1 order by a.seat_id
+select distinct a.seat_id from cinema as a join cinema as b on abs(a.seat_id - b.seat_id) = 1 and a.free = 1 and b.free = 1 order by seat_id asc
+select distinct a.seat_id from cinema as a join cinema as b on abs(a.seat_id - b.seat_id) = 1 and a.free = true and b.free = true order by a.seat_id
+select distinct a.seat_id from cinema as a join cinema as b where abs(a.seat_id-b.seat_id)=1 and a.free=1 and b.free=1 order by seat_id
+select distinct a.seat_id from cinema as a, cinema as b where abs(a.seat_id-b.seat_id) = 1 and a.free =1 and b.free=1 order by a.seat_id
+select distinct b.seat_id from cinema a join cinema b on abs(a.seat_id - b.seat_id) = 1 and a.free = 1 and b.free = 1 order by b.seat_id asc
+select distinct b.seat_id from cinema a left join cinema b on abs(a.seat_id - b.seat_id) = 1 where a.free = 1 and b.free = 1
+select distinct c.seat_id from cinema as c join cinema as c1 where abs(c.seat_id - c1.seat_id) = 1 and c.free = 1 and c1.free order by seat_id
+select distinct c1.seat_id as seat_id from cinema c1 join cinema c2 on abs(c1.seat_id-c2.seat_id)=1 where c1.free=1 and c2.free=1 order by 1
+select distinct c1.seat_id from cinema as c1 inner join cinema as c2 on abs(c1.seat_id-c2.seat_id)=1 where c1.free=True and c2.free=true order by c1.seat_id
+select distinct c1.seat_id from cinema as c1 join cinema as c2 on ABS(c1.seat_id - c2.seat_id) = 1 where c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema as c1 join cinema as c2 where (c1.free = c2.free and c1.free = 1) and (c2.seat_id = c1.seat_id + 1 or c1.seat_id = c2.seat_id + 1) order by seat_id
+select distinct c1.seat_id from cinema as c1, cinema as c2 where c1.free = 1 and c2.free = 1 and (c1.seat_id - c2.seat_id = 1 or c2.seat_id - c1.seat_id = 1) order by c1.seat_id
+select distinct c1.seat_id from cinema c1 JOIN cinema c2 ON abs(c1.seat_id - c2.seat_id) = 1 and c1.free = 1 and c2.free = 1 order by seat_id
+select distinct c1.seat_id from cinema c1 inner join cinema c2 on abs (c1.seat_id - c2.seat_id)=1 where c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1 inner join cinema c2 on abs(c2.seat_id - c1.seat_id) = 1 where c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1 inner join cinema c2 on c1.free = 1 and c2.free = 1 and abs(c1.seat_id - c2.seat_id) = 1 order by 1
+select distinct c1.seat_id from cinema c1 inner join cinema c2 on c1.free = c2.free and c1.free = 1 where abs(c1.seat_id - c2.seat_id) = 1order by c1.seat_id
+select distinct c1.seat_id from cinema c1 join cinema c2 on abs(c1.seat_id - c2.seat_id) = 1 and c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1 join cinema c2 on abs(c1.seat_id - c2.seat_id) = 1 where c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1 join cinema c2 on c1.seat_id = c2.seat_id + 1 or c1.seat_id = c2.seat_id - 1 where c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1 join cinema c2 on c1.seat_id = c2.seat_id + 1 or c1.seat_id = c2.seat_id-1 where c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1, cinema c2 where (c1.seat_id = c2.seat_id + 1 or c1.seat_id = c2.seat_id - 1) and c1.free = 1 and c2.free = 1
+select distinct c1.seat_id from cinema c1, cinema c2 where (c1.seat_id=c2.seat_id+1 or c1.seat_id=c2.seat_id-1) and c1.free=1 and c2.free=1
+select distinct c1.seat_id from cinema c1, cinema c2 where abs(c1.seat_id - c2.seat_id) = 1 and c1.free = 1 and c2.free = 1 order by c1.seat_id
+select distinct c1.seat_id from cinema c1, cinema c2 where abs(c1.seat_id-c2.seat_id)=1 and c1.free+c2.free=2 order by seat_id asc
+select distinct c1.seat_id from cinema c1, cinema c2 where abs(c1.seat_id-c2.seat_id)=1 and c1.free=1 and c2.free=1 order by seat_id
+select distinct c1.seat_id from cinema c1, cinema c2 where c1.free =1 and c2.free = 1 and ((c1.seat_id = c2.seat_id -1 ) or (c1.seat_id = c2.seat_id +1))
+select distinct c1.seat_id from cinema c1, cinema c2 where c1.free=1 and c2.free=1 and (c1.seat_id=c2.seat_id+1 or c1.seat_id=c2.seat_id-1) order by c1.seat_id
+select distinct c1.seat_id from cinema c1, cinema c2 where c1.free=1 and c2.free=1 and abs(c1.seat_id-c2.seat_id)=1 order by 1
+select distinct s1.seat_id as seat_id from cinema s1 join cinema s2 on s1.seat_id = s2.seat_id+1 or s1.seat_id = s2.seat_id-1 where s1.free = 1 and s2.free = 1 order by s1.seat_id
+select distinct s1.seat_id from cinema s1 join cinema s2 where abs(s1.seat_id - s2.seat_id) = 1 and s1.free = 1 and s2.free = 1 order by seat_id asc
+select distinct seat_id from ( select distinct seat_id, free, lead(free,1) over(order by seat_id) as next_free_ind, lag(free,1) over(order by seat_id) as pre_free_ind from cinema ) as a where free = 1 and (next_free_ind = 1 or pre_free_ind = 1) order by 1
+select distinct t1.seat_id from cinema t1 join cinema t2 on (t1.seat_id = t2.seat_id - 1 or t1.seat_id = t2.seat_id + 1) where t1.free = 1 and t2.free = 1 order by t1.seat_id asc
+select distinct x.seat_id from cinema x join cinema y where x.free=1 and y.free=1 and (y.seat_id=x.seat_id+1 or x.seat_id=y.seat_id+1) order by x.seat_id
+select distinct(a.seat_id) from cinema a inner join cinema b on a.free = 1 and b.free = 1 and abs(a.seat_id - b.seat_id)=1 order by a.seat_id
+select distinct(a.seat_id) from cinema a join cinema b where abs(a.seat_id - b.seat_id) = 1 and a.free = 1 and b.free = 1 order by a.seat_id
+select distinct(c1.seat_id) from cinema c join cinema c1 on abs(c.seat_id-c1.seat_id) = 1 and c1.free = 1 and c.free = 1
+select distinct(c1.seat_id) from cinema c1 join cinema c2 on abs(c1.seat_id - c2.seat_id) = 1 where c1.free = 1 and c2.free =1 order by seat_id
+select distinct(c1.seat_id) from cinema c1, cinema c2 where (c1.seat_id = c2.seat_id + 1 or c1.seat_id = c2.seat_id - 1) and c2.free = 1 and c1.free = 1 order by seat_id
+select seat_id FROM (select case when (lag(free) over () = 1 and free = 1) then seat_id when (lead(free) over () = 1 and free = 1) then seat_id else NULL end as seat_id from cinema) c where seat_id is not null
+select seat_id from ( select c1.seat_id as seat_id from cinema c1 inner join cinema c2 on c1.seat_id = c2.seat_id+1 where c1.free = 1 and c2.free=1 )a union ( select c1.seat_id as seat_id from cinema c1 inner join cinema c2 on c1.seat_id = c2.seat_id-1 where c1.free = 1 and c2.free=1 ) order by seat_id
+select seat_id from ( select seat_id , free , lag(free, 1) over (order by seat_id) as prev_seat , lead(free, 1) over (order by seat_id) as next_seat from cinema ) a where free = 1 and (next_seat = 1 or prev_seat = 1) order by seat_id
+select seat_id from ( select seat_id, free , lead(free,1) over ( order by seat_id) as next , lag( free,1) over ( order by seat_id) as prev from cinema ) d where free = 1 and (next = 1 or prev =1) order by seat_id
+select seat_id from ( select seat_id, free, lag(free, 1) over(order by seat_id asc) as '_lag', lead(free, 1) over(order by seat_id asc) as '_lead' from cinema ) tbl where tbl.free = 1 and (tbl._lag = 1 or tbl._lead = 1) order by seat_id
+select seat_id from ( select seat_id, free, lag(free,1) over(order by seat_id) as lage, lead(free,1) over(order by seat_id) as leade from cinema) t where (lage=1 and free!=0) or (leade=1 and free!=0)
+select seat_id from ( select seat_id, lag(seat_id,1) over(order by seat_id ) as prev, lead(seat_id,1) over(order by seat_id) as next from cinema where free=1) c where abs(c.prev- seat_id)=1 or abs(c.next-seat_id)=1
+select seat_id from ( select seat_id,free, lead(free,1) over() as le, lag(free, 1) over() as la from cinema ) x where free = 1 and (le = 1 or la = 1) order by seat_id
+select seat_id from ( select seat_id,free,lag(free,1) over() as prevseat,lead(free,1) over() as nextseat from cinema ) a where (free=1) and (prevseat=1 or nextseat =1) order by seat_id
+select seat_id from ( select seat_id,free,lead(free,1)over() nxt,lag(free,1)over() prev from cinema )a where (free = nxt or free = prev) and free=1 order by seat_id
+select seat_id from (select *, ifnull(lag(free) over(order by seat_id),0) as prev, ifnull(lead(free) over(order by seat_id),0) as next from cinema) t where free = 1 and (prev = 1 or next = 1) order by seat_id
+select seat_id from (select case when (lead(seat_id) over (order by seat_id)) - seat_id = 1 or seat_id - (lag(seat_id) over (order by seat_id)) = 1 then seat_id else null end as seat_id from cinema where free = 1) x where seat_id is not null
+select seat_id from (select seat_id , free cur, lead(free, 1) over (order by seat_id) nxt, lag(free, 1) over (order by seat_id) prv from cinema) as C where cur = 1 and (nxt = 1 or prv = 1) order by seat_id
+select seat_id from (select seat_id, free, lead (free,1) over (order by seat_id) as lead_num, lag (free,1) over (order by seat_id) as lag_num from cinema ) sub where (free = 1 and lead_num = 1) or (free = 1 and lag_num = 1) order by seat_id
+select seat_id from (select seat_id,free, lead(free,1) over(order by seat_id) as next, lag(free,1) over (order by seat_id) as prev from cinema )tmp where (tmp.free=1 and next=1) or (tmp.free=1 and prev=1) order by seat_id asc
+select seat_id from cinema where (seat_id+1 in (select seat_id from cinema where free=1) or seat_id-1 in (select seat_id from cinema where free=1)) and free=1
+select seat_id from cinema where free = 1 and ( seat_id+1 in (select seat_id from cinema where free =1) or seat_id-1 in (select seat_id from cinema where free =1) ) order by seat_id
+select seat_id from cinema where free = 1 and (seat_id + 1 in (select seat_id from cinema where free = 1) or seat_id - 1 in(select seat_id from cinema where free = 1)) order by seat_id
+select seat_id from cinema where free = 1 and (seat_id + 1 in (select seat_id from cinema where free = 1) or seat_id -1 in (select seat_id from cinema where free - 0)) order by seat_id
+select seat_id from cinema where free=1 and (seat_id +1 in (select seat_id from cinema where free =1) or seat_id -1 in (select seat_id from cinema where free =1)) order by seat_id asc
+select seat_id from( select *, lag(free,1)over(order by seat_id) as la, lead(free,1)over(order by seat_id) as lea from cinema) t where (free=1 and la=1) or (free=1 and lea=1) order by 1
+select seat_id from( select seat_id, lag(free) over() as lag1, free, lead(free) over() as lead1 from cinema as c) as sub where (sub.lag1 = 1 and sub.free = 1) or (sub.free = 1 and sub.lead1)
+select seat_id from( select seat_id,free, lag (free,1) over(order by seat_id) as prev_free, lead (free,1) over(order by seat_id) as next_free from cinema) t where (prev_free = 1 and free =1) or (free =1 and next_free =1) order by 1
+select t.seat_id as seat_id from ((select a.seat_id from cinema a, cinema b where a.seat_id + 1 = b.seat_id and a.free = 1 and b.free = 1 ) union (select b.seat_id as seat_id from cinema a, cinema b where a.seat_id + 1 = b.seat_id and a.free = 1 and b.free = 1 )) as t order by seat_id asc
+select t.seat_id from( select seat_id, free, lag(free,1) over (order by seat_id) as prev_free, lead(free,1) over (order by seat_id) as next_free from cinema) t where (t.free = 1 and prev_free =1) or (t.free = 1 and next_free = 1) order by 1
+with CTE as ( select seat_id,free, lead(free,1) over() as next_seat,lag(free,1) over() as back_seat from cinema ) select seat_id from CTE where (free =1 and next_seat=1) or (free=1 and back_seat =1) order by seat_id
+with a as(select * from cinema where free=1) select seat_id from a where (seat_id+1 in (select seat_id from a) or seat_id-1 in (select seat_id from a)) order by seat_id
+with base as (select seat_id, free, lead(free) over(order by seat_id) as l1, lag(free) over(order by seat_id) as l2 from cinema ) select c.seat_id from cinema c inner join base b on b.seat_id=c.seat_id where (c.free!=0 and b.l1=1) or (c.free!=0 and b.l2=1)
+with c_free as ( select seat_id, free, lead(free, 1) over (order by seat_id) as next_free, lag(free, 1) over (order by seat_id) as last_free from cinema ) select seat_id from c_free where (free = 1 and next_free = 1) or (free = 1 and last_free = 1) order by seat_id
+with cte as ( Select seat_id, lead(seat_id) over ( order by seat_id) next, free, lead(free) over ( order by seat_id ) nextfree from cinema ) Select distinct seat_id from cte where seat_id+ 1 = next and free = 1 and nextfree = 1 union select distinct next from cte where next-1 = seat_id and free = 1 and nextfree = 1 order by 1
+with cte as ( select seat_id, free, (seat_id - rank() over(order by free, seat_id)) as inv from cinema where free = 1 ) select seat_id from ( select seat_id, count(seat_id) over(partition by inv) as cnt from cte ) as tab where cnt > 1
+with cte as ( select seat_id, lag(seat_id) over(order by seat_id) as lg, lead(seat_id) over(order by seat_id) as ld from cinema where free = 1) select seat_id from cte where abs(seat_id-ld) = 1 or abs(seat_id-lg) = 1
+with cte as ( select seat_id, seat_id - row_number() over(order by seat_id asc) as rnk from cinema where free = 1) select seat_id from cte where rnk in ( select rnk from cte group by 1 having count(*) >= 2)
+with cte as (select seat_id , free , lead(free) over() as next_, lag(free) over() as prev_ from cinema) select seat_id from cte where (free = 1 and next_ = 1) or (free= 1 and prev_ = 1) order by seat_id
+with cte as (select seat_id , free , lead(free,1) over() as next_, lag(free,1) over() as prev_ from cinema) select seat_id from cte where (free = 1 and next_ = 1) or (free= 1 and prev_ = 1) order by seat_id
+with cte as (select seat_id from cinema where free = 1) select seat_id from cte where (seat_id+1 in (select seat_id from cte) or seat_id-1 in (select seat_id from cte) )
+with cte as (select seat_id, free, lag(free, 1) over (order by seat_id) as 1st, lead(free,1) over (order by seat_id) as 2nd from cinema) select seat_id from cte as a where (a.free = 1 and a.1st = 1) or (a.free =1 and a.2nd =1) order by seat_id
+with cte as( select * from cinema where free=1) select seat_id from ( select seat_id, lead(seat_id)over(order by seat_id) as nex_seat_id, lag(seat_id)over(order by seat_id) as pre_seat_id from cte) a where seat_id-pre_seat_id=1 or nex_seat_id-seat_id=1
+with cte1 as (select *, lag(free) over() free_next from cinema), cte2 as( select *, CASE WHEN free <> free_next THEN 1 ELSE 0 END AS ind from cte1 ), cte3 as ( select *,sum(ind) over(order by seat_id) cat from cte2 ), cte4 as ( select seat_id, free, count(cat) over(partition by cat) cont_num from cte3 ) select seat_id from cte4 where cont_num >= 2 and free = '1' order by seat_id
+with cte_1 as ( select seat_id , (seat_id - dense_rank() over (order by seat_id)) as marking from cinema where free ), cte_2 as ( select * , count(*) over (partition by marking) as cnt from cte_1 ) select seat_id from cte_2 where cnt > 1
+with cte_free_seats as( select seat_id from cinema where free = 1 ) select distinct c1.seat_id from cte_free_seats c1 inner join cte_free_seats c2 on abs(c1.seat_id - c2.seat_id) = 1 order by c1.seat_id
+with free_seat as (select seat_id from cinema where free = 1) select seat_id from free_seat where seat_id+1 in (select seat_id from free_seat) or seat_id-1 in (select seat_id from free_seat) order by seat_id
+with rank_diffs as ( select seat_id, seat_id - (row_number() over (order by seat_id asc)) as rank_diff from cinema where free = 1 ), rank_counts as ( select rank_diff, count(*) as rank_count from rank_diffs group by rank_diff ) select seat_id from rank_diffs where rank_diff in (select rank_diff from rank_counts where rank_count > 1) order by seat_id asc
+with seats as (select seat_id, lag(free) over (order by seat_id) as prev, free as curr, lead(free) over (order by seat_id) as next from cinema) select seat_id from seats where curr <> 0 and (prev<>0 or next<>0)
+with t1 as ( select seat_id, free, lead(free, 1) over (order by seat_id) as l1, lag(free, 1) over (order by seat_id) as l2 from cinema) select seat_id from t1 where free=true and (l1=true or l2=true) order by seat_id
+with t1 as (select seat_id, free, lead(free) over(order by seat_id) as lv1, lag(free) over(order by seat_id) as lg1 from cinema) select seat_id from t1 where (lv1 = 1 and free=1) or (lg1 =1 and free=1) order by 1
+with temp as ( select seat_id, seat_id - row_number() over(order by seat_id) as rnum from cinema where free = 1) select seat_id from temp where rnum IN (Select rnum from temp group by rnum having count(*)>1)
+with temp as (select seat_id, free, LAG(free) over (order by seat_id) as Lag_seat, LEAD(free) over (order by seat_id) as Lead_seat from cinema) select seat_id from temp where (Lag_seat=1 and free=1) or (Lead_seat=1 and free=1) order by seat_id
+with temp as(select seat_id, lag(free,1) over(order by seat_id) as prev_free, free, lead(free,1) over(order by seat_id) as next_free from cinema) select seat_id from temp where (prev_free = 1 and free = 1) or (free =1 and next_free = 1)
+with tmp as ( select * from cinema where free !=0) select distinct a.seat_id from tmp a join tmp b on abs(a.seat_id - b.seat_id) = 1 order by 1
+with valid_seat as (select seat_id, row_number() over(order by seat_id) as num from cinema where free=1) select seat_id from (select *, count(1) over(partition by seat_id - num)as c from valid_seat)b where c >=2

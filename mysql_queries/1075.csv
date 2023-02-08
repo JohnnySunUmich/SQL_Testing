@@ -1,0 +1,315 @@
+SELECT A.project_id, ROUND(AVG(B.experience_years), 2) AS average_years FROM Project AS A INNER JOIN Employee AS B ON A.employee_id = B.employee_id GROUP BY A.project_id
+SELECT A.project_id, ROUND(AVG(B.experience_years),2) AS average_years FROM Project A LEFT JOIN Employee B ON A.employee_id = B.employee_id GROUP BY A.project_id
+SELECT DISTINCT a.project_id, ROUND(AVG(b.experience_years) OVER (PARTITION BY a.project_id),2) AS average_years FROM Project a LEFT JOIN Employee b ON a.employee_id = b.employee_id
+SELECT DISTINCT a.project_id, ROUND(AVG(b.experience_years)OVER (PARTITION BY a.project_id),2) AS average_years FROM Project a JOIN Employee b ON a.employee_id = b.employee_id
+SELECT DISTINCT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project JOIN Employee ON Project.employee_id=Employee.employee_id GROUP BY project_id
+SELECT P.PROJECT_ID, ROUND(AVG(E.EXPERIENCE_YEARS), 2) AS AVERAGE_YEARS FROM PROJECT P JOIN EMPLOYEE E ON P.EMPLOYEE_ID = E.EMPLOYEE_ID GROUP BY P.PROJECT_ID
+SELECT P.PROJECT_ID,ROUND(AVG(E.EXPERIENCE_YEARS),2) AS AVERAGE_YEARS FROM PROJECT P LEFT JOIN EMPLOYEE E ON P.EMPLOYEE_ID=E.EMPLOYEE_ID GROUP BY P.PROJECT_ID
+SELECT P.project_id ,ROUND(AVG(E.experience_years),2) AS average_years FROM Project P INNER JOIN Employee E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(E.experience_years), 2) AS average_years FROM Project AS P JOIN Employee AS E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(E.experience_years), 2) AS average_years FROM Project P INNER JOIN Employee E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(E.experience_years), 2) AS average_years FROM Project P LEFT JOIN Employee E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(E.experience_years),2) AS average_years FROM Employee E INNER JOIN Project P ON P.employee_id = E.employee_id GROUP BY 1
+SELECT P.project_id, ROUND(AVG(E.experience_years),2) AS average_years FROM PROJECT AS P LEFT JOIN EMPLOYEE AS E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(E.experience_years),2) AS average_years FROM Project P LEFT JOIN Employee E ON P.employee_id = E.employee_id GROUP BY 1
+SELECT P.project_id, ROUND(AVG(E.experience_years),2) as average_years FROM Project P LEFT JOIN Employee E ON P.employee_id = E.employee_id GROUP BY 1 ORDER BY 1
+SELECT P.project_id, ROUND(AVG(E.experience_years),2) average_years FROM Project P INNER JOIN Employee E ON P.employee_id=E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(E.experience_years),2) average_years FROM Project P LEFT JOIN Employee E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project P INNER JOIN Employee E ON P.employee_id = E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project P JOIN Employee E ON P.employee_id=E.employee_id GROUP BY P.project_id
+SELECT P.project_id, ROUND(SUM(E.EXPERIENCE_YEARS)/COUNT(E.EMPLOYEE_ID), 2)AS average_years FROM PROJECT P, EMPLOYEE E WHERE P.EMPLOYEE_ID = E.EMPLOYEE_ID GROUP BY P.PROJECT_ID
+SELECT Project.project_id, IFNULL(ROUND(AVG(Employee.experience_years), 2), 0) AS average_years FROM Project LEFT JOIN Employee ON Project.employee_id = Employee.employee_id GROUP BY Project.project_id
+SELECT Project.project_id, ROUND(AVG(Employee.experience_years),2) AS average_years FROM Project JOIN Employee ON Project.employee_id = Employee.employee_id GROUP BY Project.project_id
+SELECT l.project_id,round(avg(r.experience_years),2) average_years from project l inner join employee r on l.employee_id=r.employee_id GROUP BY l.project_id
+SELECT p.project_id AS project_id, ROUND(AVG(e.experience_years),2) AS average_years FROM project p LEFT JOIN employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, IFNULL(ROUND(AVG(experience_years),2), 0) average_years FROM project p LEFT JOIN employee e ON p.employee_id = e.employee_id GROUP BY 1
+SELECT p.project_id, ROUND( AVG(e.experience_years), 2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND( SUM(e.experience_years) / COUNT(p.employee_id), 2 ) as average_years FROM project p JOIN employee e on p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS 'average_years' FROM Project p INNER JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Employee e INNER JOIN Project p ON e.employee_id = p.employee_id GROUP BY project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project AS p INNER JOIN Employee AS e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project AS p LEFT JOIN Employee AS e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM Project p LEFT JOIN Employee e USING (employee_id) GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years FROM project p JOIN employee e ON p.employee_id = e.employee_id GROUP BY 1
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) as average_years FROM Employee e JOIN Project p USING(employee_id) GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) as average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years), 2) average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY 1
+SELECT p.project_id, ROUND(AVG(e.experience_years),2) AS average_years FROM Project AS p LEFT JOIN Employee AS e USING(employee_id) GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years),2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years),2) AS average_years FROM Project p LEFT JOIN Employee e ON p.employee_id=e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(e.experience_years),2) average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(AVG(experience_years),2) average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(SUM(e.experience_years) / COUNT(*), 2) AS average_years FROM Project p INNER JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(SUM(e.experience_years) / COUNT(e.employee_id), 2) AS average_years FROM project p JOIN employee e ON p.employee_id = e.employee_id GROUP BY 1
+SELECT p.project_id, ROUND(SUM(e.experience_years) / COUNT(p.employee_id) ,2) AS average_years FROM Project as p JOIN Employee as e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, ROUND(SUM(e.experience_years)/COUNT(p.project_id),2) AS average_years FROM Project p LEFT JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT p.project_id, Round(AVG(e.experience_years), 2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, round((sum(e.experience_years)/count(project_id)),2) as average_years from project as p join employee as e on p.employee_id = e.employee_id group by project_id
+SELECT p.project_id, round(avg(e.experience_years), 2) AS average_years FROM Project p INNER JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p.project_id, round(avg(e.experience_years),2) as average_years FROM Employee as e JOIN Project as p ON e.employee_id = p.employee_id GROUP BY project_id
+SELECT p.project_id,ROUND(AVG(e.experience_years),2) AS average_years FROM project p JOIN employee e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT p1.project_id, ROUND(AVG(e1.experience_years),2) AS average_years FROM Project p1 LEFT JOIN Employee e1 ON p1.employee_id = e1.employee_id GROUP BY project_id
+SELECT project_id , ROUND(AVG(experience_years ), 2) AS average_years FROM Project P JOIN Employee USING(employee_id ) GROUP BY 1
+SELECT project_id , round(avg(experience_years),2) as average_years FROM Project p JOIN Employee e on e.employee_id = p.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG (experience_years), 2) AS average_years FROM Project JOIN Employee USING (employee_id) GROUP BY project_id
+SELECT project_id, ROUND(AVG(e.experience_years),2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id ORDER BY project_id
+SELECT project_id, ROUND(AVG(experience_years) ,2) AS average_years FROM Project LEFT JOIN Employee USING(employee_id) GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Project AS p LEFT JOIN Employee AS e ON e.employee_id = p.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Project JOIN Employee ON Project.employee_id = Employee.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Project LEFT JOIN Employee ON Project.employee_id = Employee.employee_id GROUP BY project_id ORDER BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Project P INNER JOIN Employee E ON P.employee_id = E.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years FROM Project p LEFT JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) as average_years FROM Project INNER JOIN Employee E USING(employee_id) GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) as average_years FROM Project LEFT JOIN Employee ON Project.employee_id = Employee.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years), 2) average_years FROM Employee e JOIN Project p ON e.employee_id = p.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS 'average_years' FROM (SELECT a.project_id, b.experience_years FROM Project a, Employee b WHERE a.employee_id=b.employee_id) temp GROUP BY 1
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM (SELECT p.project_id, p.employee_id, e.experience_years FROM Project as p LEFT JOIN Employee as e on p.employee_id = e.employee_id) AS JT GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Employee e JOIN Project p ON e.employee_id = p.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project AS p INNER JOIN Employee AS e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project INNER JOIN Employee USING(employee_id) GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project JOIN Employee on Project.employee_id = Employee.employee_id Group By project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project LEFT JOIN Employee USING(employee_id) GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project as p LEFT JOIN Employee AS e USING (employee_id) GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM Project p join Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM project JOIN employee ON project.employee_id = employee.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) AS average_years FROM project LEFT JOIN employee ON Project.employee_id = Employee.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) as average_years FROM ( SELECT project_id, experience_years FROM Project JOIN Employee USING (employee_id) ) AS t1 GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) as average_years FROM Project INNER JOIN Employee ON Project.employee_id = Employee.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) as average_years FROM Project as P JOIN Employee as E ON P.employee_id = E.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) as average_years FROM Project as p INNER JOIN Employee as e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) as average_years FROM project p JOIN employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(AVG(experience_years),2) average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, ROUND(SUM(experience_years)/COUNT(*), 2) AS average_years FROM Project p LEFT JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id, round(AVG(experience_years), 2) AS average_years FROM Project p LEFT JOIN Employee e USING(employee_id) GROUP BY project_id
+SELECT project_id, round(avg(experience_years), 2) AS average_years FROM (SELECT a.project_id, a.employee_id, b.experience_years FROM Project a JOIN employee b ON a.employee_id = b.employee_id) AS A GROUP BY A.project_id
+SELECT project_id, round(avg(experience_years), 2) as average_years FROM Project JOIN Employee ON Employee.employee_id=Project.employee_id GROUP BY project_id
+SELECT project_id, round(avg(experience_years), 2) as average_years FROM Project p INNER JOIN Employee e ON p.employee_id = e.employee_id group by project_id
+SELECT project_id, round(avg(experience_years),2) as average_years FROM Project LEFT JOIN Employee ON Project.employee_id=Employee.employee_id GROUP BY project_id
+SELECT project_id, round(avg(experience_years),2) as average_years FROM Project p LEFT JOIN Employee e on p.employee_id=e.employee_id GROUP BY 1
+SELECT project_id, round(avg(experience_years),2) as average_years FROM project p JOIN employee e ON p.employee_id = e.employee_id GROUP BY project_id
+SELECT project_id,ROUND(AVG(experience_years),2) AS average_years FROM Project AS p INNER JOIN Employee AS e ON p.employee_id = e.employee_id GROUP BY p.project_id
+SELECT project_id,round(avg(experience_years),2) as average_years FROM Project j JOIN Employee e on e.employee_id = j.employee_id GROUP BY project_id
+SELECT project_id,round(avg(experience_years),2) as average_years FROM Project p left join Employee e on p.employee_id = e.employee_id group by p.project_id
+SELECT sub.project_id, ROUND(sub.Experience/sub.Employees,2) AS average_years FROM (SELECT p.project_id, COUNT(p.employee_id) AS Employees, SUM(e.experience_years) AS Experience FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY p.project_id) as sub GROUP BY sub.project_id
+SELECT t1.project_id,ROUND(AVG(t2.experience_years),2) as average_years FROM Project t1 LEFT JOIN Employee t2 ON t1.employee_id = t2.employee_id GROUP BY t1.project_id
+SELECT tmp.project_id, ROUND(AVG(tmp.experience_years), 2) as average_years FROM (SELECT p.project_id, p.employee_id, e.experience_years FROM Employee e INNER JOIN Project p ON e.employee_id = p.employee_id ) AS tmp GROUP BY tmp.project_id
+Select A.project_id as project_id, round(avg(experience_years),2) as average_years from Project A, Employee B Where A.employee_id = B.employee_id group by project_id
+Select P.project_id, ROUND(AVG(E.experience_years),2) as average_years From Employee E inner Join Project P ON E.employee_id=P.employee_id Group By P.project_id
+Select P.project_id, ROUND(AVG(E.experience_years),2) as average_years From Project P left Join Employee E ON E.employee_id=P.employee_id Group By P.project_id
+Select P.project_id,round(avg(E.experience_years),2) as average_years from Project P inner join Employee E on P.employee_id=E.employee_id group by 1
+Select Project.project_id, ROUND(AVG(Employee.experience_years), 2) AS average_years from Project inner join Employee on Project.employee_id = Employee.employee_id group by Project.project_id
+Select a.project_id, round(sum(b.experience_years)/count(b.employee_id),2) as average_years from project as a join employee as b on a.employee_id=b.employee_id group by a.project_id
+Select p.project_id as project_id ,round(avg(experience_years),2) as average_years from Employee e inner join Project p on e.employee_id = p.employee_id group by p.project_id
+Select p.project_id, round(AVG(e.experience_years),2) as average_years From Project p left join Employee e On p.employee_id = e.employee_id Group by p.project_id
+Select p.project_id, round(avg(e.experience_years),2) as average_years From employee e inner join project p on e.employee_id = p.employee_id Group by p.project_id
+Select p.project_id, round(avg(e.experience_years),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by project_id
+Select p.project_id,round(avg(e.experience_years),2) as average_years from Project p join Employee e on p.employee_id=e.employee_id group by p.project_id
+Select p.project_id,round(avg(e.experience_years),2)as'average_years' from Project p inner join Employee e on p.employee_id=e.employee_id group by p.project_id
+Select project_id, round(avg(experience_years), 2) as average_years From Project p Join Employee e ON p.employee_id = e.employee_id Group by project_id
+Select project_id, round(avg(experience_years), 2) as average_years From Project p LEFT Join Employee e ON p.employee_id = e.employee_id Group by project_id
+Select project_id, round(avg(experience_years),2) as average_years From Project Left Join Employee on Project.employee_id = Employee.employee_id group by project_id
+Select project_id, round(avg(experience_years),2) as average_years From Project Left join Employee on Project.employee_id=Employee.employee_id group by project_id
+Select project_id, round(avg(experience_years),2) average_years from Project p join Employee e on p.employee_id = e.employee_id group by 1
+Select project_id,round(avg(experience_years),2) as average_years from Project,Employee where Project.employee_id=Employee.employee_id group by project_id
+Select project_id,round(avg(experience_years),2) average_years from Project p join Employee e on p.employee_id = e.employee_id group by p.project_id
+WITH tmp AS (SELECT p.*, e.experience_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id) SELECT project_id, ROUND(SUM(experience_years)/COUNT(*), 2) average_years FROM tmp GROUP BY project_id
+With Cte as (select p.project_id as project_id ,p.employee_id as employee_id, e.experience_years as experience_years from project p ,employee e where p.employee_id=e.employee_id) Select project_id,Round(sum(experience_years)/Count(experience_years),2) as average_years from cte group by project_id
+select P.project_id, round((sum(E.experience_years)/count(P.employee_id)),2) as average_years from Project P left join Employee E on P.employee_id = E.employee_id group by project_id
+select P.project_id, round(avg(E.experience_years), 2) as average_years from Project P, Employee E where P.employee_id = E.employee_id group by P.project_id
+select P.project_id, round(avg(E.experience_years),2) AS average_years from Project P INNER JOIN Employee E ON P.employee_id=E.employee_id group by project_id
+select P.project_id, round(avg(experience_years),2) as average_years from Project P join Employee E on P.employee_id = E.employee_id group by P.project_id
+select P.project_id,round(avg(E.experience_years),2)as average_years from Project P join Employee E on P.employee_id=E.employee_id group by P.project_id
+select P.project_id,round(sum(E.experience_years)/count(P.project_id),2)as average_years from Project P join Employee E on P.employee_id=E.employee_id group by P.project_id
+select Project.project_id, round(avg(Employee.experience_years), 2) as 'average_years' from Project join Employee on Project.employee_id = Employee.employee_id group by Project.project_id
+select Project.project_id, round(avg(Employee.experience_years), 2) as average_years from Project join Employee on Project.employee_id = Employee.employee_id group by Project.project_id
+select Project.project_id, round(avg(Employee.experience_years),2) as average_years from Project JOIN Employee ON Project.employee_id = Employee.employee_id Group by Project.project_id
+select Project.project_id, round(avg(Employee.experience_years),2) as average_years from Project left join Employee on Project.employee_id = Employee.employee_id group by project_id
+select a.project_id , round(avg(b.experience_years), 2) as average_years from Project a , Employee b where a.employee_id = b.employee_id group by a.project_id
+select a.project_id , round(avg(b.experience_years),2) as average_years from project as a inner join employee as b on a.employee_id = b.employee_id group by 1
+select a.project_id, round(avg(b.experience_years),2) as average_years from Project a , Employee b where a.employee_id = b.employee_id group by a.project_id
+select a.project_id, round(avg(b.experience_years),2) as average_years from Project as a left join Employee as b on a.employee_id=b.employee_id group by a.project_id
+select a.project_id, round(avg(experience_years),2) as average_years from Project a LEFT JOIN Employee USING(employee_id) group by 1
+select a.project_id, round(ifnull(avg(a.experience_years),0),2) as average_years from ( select project_id, experience_years from Project, Employee where Project.employee_id=Employee.employee_id ) a group by project_id
+select a.project_id, round(sum(b.experience_years)/count(a.employee_id), 2) as average_years from project as a left join employee as b on a.employee_id = b.employee_id group by a.project_id
+select a.project_id,round(avg(b.experience_years),2) as average_years from Project as a left join Employee as b on a.employee_id = b.employee_id group by project_id
+select c.project_id, round(avg(c.experience_years),2) as average_years from ( select a.*,b.experience_years from project a left join employee b on a.employee_id=b.employee_id) as c group by 1
+select distinct a.project_id, round(avg(b.experience_years) over (partition by a.project_id),2) as average_years from project a join employee b on a.employee_id = b.employee_id
+select distinct a.project_id, round(sum(b.experience_years)/count(b.experience_years),2) as average_years from Project a left join Employee b on a.employee_id=b.employee_id group by 1
+select distinct p.project_id, round(avg(e.experience_years),2) average_years from Project p left join Employee e using(employee_id) group by 1
+select distinct p.project_id, round(avg(experience_years) over (partition by p.project_id),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id
+select distinct project_id , round(avg(experience_years) over (partition by project_id),2) as average_years from Project inner join Employee using (employee_id)
+select distinct project_id, round(avg(experience_years) over (partition by project_id),2) as average_years from Project p join Employee e on p.employee_id = e.employee_id
+select distinct(p.project_id), round(avg(e.experience_years),2) average_years from project p left join employee e using(employee_id) group by 1
+select p. project_id, round(avg(e.experience_years),2) as average_years from Employee as e inner join Project as p on e.employee_id=p.employee_id group by 1
+select p.Project_id as project_id , round(sum(e.experience_years)/count(p.employee_id),2) as average_years from Project p join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id , round(sum(experience_years)/count(*),2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id ,round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by 1
+select p.project_id ,round(avg(experience_years),2)AS average_years from Project p inner join Employee e on p.employee_id=e.employee_id group by p.project_id
+select p.project_id project_id , round(avg(e.experience_years),2) average_years from Project p join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, ROUND(AVG(e.experience_years), 2) AS average_years from Project P join Employee E where P.employee_id=E.employee_id group by p.project_id
+select p.project_id, ROUND(AVG(e.experience_years),2) as average_years from Project p inner join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, ROUND(AVG(experience_years),2) AS average_years from Project p LEFT JOIN Employee e ON p.employee_id = e.employee_id group by 1 order by 1
+select p.project_id, ROUND(AVG(experience_years),2) as 'average_years' from project p join Employee e on p.employee_id = e.employee_id group by p.project_id order by p.project_id
+select p.project_id, ROUND(AVG(experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, ROUND(avg(experience_years),2) as average_years from Project as p inner join Employee as e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, Round(avg(e.experience_years),2) as average_years from employee e join project p on p.employee_id=e.employee_id group by p.project_id order by p.project_id
+select p.project_id, Round(cast(sum(experience_years)/ cast(count(distinct e.employee_id) as float) as decimal(4,2)),2) as average_years from employee e join project p on e.employee_id = p.employee_id group by p.project_id
+select p.project_id, round((avg(e.experience_years)),2) as average_years from employee as e join project as p on e.employee_id = p.employee_id group by p.project_id
+select p.project_id, round((sum(e.experience_years)/count(e.employee_id)),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as 'average_years' from Project p inner join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as 'average_years' from Project p left join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from Employee e join Project p on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project as p inner join employee as e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project as p, employee as e where p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p inner join employee e on e.employee_id = p.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p join employee e on e.employee_id=p.employee_id group by 1
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p join employee e on p.employee_id = e.employee_id group by 1
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p join employee e on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(avg(e.experience_years), 2) as average_years from project p left join employee e using(employee_id) group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) average_years from project p inner join employee e on e.employee_id = p.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years), 2) average_years from project p join employee e on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(avg(e.experience_years),2) as 'average_years' from project p left join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from Employee e join project p on e.employee_id=p.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from Project p inner join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from Project p join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from Project p join Employee e on p.employee_id= e.employee_id group by p.project_id order by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from Project p join Employee e using (employee_id) group by 1
+select p.project_id, round(avg(e.experience_years),2) as average_years from Project p join Employee e using (employee_id) group by 1 order by 1
+select p.project_id, round(avg(e.experience_years),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by 1
+select p.project_id, round(avg(e.experience_years),2) as average_years from employee e join project p on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project as p join employee as e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p inner join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p inner join employee e on p.employee_id=e.employee_id group by p.project_id order by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id Group by 1
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id=e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p left join employee e on p.employee_id=e.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2) as average_years from project p, employee e where p.employee_id = e.employee_id group by project_id
+select p.project_id, round(avg(e.experience_years),2) average_years from Project p inner join Employee e where p.employee_id = e.employee_id group by p.project_id order by p.project_id
+select p.project_id, round(avg(e.experience_years),2) average_years from employee e inner join project p on e.employee_id = p.employee_id group by p.project_id
+select p.project_id, round(avg(e.experience_years),2)as average_years from project p left join employee e on p.employee_id=e.employee_id group by p.project_id order by p.project_id
+select p.project_id, round(avg(experience_years), 2) as average_years from Project p join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(experience_years), 2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(experience_years),2) as average_years from employee e inner join project p on e.employee_id = p.employee_id group by p.project_id
+select p.project_id, round(avg(experience_years),2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(avg(experience_years),2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(sum(e.experience_years) / count(e.employee_id), 2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id, round(sum(e.experience_years) / count(e.experience_years), 2) as average_years from project as p inner join employee as e on p.employee_id=e.employee_id group by p.project_id
+select p.project_id, round(sum(e.experience_years)/count(*),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by project_id
+select p.project_id, round(sum(e.experience_years)/count(p.employee_id),2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id,round(AVG(e.experience_years),2) 'average_years' from project p inner join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id,round(avg(e.experience_years),2) as average_years from Employee e join Project p on e.employee_id = p.employee_id group by p.project_id
+select p.project_id,round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select p.project_id,round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id=e.employee_id group by p.project_id
+select project.project_id, ROUND(avg(employee.experience_years),2) as average_years from project inner join employee on employee.employee_id = project.employee_id group by project.project_id
+select project.project_id, round(avg(employee.experience_years),2) as average_years from project inner join employee on project.employee_id = employee.employee_id group by 1
+select project.project_id,round(avg(employee.experience_years),2) as 'average_years' from project left join employee on project.employee_id=employee.employee_id group by project_id
+select project.project_id,round(avg(experience_years),2)as average_years from project join employee on project.employee_id=employee.employee_id group by project_id
+select project_id , Round(avg(experience_years),2) as average_years from Project a inner join Employee e on a.employee_id = e.employee_id group by project_id
+select project_id , cast(avg(experience_years) as decimal(5,2) ) as average_years from project p inner join employee e on p.employee_id = e.employee_id group by 1
+select project_id ,round(avg(experience_years),2) as average_years from Project inner join Employee on Project.employee_id = Employee.employee_id group by 1
+select project_id, ROUND(AVG(experience_years),2) AS average_years from Project a join Employee b on a.employee_id = b.employee_id group by project_id
+select project_id, ROUND(AVG(experience_years),2) as `average_years` from Project join Employee on Project.employee_id = Employee.employee_id group by project_id
+select project_id, ROUND(AVG(experience_years),2) as average_years from Project P inner join Employee E on P.employee_id = E.employee_id group by project_id
+select project_id, ROUND(AVG(experience_years),2) average_years from Project join Employee using(employee_id) group by project_id
+select project_id, ROUND(avg(experience_years), 2) as 'average_years' from Project p JOIN Employee e on p.employee_id = e.employee_id group by project_id
+select project_id, ROUND(avg(experience_years),2) as average_years from Project Left join Employee using (employee_id) group by 1
+select project_id, Round(AVG(experience_years),2) as average_years from Project join Employee using(employee_id) group by project_id
+select project_id, Round(avg(experience_years),2) as average_years from Project as p INNER JOIN Employee as e on p.employee_id=e.employee_id group by project_id
+select project_id, round (avg(experience_years),2)as average_years from ( select a.project_id, a.employee_id, b.experience_years from project a join employee b on a.employee_id=b.employee_id)a group by project_id
+select project_id, round(avg (experience_years), 2) average_years from Employee e join Project p on e.employee_id = p.employee_id group by project_id
+select project_id, round(avg(b.experience_years),2) average_years from Project a join Employee b on a.employee_id = b.employee_id group by project_id
+select project_id, round(avg(e.experience_years), 2) average_years from Project p join Employee e on p.employee_id = e.employee_id group by p.project_id
+select project_id, round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by p.project_id
+select project_id, round(avg(e.experience_years),2) as average_years from project p join employee e on p.employee_id=e.employee_id group by project_id
+select project_id, round(avg(experience_years ), 2) as average_years from Project, employee where project.employee_id = employee.employee_id group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from (select Project.project_id as project_id, Employee.experience_years as experience_years from Project join Employee on Project.employee_id = Employee.employee_id) as T group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from Project as p join Employee as e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from Project left join Employee on Employee.employee_id = Project.employee_id group by 1
+select project_id, round(avg(experience_years), 2) as average_years from Project p join Employee E where P.employee_id=E.employee_id group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from project inner join employee using(employee_id) group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from project join employee using(employee_id) group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from project left join employee using(employee_id) group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from project natural join employee group by project_id
+select project_id, round(avg(experience_years), 2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as "average_years" from project p join employee e on p.employee_id=e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as 'average_years' from Project as p left join Employee as e on p.employee_id=e.employee_id group by 1
+select project_id, round(avg(experience_years),2) as 'average_years' from employee e join project p on e.employee_id = p.employee_id group by p.project_id
+select project_id, round(avg(experience_years),2) as average_years from ( select p.project_id, e.employee_id, e.experience_years from Project p left join Employee e on p.employee_id = e.employee_id ) a group by project_id
+select project_id, round(avg(experience_years),2) as average_years from (select Project.project_id, Employee.employee_id, Employee.experience_years from Project left join Employee on Project.employee_id = Employee.employee_id) a group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Employee e join Project p on e.employee_id = p.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project P join Employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project as p inner join Employee as e on p.employee_id=e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project as p join Employee as e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project as p left join Employee as e on p.employee_id=e.employee_id group by 1
+select project_id, round(avg(experience_years),2) as average_years from Project inner join Employee using(employee_id) group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project join Employee on (Project.employee_id=Employee.employee_id) group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project join Employee on Project.employee_id = Employee.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project join Employee using (employee_id) group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project left join Employee on Project.employee_id = Employee.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p join EMployee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p join Employee e on e.employee_id = p.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p join Employee e on p.employee_id = e.employee_id group by 1
+select project_id, round(avg(experience_years),2) as average_years from Project p join Employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p left JOIN Employee e on p.employee_id = e.employee_id group by project_id order by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by p.project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p, Employee e where p.employee_id = e.employee_id group by p.project_id order by p.project_id
+select project_id, round(avg(experience_years),2) as average_years from Project p, Employee e where p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from employee e join project p on e.employee_id = p.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project inner join employee on employee.employee_id = project.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project inner join employee on project.employee_id = employee.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project join employee on project.employee_id=employee.employee_id group by 1
+select project_id, round(avg(experience_years),2) as average_years from project join employee on project.employee_id=employee.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project p inner join employee e on p.employee_id=e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by 1
+select project_id, round(avg(experience_years),2) as average_years from project p join employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project p join employee e on p.employee_id=e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project p left join Employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by 1
+select project_id, round(avg(experience_years),2) as average_years from project p left join employee e on p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from project p,employee e where p.employee_id = e.employee_id group by project_id
+select project_id, round(avg(experience_years),2) as average_years from( select a.project_id, b.experience_years from project a inner join employee b on a.employee_id = b.employee_id) a group by project_id order by project_id
+select project_id, round(avg(experience_years),2) as average_years from( select p.project_id, e.experience_years from project p join employee e on p.employee_id = e.employee_id) as t group by project_id
+select project_id, round(avg(experience_years),2) average_years from Project as p natural join Employee group by project_id
+select project_id, round(avg(experience_years),2) average_years from Project p join Employee e on p.employee_id = e.employee_id group by 1
+select project_id, round(avg(experience_years),2) average_years from Project p left join Employee e on p.employee_id = e.employee_id group by 1
+select project_id, round(avg(experience_years),2)as average_years from Project p inner join Employee e on p.employee_id=e.employee_id group by project_id
+select project_id, round(avg(experience_years),2)as average_years from employee join project on employee.employee_id = project.employee_id group by project_id
+select project_id, round(sum(e.experience_years)/count(p.employee_id),2) average_years from Project p join employee e on p.employee_id=e.employee_id group by project_id
+select project_id, round(sum(e.experience_years)/count(project_id), 2) as average_years from Project p join Employee e using (employee_id) group by project_id
+select project_id, round(sum(experience_years)/count(*) ,2) as average_years from Project a left join Employee b using (employee_id) group by project_id
+select project_id, round(sum(experience_years)/count(*),2) as average_years from (select project_id,experience_years from project join Employee on project.employee_id=Employee.employee_id)a group by project_id order by project_id
+select project_id, round(sum(experience_years)/count(e.employee_id),2) as average_years from project as p join employee as e on p.employee_id = e.employee_id group by p.project_id
+select project_id, round(sum(experience_years)/count(employee_id), 2) as average_years from (select t1.project_id, t1.employee_id, t2.experience_years from Project t1 join Employee t2 on t1.employee_id = t2.employee_id) A group by 1
+select project_id, round(sum(experience_years)/count(employee_id),2) as average_years from Project join Employee using (employee_id) group by project_id
+select project_id, round(sum(experience_years)/count(employee_id),2) as average_years from project inner join employee using(employee_id) group by project_id
+select project_id, round(sum(experience_years)/count(experience_years), 2) as average_years from (select project_id, experience_years from project left join employee on project.employee_id = employee.employee_id)k group by project_id
+select project_id, round(sum(experience_years)/count(name),2) as average_years from Project p join Employee e on p.employee_id=e.employee_id group by project_id order by project_id
+select project_id, round(sum(experience_years)/count(p.employee_id),2) as average_years from Project p left join Employee e on p.employee_id = e.employee_id group by project_id
+select project_id,round (avg(experience_years),2) as average_years from Project join Employee on Project.employee_id = Employee.employee_id group by Project.project_id
+select project_id,round(avg(experience_years),2) as average_years from Project a left join Employee b on a.employee_id = b.employee_id group by project_id
+select project_id,round(avg(experience_years),2) as average_years from Project left join employee on Project.employee_id=Employee.employee_id group by project_id
+select project_id,round(avg(experience_years),2) as average_years from project join employee on project.employee_id=employee.employee_id group by project_id
+select project_id,round(avg(experience_years),2) as average_years from project join employee using (employee_id) group by 1 order by 1
+select project_id,round(avg(experience_years),2) as average_years from project left join employee on project.employee_id=employee.employee_id group by project_id
+select project_id,round(avg(experience_years),2) average_years from Project P join Employee E on P.employee_id = e.employee_id group by 1
+select project_id,round(avg(experience_years),2)as average_years from employee e join project p on p.employee_id=e.employee_id group by project_id
+select project_id,round(sum(experience_years)/count(project_id),2) as average_years from Project left join Employee using(employee_id) group by 1
+select s.project_id, round(avg(s.experience_years),2) as average_years from (select project_id, experience_years from employee e join project p on e.employee_id=p.employee_id) s group by project_id
+select sq1.project_id,round(avg(sq1.experience_years),2) as average_years from (select p.project_id,e.employee_id,e.experience_years from Project p join Employee e on p.employee_id = e.employee_id)as sq1 group by sq1.project_id
+select t.project_id, round(avg(t.experience_years),2) as average_years from( (select p.project_id, p.employee_id, e.experience_years from Project p Inner join Employee e on p.employee_id = e.employee_id) )as t group by t.project_id
+select t1.project_id, round(avg(t2.experience_years),2) as average_years from Project as t1 left join Employee as t2 on t1.employee_id =t2.employee_id group by t1.project_id
+select t1.project_id, round(sum(t2.experience_years) / count(t2.employee_id), 2) as average_years from project t1 join employee t2 on t2.employee_id = t1.employee_id group by t1.project_id
+select t1.project_id,round(avg(experience_years),2) average_years from Project t1 join Employee t2 on t1.employee_id=t2.employee_id group by 1 order by 1
+select y.project_id, round(sum(x.experience_years) / count(x.experience_years), 2) as average_years from Employee as x inner join (select project_id, employee_id from Project) as y on x.employee_id = y.employee_id group by project_id
+with PE as ( select P.project_id, E.experience_years from Project as P left join Employee as E on P.employee_id=E.employee_id ) select project_id, round(avg(experience_years),2) as average_years from PE group by project_id
+with cte as ( select project_id, a.employee_id, experience_years from project a join employee b on a.employee_id = b.employee_id) select project_id, round(avg(experience_years),2) as average_years from cte group by project_id
+with proj_exp as ( select a.*, b. experience_years from Project as a left join Employee as b on a.employee_id = b.employee_id ) select project_id, round(avg(experience_years), 2) as average_years from proj_exp group by project_id order by project_id
+with t as ( select a.project_id, a.employee_id, b.experience_years, round(sum(b.experience_years)/ count(a.employee_id),2) as average_years FROM Project a LEFT JOIN Employee b on a.employee_id = b.employee_id Group by a.project_id) Select project_id, average_years FROM t Group by project_id
+with x as (select project_id, p.employee_id, e.experience_years from project p inner join employee e on p.employee_id=e.employee_id group by project_id, p.employee_id) select project_id, round (avg(x.experience_years),2) as average_years from x group by project_id

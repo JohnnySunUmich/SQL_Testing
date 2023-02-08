@@ -1,0 +1,288 @@
+SELECT A.extra AS 'report_reason', COUNT(DISTINCT A.post_id) AS 'report_count' FROM Actions A WHERE A.action = 'report' AND A.action_date = DATE_SUB('2019-07-05', INTERVAL 1 DAY) GROUP BY A.extra
+SELECT A.extra AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions AS A WHERE action_date = "2019-07-04" AND A.action = "report" GROUP BY extra
+SELECT DISTINCT A.extra AS report_reason, Count(DISTINCT post_id) AS report_count FROM Actions AS A WHERE A.extra IS NOT NULL AND A.action_date='2019-07-04' AND A.action='report' GROUP BY A.extra
+SELECT DISTINCT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date='2019-07-04' AND action='report' GROUP BY extra
+SELECT DISTINCT(extra) AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND NOT (extra <=> NULL) AND action='report' GROUP BY report_reason ORDER BY report_reason
+SELECT EXTRA AS REPORT_REASON, COUNT(DISTINCT POST_ID) AS REPORT_COUNT FROM ACTIONS WHERE ACTION = 'report' AND ACTION_DATE = DATE_ADD('2019-07-05',INTERVAL -1 DAY) GROUP BY EXTRA
+SELECT EXTRA AS report_reason, COUNT(DISTINCT POST_ID) AS report_count FROM ACTIONS WHERE action_date = "2019-07-04" AND action = "report" GROUP BY EXTRA ORDER BY report_reason
+SELECT EXTRA REPORT_REASON, COUNT(DISTINCT POST_ID) REPORT_COUNT FROM ACTIONS WHERE ACTION_DATE = '2019-07-04' AND ACTION = 'report' GROUP BY EXTRA
+SELECT a.extra AS report_reason, COUNT(DISTINCT a.post_id) AS report_count FROM Actions a WHERE a.action = "report" AND a.action_date = "2019-07-04" GROUP BY a.extra
+SELECT a.extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions AS a WHERE action_date = "2019-07-04" AND action = 'report' GROUP BY report_reason
+SELECT a.extra as report_reason ,COUNT(distinct post_id) as report_count FROM Actions a WHERE 1=1 AND a.action_date = '2019-07-04' AND a.action = 'report' GROUP BY 1 ORDER BY 2 DESC
+SELECT extra AS 'report_reason', COUNT(DISTINCT post_id) AS 'report_count' FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS 'report_reason', COUNT(DISTINCT(post_id)) AS 'report_count' FROM Actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY extra
+SELECT extra AS report_reason , COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date= "2019-07-04" and action ='report' GROUP BY extra
+SELECT extra AS report_reason ,COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT (post_id)) as report_count FROM actions WHERE extra is NOT NULL AND action = 'report' AND action_date = '2019-07-04' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM (SELECT * FROM Actions where extra IS NOT NULL) AS A2 WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra HAVING COUNT(extra) > 0
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE (YEAR(action_date) = 2019 AND MONTH(action_date) = 7 AND DAY(action_date) = 4) AND (action = 'report') GROUP BY extra ORDER BY report_count
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE (action_date = '2019-07-04') AND (action = 'report') GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE 1=1 AND action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE DATEDIFF("2019-07-05", action_date) = 1 AND action = "report" GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE DATEDIFF('2019-07-05', action_date) = 1 AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE DATEDIFF('2019-07-05', action_date) = 1 AND extra IS NOT null AND action LIKE '%report%' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND (extra IS NOT NULL) AND action_date = '2019-07-04' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND DATEDIFF('2019-07-05',action_date) = 1 GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY 1
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND action_date = DATE_ADD('2019-07-05', interval -1 DAY) GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND action_date = SUBDATE('2019-07-05', 1) GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action = 'report' AND extra IS NOT NULL AND action_date = '2019-07-04' GROUP BY 1
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = "2019-07-04" AND action = "report" AND extra IS NOT NULL GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = "2019-07-04" AND action = "report" GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' AND extra IS NOT NULL GROUP BY 1
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' AND extra IS NOT NULL GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra HAVING extra IS NOT NULL
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra ORDER BY extra DESC
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra ORDER BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = DATE_ADD('2019-07-05', INTERVAL -1 DAY) AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = DATE_ADD('2019-07-05', INTERVAL -1 DAY) AND extra IS NOT NULL AND action = 'report' GROUP BY 1
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = date("2019-07-04") AND action = 'report' GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date="2019-07-04" AND action="report" GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date='2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE extra IS NOT NULL AND DATEDIFF('2019-07-05', action_date) = 1 AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE extra IS NOT NULL AND action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY 1
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM actions WHERE action_date = '2019-07-04' AND action='report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM actions WHERE action_date = DATE_ADD('2019-07-05',INTERVAL -1 DAY) AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT post_id) as report_count FROM ( SELECT * FROM actions WHERE action = "report" AND action_date = "2019-07-04" ) sub GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT(post_id ))AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action='report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action= 'report' AND action_date = DATE_SUB('2019-07-05', INTERVAL 1 DAY) GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action='report' GROUP BY report_reason ORDER BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date = DATE_SUB('2019-07-05', INTERVAL 1 DAY) AND action = 'report' GROUP BY report_reason
+SELECT extra AS report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE extra IS NOT NULL AND action = 'report' AND action_date = '2019-07-04' GROUP BY extra
+SELECT extra AS report_reason, COUNT(Distinct post_id) AS report_count FROM Actions Where action_date = '2019-07-04' AND action = 'report' AND extra IS NOT NULL Group By report_reason
+SELECT extra AS report_reason, COUNT(distinct post_id) AS report_count FROM Actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY extra HAVING report_count > 0
+SELECT extra AS report_reason, COUNT(post_id) AS report_count FROM ( SELECT DISTINCT post_id, TIMESTAMPDIFF(day, action_date, '2019-07-05') AS day_diff, extra, action,action_date FROM Actions WHERE TIMESTAMPDIFF(day, action_date, '2019-07-05') = 1 AND action ='report') f GROUP BY extra HAVING extra IS NOT NULL
+SELECT extra AS report_reason, Count(distinct post_id) AS report_count FROM Actions WHERE datediff('2019-07-05', action_date)=1 AND action='report' GROUP BY 1
+SELECT extra AS report_reason, count(DISTINCT post_id) as report_count FROM Actions WHERE action_date = DATE_SUB('2019-07-05',INTERVAL 1 DAY) AND action = 'report' GROUP BY 1 ORDER BY 1
+SELECT extra AS report_reason, count(distinct post_id) AS report_count FROM Actions WHERE action_date = "2019-07-04" AND action = 'report' AND extra is not null GROUP BY extra
+SELECT extra AS report_reason, count(distinct post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' and action= 'report' GROUP BY extra
+SELECT extra AS report_reason, count(distinct post_id) AS report_count FROM Actions WHERE action_date=date_add('2019-07-05', interval -1 day) AND action='report' GROUP BY 1
+SELECT extra AS report_reason, count(extra) as report_count FROM (SELECT DISTINCT post_id , extra FROM Actions WHERE action_date = '2019-07-04' AND extra IS NOT NULL AND action = 'report') AS SQ GROUP BY extra HAVING count(extra) > 0 ORDER BY extra
+SELECT extra AS report_reason,COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action='report' GROUP BY report_reason
+SELECT extra AS report_reason,COUNT(DISTINCT post_id) as report_count FROM Actions WHERE action='report' AND action_date='2019-07-04' GROUP BY 1
+SELECT extra as 'report_reason', COUNT(distinct post_id) as 'report_count' FROM Actions WHERE extra is not null AND action_date='2019-07-04' AND action='report' GROUP BY extra
+SELECT extra as report_reason ,count(distinct post_id) as report_count FROM Actions WHERE action_date = '2019-07-04' and action = 'report' group by extra order by report_count
+SELECT extra as report_reason, COUNT( DISTINCT post_id) AS report_count FROM ACTIONS WHERE ACTION = 'report' AND ACTION_DATE = '2019-07-04' GROUP BY extra
+SELECT extra as report_reason, COUNT( DISTINCT post_id) as report_count FROM (SELECT * FROM Actions WHERE action_date='2019-07-04' and action='report') AS zz GROUP BY extra
+SELECT extra as report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY 1
+SELECT extra as report_reason, COUNT(DISTINCT post_id) AS report_count FROM Actions WHERE action_date = date_add('2019-07-05', INTERVAL -1 DAY) AND extra IS NOT NULL AND action = 'report' GROUP BY 1
+SELECT extra as report_reason, COUNT(DISTINCT post_id) as report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra as report_reason, COUNT(DISTINCT post_id) as report_count FROM Actions WHERE action_date='2019-07-04' AND action = 'report' AND extra is not null GROUP BY 1
+SELECT extra as report_reason, COUNT(DISTINCT post_id) as report_count From Actions WHERE action_date = '2019-07-04' and action = 'report' GROUP BY extra
+SELECT extra as report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra as report_reason, COUNT(DISTINCT(post_id)) AS report_count FROM Actions WHERE action_date='2019-07-04' AND action='report' GROUP BY extra
+SELECT extra as report_reason, COUNT(DISTINCT(post_id)) as report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' AND extra != 'null' GROUP BY report_reason
+SELECT extra as report_reason, COUNT(distinct post_id) as report_count FROM Actions WHERE action = 'report' and action_date = DATE_ADD('2019-07-05', INTERVAL -1 DAY) GROUP BY extra
+SELECT extra as report_reason, count(DISTINCT post_id) as report_count FROM Actions a WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY a.extra
+SELECT extra as report_reason, count(distinct post_id) as report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra as report_reason, count(distinct post_id) as report_count FROM actions WHERE action_date = '2019-07-04' AND extra <> 'None' AND action = 'report' GROUP BY extra
+SELECT extra as report_reason, count(distinct post_id) as report_count from Actions where action_date=date_sub('2019-07-05', interval 1 day) and action='report' group by extra
+SELECT extra as report_reason, count(distinct post_id) report_count FROM Actions WHERE action_date = DATE_ADD('2019-07-05', INTERVAL -1 DAY) and action = 'report' GROUP BY extra
+SELECT extra as report_reason, count(distinct post_id) report_count FROM Actions where DATEDIFF('2019-07-05',action_date) = 1 and action = 'report' group by extra
+SELECT extra as report_reason, count(distinct(post_id)) as report_count FROM Actions WHERE extra IS NOT null and action_date = '2019-07-04' and action = 'report' GROUP BY extra ORDER BY report_count ASC
+SELECT extra as report_reason, count(distinct(post_id)) as report_count FROM Actions where action_date = "2019-07-04" and extra IS NOT NULL and action = 'report' group by extra
+SELECT extra as report_reason,COUNT(DISTINCT post_id) as report_count FROM Actions WHERE action_date = '2019-07-04' and action = 'report' GROUP BY 1 HAVING COUNT(DISTINCT post_id)>0
+SELECT extra as report_reason,count(distinct post_id) as report_count FROM Actions WHERE action = 'report' AND action_date = '2019-07-04' group by extra
+SELECT extra report_reason, COUNT(DISTINCT post_id) report_count FROM Actions WHERE action = 'report' AND action_date='2019-07-04' GROUP BY extra
+SELECT extra report_reason, COUNT(DISTINCT post_id) report_count FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra report_reason, COUNT(DISTINCT post_id) report_count FROM actions WHERE action='report' AND action_date='2019-07-05' - INTERVAL 1 DAY GROUP BY extra
+SELECT extra report_reason, COUNT(DISTINCT post_id) report_count FROM actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra report_reason, COUNT(DISTINCT(post_id)) report_count FROM actions WHERE action_date = '2019-07-04' AND extra IS NOT NULL AND action LIKE 'report' GROUP By report_reason ORDER BY extra
+SELECT extra report_reason, COUNT(distinct post_id) report_count FROM actions WHERE action = 'report' AND action_date = '2019-07-04' GROUP BY 1
+SELECT extra report_reason, Count(DISTINCT post_id) report_count FROM actions WHERE action_date = '2019-07-04' AND action = 'report' GROUP BY extra
+SELECT extra report_reason, count(DISTINCT post_id) report_count FROM actions WHERE 1=1 AND extra is NOT NULL AND date_sub(cast('2019-07-05' as date) ,INTERVAL 1 DAY)=action_date AND action='report' GROUP BY extra
+SELECT t.extra AS report_reason, COUNT(DISTINCT post_id) AS report_count FROM ( SELECT * FROM Actions WHERE action_date = '2019-07-04' AND action = 'report' )t GROUP BY t.extra
+Select extra as report_reason , count(distinct post_id) as report_count from Actions where action ='report' and action_date = date_sub('2019-07-05', interval 1 day) group by 1 order by 2
+Select extra as report_reason , count(distinct post_id)as report_count From Actions Where action = "report" AND Datediff('2019-07-05',action_date) = 1 Group By extra Order by count(distinct post_id)
+Select extra as report_reason , count(distinct post_id)as report_count From Actions Where action = "report" AND action_date = '2019-07-05'+ interval -1 DAY Group By extra
+Select extra as report_reason, Count(Distinct Post_id) as report_count from actions where action_date = DATE_ADD("2019-07-05", INTERVAL -1 DAY) and action = 'report' and extra is not NULL group by extra
+Select extra as report_reason, count(distinct post_id) as report_count From Actions WHERE action_date = '2019-07-04' and action = 'report' Group by extra
+Select extra as report_reason, count(distinct post_id) as report_count From Actions where action = 'report' AND action_date = '2019-07-04' Group by extra
+Select extra as report_reason, count(distinct post_id) as report_count from actions where DATEDIFF(action_date, '2019-07-05') = -1 and action = 'report' group by extra
+Select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra
+Select extra as report_reason, count(distinct(post_id)) as report_count From Actions Where action_date = '2019-07-04' and action = 'report' and extra is not null group by extra
+Select extra as report_reason, count(distinct(post_id)) as report_count from Actions where action_date='2019-07-04' and action='report' group by extra order by extra
+Select extra as report_reason,count(distinct post_id) report_count from actions where action='report' and action_date="2019-07-04" group by extra
+Select report_reason, count(report_reason) as report_count From ( select distinct(t1.post_id), t1.action, t1.extra as report_reason, t1.action_date From Actions as t1 Where t1.action_date = "2019-07-04" and t1.action = "report" ) as t2 group by t2.report_reason
+WITH t1 as ( select * from Actions where extra is not null ) Select extra as report_reason , count(distinct(post_id)) as report_count from t1 WHERE action_date = '2019-07-04' and action = 'report' GROUP BY extra
+With new as( select * from Actions where action_date=date("2019-07-04") and action="report") select extra as report_reason, count(distinct post_id) as report_count from new group by extra
+select a.extra as report_reason, count(distinct a.post_id) as report_count from Actions as a where a.action_date = '2019-07-04' and a.action = 'report' group by a.extra
+select a.extra as report_reason,count(a.extra) as report_count from( select distinct post_id,action_date,action,extra from actions where action_date = '2019-07-04' and action = 'report') a where a.extra is not null group by a.extra
+select a.extra as report_reason,count(a.extra) as report_count from( select distinct post_id,action_date,action,extra from actions where action_date = '2019-07-04') a where a.extra is not null and action = 'report' group by a.extra
+select a.extra as report_reason,count(distinct a.post_id) as report_count from actions a where (datediff('2019-07-05',a.action_date) = 1) and (a.action = 'report') group by a.extra
+select distinct extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and action_date='2019-07-04' group by extra
+select distinct extra as report_reason, count(distinct post_id) as report_count from actions where action_date='2019-07-04' and extra!='null' and action='report' group by extra
+select distinct extra as report_reason, count(distinct post_id) as report_count from actions where year(action_date)='2019' and month(action_date)='7'and day(action_date)='4' and extra is not null and action = 'report' group by 1
+select distinct extra as report_reason, count(distinct post_id)as report_count from Actions where action_date = '2019-07-04' and action ='report' and extra is not null group by extra
+select distinct extra report_reason, count(*) over(partition by extra) report_count from Actions where action_date = '2019-07-04' and action = 'report' and extra is not null group by extra, post_id
+select distinct extra report_reason, count(*) over(partition by extra) report_count from Actions where action_date = '2019-07-04' and action = 'report' and extra is not null group by post_id, extra
+select extra AS report_reason, count(DISTINCT(post_id)) AS report_count from Actions where action_date = "2019-07-04" AND action = "report" AND extra IS NOT null GROUP BY extra
+select extra AS report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra AS report_reason,count(DISTINCT(post_id)) AS report_count from Actions where action_date = "2019-07-04" AND action = "report" AND extra IS NOT null GROUP BY extra
+select extra as "report_reason", count(distinct post_id) as "report_count" from actions where action_date = '2019-07-04' and action='report' group by extra
+select extra as 'report_reason', count(distinct post_id) as report_count from Actions where action_date = DATE_SUB('2019-07-05',INTERVAL 1 DAY) and extra is not null and action = 'report' group by extra
+select extra as report_reason , COUNT(DISTINCT post_id) AS report_count from Actions where action = 'report' and action_date ='2019-07-04' GROUP BY extra
+select extra as report_reason , count(distinct post_id) as report_count FROM Actions WHERE action = 'report' and action_date = date_add('2019-07-05', INTERVAL -1 DAY) GROUP BY extra
+select extra as report_reason , count(distinct post_id) as report_count from Actions where extra is not null and action= "report" and action_date ="2019-07-04" group by extra
+select extra as report_reason , count(distinct post_id) as report_count from Actions where extra is not null and action_date ='2019-07-04' and action='report' group by extra
+select extra as report_reason , count(distinct post_id) as report_count from actions a where action_date='2019-07-04' and action='report' group by extra
+select extra as report_reason , count(distinct post_id) as report_count from actions where action_date = date_sub('2019-07-05', INTERVAL 1 DAY) and action ='report' group by extra
+select extra as report_reason , count(distinct(post_id)) as report_count from actions where action_date = "2019-07-04" and extra not in ("null") and action = "report" group by report_reason
+select extra as report_reason ,count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by 1
+select extra as report_reason ,count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason ,count(distinct post_id) as report_count from Actions where action_date = cast('2019-07-05' as DATE) - interval '1' day and extra is not null and action = 'report' group by extra
+select extra as report_reason, COUNT(distinct post_id) as report_count from Actions where action_date = "2019-07-04" and action = "report" group by extra
+select extra as report_reason, count(*) as report_count from (select distinct post_id,action_date,action,extra from Actions) a where action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(*) as report_count from (select distinct post_id,extra from Actions where action_date='2019-07-04' and extra is not null and action='report') as t group by report_reason
+select extra as report_reason, count(*) as report_count from (select extra, post_id from Actions where action = 'report' and action_date='2019-07-04' group by extra, post_id) as rr group by extra
+select extra as report_reason, count(DISTINCT(post_id)) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by report_reason having count(extra) > 0 order by report_reason
+select extra as report_reason, count(distinct post_Id) as report_count from Actions where extra is not null and action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count FROM actions where action ='report' and action_date = STR_TO_DATE('04,07,2019 extra characters','%d,%m,%Y') group by extra
+select extra as report_reason, count(distinct post_id) as report_count From actions Where action_date = "2019-07-04" and action = "report" Group by 1
+select extra as report_reason, count(distinct post_id) as report_count from ( select distinct post_id, action, extra, action_date from Actions where action = 'report' and action_date = date_sub('2019-07-05', interval 1 day) ) temp group by extra
+select extra as report_reason, count(distinct post_id) as report_count from (select * from Actions where action_date = "2019-07-04" and action= "report")a group by extra
+select extra as report_reason, count(distinct post_id) as report_count from (select * from Actions where extra is not null and action = 'report') t where action_date = date_sub('2019-07-05', interval 1 day ) group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from (select extra, post_id from actions where action = 'report' and extra is not null and action_date = '2019-07-04') as temp group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions WHERE extra is not null and action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions a where action = 'report' and action_date = '2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions a where action_date = '2019-07-04' and extra IS NOT NULL and action like "%report%" group by report_reason order by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions a where datediff('2019-07-05',action_date) = 1 and action = "report" group by extra order by report_count desc
+select extra as report_reason, count(distinct post_id) as report_count from Actions as a where a.action = 'report' and datediff('2019-07-05', action_date) = 1 group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where (action_date = '2019-07-04') and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where (action_date='2019-07-04' and action='report') group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = "report" and action_date = "2019-07-04" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and DATEDIFF('2019-07-05',action_date)= 1 group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and action_date = '2019-07-04 ' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and action_date = '2019-07-04' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and action_date = '2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and action_date = '2019-07-04' group by extra order by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and action_date = '2019-07-04' group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and action_date = date_sub('2019-07-05', interval 1 day) group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and datediff('2019-07-05', action_date) = 1 group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and extra is not null and action_date = '2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action = 'report' and extra is not null and action_date = date_sub("2019-07-05", interval 1 day) group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action ="report" and action_date ="2019-07-04" group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action like "%report%" and action_date like "%2019-07-04%" and extra is not null group by report_reason order by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action= 'report' and extra is not null and action_date ='2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action="report" and action_date="2019-07-04" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action='report' and action_date='2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action='report' and action_date='2019-07-04' group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action='report' and datediff('2019-07-05', action_date) = 1 group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = "2019-07-04" and action = "report" group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = "2019-07-04" and action = "report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = "2019-07-04" and action="report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = "2019-07-04" and extra is not null and action = "report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' and extra is not null group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by extra having count(1) > 0
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action="report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and extra is not null and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = ('2019-07-05' - interval 1 day) and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = cast('2019-07-04' as date) and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = date_add('2019-07-05', interval -1 day) and action = 'report' and extra is not null group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = date_sub('2019-07-05',interval 1 day) and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date ="2019-07-04"and action="report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date like "%2019-07-04%" and action like "%report%" and extra is not null group by report_reason order by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date= "2019-07-04" and action='report' and extra is not null group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date="2019-07-04" and action="report" and extra !="null" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date='2019-07-04' AND action='report' group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date='2019-07-04' and action ='report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date='2019-07-04' and action='report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date='2019-07-04' and action='report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date='2019-07-04' and extra<>'null' and action='report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date=subdate('2019-07-05',interval 1 day) and action='report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from Actions where date(action_date) = date("2019-07-04") and action = 'report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from Actions where extra is not null and action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions group by extra,action_date,action having action_date = '2019-07-04' and action = 'report'
+select extra as report_reason, count(distinct post_id) as report_count from actions t1 where T1.action_date = DATE_ADD("2019-07-05", INTERVAL -1 DAY) and action='Report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = "report" and action_date = "2019-07-04" group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = "report" and action_date = "2019-07-04" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = "report" and action_date = date_add("2019-07-05", INTERVAL -1 DAY) group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and action_date = '2019-07-04' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and action_date = '2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and action_date = '2019-07-04' group by extra having count(distinct post_id) > 0
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and action_date='2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and datediff('2019-07-05',action_date) = 1 group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and extra != 'null' and action_date = '2019-07-04' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action = 'report' and extra is not null and datediff(action_date, '2019-07-05') = '-1' group by 1 order by 2
+select extra as report_reason, count(distinct post_id) as report_count from actions where action="report" and action_date = "2019-07-05" - interval 1 day group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and action_date = date_sub('2019-07-05',interval 1 day) group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and action_date ='2019-07-04' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and action_date='2019-07-04' and extra is not null group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and action_date='2019-07-04' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and action_date='2019-07-04' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action='report' and datediff('2019-07-05',action_date)=1 group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = "2019-07-04" AND action = "report" group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = "2019-07-04" and action = "report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by 1 order by report_count asc
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra order by extra asc
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by report_reason having extra is not null
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action like 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = '2019-07-04' and action='report'group by extra having extra is not null order by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = DATE_ADD("2019-07-05", INTERVAL -1 DAY) and action='Report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = DATE_ADD('2019-07-05',INTERVAL -1 DAY) and action = 'report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = date_add('2019-07-05', INTERVAL -1 Day) and extra not in ('null') and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = date_sub('2019-07-05', Interval '1' DAY) and action ='report' and extra is not null group by 1 having report_count > 0
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = date_sub('2019-07-05', interval 1 day) and extra is not null and action = 'report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date = date_sub('2019-07-05',interval 1 day) and action='report' and extra is not null group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date="2019-07-04" and action="report" group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date="2019-07-04" and extra is not NULL and action="report" group by report_reason
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date='2019-07-04' and action='report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where action_date='2019-07-04' and extra is not null and action='report' group by extra
+select extra as report_reason, count(distinct post_id) as report_count from actions where datediff('2019-07-05', action_date)=1 and action='report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from actions where datediff('2019-07-05',action_date) = 1 and action = 'report' group by 1
+select extra as report_reason, count(distinct post_id) as report_count from( select * from actions where action_date = '2019-07-05' - interval 1 day and extra is not null and action = 'report' ) as t group by extra
+select extra as report_reason, count(distinct post_id) report_count from Actions where action_date = DATE_SUB('2019-07-05', Interval 1 DAY) and action='report' group by report_reason
+select extra as report_reason, count(distinct post_id) report_count from actions a where action='report' and action_date='2019-07-04' group by extra having report_count >0
+select extra as report_reason, count(distinct post_id) report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra order by report_count
+select extra as report_reason, count(distinct(post_id)) as report_count from Actions where action = 'report' and action_date = '2019-07-04' group by extra order by extra
+select extra as report_reason, count(distinct(post_id)) as report_count from Actions where action_date = "2019-07-04" and action = "report" group by extra
+select extra as report_reason, count(distinct(post_id)) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct(post_id)) as report_count from Actions where action_date='2019-07-04' and action='report' group by action,extra
+select extra as report_reason, count(distinct(post_id)) as report_count from actions Where action_date = '2019-07-04' and action = 'report' and extra is not NULL group by extra
+select extra as report_reason, count(distinct(post_id)) as report_count from actions where action_date = '2019-07-04' AND action = 'report' group by extra
+select extra as report_reason, count(distinct(post_id)) as report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra as report_reason, count(distinct(post_id)) as report_count from actions where action_date = date_sub('2019-07-05', INTERVAL 1 day) and action = 'report' group by extra
+select extra as report_reason, count(distinct(post_id))as report_count from Actions where action_date = "2019-07-04" and action = "report" and extra is not null group by extra
+select extra as report_reason, count(extra) as report_count from (select distinct post_id , action_date , action , extra from Actions) as x where action_date = '2019-07-04' and action='report' group by extra
+select extra as report_reason, count(extra) as report_count from (select distinct post_id, action, extra from Actions where action = "report" and action_date = '2019-07-04' ) as T group by extra having report_count > 0
+select extra as report_reason, count(extra) as report_count from (select distinct post_id,extra from Actions where action_date='2019-07-04' and action='report' )A group by A.extra
+select extra as report_reason, count(extra) as report_count from (select distinct(post_id), action_date , action , extra from Actions) as y where action_date='2019-07-04' and action='report' group by extra
+select extra as report_reason, count(post_id) as report_count from (select distinct post_id, extra from Actions where action_date="2019-07-04" and extra is not null and action='report') a group by 1
+select extra as report_reason,count(distinct post_id) as report_count FROM Actions where action = 'report' and action_date = '2019-07-04' group by extra
+select extra as report_reason,count(distinct post_id) as report_count from Actions where (action='report') and (action_date = "2019-07-04") group by extra
+select extra as report_reason,count(distinct post_id) as report_count from Actions where action_date="2019-07-04" and action="report" group by extra
+select extra as report_reason,count(distinct post_id) as report_count from Actions where action_date='2019-07-04' and action='report' group by extra
+select extra as report_reason,count(distinct post_id)report_count from actions where datediff('2019-07-05',action_date)=1 and action='report' group by 1 order by 2
+select extra report_reason , count(distinct post_id) report_count from Actions where action='report' and date_format(action_date,"%Y")=2019 and date_format(action_date,'%m')=07 and date_format(action_date,'%d')=04 group by extra
+select extra report_reason , count(distinct post_id) report_count from actions where action = 'report' and action_date = date_add('2019-07-05', interval -1 day) group by extra
+select extra report_reason , count(distinct post_id) report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra report_reason, count(distinct post_id) as report_count from Actions where action_date = '2019-07-04' and action = 'report' group by 1
+select extra report_reason, count(distinct post_id) report_count from Actions where action = 'report' and action_date = '2019-07-04' group by extra
+select extra report_reason, count(distinct post_id) report_count from Actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra report_reason, count(distinct post_id) report_count from Actions where action_date = date_add('2019-07-05', interval -1 day) and action = 'report' group by extra
+select extra report_reason, count(distinct post_id) report_count from actions a where datediff('2019-07-05',action_date)=1 and action = 'report' group by extra
+select extra report_reason, count(distinct post_id) report_count from actions where action = 'report' and action_date = '2019-07-04' group by extra
+select extra report_reason, count(distinct post_id) report_count from actions where action_date = '2019-07-04' and action = 'report' group by extra
+select extra report_reason, count(distinct post_id) report_count from actions where action_date = subdate('2019-07-05',1) and action = 'report' group by extra
+select extra report_reason, count(distinct post_id) report_count from actions where extra is not null and action_date = '2019-07-04' and action = 'report' group by extra
+select extra report_reason, count(distinct(post_id)) report_count from actions where (action_date = '2019-07-05' - interval 1 Day) and extra is not null and (action ='report') group by extra
+select extra report_reason,count(distinct post_id) report_count from Actions where action='report' and action_date='2019-07-04' group by 1
+select report_reason,sum(report_count) as report_count from (select extra as report_reason, count(distinct post_id) as report_count from Actions where datediff('2019-07-05', action_date) = 1 and action = 'report' group by extra, post_id) t group by report_reason
+select s.extra as report_reason, count(s.action) as report_count from (select distinct post_id, action_date, action, extra from Actions) s where s.action_date = date('2019-07-05')-1 and s.action='report' group by s.extra
+select t.extra report_reason, count(t.extra) report_count from (select distinct post_id, action_date, a.action, extra from actions a where extra not in ('null', 'love') having date_add(action_date, INTERVAL 1 DAY) = '2019-07-05') t group by t.extra
+select temp.extra as 'report_reason', count(distinct post_id) as 'report_count' from (select * from Actions where datediff('2019-07-05', action_date) = 1 and extra is not null and action = 'report') temp group by temp.extra
+with CTE as (select * from Actions where datediff('2019-07-05', action_date) = 1 and action = 'report') select extra as "report_reason", count(distinct post_id) as "report_count" from CTE group by report_reason
+with cte as ( select distinct post_id, action_date, action, extra from actions where action_date = '2019-07-04' and action = 'report' ) select extra as report_reason, count(extra) as report_count from cte group by extra
+with cte_reports as ( select extra as report_reason, count(distinct post_id) as report_count from Actions where action_date = date_sub('2019-07-05', interval 1 day) and action = 'report' group by 1 ) select * from cte_reports
+with t1 as ( select extra as report_reason, post_id, count(*) as report_count from actions where action = 'report' and action_date = '2019-07-04' group by 1,2 ) select report_reason, count(*) as report_count from t1 group by report_reason

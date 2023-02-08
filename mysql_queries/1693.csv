@@ -1,0 +1,199 @@
+SELECT DATE_ID, MAKE_NAME, COUNT(DISTINCT LEAD_ID) AS UNIQUE_LEADS, COUNT(DISTINCT PARTNER_ID) AS UNIQUE_PARTNERS FROM DAILYSALES GROUP BY DATE_ID, MAKE_NAME
+SELECT DATE_ID, MAKE_NAME, COUNT(DISTINCT LEAD_ID) AS unique_leads, COUNT(DISTINCT PARTNER_ID) unique_partners FROM DAILYSALES GROUP BY 1,2
+SELECT DATE_ID, MAKE_NAME, COUNT(DISTINCT LEAD_ID) UNIQUE_LEADS, COUNT(DISTINCT PARTNER_ID) UNIQUE_PARTNERS FROM DAILYSALES GROUP BY 1,2
+SELECT DISTINCT date_id, make_name, count(DISTINCT lead_id) as unique_leads, count(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT DISTINCT date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+SELECT date_id , make_name , COUNT(DISTINCT lead_id) AS unique_leads , COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY 1,2
+SELECT date_id , make_name , COUNT(DISTINCT(lead_id)) AS unique_leads, COUNT(DISTINCT(partner_id)) AS unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id , make_name, COUNT(DISTINCT (lead_id)) as unique_leads, COUNT(DISTINCT (partner_id)) AS unique_partners FROM DailySales GROUP BY date_id , make_name
+SELECT date_id , make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id , make_name
+SELECT date_id ,make_name ,COUNT(DISTINCT lead_id) AS 'unique_leads' ,COUNT(DISTINCT partner_id) AS 'unique_partners' FROM DailySales GROUP BY date_id ,make_name
+SELECT date_id ,make_name ,COUNT(DISTINCT lead_id) AS unique_leads ,COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name, COUNT( DISTINCT lead_id) as unique_leads , COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name ORDER BY make_name DESC, date_id DESC
+SELECT date_id, make_name, COUNT( DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT LEAD_ID) AS UNIQUE_LEADS, COUNT(DISTINCT PARTNER_ID) AS UNIQUE_PARTNERS FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads , COUNT(DISTINCT partner_id) AS unique_partners FROM dailysales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id ) AS unique_partners FROM DailySales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id ) AS unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY 1, 2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name ORDER BY date_id
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY make_name, date_id
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM dailysales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM dailysales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(distinct partner_id) AS unique_partners FROM dailysales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as ' unique_leads', COUNT(DISTINCT partner_id) as 'unique_partners' FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT( DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name ORDER BY make_name DESC, date_id DESC
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM dailysales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_Partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DAilySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DAilySales GROUP BY date_id, make_name ORDER BY make_name DESC, date_id DESC
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY 1,2 ORDER BY 1 , 2 ASC
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM dailysales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners From DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads,COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) unique_leads, COUNT(DISTINCT partner_id ) unique_partners FROM DailySales GROUP BY 2,1
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) unique_leads, COUNT(DISTINCT partner_id) unique_partners FROM DailySales GROUP BY 1, 2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) unique_leads, COUNT(DISTINCT partner_id) unique_partners FROM DailySales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) unique_leads, COUNT(DISTINCT partner_id) unique_partners FROM DailySales GROUP BY CONCAT(date_id, make_name)
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) unique_leads, COUNT(DISTINCT partner_id) unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT lead_id) unique_leads, COUNT(DISTINCT partner_id) unique_partners FROM dailysales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) AS unique_leads, COUNT(DISTINCT(partner_id)) AS unique_partners FROM DailySales GROUP BY 1, 2
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) AS unique_leads, COUNT(DISTINCT(partner_id)) AS unique_partners FROM DailySales GROUP BY 1,2
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) AS unique_leads, COUNT(DISTINCT(partner_id)) AS unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) AS unique_leads, COUNT(DISTINCT(partner_id)) AS unique_partners FROM DailySales GROUP BY make_name, date_id
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) AS unique_leads, COUNT(DISTINCT(partner_id)) AS unique_partners FROM dailysales GROUP BY date_id, make_name ORDER BY unique_partners
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) as unique_leads, COUNT(DISTINCT(partner_id)) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) as unique_leads, COUNT(DISTINCT(partner_id)) as unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name, COUNT(DISTINCT(lead_id)) as unique_leads, COUNT(DISTINCT(partner_id)) as unique_partners from DailySales Group By date_id, make_name
+SELECT date_id, make_name, COUNT(distinct lead_id) as unique_leads , COUNT( distinct partner_id) as unique_partners From DailySales group by 1,2
+SELECT date_id, make_name, COUNT(distinct lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name, COUNT(distinct lead_id) as unique_leads, COUNT(distinct partner_id) as unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name, count(DISTINCT(lead_id)) AS unique_leads, count(distinct(partner_id)) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, count(distinct lead_id) AS unique_leads, count(distinct partner_id) AS unique_partners FROM dailysales GROUP BY 1,2
+SELECT date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners FROM DailySales GROUP BY make_name, date_id
+SELECT date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners FROM DailySales GROUP BY make_name, date_id ORDER BY make_name DESC
+SELECT date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+SELECT date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id ) unique_partners FROM DailySales GROUP BY 2,1
+SELECT date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners FROM Dailysales GROUP BY date_id, make_name
+SELECT date_id, make_name, count(distinct(lead_id)) as unique_leads,count(distinct(partner_id)) as unique_partners FROM DailySales GROUP BY make_name,date_id
+SELECT date_id, make_name,COUNT(DISTINCT lead_id) AS unique_leads,COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id, make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners FROM DailySales group by 1,2
+SELECT date_id,make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales GROUP BY 1,2
+SELECT date_id,make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales Group BY date_id,make_name
+SELECT date_id,make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales Group BY date_id,make_name ORDER BY make_name DESC, date_id DESC
+SELECT date_id,make_name, Count(distinct lead_id)as unique_leads, count(distinct partner_id) as unique_partners FROM DailySales Group by date_id, make_name
+SELECT date_id,make_name,COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name
+SELECT date_id,make_name,COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id,make_name,count(distinct lead_id) as unique_leads , count(distinct partner_id) as unique_partners FROM DailySales Group by 1,2
+SELECT date_id,make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners FROM DailySales GROUP BY date_id,make_name
+SELECT date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners FROM DailySales group by date_id,make_name
+SELECT ds.date_id, ds.make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners FROM DailySales ds GROUP BY 1,2 ORDER BY 1,2
+Select date_id, make_name, count(DISTINCT(lead_id )) AS 'unique_leads', count(DISTINCT(partner_id )) AS 'unique_partners' From DailySales Group By make_name, date_id
+Select date_id, make_name, count(Distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners From DailySales Group by date_id ,make_name
+Select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners From DailySales Group by date_id, make_name
+Select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners From dailysales group by make_name, date_id order by make_name
+Select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailySales group by date_id, make_name
+Select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners From DailySales Group by date_id, make_name
+Select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners from DailySales group by date_id, make_name
+Select date_id, make_name,count(Distinct(lead_id)) as unique_leads, count(Distinct(partner_id)) as unique_partners from DailySales group by make_name, date_id
+Select date_id,make_name,COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners from DailySales group by date_id,make_name
+Select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+Select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from dailysales group by date_id,make_name
+WITH cte_lead AS ( SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads FROM DailySales GROUP BY date_id, make_name ), cte_partner AS ( SELECT date_id, make_name, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name ) SELECT A.date_id, A.make_name, A.unique_leads, B.unique_partners FROM cte_lead A INNER JOIN cte_partner B ON A.date_id = B.date_id AND A.make_name = B.make_name
+select DISTINCT date_id,make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY 1,2
+select a.date_id, a.make_name, count(distinct a.lead_id) as unique_leads, count(distinct a.partner_id) as unique_partners from dailysales b left join dailysales a on a.date_id = b.date_id and a.make_name = b.make_name group by a.date_id, a.make_name
+select a.date_id, a.make_name, count(distinct a.lead_id) as unique_leads, count(distinct a.partner_id) as unique_partners from dailysales b left join dailysales a on a.date_id = b.date_id and a.make_name = b.make_name where b.lead_id <= a.lead_id and b.partner_id <= a.partner_id group by a.date_id, a.make_name
+select a.date_id, a.make_name, count(distinct(a.lead_id)) as unique_leads, count(distinct(a.partner_id)) as unique_partners from DailySales a join DailySales b where a.date_id = b.date_id and a.make_name = b.make_name group by a.date_id, a.make_name
+select a.date_id, a.make_name,a.unique_leads,b.unique_partners from (select date_id, make_name, count(distinct lead_id) as unique_leads from DailySales where date_id is not null and make_name is not null group by date_id, make_name) a left join (select date_id, make_name, count(distinct partner_id) as unique_partners from DailySales where date_id is not null and make_name is not null group by date_id, make_name) b on a.date_id=b.date_id and a.make_name=b.make_name
+select d.date_id, d.make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales d group by 1,2
+select date_id , make_name , count(distinct lead_id) as unique_leads , count(distinct partner_id) as unique_partners from DailySales group by date_id , make_name
+select date_id , make_name , count(distinct lead_id) as unique_leads , count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id , make_name , count(distinct lead_id) unique_leads ,count(distinct partner_id ) unique_partners from DailySales group by date_id , make_name
+select date_id , make_name , count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners from DailySales group by 1,2
+select date_id , make_name ,count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from DailySales group by date_id , make_name
+select date_id , make_name,COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id ,make_name , count(DISTINCT lead_id) as unique_leads, count(DISTINCT partner_id) as unique_partners from DailySales group by date_id ,make_name
+select date_id ,make_name ,count(distinct lead_id) as unique_leads ,count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id ,make_name ,count(distinct lead_id) as unique_leads ,count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id ,make_name,count(distinct lead_id) as unique_leads , count(distinct partner_id) as unique_partners from DailySales group by date_id ,make_name
+select date_id as date_id, make_name as make_name , count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id, make_name , count( distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, (SELECT COUNT(*) FROM (SELECT lead_id FROM DailySales where date_id = d.date_id and make_name = d.make_name GROUP BY lead_id) t) AS unique_leads, (SELECT COUNT(*) FROM (SELECT partner_id FROM DailySales where date_id = d.date_id and make_name = d.make_name GROUP BY partner_id) t) AS unique_partners from DailySales d group by date_id, make_name
+select date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners from DailySales Group BY date_id, make_name
+select date_id, make_name, COUNT(DISTINCT lead_id) as unique_leads, COUNT(DISTINCT partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, COUNT(DISTINCT(lead_id)) as unique_leads, COUNT(DISTINCT(partner_id)) as unique_partners from DailySales group by date_id,make_name
+select date_id, make_name, COUNT(DISTINCT(lead_id)) as unique_leads, COUNT(DISTINCT(partner_id)) as unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, Count(distinct lead_id) as unique_leads, Count(distinct partner_id) as unique_partners From DailySales group by date_id,make_name
+select date_id, make_name, Count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, count( distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(DISTINCT lead_id) as 'unique_leads', count(DISTINCT partner_id) as 'unique_partners' from DailySales group by date_id, make_name
+select date_id, make_name, count(DISTINCT lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as 'unique_leads', count(distinct partner_id) as 'unique_partners' from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as 'unique_leads', count(distinct partner_id) as 'unique_partners' from DailySales group by date_id, make_name order by make_name desc, date_id desc
+select date_id, make_name, count(distinct lead_id) as 'unique_leads', count(distinct partner_id) as 'unique_partners' from dailysales group by date_id,make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads , count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id ) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id ) as unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) "unique_partners" from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by 1, 2
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id , make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by make_name, date_id
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales Group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by 1, 2
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by 1,2
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by 1,2 order by 1,2
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by date_id, make_name order by 1, 2
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by date_id,make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) unique_leads , count(distinct partner_id ) unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners From DailySales Group By date_id, make_name
+select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners from dailysales group by 1, 2
+select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id) unique_leads, count(distinct(partner_id)) unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id)as unique_leads, count(distinct partner_id)as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct lead_id)as unique_leads, count(distinct partner_id)as unique_partners from DailySales group by make_name, date_id
+select date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from DailySales group by 1,2
+select date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from DailySales group by date_id,make_name
+select date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from dailysales group by 1,2
+select date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from dailysales group by date_id, make_name
+select date_id, make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from dailysales group by date_id, make_name order by date_id desc
+select date_id, make_name, count(distinct(lead_id)) as unique_leads,count(distinct(partner_id)) as unique_partners from DailySales group by date_id,make_name
+select date_id, make_name, count(distinct(lead_id)) unique_leads, count(distinct(partner_id)) unique_partners from DailySales group by date_id, make_name
+select date_id, make_name, count(distinct(lead_id)) unique_leads, count(distinct(partner_id)) unique_partners from dailysales group by date_id,make_name
+select date_id, make_name, ifnull(count(distinct lead_id),0) as unique_leads, ifnull(count(distinct partner_id),0) as unique_partners from dailysales group by 1,2
+select date_id, make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id, make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id, make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id,make_name, count( distinct lead_id) as unique_leads ,count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name, count(distinct lead_id) as unique_leads, count( distinct partner_id ) as unique_partners from dailysales group by date_id,make_name
+select date_id,make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id ) as unique_partners from DailySales group by date_id, make_name
+select date_id,make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id,make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by 1,2 ORDER by 1,2 desc
+select date_id,make_name, count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by make_name,date_id
+select date_id,make_name, count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from dailysales group by date_id,make_name
+select date_id,make_name, count(distinct lead_id) unique_leads, count(distinct partner_id) unique_partners from dailysales group by 1,2
+select date_id,make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from DailySales Group by 1,2
+select date_id,make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name, count(distinct(lead_id)) as unique_leads, count(distinct(partner_id)) as unique_partners from Dailysales group by 1,2
+select date_id,make_name, count(distinct(lead_id)) as unique_leads,count(distinct(partner_id)) as unique_partners from DailySales Group by date_id,make_name
+select date_id,make_name,count( distinct lead_id) as unique_leads,count( distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name,count(DISTINCT lead_id) as unique_leads, count(DISTINCT partner_id) as unique_partners from DailySales group by date_id,make_name order by make_name desc
+select date_id,make_name,count(DISTINCT lead_id) as unique_leads,count(DISTINCT partner_id) as unique_partners from DailySales GROUP BY date_id,make_name
+select date_id,make_name,count(Distinct lead_id) as unique_leads, count(Distinct partner_id) as unique_partners from DailySales group by date_id, make_name
+select date_id,make_name,count(Distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by make_name,date_id
+select date_id,make_name,count(distinct lead_id) 'unique_leads',count(distinct partner_id) 'unique_partners' from dailysales group by 1,2 order by 1 ,2
+select date_id,make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id ) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id ) as unique_partners from DailySales group by make_name,date_id
+select date_id,make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id,make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailySales group by date_id,make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by date_id, make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id ) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by 1,2
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from dailysales group by 1,2 order by 2 desc
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id) as unique_partners from dailysales group by date_id,make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id)as unique_partners from dailysales group by date_id,make_name
+select date_id,make_name,count(distinct lead_id) as unique_leads,count(distinct partner_id)as unique_partners from dailysales group by date_id,make_name order by date_id,make_name
+select date_id,make_name,count(distinct lead_id) unique_leads,count(distinct partner_id) unique_partners from dailysales group by date_id,make_name order by date_id desc, make_name desc
+select date_id,make_name,count(distinct lead_id)unique_leads, count(distinct partner_id)unique_partners from DailySales group by date_id,make_name
+select date_id,make_name,count(distinct(lead_id)) as unique_leads,count(distinct(partner_id)) as unique_partners from DailySales group by date_id,make_name
+select distinct date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name order by make_name
+select distinct date_id, make_name, count(distinct lead_id) as unique_leads, count(distinct partner_id) as unique_partners from dailysales group by 1,2
+select distinct(date_id), make_name, COUNT(DISTINCT(lead_id)) as 'unique_leads', COUNT(DISTINCT(partner_id)) as 'unique_partners' from dailysales group by date_id, make_name order by 1, 2
+with x as (select date_id,make_name,count(distinct lead_id) as unique_leads from DailySales group by date_id,make_name) , y as (select date_id,make_name,count(distinct partner_id) as unique_partners from DailySales group by date_id,make_name) select x.date_id, x.make_name, x.unique_leads, y.unique_partners from x inner join y on x.date_id=y.date_id and x.make_name=y.make_name

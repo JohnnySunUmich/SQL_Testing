@@ -1,0 +1,295 @@
+SELECT F.product_id, first_year, S.quantity, S.price FROM (SELECT product_id, MIN(year) first_year FROM Sales GROUP BY product_id) F LEFT JOIN Sales S ON F.product_id = S.product_id AND F.first_year = S.year
+SELECT S.product_id, S.year as first_year, S.quantity, S.price FROM Sales S JOIN (SELECT product_id, MIN(year) AS min_year FROM Sales GROUP BY product_id) M ON S.product_id = M.product_id AND S.year = M.min_year
+SELECT Sales.product_id, first_year, quantity, price FROM Sales INNER JOIN ( SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id ) y ON Sales.product_id = y.product_id AND first_year = year
+SELECT Sub.product_id, Sub.year AS first_year, Sub.quantity, Sub.price FROM ( SELECT *, RANK() OVER (PARTITION BY product_id ORDER BY year) AS rank_year FROM Sales ) Sub WHERE Sub.rank_year = 1
+SELECT X.PRODUCT_ID, X.YEAR AS FIRST_YEAR, X.QUANTITY, X.PRICE FROM ( SELECT S.PRODUCT_ID, S.YEAR, S.QUANTITY, S.PRICE, DENSE_RANK() OVER (PARTITION BY S.PRODUCT_ID ORDER BY S.YEAR ASC) AS RNK FROM SALES S )X WHERE X.RNK = 1
+SELECT a.product_id, a.year as first_year, a.quantity, a.price FROM (SELECT product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year) as yr_rnk FROM sales)a WHERE a.yr_rnk=1
+SELECT first_sale.product_id, first_year, quantity, price FROM (SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY 1) AS first_sale INNER JOIN Sales ON year = first_year AND Sales.product_id = first_sale.product_id
+SELECT p.product_id, s.year AS first_year, quantity, price FROM Product p LEFT JOIN Sales s ON p.product_id = s.product_id WHERE (p.product_id, s.year) IN ( SELECT product_id, MIN(year) AS year FROM Sales GROUP BY 1 )
+SELECT p.product_id, s.year as first_year, s.quantity, s.price FROM Product p LEFT JOIN ( SELECT product_id, quantity, price, year, RANK() OVER(PARTITION BY product_id ORDER BY year ASC) as year_rank FROM Sales ) s ON s.product_id = p.product_id WHERE s.year_rank = 1
+SELECT product_Id, year as first_year, quantity, price FROM ( SELECT product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year) AS year_rank FROM Sales ) tmp WHERE year_rank = 1
+SELECT product_id , `year` AS first_year , quantity , price FROM ( SELECT A.* , RANK() OVER (PARTITION BY product_id ORDER BY year) AS `RANK` FROM Sales A ) A WHERE `RANK` = 1
+SELECT product_id , first_year, quantity, price FROM ( SELECT product_id , year as first_year, RANK() OVER( Partition By product_id Order by year) as ry, quantity, price FROM Sales) as ranked where ry = 1
+SELECT product_id, YEAR AS first_year,QUANTITY,PRICE FROM ( SELECT product_id, YEAR, DENSE_RANK() OVER (PARTITION BY product_id ORDER BY YEAR ASC) AS RNK, QUANTITY, PRICE FROM SALES GROUP BY 1,2,4,5)A WHERE RNK=1
+SELECT product_id, first_year, quantity, price FROM ( SELECT product_id, year as first_year, quantity, price, RANK() OVER (PARTITION BY product_id ORDER BY year ASC) AS yearrk FROM sales ) s WHERE yearrk = 1
+SELECT product_id, year AS first_year , quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id, MIN(year) FROM Sales GROUP BY 1)
+SELECT product_id, year AS first_year, quantity, price FROM ( SELECT *, RANK() OVER (PARTITION BY product_id ORDER BY year) AS r FROM Sales ) AS tab WHERE r = 1
+SELECT product_id, year AS first_year, quantity, price FROM ( SELECT *, RANK() OVER (PARTITION BY product_id ORDER BY year) AS r FROM Sales ) t WHERE r = 1
+SELECT product_id, year AS first_year, quantity, price FROM ( SELECT product_id, year, quantity, price, rank()over(PARTITION BY product_id ORDER BY year ASC) AS rnk FROM Sales) s WHERE rnk=1
+SELECT product_id, year AS first_year, quantity, price FROM ( SELECT rank() over (PARTITION BY s.product_id ORDER BY year) as row_nk, s.product_id, year, quantity, price FROM Sales s JOIN Product p ON s.product_id = p.product_id ) sales_rank WHERE row_nk = 1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT *, RANK() OVER(PARTITION BY product_id ORDER BY year) AS ranking FROM Sales) a WHERE ranking = 1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT *, Rank() over(partition by product_id order by year) AS rnk FROM Sales) t WHERE rnk=1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT *, dense_rank() OVER (partition by product_id order by year) AS yearrank FROM Sales) AS s WHERE s.yearrank = 1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT *, dense_rank() OVER (partition by product_id order by year) AS yearrank FROM Sales) AS s WHERE yearrank = 1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT *, rank() over(partition by product_id order by year asc) AS rnk FROM Sales) t WHERE t.rnk=1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT product_id, RANK() OVER(PARTITION BY product_id ORDER BY year) AS rnk, year, quantity, price FROM Sales) T WHERE rnk = 1
+SELECT product_id, year AS first_year, quantity, price FROM (SELECT product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year) AS num FROM Sales) x WHERE num = 1
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id , year) IN ( SELECT product_id, MIN(year) FROM Sales GROUP BY product_id )
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN ( SELECT product_id, MIN(year) FROM Sales GROUP BY product_id )
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN ( SELECT product_id, MIN(year) FROM sales GROUP BY product_id )
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN ( SELECT product_id, MIN(year) OVER(PARTITION BY product_id) AS first_year FROM Sales )
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN ( SELECT product_id, MIN(year) as year FROM Sales GROUP BY product_id )
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN ( SELECT product_id, MIN(year) as year FROM Sales GROUP BY product_id)
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id, MIN(year) FROM Sales GROUP BY 1)
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id, MIN(year) FROM Sales GROUP BY product_id)
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id, MIN(year) as year FROM Sales GROUP BY product_id)
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id,MIN(year) AS year FROM Sales GROUP BY product_id)
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) in (SELECT product_id, MIN(year) FROM Sales GROUP BY product_id)
+SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id,year) IN (SELECT product_id,MIN(year) AS year FROM Sales GROUP BY 1)
+SELECT product_id, year AS first_year, quantity, price FROM Sales s1 WHERE EXISTS( SELECT * FROM( SELECT product_id, MIN(year) AS min_year FROM Sales GROUP BY product_id) s2 WHERE s1.year=s2.min_year AND s1.product_id=s2.product_id)
+SELECT product_id, year AS first_year, quantity, price FROM sales WHERE (product_id, year) IN (SELECT product_id, MIN(year) AS first_year FROM sales GROUP BY product_id)
+SELECT product_id, year AS first_year, quantity, price FROM( SELECT *, dense_rank() OVER(Partition by product_id ORDER BY year) AS x FROM Sales INNER JOIN Product using(product_id) ) AS y where x=1
+SELECT product_id, year as first_year, quantity, price FROM ( SELECT product_id, year, RANK() OVER(PARTITION BY product_id ORDER BY year) as rnk, quantity, price FROM Sales ) T WHERE rnk='1'
+SELECT product_id, year as first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id,MIN(year) FROM Sales GROUP BY product_id)
+SELECT product_id, year as first_year, quantity, price FROM Sales WHERE (product_id, year) IN (select product_id, min(year) FROM Sales GROUP BY product_id)
+SELECT product_id, year as first_year, quantity, price FROM Sales WHERE (product_id, year) in ( SELECT product_id, min(year) FROM Sales GROUP BY product_id )
+SELECT product_id, year as first_year, quantity, price FROM Sales WHERE (product_id, year) in ( SELECT product_id, min(year) as year FROM Sales GROUP BY product_id )
+SELECT product_id, year as first_year, quantity, price FROM Sales WHERE (product_id, year) in (SELECT product_id, MIN(year) OVER(PARTITION BY product_id) FROM Sales)
+SELECT product_id, year as first_year, quantity, price FROM Sales WHERE (product_id, year) in (select product_id, min(year) as year from sales group by 1 )
+SELECT product_id, year as first_year, quantity, price FROM Sales where (product_id, year) in (SELECT product_id, min(year) as year from Sales group by product_id)
+SELECT product_id, year as first_year, quantity, price FROM sales WHERE ( product_id, year) in (SELECT product_id, MIN(year) FROM Sales GROUP BY product_id )
+SELECT product_id, year as first_year, quantity, price FROM sales WHERE (product_id, year) IN (SELECT product_id, min(year) FROM sales GROUP BY product_id)
+SELECT product_id, year as first_year, quantity, price FROM( SELECT s.product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year) as rank0 FROM sales s ORDER BY 1,2 ) sub WHERE rank0 = 1
+SELECT product_id, year as first_year,quantity,price FROM (select product_id,year,quantity,price,rank()over(partition by product_id order by year) rnk from Sales) s where rnk =1
+SELECT product_id, year first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id, MIN(year) FROM Sales GROUP BY product_id)
+SELECT product_id,year AS first_year ,quantity ,price FROM SALES WHERE (product_id, year) in(SELECT product_id, min(year) FROM Sales GROUP BY product_id)
+SELECT product_id,year AS first_year,quantity,price FROM ( SELECT product_id,year,quantity,price,RANK() OVER (PARTITION BY product_id ORDER BY year) AS r FROM Sales) AS sub WHERE r = 1
+SELECT product_id,year as first_year,quantity,price FROM ( SELECT *, DENSE_RANK () OVER ( PARTITION BY product_id ORDER BY year ) year_rank FROM Sales s ) t WHERE t.year_rank =1
+SELECT product_id,year as first_year,quantity,price FROM sales WHERE (product_id,year) in (SELECT product_id, min(year) as first_year FROM sales GROUP BY 1)
+SELECT s.product_id, s.year AS 'first_year', s.quantity, s.price FROM (SELECT s.product_id, s.year, s.quantity, s.price, DENSE_RANK() OVER ( PARTITION BY s.product_id ORDER BY s.year ASC) AS 'rank' FROM Sales s ORDER BY 1) s WHERE s.rank = 1
+SELECT s.product_id, s.year AS 'first_year', s.quantity, s.price FROM (SELECT s.product_id, s.year, s.quantity, s.price, RANK() OVER ( PARTITION BY s.product_id ORDER BY s.year) AS 'rank' FROM Sales s) s WHERE s.rank = 1
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price FROM (SELECT product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year) rk FROM Sales) s WHERE s.rk = 1
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price FROM Sales s LEFT JOIN (SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id) tab USING (product_id) WHERE s.year = tab.first_year
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price FROM Sales s WHERE (s.product_id, s.year) IN ( SELECT product_id, MIN(year) year FROM Sales GROUP BY 1)
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price FROM sales s WHERE (s.product_id, s.year) in (SELECT s1.product_id, MIN(s1.year) FROM sales s1 GROUP BY s1.product_id)
+SELECT s.product_id, t.first_year, s.quantity, s.price FROM (SELECT product_id, min(year) AS first_year FROM sales GROUP BY 1) t JOIN sales s ON t.product_id = s.product_id AND t.first_year = s.year
+SELECT s.product_id, tab.first_year, s.quantity, s.price FROM Sales s LEFT JOIN (SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id) tab USING (product_id) WHERE s.year = tab.first_year
+SELECT sub_first_year.product_id, sub_first_year.first_year, Sales.quantity, Sales.price FROM (SELECT product_id, min(year) first_year FROM Sales GROUP BY 1) sub_first_year JOIN Sales ON Sales.product_id = sub_first_year.product_id AND Sales.year = sub_first_year.first_year
+SELECT t.product_id, t.year as first_year, t.quantity, t.price FROM (SELECT *, dense_rank() OVER(PARTITION BY product_id ORDER BY year) as RANK_ FROM Sales) as t WHERE t.RANK_ = 1
+SELECT t1.product_id as product_id,t1.year as first_year,t1.quantity as quantity,t1.price as price FROM (SELECT product_id, year as year, quantity, price, RANK() OVER (PARTITION BY product_id ORDER BY year) as rank_year FROM Sales) t1 WHERE t1.rank_year=1
+SELECt product_id, year as first_year, quantity, price FROM Sales Where (product_id, year) in (SELECT product_id, min(year) as year FROM Sales GROUP BY product_id)
+Select a.product_id,a.first_year,b.quantity,b.price from (Select product_id,MIN(year) as first_year from Sales group by product_id) as a JOIN Sales b ON a.product_id = b.product_id and a.first_year = b.year
+Select p.product_id,a.year as 'first_year' ,p.quantity,p.price FROm Sales p JOIN (Select product_id, min(year) as year FROM Sales group by product_id)a on a.product_id = p.product_id and a.year = p.year
+Select product_id, year as first_year, quantity, price from Sales where (product_id,year) in (Select product_id,min(year) from Sales group by 1)
+Select s.product_id, s.year as first_year, quantity, price from Sales s Join ( Select product_id, min(year) as year from Sales group by product_id) y on s.product_id = y.product_id and s.year = y.year
+WITH CNT AS( SELECT product_id, MIN(year) as first_year FROM Sales group by product_id ) SELECT S.product_id, C.first_year, S.quantity as quantity, S.price FROM Sales S, CNT C where C.product_id = S.product_id AND C.first_year = S.year
+WITH CTE AS( SELECT a.product_id, year, quantity, price, RANK() OVER (PARTITION BY a.product_id ORDER BY year ASC) AS R1 FROM Sales a JOIN Product b ON a.product_id = b.product_id ) SELECT product_id, year AS first_year, quantity, price FROM CTE WHERE R1 = 1 ORDER BY 1 ASC
+WITH CTE_1 AS ( SELECT PRODUCT_ID, MIN(YEAR) FIRST_YEAR FROM SALES GROUP BY PRODUCT_ID ) SELECT C.PRODUCT_ID, C.FIRST_YEAR, S.QUANTITY, S.PRICE FROM CTE_1 C, SALES S WHERE S.PRODUCT_ID = C.PRODUCT_ID AND S.YEAR = C.FIRST_YEAR
+WITH F_YEAR AS( SELECT PRODUCT_ID, MIN(YEAR) AS FIRST_YEAR FROM SALES GROUP BY PRODUCT_ID ) SELECT F.PRODUCT_ID, F.FIRST_YEAR, S.QUANTITY,S.PRICE FROM F_YEAR F JOIN SALES S ON S.PRODUCT_ID = F.PRODUCT_ID AND S.YEAR=F.FIRST_YEAR
+WITH MIN_YEAR_TABLE AS( SELECT *, MIN(year) OVER(PARTITION BY product_id) AS MIN_YEAR FROM Sales ) SELECT product_id, year AS first_year , quantity, price FROM MIN_YEAR_TABLE WHERE year = MIN_YEAR
+WITH Min_y AS (SELECT product_id, MIN(year) AS y FROM Sales GROUP BY product_id) SELECT s.product_id, m.y AS first_year, s.quantity, s.price FROM Sales AS s JOIN Min_y AS m ON s.product_id = m.product_id AND s.year = m.y
+WITH SalesRanking AS (SELECT product_id ,year ,quantity ,price ,RANK() OVER(PARTITION BY product_id ORDER BY year ASC) AS Rk FROM Sales) SELECT product_id ,year AS first_year ,quantity ,price FROM SalesRanking WHERE Rk = 1
+WITH T1 AS ( SELECT P.product_id, MIN(S.year) OVER(Partition BY P.product_id) AS first_year, year, quantity, price FROM Product P LEFT JOIN Sales S ON P.product_id = S.product_id ) SELECT DISTINCT product_id, year as first_year, quantity, price FROM T1 WHERE first_year = year
+WITH agg_cte as ( SELECT product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year asc) as product_sale_no FROM Sales ) SELECT product_id, year as first_year, quantity, price from agg_cte where product_sale_no=1
+WITH cte AS ( SELECT Sales.*, Product.product_name, MIN(year) OVER (PARTITION BY product_id) AS first_year FROM Sales INNER JOIN Product ON Sales.product_id = Product.product_id ) SELECT product_id, first_year, quantity, price FROM cte WHERE year = first_year
+WITH cte AS ( SELECT p.product_id ,s.year ,s.quantity ,s.price ,RANK() OVER (PARTITION BY p.product_id ORDER BY year ASC) as rnk FROM Sales s JOIN Product p ON s.product_id = p.product_id ) SELECT product_id ,year AS first_year ,quantity ,price FROM cte WHERE rnk = 1
+WITH cte AS (SELECT product_id, MIN(year) AS "year" FROM Sales GROUP BY product_id) SELECT product_id, year AS first_year, quantity, price FROM Sales WHERE (product_id, year) IN (SELECT product_id, year FROM cte)
+WITH cte AS (SELECT product_id, MIN(year) AS first_year FROM Sales GROUP BY product_id) SELECT cte.product_id, cte.first_year, S.quantity, S.price FROM Sales S JOIN cte ON S.product_id =cte.product_id AND S.year=cte.first_year
+WITH cte AS (SELECT product_id, year, MIN(year) OVER (PARTITION BY product_id) AS first_year, quantity, price FROM Sales) SELECT product_id, first_year, quantity, price FROM cte WHERE year = first_year
+WITH cte AS (SELECT product_id, year, quantity, price, RANK() OVER(PARTITION BY product_id ORDER BY year ASC) AS r FROM Sales) SELECT product_id, year AS first_year, SUM(quantity) AS quantity, price FROM cte WHERE r = 1 GROUP BY product_id, year, price
+WITH main AS (SELECT *, DENSE_RANK() OVER(PARTITION BY product_id ORDER BY year) AS Ranking FROM sales) SELECT product_id, year AS first_year, quantity, price FROM main WHERE Ranking = 1
+WITH t AS ( SELECT product_id, MIN(year) 1st_year FROM sales GROUP BY product_id ) SELECT s.product_id product_id, s.year first_year, s.quantity quantity, s.price price FROM t JOIN sales s ON s.product_id=t.product_id AND s.year=t.1st_year
+WITH table1 AS( SELECT p.product_id, year, quantity, price, MIN(year) OVER(PARTITION BY product_id) AS min_year FROM Product p INNER JOIN Sales s USING(product_id) ) SELECT product_id, year As first_year, quantity, price FROM table1 WHERE year = min_year
+With min_year as ( Select product_id, min(year) as min_year From Sales Group by product_id) Select a.product_id, a.year as first_year, a.quantity, a.price From Sales a Join min_year b on a.product_id = b.product_id and a.year = b.min_year
+select PRODUCT_ID, year as first_year, quantity, price from (select sales.product_id as PRODUCT_ID, product_name, year, price, quantity, rank() over (partition by product_id order by year) rk from sales left join product on sales.product_id = Product.product_id) su where rk=1
+select S.product_id, year as first_year, quantity, price from sales S inner join (select distinct product_id , min(year) over ( partition by product_id order by year) yr from sales) M on S.product_id = M.product_id where S.year = M.yr
+select Sales.product_id, year as first_year, quantity, price from Sales inner join (select product_id, min(year) as myyear from Sales group by product_id) temp on Sales.product_id = temp.product_id and Sales.year = temp.myyear
+select a.product_id, a.first_year, b.quantity,b.price from (select distinct product_id, min(year) over(partition by product_id) as first_year from sales ) a left join sales b on a.product_id=b.product_id and a.first_year=b.year
+select a.product_id, a.year as first_year, a.quantity, a.price from Sales as a inner join (select product_id, min(year) as year from Sales group by product_id) as b on a.product_id=b.product_id and a.year=b.year
+select a.product_id, a.year as first_year, a.quantity, a.price from sales a inner join ( select product_id, min(year) as yr from sales group by product_id ) b on a.year = b.yr and a.product_id = b.product_id
+select a.product_id, a.year as first_year, a.quantity, a.price from sales a where (a.product_id, a.year) in ( select product_id, min(year) from sales group by product_id )
+select a.product_id, b.first_year , a.quantity, a.price from sales as a right join ( select distinct product_id, min(year) over (partition by product_id order by year asc) as first_year from sales) as b on a.product_id=b.product_id and a.year=b.first_year
+select a.product_id,a.year as first_year,a.quantity,a.price from sales a join (select product_id,min(year) as min_year from sales group by 1) b on a.product_id=b.product_id and a.year=b.min_year
+select c.product_id, c.first_year, c.quantity, c.price from (select product_id, year, quantity,price, min(year) over (partition by product_id) as first_year from sales) c where c.year = c.first_year
+select d.product_id, d.first_year, d.quantity, d.price from (select s.product_id, s.year as first_year, s.quantity, s.price, min(s.year) over (partition by s.product_id) as min_year from Sales s) d where d.first_year=min_year
+select distinct product_id, first_year, quantity, price from ( select product_id, year as first_year, quantity, price, rank() over (partition by product_id order by year) as ranking from sales )_ where ranking = 1
+select distinct product_id, year as first_year, quantity, price from Sales where (product_id, year) in (select product_id, min(year) from Sales group by product_id)
+select f.product_id, sale.quantity, sale.price, f.first_year from ( select product_id, min(year) as first_year from Sales group by product_id ) as f inner join Sales sale on sale.product_id = f.product_id and f.first_year = sale.year
+select p.product_id, s.year as first_year, s.quantity as quantity, s.price as price from sales s join product p using(product_id) where (s.product_id, s.year) in (select product_id, min(year) as first_year from sales group by product_id)
+select p.product_id, t2.year as first_year, t2.quantity, t2.price from product p join (select product_id, year, quantity, price from (select *, rank() over(partition by product_id order by year) as yrk from sales) t where t.yrk=1 ) t2 using (product_id) order by product_id
+select product_id , year as first_year , quantity , price from Sales where concat(product_id , year) in (select concat(product_id, min(year)) from Sales group by product_id )
+select product_id , year as first_year , quantity , price from sales where (product_id, year) in (select product_id , min(year) as first_year from sales group by product_id )
+select product_id ,year as first_year ,quantity ,price from (select *, rank()over(partition by product_id order by year) as rnk from sales)t where rnk=1
+select product_id ,year as first_year ,quantity ,price from( select product_id ,year ,quantity ,price ,rank() over (partition by product_id order by year) as rk from Sales ) rksales where rk=1
+select product_id ,year as first_year,quantity,price from Sales where (product_id, year) in (select product_id, min(year) as year from Sales group by product_id)
+select product_id, (year)first_year, quantity, price from sales where (product_id,year) in(select product_id, min(year) from sales group by 1)
+select product_id, S.year as `first_year`, quantity, price from Sales as S where (S.product_id, S.year) in ( select product_id, min(year) from Sales group by product_id )
+select product_id, `year` as first_year, quantity, price from ( select first_value(s.`year`) over (partition by product_id order by `year` asc) as first_year, s.product_id, s.year, s.quantity, s.price from Sales s) a where `year`=first_year
+select product_id, first_year, quantity, price from ( select product_id, min(year) OVER (PARTITION BY product_id) first_year, year, quantity, price from Sales ) tmp where year = first_year
+select product_id, first_year, quantity, price from ( select product_id, year as first_year, quantity, price, rank() over(partition by product_id order by year) as r from sales ) t where r =1
+select product_id, first_year, quantity, price from (select product_id, year as first_year, quantity, price , dense_rank() over(partition by product_id order by year asc) as rk from sales) a where a.rk=1
+select product_id, first_year, quantity, price from (select product_id, year as first_year, quantity, price, rank() over (partition by product_id order by year) as year_rank from sales) t1 where year_rank=1
+select product_id, first_year, quantity, price from (select product_id, year first_year, quantity, price, rank() over (partition by product_id order by year) as rn from Sales s1) s where rn = 1
+select product_id, first_year,quantity, price from ( select product_id, year as first_year, quantity, price, rank() over (partition by product_id order by year ) rnk from Sales)A where rnk =1 order by 1
+select product_id, year as "first_year", quantity, price from (select *, dense_rank() over(partition by product_id order by year) as "year_sold" from sales) a where year_sold = 1
+select product_id, year as 'first_year', quantity, price from sales where (product_id, year) in (Select product_id, min(year) from sales group by product_id)
+select product_id, year as 'first_year',quantity,price from Sales where (product_id,year) in ( select product_id, min(year) from Sales group by product_id )
+select product_id, year as `first_year`, quantity, price from Sales where (product_id, year) in (select product_id, min(year) from Sales group by product_id)
+select product_id, year as first_year , quantity,price from( select product_id, year, quantity,price, rank() over (partition by product_id order by year) as rn from sales )z where rn=1
+select product_id, year as first_year ,quantity, price from Sales where (product_id, year) IN (select product_id, min(year) from Sales group by 1)
+select product_id, year as first_year, quantity as quantity, price as price from ( select product_id, year, quantity, price, rank() over (partition by product_id order by year) as year_rank from sales ) r where r.year_rank = 1
+select product_id, year as first_year, quantity as quantity, price from Sales where (product_id, year) IN ( select product_id, min(year) from Sales group by product_id)
+select product_id, year as first_year, quantity as quantity, price from Sales where (product_id, year) in (select product_id, min(year) as year from Sales group by 1)
+select product_id, year as first_year, quantity, price from ( select *, dense_rank() over (partition by product_id order by year) as rnk from sales) a where rnk =1
+select product_id, year as first_year, quantity, price from ( select *, rank() over (partition by product_id order by year asc) date_rank from Sales ) a where date_rank=1
+select product_id, year as first_year, quantity, price from ( select *, rank() over (partition by product_id order by year) as ranking from sales) temp where ranking = 1
+select product_id, year as first_year, quantity, price from ( select *, rank() over(partition by product_id order by year) as n from Sales) as x where n = 1
+select product_id, year as first_year, quantity, price from ( select *, rank() over(partition by product_id order by year) as year_rnk from sales) as tbl where year_rnk = 1
+select product_id, year as first_year, quantity, price from ( select distinct product_id, year, quantity, price, dense_rank() over(partition by product_id order by year) as rn from Sales ) F where rn=1
+select product_id, year as first_year, quantity, price from ( select product_id, quantity, price, year, rank() over (Partition by product_id order by year asc)as year_rank from Sales )as t where product_id in (select product_id from Product ) and year_rank = 1
+select product_id, year as first_year, quantity, price from ( select product_id, year, dense_rank()over(partition by product_id order by year) as dr, quantity, price from sales)sub where dr = 1
+select product_id, year as first_year, quantity, price from ( select product_id, year, quantity, price , rank() over(partition by product_id order by year ) as order_ from Sales) temp where order_ =1
+select product_id, year as first_year, quantity, price from ( select product_id, year, quantity, price, rank() over(partition by product_id order by year asc) as r_rank from sales) t where r_rank = 1
+select product_id, year as first_year, quantity, price from ( select product_id, year, quantity, price, rank() over(partition by product_id order by year) as rnk from Sales ) x where rnk = 1
+select product_id, year as first_year, quantity, price from ( select product_id, year,quantity, price, rank() over(partition by product_id order by year) rnk from sales) s where rnk = 1
+select product_id, year as first_year, quantity, price from (SELECT *, dense_rank() OVER(PARTITION BY product_id ORDER BY year) as filter FROM Sales ) as t where t.filter = 1
+select product_id, year as first_year, quantity, price from (select * , dense_rank() over (partition by product_id order by year) as rn from sales ) t where rn = 1
+select product_id, year as first_year, quantity, price from (select *, Dense_rank() over ( partition by product_id order by year) as yr_rnk from Sales ) a where yr_rnk = 1
+select product_id, year as first_year, quantity, price from (select *, Dense_rank() over (partition by product_id order by year) as year_rank from Sales) as a where year_rank=1
+select product_id, year as first_year, quantity, price from (select *, dense_rank() over(partition by product_id order by year asc) rank1 from Sales ) sub where rank1 =1
+select product_id, year as first_year, quantity, price from (select *, dense_rank() over(partition by product_id order by year) as 'order' from Sales) a where a.order = 1
+select product_id, year as first_year, quantity, price from (select *, dense_rank() over(partition by product_id order by year) as count_year from Sales) as t1 where count_year = 1
+select product_id, year as first_year, quantity, price from (select *, dense_rank() over(partition by product_id order by year) rnk from Sales )a where rnk = 1
+select product_id, year as first_year, quantity, price from (select *, rank() over (partition by product_id order by year) as rnk from sales) t where rnk=1
+select product_id, year as first_year, quantity, price from (select *, rank() over(partition by product_id order by year) as rnk from Sales) a where rnk=1
+select product_id, year as first_year, quantity, price from (select *, rank()over (partition by product_id order by year)as rnk from sales)a where rnk=1
+select product_id, year as first_year, quantity, price from (select *, rank()over(partition by product_id order by year) as num from sales) lookup where num=1
+select product_id, year as first_year, quantity, price from (select distinct product_id, year, dense_rank()over(partition by product_id order by year Asc) as rn, quantity, price from Sales)a where rn =1
+select product_id, year as first_year, quantity, price from (select p.product_id, p.product_name, s.year, rank() over (partition by s.product_id order by s.year) as seq, s.quantity, s.price from Sales s join Product p on s.product_id = p.product_id) sub where seq= 1
+select product_id, year as first_year, quantity, price from (select product_id, quantity, price, year, rank() over(partition by product_id order by year) rnk from Sales)a where a.rnk = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, dense_rank() over (partition by product_id order by year asc) as rnk from Sales) t1 where t1.rnk = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, dense_rank() over(partition by product_id order by year) rnk from sales) s where rnk = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, rank() over (partition by product_id order by year) as rank_year from Sales) as rnk where rank_year = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, rank() over(partition by product_id order by year asc) as r from sales) t1 where r = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, rank() over(partition by product_id order by year) as rank_num from Sales) t where rank_num = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, rank() over(partition by product_id order by year) as rnk from sales) tmp where rnk=1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, rank()over(partition by product_id order by year) rnk from Sales ) sub where rnk = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, quantity, price, rank()over(partition by product_id order by year) rnk from sales) s where rnk = 1
+select product_id, year as first_year, quantity, price from (select product_id, year, rank() over(partition by product_id order by year) as rank_num, quantity, price from sales) temp where rank_num = 1
+select product_id, year as first_year, quantity, price from (select product_id,year,quantity,price,dense_rank() over (partition by product_id order by year) as yr from sales) as a where a. yr =1
+select product_id, year as first_year, quantity, price from (select product_id,year,quantity,price,rank() over (partition by product_id order by year asc) rank_year from sales) a where a.rank_year = 1
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in ( select product_id, min(Sales.year) as first_year from Sales group by product_id )
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in ( select product_id, min(year) as year from Sales group by product_id )
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in ( select product_id, min(year) from Sales group by product_id )
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in (select product_id, min(year) as year from Sales group by 1)
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in (select product_id, min(year) as year from Sales group by product_id)
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in (select product_id, min(year) from Sales group by 1)
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in (select product_id, min(year) from Sales group by product_id)
+select product_id, year as first_year, quantity, price from Sales where (product_id, year) in (select product_id, min(year)as year from sales group by product_id)
+select product_id, year as first_year, quantity, price from Sales where (product_id,year) in (select product_id, min(year) as year from sales group by product_id) order by product_id
+select product_id, year as first_year, quantity, price from Sales where (product_id,year) in (select product_id, min(year) from Sales group by product_id)
+select product_id, year as first_year, quantity, price from Sales where (product_id,year) in (select product_id,min(year) from Sales group by product_id)
+select product_id, year as first_year, quantity, price from sales s where (product_id, year) in ( select product_id, min(year) from sales s group by 1 )
+select product_id, year as first_year, quantity, price from sales where (product_id, sales.year) in (select product_id, min(year) from Sales group by product_id)
+select product_id, year as first_year, quantity, price from sales where (product_id, year) IN ( SELECT product_id, MIN(year) from sales group by product_id )
+select product_id, year as first_year, quantity, price from sales where (product_id, year) in (select product_id, min(year) as year from sales group by product_id)
+select product_id, year as first_year, quantity, price from sales where (product_id, year) in (select product_id, min(year) from Sales group by product_id)
+select product_id, year as first_year, quantity, price from sales where (product_id, year) in (select product_id, min(year) from sales group by 1 )
+select product_id, year as first_year, quantity, price from sales where (product_id, year) in (select product_id, min(year) from sales group by product_id )
+select product_id, year as first_year, quantity, price from sales where (product_id, year) in (select product_id, min(year) from sales group by product_id)
+select product_id, year as first_year, quantity, price from sales where (product_id,year) in (select product_id, min(year) first_year from sales group by product_id)
+select product_id, year as first_year, quantity, price from sales where (product_id,year) in (select product_id,min(year) from sales group by 1)
+select product_id, year as first_year, quantity, price from sales where (product_id,year) in (select product_id,min(year) from sales group by product_id)
+select product_id, year as first_year, quantity, price from sales where concat(product_id, year) in (select concat(product_id , min(year) over (partition by product_id) ) from sales)
+select product_id, year as first_year, quantity, price from( select *, rank() over(partition by product_id order by year asc) as ranks from sales) as a where ranks = 1
+select product_id, year as first_year, quantity, price from( select product_id, year, quantity, price, dense_rank() over(partition by product_id order by year asc) d_rank from Sales ) as temp where d_rank = 1
+select product_id, year as first_year, quantity, price from( select product_id, year, quantity,price, dense_rank() over (partition by product_id order by year) as rn from sales )z where rn=1
+select product_id, year as first_year, quantity, price from(select *, dense_rank() over(partition by product_id order by year) as count_year from sales) as tl where count_year = 1
+select product_id, year as first_year, quantity, sum(price ) as price from (select * , dense_rank() over (partition by product_id order by year) as rn from sales ) t where rn = 1 group by product_id , year, quantity
+select product_id, year as first_year, quantity,price from Sales where (product_id,year) in (select product_id,min(year) from Sales group by product_id)
+select product_id, year as first_year,quantity, price from(select *, dense_rank() over(partition by product_id order by year asc) as yn from sales)m where yn=1
+select product_id, year first_year, quantity, price from (select product_id, year, quantity, price, rank() over(partition by product_id order by year) rnk from Sales) t where rnk = 1
+select product_id, year first_year, quantity, price from Sales s1, (select product_id id, min(year) min_year from sales group by product_id) s2 where s1.product_id = s2.id and s1.year = s2.min_year
+select product_id,(year) as first_year,(quantity) ,price from ( select product_id,year,quantity,price,rank() over(partition by product_id order by year asc) as rn from sales ) as temp where temp.rn=1
+select product_id,first_year,quantity,price from(select product_id,year as first_year,quantity,price,rank() over(partition by product_id order by year) as rank_year from sales)a where rank_year=1
+select product_id,year as first_year ,quantity , price from sales where( product_id,year) in (select product_id,min(year) from Sales group by product_id )
+select product_id,year as first_year, quantity, price from (select product_id, year, quantity, price, RANK() over (PARTITION BY product_id order by year asc) as rnk from Sales)a where a.rnk=1
+select product_id,year as first_year,quantity, price from( select *, rank() over(partition by product_id order by year asc) as ranking from Sales)T where ranking=1
+select product_id,year as first_year,quantity,price from ( select *, rank() over (partition by product_id order by year) as rk from Sales ) as temp where rk = 1
+select product_id,year as first_year,quantity,price from ( select product_id,year,quantity,price, rank() over(partition by product_id order by year) as rnum from Sales ) tbl where rnum=1
+select product_id,year as first_year,quantity,price from ( select product_id,year,quantity,price, rank()over(partition by product_id order by year asc) as row_num from sales s ) as inner_table where row_num=1 order by product_id asc
+select product_id,year as first_year,quantity,price from ( select product_id,year,quantity,price,dense_rank() over(partition by product_id order by year ) as row1 from sales ) as a where a.row1=1
+select product_id,year as first_year,quantity,price from ( select product_id,year,quantity,price,dense_rank() over(partition by product_id order by year rows between UNBOUNDED PRECEDING and UNBOUNDED FOLLOWING) as row1 from sales ) as a where a.row1=1
+select product_id,year as first_year,quantity,price from (select *, rank() over(partition by product_id order by year) as `rank` from Sales) a where `rank`= 1
+select product_id,year first_year,quantity, price from (select product_id, year, quantity, price, rank() over(partition by product_id order by year) as rk from Sales)as t where rk=1
+select r.product_id, r.year as first_year, r.quantity, r.price from ( select product_id, year, quantity, price, rank() over (partition by product_id order by year asc) as rnk from Sales ) r where r.rnk = 1
+select s.product_id, first_year, quantity, price from sales s inner join( select product_id, min(year) as first_year from sales group by product_id ) as a on s.product_id = a.product_id and s.year = a.first_year
+select s.product_id, s.year as 'first_year', s.quantity, s.price from Sales s, (select product_id, min(year) as 'year' from Sales group by product_id) as t where s.product_id = t.product_id and s.year = t.year
+select s.product_id, s.year as first_year, s.quantity, s.price from (select product_id, min(year) as First_Year from Sales group by product_id) a join Sales s on a.product_id = s.product_id and a.First_year=s.year
+select s.product_id, s.year as first_year, s.quantity, s.price from sales s join (select product_id, min(year) as yr from sales group by product_id) sq on s.year = sq.yr and s.product_id = sq.product_id
+select s1.product_id, s1.year as first_year, s1.quantity, s1.price from sales s1 join sales s2 on s1.product_id = s2.product_id and s1.year >= s2.year group by 1,2,3,4 having count(distinct s2.year) = 1
+select sales.product_id as product_id, sales.year as first_year, quantity, price from sales join (select product_id, min(year) as firstyear from sales group by product_id) as minYear on sales.product_id = minYear.product_id and sales.year = minYear.firstyear
+select sub.product_id, sub.year as first_year, sub.quantity, sub.price from (select * , dense_rank() over(partition by product_id order by year) as rn from Sales)sub where sub.rn=1
+select t.product_id, t.year as first_year, quantity, price from ( select product_id, quantity, price, year, rank() over(partition by product_id order by year) as rk from Sales ) t where rk = 1
+select t.product_id, t.year as first_year, sum(t.quantity) as quantity, t.price from Sales t left join (select s.product_id, min(s.year) as y from Sales s group by s.product_id) s1 on t.product_id = s1.product_id where t.year=s1.y group by t.product_id, t.year,t.price
+select t.product_id, t.year as first_year, t.quantity, t.price from ( select product_id, quantity, price, year, rank() over (Partition by product_id order by year asc)as year_rank from Sales )as t where t.product_id in (select product_id from Product ) and year_rank = 1
+select t.product_id, t.year as first_year, t.quantity, t.price from ( select product_id, quantity, price, year, rank() over (Partition by product_id order by year asc)as year_rank from Sales )as t where year_rank = 1
+select t.product_id, year as first_year, quantity,price from Sales s join (select product_id,min(year) fst from Sales group by product_id) t on s.product_id =t.product_id and s.year = t.fst
+select t.product_id, year as first_year, t.quantity, t.price from ( select *, dense_rank() over(partition by product_id order by year) as yr from Sales s) t where yr = 1
+select t.product_id,t.year as first_year,t.quantity,t.price from ( select product_id,year,quantity,price,dense_rank() over(partition by product_id order by year) as rnk from sales) t where t.rnk=1
+select t.product_id,t.year as first_year,t.quantity,t.price from (select product_id,year,quantity,price,dense_rank() over(partition by product_id order by year asc) as num from sales )t where num=1
+select tbl.product_id, tbl.first_year,Sales.quantity, Sales.price from ( select product_id, min(year) as first_year from Sales group by 1)tbl left join Sales on tbl.product_id = Sales.product_id and tbl.first_year = Sales.year
+select temp.product_id, temp.year as first_year, temp.quantity, temp.price from (select s.product_id, s.year, s.quantity, s.price, rank() over (partition by s.product_id order by year) as rnk from Sales s ) temp where temp.rnk=1
+with CTE AS ( SELECT product_id, year, quantity, price, rank() OVER (PARTITION BY product_id ORDER BY year asc) AS rtn FROM Sales ) SELECT product_id, year as first_year, quantity, price FROM CTE WHERE rtn=1
+with a as ( select distinct product_id, min(year) over (partition by product_id) as first_year from sales ) select distinct a.product_id, first_year, quantity, price from sales b inner join a on a.product_id = b.product_id and a.first_year = b.year
+with a as( select *, rank() over(partition by product_id order by year asc) as r from Sales) select product_id, year as first_year, quantity, price from a where r = 1
+with base as (select product_id, year as first_year, quantity, price, dense_rank() over(partition by product_id order by year asc) as seq from Sales) select distinct product_id, first_year, quantity, price from base where base.seq=1
+with cte as ( select *, dense_rank() over(partition by product_id order by year) as rnk from sales ) select product_id, year as first_year, quantity, price from cte where rnk = 1
+with cte as ( select distinct product_id, first_value(year) over (partition by product_id order by year asc) as first_year from Sales) select s.product_id, cte.first_year as first_year, s.quantity, price from Sales s right join cte on cte.product_id = s.product_id where (s.product_id, s.year) in (select product_id, first_year from cte)
+with cte as ( select distinct product_id, first_value(year) over (partition by product_id order by year asc) as first_year from Sales) select s.product_id, s.year as first_year, s.quantity, price from Sales s right join cte on cte.product_id = s.product_id where (s.product_id, s.year) in (select product_id, first_year from cte)
+with cte as ( select product_id, min(year) as first_year from Sales group by 1 ) select s.product_id, c.first_year, s.quantity, s.price from Sales s join cte c on s.product_id = c.product_id and s.year = c.first_year
+with cte as ( select product_id, rank() over(partition by product_id order by year) as rank_year, year, quantity,price from sales ) select product_id, year as first_year, quantity, price from cte where rank_year = 1
+with cte as ( select product_id, year as 'first_year', quantity, price, rank() over(partition by product_id order by year) as rk from Sales ) select product_id,first_year,quantity,price from cte where rk = 1
+with cte as ( select product_id, year, quantity, price, rank() over(partition by product_id order by year asc) as rnk from sales ) select product_id, year as first_year, quantity, price from cte where rnk = 1
+with cte as ( select product_id, year, quantity, price, rank() over(partition by product_id order by year) as r from Sales ) select product_id, year as first_year, quantity, price from cte where r = 1
+with cte as ( select product_id,min(year) as year from sales group by product_id ) select cte.product_id,cte.year as first_year,s.quantity,s.price from cte join sales as s on cte.product_id=s.product_id and cte.year=s.year
+with cte as ( select product_id,year as first_year,quantity,price, rank() over (partition by product_id order by year) as rk from sales ) select product_id, first_year, quantity, price from cte where rk = 1
+with cte as ( select s1.product_id,min(year) as first_year from sales s1 group by 1 ) select c.product_id,c.first_year,s.quantity,s.price from cte c inner join product p on c.product_id=p.product_id inner join sales s on p.product_id=s.product_id and c.first_year=s.year
+with cte as (SELECT *, RANK() OVER(PARTITION BY s.product_id ORDER BY s.year ASC) as r FROM Sales s) SELECT c.product_id, c.year as first_year, c.quantity, c.price FROM cte c WHERE r = 1
+with cte as (SELECT product_id, year, quantity, price, rank() over(partition by product_id order by year asc) as rnk from sales ) select product_id, year as first_year, quantity, price from cte where rnk =1
+with cte as (select S.product_id as product_id, S.year as first_year, S.quantity, S.price, RANK() OVER(PARTITION BY product_id order by year ASC) as rnk from Sales S inner join Product P on S.product_id = P.product_id ) select cte.product_id, cte.first_year,cte.quantity,cte.price from cte where rnk <= 1
+with cte as (select p.product_id, year as first_year, quantity, price, dense_rank() over (partition by p.product_id order by year) as rnk from Product p, Sales s where p.product_id = s.product_id) select product_id, first_year, quantity, price from cte where rnk = 1
+with cte as (select product_id as product_id, year as first_year, quantity as quantity, price as price, rank() over (partition by product_id order by year) as rk from sales group by 1,2,3) select product_id,first_year, quantity,price from cte where rk = 1
+with cte as (select product_id, min(year) as yr from Sales group by 1) select Sales.product_id, year as first_year, Sales.quantity, Sales.price from Sales inner join cte on Sales.product_id = cte.product_id where Sales.year = cte.yr
+with cte as (select product_id, year, RANK() over (partition by product_id order by year) as rnk, quantity, price from Sales ) select product_id, year as first_year, quantity, price from cte where rnk = 1
+with cte as (select product_id, year, quantity, price, rank() over(partition by product_id order by year) as rankk from sales) select product_id, year as first_year, quantity, price from cte where rankk=1
+with cte as (select product_id,min(year) as first_year from Sales group by product_id) select s.product_id,s.year as first_year,s.quantity,s.price from Sales s join cte on s.product_id=cte.product_id where s.year=cte.first_year
+with cte as (select sale_id, product_id, min(year) as yr from Sales group by 2) select Sales.product_id, year as first_year, Sales.quantity, Sales.price from Sales inner join cte on Sales.product_id = cte.product_id where Sales.year = cte.yr
+with cte as( select *, RANK() OVER (PARTITION BY product_id ORDER BY year ASC) as rnk from Sales) select product_id, year as first_year, quantity, price from cte where rnk = 1
+with cte as(select product_id, min(year) as first_year from Sales group by 1) select a.product_id, a.first_year, b.quantity, b.price from cte a join Sales b on a.product_id = b.product_id and a.first_year = b.year
+with cte as(select product_id, min(year) as first_year from Sales group by product_id) select cte.product_id, first_year, quantity, price from cte join Sales s on s.product_id = cte.product_id and cte.first_year = s.year
+with cte as(select product_id, year, quantity, price, rank() over (partition by product_id order by year) rnum from Sales) select product_id, year as first_year, quantity, price from cte where rnum =1
+with cte1 as ( select product_id,year as first_year,quantity,price,RANK() over (partition by product_id order by year asc) as first_year_rank from Sales ) select product_id,first_year,quantity,price from cte1 where first_year_rank=1
+with cte1 as (select product_id, year, quantity, price, dense_rank() over(partition by product_id order by year) as drank from sales ) select product_id, year as first_year, quantity, price from cte1 where drank = 1
+with cte1 as( select product_id, year as first_year, quantity, price, rank() over(partition by product_id order by year) as rk from Sales ) select product_id, first_year, quantity, price from cte1 where rk=1
+with cts as (SELECT product_id, year, quantity, price, RANK()OVER(PARTITION BY product_id ORDER BY year ASC) as 'RNK' from Sales LEFT JOIN Product USING(product_id)) SELECT product_id, year as first_year, quantity, price FROM cts WHERE RNK=1
+with etc as( select product_id, min(year) as first_year from Sales group by product_id ) select s.product_id, etc.first_year, s.quantity, s.price from etc join Sales s on s.product_id=etc.product_id where s.year=etc.first_year
+with first as ( select product_id, min(year) as first_year from sales group by product_id ) select s.product_id, first_year, quantity, price from sales s join first f on s.product_id=f.product_id and s.year=f.first_year
+with first as ( select product_id, min(year) fyear from Sales group by product_id) select product_id, year as first_year, quantity, price from Sales where (product_id,year) in (select product_id, fyear from first) order by 1
+with first_price AS (SELECT s.product_id, s.year, s.quantity, s.price , DENSE_RANK() OVER(PARTITION BY s.product_id ORDER BY s.year) as rnk FROM sales s join product p ON s.product_id = p.product_id) SELECT product_id, year AS first_year, quantity, price FROM first_price WHERE rnk = 1
+with first_sale_date as( select product_id, min(year) first_year from Sales group by product_id) select f.product_id, f.first_year, s.quantity, s.price from first_sale_date f left join Sales s on f.product_id = s.product_id and f.first_year = s.year
+with first_year as ( select product_id, min(year) as first_year from Sales group by product_id ) select s.product_id, f.first_year, s.quantity, s.price from first_year f join Sales s on f.product_id = s.product_id and f.first_year = s.year
+with fy_sales as(select product_id,min(year) as first_year from sales group by product_id) select fy_sales.product_id,fy_sales.first_year,sales.quantity,sales.price from fy_sales join sales on (fy_sales.product_id=sales.product_id and fy_sales.first_year=sales.year)
+with highest as (select product_id, year as first_year, quantity, price, rank() over(partition by product_id order by year) as rnk from Sales) select product_id, first_year, quantity, price from highest where rnk = 1
+with min_prod_year_assigned as (select Sales.*, min(year) over (partition by product_id) as first_prod_year from Sales ) select product_id, year as first_year, quantity, price from min_prod_year_assigned where year = first_prod_year
+with mins as ( select product_id, min(year) as min_year from Sales group by 1 ) select s.product_id, min_year as first_year, quantity, price from Sales s join mins on mins.product_id = s.product_id and s.year = mins.min_year
+with minyear as ( select s.product_id, min(year) as 'year' from Sales s group by 1 ) select m.product_id, m.year as 'first_year', s.quantity, s.price from minyear m left join Sales s on m.product_id = s.product_id and m.year = s.year
+with new as (select *, dense_rank () over (partition by product_id order by year) as rk from sales) select product_id, year first_year, quantity, price from new where rk=1
+with new as (select *, dense_rank() over (partition by product_id order by year) as rk from sales group by 1) select product_id, year as first_year, quantity, price from new where rk=1
+with prd as (select product_id, min(year) first_year from sales group by product_id ) select product_id, year as first_year, quantity, price from sales where (product_id, year) in (select product_id, first_year from prd)
+with product_info as ( Select product_id, year, quantity, price, rank() over (partition by product_id order by year asc) as rnk from Sales ) Select product_id, year as first_year, quantity, price from product_info where rnk = 1
+with sale as ( select sale_id,product_id,quantity,price, MIN(year) OVER (PARTITION BY product_id) as first_year from sales ) select a.product_id,a.year as first_year,a.quantity,a.price from sales a JOIN sale b ON a.sale_id = b.sale_id where a.year = b.first_year
+with t as ( select *, rank() over (partition by product_id order by year) as rk from Sales) select product_id, year as first_year, quantity, price from t where rk = 1
+with t as (select s.product_id , year, min(year)over(partition by s.product_id ) as f,quantity ,price from sales as s) select product_id , year as first_year, quantity,price from t where year = f
+with t1 as ( select *, rank() over (partition by product_id order by year) as year_order from Sales ) select product_id, year as first_year, quantity, price from t1 where year_order = 1
+with t1 as ( select product_id, min(year) as first_year from Sales group by product_id) select t1.product_id, t1.first_year, s.quantity, s.price from t1 left join Sales s on t1.product_id=s.product_id and t1.first_year = s.year
+with t1 as ( select product_id, year as "year", quantity, price, rank() over (partition by product_id order by year) as year_rank from sales) select product_id, year as first_year, quantity, price from t1 where year_rank = 1
+with tb1 as ( select p.product_id, min(s.year) as year from Product as p join Sales as s on p.product_id = s.product_id group by p.product_id ) select tb1.product_id, tb1.year as first_year, quantity, price from sales join tb1 on tb1.product_id = sales.product_id and tb1.year = sales.year
+with temp (prdId, minYr) as (select product_id, min(year) as minYr from Sales group by product_id) select s.product_id, s.year as first_year, s.quantity, s.price from Sales s, temp t where t.prdId = s.product_id AND t.minYr = s.year
+with temp as ( select *, rank()over(partition by product_id order by year)as rk from sales ) select product_id, year as first_year, quantity, price from temp where rk =1
+with temp as (select *, rank() over(partition by product_id order by year) as rnk from sales) select product_id,year as first_year,quantity,price from temp where rnk=1
+with temp as (select product_id, min(year) as first_year from sales group by 1) select a.product_id, a.year as first_year, a.quantity, a.price from sales a, temp b where a.product_id=b.product_id and a.year=b.first_year
+with temp as( select *, min(year) over (partition by product_id) as first_year from Sales) select product_id, first_year, quantity, price from temp where year = first_year
+with temp2 as (select p.product_id, s.year, s.quantity, s.price, rank() over (partition by p.product_id order by s.year) as rnk from product p, sales s where p.product_id = s.product_id) select product_id, year as first_year, quantity, price from temp2 where rnk = 1
+with tmp as ( select product_id , min(year) as first_year from sales group by product_id ) select sales.product_id , year as first_year , quantity , price from sales join tmp on sales.product_id = tmp.product_id and sales.year = tmp.first_year
+with x as ( select product_id,year,quantity,price, rank () over (partition by product_id order by year asc) as rnk from Sales ) select product_id, year as first_year, quantity, price from x where rnk = 1

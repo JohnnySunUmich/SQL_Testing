@@ -1,0 +1,198 @@
+SELECT A.person_name FROM ( SELECT person_name, SUM(weight) OVER (ORDER BY turn) AS running_total FROM Queue ) A WHERE A.running_total <= 1000 ORDER BY A.running_total DESC LIMIT 1
+SELECT a.person_name FROM ( SELECT person_name, weight, turn, SUM(weight) OVER(ORDER BY turn) AS running_total FROM Queue) a WHERE a.running_total <= 1000 ORDER BY a.turn DESC LIMIT 1
+SELECT a.person_name FROM (SELECT *, SUM(weight) OVER(ORDER BY turn) AS total_weight FROM Queue) a WHERE total_weight <= 1000 ORDER BY turn DESC LIMIT 1
+SELECT bhau.person_name as person_name FROM ( SELECT person_id, person_name ,weight, SUM(weight) OVER(ORDER BY turn) as totalweight, ROW_NUMBER() OVER (ORDER BY turn) as rownum FROM Queue) bhau WHERE bhau.totalweight <= 1000 ORDER BY bhau.rownum DESC LIMIT 1
+SELECT person_name FROM ( SELECT *, RANK() OVER (ORDER BY total DESC) AS ranks FROM ( SELECT person_name, SUM(weight) OVER (ORDER BY turn ASC) AS total FROM Queue) t WHERE total <= 1000) tt WHERE ranks = 1
+SELECT person_name FROM ( SELECT *, SUM(weight) OVER (ORDER BY turn) AS cum_weight FROM Queue ) t WHERE cum_weight <= 1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM ( SELECT *, SUM(weight) OVER(ORDER BY turn) AS total FROM Queue ) t WHERE total <= 1000 ORDER BY total DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_id, person_name, SUM(weight) OVER(ORDER BY turn) AS c_wt FROM queue ) AS cumulative_weight WHERE c_wt <= 1000 ORDER BY c_wt DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_id, person_name, turn, SUM(weight) OVER (ORDER BY turn) AS total FROM Queue ) sub WHERE total<=1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name ,SUM(weight) over(order by turn ASC) as CumulativeWeight FROM Queue ) t WHERE t.CumulativeWeight <= 1000 ORDER BY CumulativeWeight DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name, SUM(weight) OVER (ORDER BY turn ASC) AS cum_weight FROM Queue ) t WHERE cum_weight <= 1000 ORDER BY cum_weight DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name, SUM(weight) OVER (ORDER BY turn) cur_weight FROM Queue ORDER BY cur_weight ) AS Q WHERE cur_weight <= 1000 ORDER BY cur_weight DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name, SUM(weight) OVER(ORDER BY turn ASC) weight_sum FROM Queue ) tmp WHERE weight_sum <= 1000 ORDER BY weight_sum DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name, SUM(weight) OVER(ORDER BY turn) AS cur_weight FROM Queue ) t WHERE cur_weight <= 1000 ORDER BY cur_weight DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name, SUM(weight) OVER(ORDER BY turn) AS total_weight FROM Queue ) AS subq WHERE total_weight <= 1000 ORDER BY ABS(total_weight - 1000) LIMIT 1
+SELECT person_name FROM ( SELECT person_name, turn, SUM(weight) OVER(ORDER BY turn) as running_sum FROM Queue )base WHERE running_sum<=1000 ORDER BY turn DESC limit 1
+SELECT person_name FROM ( SELECT person_name, turn, SUM(weight)OVER(ORDER BY turn) AS total_weight FROM queue )a WHERE total_weight <= 1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM ( SELECT person_name, weight, turn, sum(weight) over(order by turn) as cum_sum FROM queue) x WHERE cum_sum <= 1000 ORDER BY turn DESC limit 1
+SELECT person_name FROM ( SELECT q.person_id, q.person_name, q.weight, q.turn, CAST((@wsum := @wsum + q.weight) AS SIGNED) AS prefixSum FROM Queue q, (SELECT @wsum := 0) AS init ORDER BY turn ) t WHERE prefixSum <= 1000 ORDER BY prefixSum DESC LIMIT 1
+SELECT person_name FROM ( SELECT turn, person_name, weight, SUM(weight) OVER(ORDER BY turn ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) As 'sum_weight' FROM Queue ) t WHERE sum_weight <= 1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM (SELECT *, SUM(weight) OVER (ORDER BY turn) AS running_sum FROM Queue) t WHERE running_sum <= 1000 ORDER BY running_sum DESC LIMIT 1
+SELECT person_name FROM (SELECT *, SUM(weight) OVER(ORDER BY turn) AS sums FROM Queue) temp1 WHERE sums <= 1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM (SELECT person_id, person_name, SUM(weight) OVER(ORDER BY turn) AS total_weight FROM Queue) t WHERE total_weight <= 1000 ORDER BY total_weight DESC LIMIT 1
+SELECT person_name FROM (SELECT person_id, person_name, turn, SUM(weight) OVER(ORDER BY turn) AS total_weight FROM Queue) AS sub WHERE sub.total_weight <= 1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM (SELECT person_id, person_name, turn, sum(weight) OVER (order by turn ASC rows between unbounded preceding and current row) AS total_weight FROM queue) a WHERE total_weight <=1000 ORDER BY turn DESC LIMIT 1
+SELECT person_name FROM (SELECT person_name, SUM(weight) OVER(ORDER BY turn ) AS csum FROM Queue) T WHERE csum = (SELECT MAX(csum) FROM(SELECT SUM(weight) OVER(ORDER BY turn) AS csum from Queue) T WHERE csum<=1000)
+SELECT person_name FROM (SELECT person_name, weight, SUM(weight) OVER (ORDER BY turn) AS running_sum FROM Queue) sub WHERE running_sum <= 1000 ORDER BY running_sum DESC LIMIT 1
+SELECT person_name FROM (SELECT person_name,turn, SUM(weight) OVER(ORDER BY turn) as weight_total FROM Queue) as w WHERE weight_total<=1000 ORDER BY weight_total desc LIMIT 1
+SELECT person_name FROM( SELECT *, SUM(weight) over (order by turn asc) as try FROM Queue) A WHERE try <=1000 ORDER BY try desc Limit 1
+SELECT person_name FROM( SELECT person_name, SUM(weight) OVER (ORDER BY turn) AS total_weight FROM Queue ) tmp WHERE total_weight <= 1000 ORDER BY total_weight DESC LIMIT 1
+SELECT person_name FROM( select person_name , sum(weight)over(order by turn) as cumlative_sum from queue) as t WHERE cumlative_sum <= 1000 ORDER BY cumlative_sum DESC LIMIT 1
+SELECT t.person_name FROM( SELECT person_name, sum(weight) over(order by turn) AS cum_weight FROM Queue) t WHERE t.cum_weight <=1000 ORDER BY t.cum_weight DESC LIMIT 1
+SELECT t1.person_name as person_name FROM (SELECT person_id,person_name,weight,SUM(weight) OVER (ORDER BY turn) as runnin_sum FROM Queue) t1 WHERE t1.runnin_sum<=1000 ORDER BY t1.runnin_sum DESC LIMIT 1
+SELECT t10.person_name FROM ( SELECT person_name, turn, SUM(weight) OVER (ORDER BY turn) AS cumulative_weight FROM Queue ) t10 WHERE t10.cumulative_weight <= 1000 ORDER by t10.turn DESC LIMIT 1
+Select a.person_name from (Select person_name,sum(weight) over(order by turn) as cum_weight from Queue)a where a.cum_Weight <= 1000 order by cum_weight desc limit 1
+Select p.person_name from( Select person_id,person_name,sum(weight)over(partition by null order by turn)as s from Queue )p where p.s<=1000 order by p.s desc limit 1
+Select person_name From Queue Where turn in (Select max(turn) From (Select person_name, sum(weight)over(order by turn) as accumu_sum, turn From Queue) t Where accumu_sum<=1000)
+Select person_name from ( Select person_id, person_name, sum(weight) over (order by turn) as next_person from Queue group by 1,2 ) temp where next_person <=1000 order by next_person desc limit 1
+Select person_name from ( Select person_name,turn,sum(weight) over(order by turn) as val from queue) as a where val<=1000 order by turn desc limit 1
+Select person_name from (Select person_name, sum(weight) over (order by turn) as cum_weight from Queue) temp where cum_weight<=1000 order by cum_weight desc limit 1
+WITH Accumulation AS ( SELECT person_name, SUM(weight) OVER ( ORDER BY turn ) AS total_weight FROM Queue ) SELECT person_name FROM Accumulation WHERE total_weight <= 1000 ORDER BY total_weight DESC LIMIT 1
+WITH CTE AS ( SELECT person_id, Person_name, SUM(weight) OVER (ORDER BY turn ASC) AS total FROM Queue ORDER BY total DESC ) SELECT Person_name FROM CTE WHERE total <= 1000 LIMIT 1
+WITH CTE AS (SELECT person_id, person_name, weight, turn, SUM(weight) OVER (ORDER BY turn) AS cumsum FROM Queue) SELECT person_name FROM Queue WHERE turn = (SELECT MAX(turn) FROM CTE WHERE cumsum <= 1000)
+WITH CTE AS(SELECT PERSON_NAME,SUM(WEIGHT) OVER(ORDER BY TURN) AS CUM_WEIGHT,TURN FROM QUEUE ) SELECT C1.PERSON_NAME FROM CTE C1 LEFT JOIN CTE C2 ON C1.TURN+1=C2.TURN WHERE (C1.CUM_WEIGHT<=1000 AND C2.CUM_WEIGHT>1000) OR (C1.CUM_WEIGHT<=1000 AND C2.CUM_WEIGHT IS NULL)
+WITH T AS ( SELECT *, SUM(weight) OVER (ORDER BY turn) as rolling_weight FROM Queue ) SELECT person_name from T where rolling_weight <= 1000 order by turn desc limit 1
+WITH T1 AS( SELECT *,SUM(weight) OVER (ORDER BY turn) AS cum FROM Queue) SELECT person_name FROM ( SELECT person_name,turn,CASE WHEN cum > 1000 THEN 0 ELSE 1 END AS test FROM T1) AS sub WHERE test = 1 ORDER BY turn DESC LIMIT 1
+WITH TABLE1 AS ( SELECT person_name, turn, SUM(weight) OVER (ORDER BY turn) AS accum_weight FROM Queue ) SELECT person_name FROM table1 WHERE accum_weight<=1000 ORDER BY turn DESC LIMIT 1
+WITH TMP1 AS (SELECT *, SUM(WEIGHT) OVER (ORDER BY TURN) AS CUM_SUM, ROW_NUMBER() OVER(ORDER BY TURN) AS ROW_INDEX FROM QUEUE), TMP2 AS (SELECT * , RANK() OVER (ORDER BY ROW_INDEX DESC) AS RNK FROM TMP1 WHERE CUM_SUM <= 1000) SELECT DISTINCT person_name FROM TMP2 WHERE RNK = 1
+WITH acc_weight AS ( SELECT person_name, SUM(weight) OVER(ORDER BY turn) total_weight FROM queue ) SELECT person_name FROM acc_weight WHERE total_weight <= 1000 ORDER BY total_weight DESC LIMIT 1
+WITH cnt AS( SELECT person_id, person_name, SUM(weight) OVER (ORDER BY turn) AS CUMSUM FROM Queue ORDER BY CUMSUM DESC ) SELECT person_name FROM cnt WHERE CUMSUM <= 1000 LIMIT 1
+WITH cte AS ( SELECT *, SUM(weight) OVER (ORDER BY turn) AS cum_weight FROM Queue ) SELECT person_name FROM cte WHERE cum_weight <= 1000 ORDER BY turn DESC LIMIT 1
+WITH cte AS ( SELECT *, SUM(weight) OVER (ORDER BY turn) AS cur_weight FROM Queue) SELECT person_name FROM Queue WHERE turn = (SELECT MAX(turn) FROM cte WHERE cur_weight <= 1000)
+WITH cte AS ( SELECT *, SUM(weight) OVER (ORDER BY turn) AS total_weight FROM queue ) SELECT person_name FROM cte WHERE total_weight <= 1000 AND turn = (SELECT MAX(turn) FROM cte WHERE total_weight <=1000)
+WITH cte AS( SELECT * ,SUM(weight) OVER (ORDER BY turn) AS total_wt FROM Queue ) SELECT person_name FROM cte WHERE total_wt <= 1000 ORDER BY total_wt DESC LIMIT 1
+WITH cte AS( SELECT person_id, person_name, weight, turn, SUM(weight) OVER(ORDER BY turn) as running_total FROM queue ) SELECT person_name FROM( SELECT person_id, person_name, fit, RANK() OVER(PARTITION BY fit ORDER BY TURN DESC) AS lastfit FROM( SELECT person_id, person_name, running_total, turn, CASE WHEN running_total <= 1000 THEN 1 ELSE 0 END AS fit FROM cte ) sub ) sub2 WHERE fit = 1 AND lastfit = 1
+WITH cumulative_weight AS ( SELECT person_name, turn, SUM(weight) OVER (ORDER BY turn) AS weight_total FROM Queue ) SELECT person_name FROM Queue WHERE turn = (SELECT MAX(turn) FROM cumulative_weight WHERE weight_total <= 1000)
+WITH data AS (SELECT *, SUM(weight) OVER(ORDER BY turn) AS cum_sum FROM Queue) SELECT person_name FROM data WHERE cum_sum <= 1000 ORDER BY cum_sum DESC LIMIT 1
+WITH moving_tb AS (SELECT person_name, SUM(weight) OVER (ORDER BY turn ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS moving_sum FROM Queue) SELECT person_name FROM moving_tb WHERE moving_sum <= 1000 ORDER BY moving_sum DESC LIMIT 1
+WITH res AS ( SELECT person_name, SUM(weight) OVER( ORDER BY turn) AS running_total FROM Queue ), final AS ( SELECT person_name, ROW_NUMBER() OVER( ORDER BY running_total DESC) AS rnk FROM res WHERE running_total <= 1000 ) SELECT person_name FROM final WHERE rnk = 1
+WITH t AS ( SELECT *, SUM(weight) OVER(ORDER BY turn) r_w FROM queue ) SELECT person_name FROM t WHERE r_w<=1000 ORDER BY turn DESC LIMIT 1
+WITH t1 AS(SELECT person_name, SUM(weight) OVER(ORDER BY turn) c_weight FROM Queue) SELECT person_name FROM t1 WHERE c_weight=(SELECT MAX(c_weight) FROM t1 WHERE c_weight<=1000)
+WITH win AS ( SELECT person_name, SUM(weight) OVER (ORDER BY turn ASC) AS running, ROW_NUMBER() OVER (ORDER BY turn ASC) AS rk FROM queue ) SELECT person_name FROM win WHERE rk = (SELECT MAX(rk) FROM win WHERE running <= 1000)
+select a.person_name from ( select person_name, sum(weight) over (order by turn) as total_weight from queue )a where a.total_weight<=1000 order by a.total_weight desc limit 1
+select a.person_name from ( select person_name,turn, sum(weight) over(order by turn) as sum_w from queue ) a where sum_w <= 1000 order by a.turn desc limit 1
+select a.person_name from (select person_name, 1000 - sum(weight) over (order by turn) cum_weight_diff from queue) a where a.cum_weight_diff >=0 order by a.cum_weight_diff limit 1
+select a.person_name from (select person_name, turn, sum(weight) over (order by turn) as rn_total from queue ) as a where a.rn_total<=1000 order by turn desc limit 1
+select person_name FROM( select person_name , weight , turn , sum(weight) over (order by turn) as cum_weigth FROM Queue )t WHERE turn = (select max(turn) from (select person_name , weight , turn , sum(weight) over (order by turn) as cum_weigth FROM Queue)t2 where cum_weigth <= 1000)
+select person_name from ( SELECT person_name, turn, SUM(weight) OVER(ORDER BY turn) total_weight FROM queue) asd where asd.total_weight <=1000 order by turn desc limit 1
+select person_name from ( select *, sum(weight) over (order by turn) as r_t from queue ) tmp1 where r_t <= 1000 order by r_t desc limit 1
+select person_name from ( select *, sum(weight) over(order by turn) as 'cumu_sum' from queue) as A where cumu_sum <= 1000 order by cumu_sum desc limit 1
+select person_name from ( select *, sum(weight) over(order by turn) as wlimit from Queue ) as tmp where wlimit <= 1000 order by turn desc limit 1
+select person_name from ( select person_id,person_name,weight,turn,sum(weight) over(order by turn) cum_weight from queue order by cum_weight)a where cum_weight <=1000 order by cum_weight desc limit 1
+select person_name from ( select person_name , sum(weight) OVER (ORDER BY turn) as cum_weight from queue ) a where cum_weight <= 1000 order by cum_weight desc limit 1
+select person_name from ( select person_name, sum(weight) over (order by turn asc rows between unbounded preceding and current row )<=1000 as is_allowed, turn from Queue )a where is_allowed order by turn desc limit 1
+select person_name from ( select person_name, sum(weight) over (order by turn) as cumulative_wt from Queue )a where cumulative_wt <= 1000 order by cumulative_wt desc limit 1
+select person_name from ( select person_name, sum(weight) over(order by turn asc) as running_total from Queue ) sub where running_total <= 1000 order by running_total desc limit 1
+select person_name from ( select person_name, sum(weight) over(order by turn rows between unbounded preceding and current row) as weight_sum, row_number() over(order by turn) as rw_num from Queue ) X where weight_sum<=1000 order by rw_num desc limit 1
+select person_name from ( select person_name, sum(weight) over(order by turn) as cum_weight from queue ) temp where cum_weight<=1000 order by cum_weight desc limit 1
+select person_name from ( select person_name, sum(weight) over(order by turn) as weight from Queue )a where weight <= 1000 order by weight desc limit 1
+select person_name from ( select person_name, sum(weight) over(order by turn) weight from queue ) t where weight <= 1000 order by weight desc limit 1
+select person_name from ( select person_name, turn, sum(weight) over (order by turn) as cumulative_weight from queue )_ where cumulative_weight <= 1000 order by turn desc limit 1
+select person_name from ( select person_name, turn,sum(weight) over(order by turn) as s from queue ) temp where s<=1000 order by turn desc limit 1
+select person_name from ( select person_name, weight, turn, sum(weight) over (order by turn asc) as cumulative_sum from Queue) x where cumulative_sum <= 1000 order by turn desc limit 1
+select person_name from ( select person_name, weight, turn, sum(weight) over (order by turn) as cumulative_sum from Queue) x where cumulative_sum <=1000 order by turn desc limit 1
+select person_name from ( select person_name,sum(weight) over(order by turn ) cumm_weight,turn from queue )a where cumm_weight<=1000 order by turn desc limit 1
+select person_name from ( select person_name,total_weight, rank()over(order by total_weight desc) as rnk from ( select person_id, person_name, sum(weight)over(order by turn) as total_weight from queue)sub where total_weight <=1000)sub1 where rnk = 1
+select person_name from (Select person_name,turn, sum(weight) over(order by turn)as total from queue)r where total<=1000 order by turn desc limit 1
+select person_name from (select *, sum(weight) over (order by turn) as SM from Queue) A where SM<=1000 order by SM Desc limit 1
+select person_name from (select *, sum(weight) over(order by turn) as rt from queue q) as temp where rt <=1000 order by turn desc limit 1
+select person_name from (select *, sum(weight) over(order by turn) as total_weight from Queue) s where s.total_weight <= 1000 order by total_weight desc limit 1
+select person_name from (select *, sum(weight)over(ORDER BY turn RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) cum_sum from queue) a where cum_sum <= 1000 order by cum_sum desc limit 1
+select person_name from (select *, sum(weight)over(order by turn) as cumsum from queue) as temp where cumsum <= 1000 order by turn desc limit 1
+select person_name from (select *, sum(weight)over(order by turn)as sumamount from queue)t1 where sumamount<=1000 order by turn desc limit 1
+select person_name from (select person_id, person_name, sum(weight) over(order by turn rows between unbounded preceding and current row) as totsum from queue)a where totsum <= 1000 order by totsum desc limit 1
+select person_name from (select person_id, person_name, sum(weight) over(order by turn) as cum_sum from queue order by cum_sum desc) t1 where cum_sum <= 1000 limit 1
+select person_name from (select person_id, person_name, turn, sum(weight) over(order by turn) summ from Queue) temp where summ <= 1000 order by summ desc limit 1
+select person_name from (select person_id, person_name, turn, sum(weight) over(order by turn) summ from Queue) temp where summ <= 1000 order by turn desc limit 1
+select person_name from (select person_name ,sum(weight) over(order by turn ) as t_weight ,lead(weight, 1) over (order by turn) as n_weight from queue) t where t_weight <=1000 and (t_weight + n_weight > 1000 or n_weight is null)
+select person_name from (select person_name, SUM(weight) OVER (ORDER BY turn ASC) AS running_total from Queue) m where running_total <=1000 order by running_total desc limit 1
+select person_name from (select person_name, sum(weight) over (order by turn asc) as wgt from queue) a where wgt <= 1000 order by wgt desc limit 1
+select person_name from (select person_name, sum(weight) over (order by turn) as cum_sum from queue)t where cum_sum <= 1000 group by 1 order by cum_sum desc limit 1
+select person_name from (select person_name, sum(weight) over (order by turn) as total from Queue) x where x.total <=1000 order by x.total desc limit 1
+select person_name from (select person_name, sum(weight) over (order by turn) as w from queue) as a where w<=1000 order by w desc limit 1
+select person_name from (select person_name, sum(weight) over (order by turn) as weight from Queue) as t where weight <= 1000 order by weight desc limit 1
+select person_name from (select person_name, sum(weight) over(order by turn ASC) as running_weight from Queue) as newtable where running_weight <=1000 order by running_weight DESC limit 1
+select person_name from (select person_name, sum(weight) over(order by turn) as cum_weight from queue) temp where cum_weight<=1000 order by cum_weight desc limit 1
+select person_name from (select person_name, sum(weight) over(order by turn) as qWeight from Queue) as tab where qWeight<=1000 order by qWeight desc limit 1
+select person_name from (select person_name, sum(weight) over(order by turn) as rolling_sum from Queue order by 2 desc) tmp where rolling_sum<=1000 limit 1
+select person_name from (select person_name, sum(weight) over(order by turn) as rolling_sum from Queue) t where rolling_sum<=1000 order by rolling_sum desc limit 1
+select person_name from (select person_name, sum(weight) over(order by turn) as sum_wt from queue) t1 where sum_wt <= 1000 order by sum_wt desc limit 1
+select person_name from (select person_name, sum(weight) over(order by turn) as tot_weight from Queue) as a where tot_weight<= 1000 order by tot_weight desc limit 1
+select person_name from (select person_name, sum(weight)over(order by turn) as tsum from queue)u where tsum<=1000 order by tsum desc limit 1
+select person_name from (select person_name, turn, sum(weight) over ( order by turn asc )as sum_weight from Queue ) as t1 where sum_weight <= 1000 order by turn desc limit 1
+select person_name from (select person_name, turn, sum(weight) over (order by turn) as cumsum from Queue ) a where cumsum <= 1000 order by turn desc limit 1
+select person_name from (select person_name, turn, sum(weight) over(order by turn rows between unbounded preceding and current row) as total_weight from Queue) t1 where t1.total_weight <= 1000 order by turn DESC limit 1
+select person_name from (select person_name, turn, sum(weight) over(order by turn) as wt from Queue group by person_name) a where wt <=1000 order by turn desc limit 1
+select person_name from (select person_name, turn, sum(weight)over(order by turn) as total_weight from Queue) a where total_weight <=1000 order by total_weight desc limit 1
+select person_name from (select person_name, turn, weight, sum(weight) over (order by turn) as a from queue) as b where a <= 1000 order by turn desc limit 1
+select person_name from (select person_name, weight, turn, sum(weight) over(order by turn) as cum_sum from queue) x where cum_sum <= 1000 order by turn desc limit 1
+select person_name from (select person_name,sum(weight) over (order by turn asc) as rnk from Queue )tmp where tmp.rnk <=1000 or tmp.rnk = 1 order by tmp.rnk desc limit 1
+select person_name from (select person_name,sum(weight) over (order by turn asc) as rnk from Queue )tmp where tmp.rnk <=1000 order by tmp.rnk desc limit 1
+select person_name from (select person_name,sum(weight) over (order by turn) as wgt from Queue q ) a where a.wgt <= 1000 order by a.wgt desc limit 1
+select person_name from (select person_name,sum(weight) over (order by turn)as sum_weight from Queue) as a where sum_weight <= 1000 order by sum_weight desc limit 1
+select person_name from (select person_name,sum(weight) over (order by turn)rnk from queue)b where rnk<=1000 order by rnk desc limit 1
+select person_name from (select person_name,sum(weight) over(order by turn) as wt_limit from queue) t where wt_limit<=1000 order by wt_limit desc limit 1
+select person_name from (select person_name,turn,sum(weight) over(order by turn) as rolling from queue)s where rolling<=1000 order by turn desc limit 1
+select person_name from (select q.person_name, turn, sum(weight) over(order by turn) weight from queue q) t where weight<=1000 order by turn desc limit 1
+select person_name from (select queue.*, sum(weight) over (order by turn) as cumsum from queue) running_sum where cumsum<=1000 order by cumsum desc limit 1
+select person_name from queue where person_id in ( select person_id from ( select person_id, dense_rank() over(order by running_weight desc) as r1 from ( select person_id, sum(weight) over(order by turn) as running_weight from queue) A where running_weight <= 1000) B where r1 = 1)
+select person_name from queue where turn in ( select max(turn) as turn from( select person_id, person_name, turn, sum(weight) over(order by turn) as roll_sum_weight from queue ) as a where roll_sum_weight <=1000 )
+select person_name from queue where turn in ( select max(turn) from ( select turn , person_name, sum(weight) over (order by turn asc) as total_weight from queue) A where total_weight <= '1000')
+select person_name from( select person_id, person_name, sum(weight) over(order by turn) as total_weight from Queue) a where total_weight<=1000 order by total_weight desc limit 1
+select person_name from( select person_id,person_name,weight,turn,1000-sum(weight) over(order by turn) as rema from Queue) c where rema>=0 order by turn Desc limit 1
+select person_name from( select person_name, sum(weight) over (order by turn) weight, turn from queue ) t where weight <=1000 order by turn desc limit 1
+select person_name from( select person_name, sum(weight) over(order by turn asc) as roll_sum from queue) a where roll_sum <=1000 order by roll_sum desc limit 1
+select person_name from( select person_name, turn, sum(weight) over(order by turn) as total from queue order by turn desc) as sub where total <= 1000 limit 1
+select person_name from( select person_name, turn, sum(weight) over(order by turn) sum_weight from Queue) a where sum_weight <= 1000 order by turn desc limit 1
+select person_name from(select person_name,sm from(select person_name,turn, sum(weight) over(order by turn) as sm from queue)m where sm<=1000 order by sm desc)k limit 1
+select person_name from(select person_name,sum(weight)over( order by turn)as weight from queue)a where weight<=1000 order by weight desc limit 1
+select q.person_name from ( select person_id,person_name,sum(weight) over(order by turn asc) as cumsum ,turn from Queue) q where q.cumsum <= 1000 order by q.cumsum desc limit 1
+select sub.person_name from ( select *, sum(weight) over(order by turn asc) as running_total from Queue )sub where sub.running_total <= 1000 order by sub.turn desc limit 1
+select sub.person_name from (select person_name, sum(weight) over(order by turn ASC) as running_total from Queue) sub where sub.running_total<=1000 order by sub.running_total DESC limit 1
+select t.person_name from ( select person_id, person_name, weight, sum(weight) over (order by turn asc) as cumulative_weight, turn from queue ) t where t.cumulative_weight <= 1000 order by t.turn desc limit 1
+select tb1.person_name from (select *, sum(weight) over (order by turn) as sumw from Queue) tb1 where tb1.sumw <=1000 order by tb1.turn desc limit 1
+select temp.person_name from (select *,sum(weight) over(order by turn) as total from Queue) temp where temp.total<=1000 order by temp.total desc limit 1
+select temp.person_name from (select q1.*, sum(weight) over (Order by turn) as cum_weight from Queue q1) as temp where temp.cum_weight <= 1000 order by temp.turn desc limit 1
+with a as (SELECT person_name,weight,turn, sum(weight)over(order by turn) as sumweight FROM Queue) SELECT person_name FROM Queue Where turn in (select max(turn) from a where a.sumweight <=1000)
+with a as (select person_name, sum(weight) over (order by turn ASC) as cumsum from Queue) select person_name from a where cumsum <= 1000 order by cumsum DESC limit 1
+with abc as ( select person_name, sum(weight) over (order by turn) as running_total from queue) select person_name from abc where running_total <= 1000 order by running_total desc limit 1
+with acc as (select *, sum(weight) over(order by turn) as acc_w from Queue) select person_name from (select * from acc where acc_w <= 1000 ) acc_2 order by acc_w desc limit 1
+with acc_weight as (select person_name, SUM(weight) OVER(order by turn) total_weight from queue ) select person_name from acc_weight where total_weight <= 1000 ORDER BY total_weight DESC LIMIT 1
+with crs as(select person_name, weight, turn, sum(weight) over(order by turn asc) as sw from Queue order by turn asc) select person_name from crs where sw<=1000 order by sw desc limit 1
+with cte as ( SELECT person_name,weight,sum(weight) over(order by turn asc) as cumulative_weight from queue group by person_name,weight) select person_name from cte WHERE cumulative_weight<=1000 order by cumulative_weight desc limit 1
+with cte as ( select *, sum(weight) over(order by turn asc) as accumulated from queue ) select person_name from cte where turn=(select max(turn) from cte where accumulated<=1000)
+with cte as ( select *, sum(weight)over(order by turn asc) as sum_w from queue ) select person_name from cte where sum_w <= 1000 order by sum_w desc limit 1
+with cte as ( select distinct person_name, turn, sum(weight) over (order by turn asc) weight from Queue ) select person_name from cte where weight<=1000 order by turn desc limit 1
+with cte as ( select max(turn) as turn from( select turn, sum(weight) over (order by turn) as rolling_weight from Queue )z where rolling_Weight <=1000 ) select person_name from Queue where turn=(select turn from cte)
+with cte as ( select person_id, person_name, sum(weight) over (order by turn) as running_total from Queue ) select person_name from cte where running_total = (select max(running_total) from cte where running_total <= 1000)
+with cte as ( select person_name, sum(weight) over(order by turn) as total_weight from Queue ) select person_name from cte where total_weight <= 1000 order by total_weight desc limit 1
+with cte as ( select person_name, turn, sum(weight) over(order by turn) as total_weight from queue group by 1) select person_name from cte where total_weight<=1000 and turn in (select max(turn) from cte where total_weight<=1000)
+with cte as ( select person_name,weight,turn,sum(weight) over (order by turn) total_sum from queue ) select person_name from cte where total_sum <= 1000 order by turn desc limit 1
+with cte as ( with cte as ( with cte as ( with cte as ( Select * from Queue order by turn asc ) Select *, sum(weight) over(rows between unbounded preceding and current row) as 'weight_till_now' from cte ) Select * , rank() over(order by turn) as 'rnk' from cte ) Select person_name,max(rnk) from cte where weight_till_now <=1000 group by person_id order by max(rnk) desc limit 1 ) Select person_name from cte
+with cte as (select *, abs(1000-sum(weight) over(order by turn)) cum_sum, case when (sum(weight) over(order by turn)) <= 1000 then 1 else 0 end inside from Queue) select person_name from cte where inside = 1 order by cum_sum asc limit 1
+with cte as (select *, sum(weight) over (order by turn) as cum_weight from Queue) select person_name from Queue where turn = (select max(turn) from cte where cum_weight <= 1000)
+with cte as (select person_name, sum(weight) over(order by turn ) as cumu_wt from Queue ) select person_name from cte where cumu_wt = (select max(cumu_wt) from cte where cumu_wt <= 1000)
+with cte as (select person_name, sum(weight)over(order by turn) as rolling_total, turn from queue order by turn asc) select person_name from cte where rolling_total <= 1000 order by turn desc limit 1
+with cte as (select person_name, turn, sum(weight) over(order by turn) as acum_weight from queue), cte2 as ( select person_name, turn, case when acum_weight <= 1000 then 0 else 1 end as overwgt_ind from cte ) select person_name from cte2 where turn = (select max(turn) from cte2 where overwgt_ind = 0)
+with cte as (select person_name,sum(weight) over(order by turn ) as max_wt from Queue ) select person_name from cte where max_wt <=1000 order by max_wt desc limit 1
+with cte as (select sum(weight) over(order by turn) as RunningTotal, person_name, turn from Queue) select person_name from cte where RunningTotal<=1000 order by turn desc limit 1
+with cte as( select person_name, sum(weight)over(order by turn)as wt, turn from queue) select person_name from cte where turn = (select max(turn) from cte where wt <=1000)
+with cte as( select person_name, turn, sum(weight) over (order by turn) as wgt from queue) select person_name from cte where wgt<=1000 order by wgt desc limit 1
+with main as ( select person_name, sum(weight) over(order by turn) as total_weight from queue order by turn ) select person_name from main where total_weight <= 1000 order by total_weight desc limit 1
+with person_weight as ( Select person_name, sum(weight) over (order by turn) as running_sum, turn From Queue ) Select person_name from person_weight where running_sum <= 1000 order by turn desc Limit 1
+with queue_table as (select person_name, turn, sum(weight) over (order by turn) "cumulative_weight" from queue) select person_name from queue_table where cumulative_weight <= 1000 and turn = (select max(turn) from queue_table where cumulative_weight <= 1000)
+with queue_table as (select person_name, turn, sum(weight) over (order by turn) "cumulative_weight" from queue) select person_name from queue_table where cumulative_weight <= 1000 order by cumulative_weight desc limit 1
+with queue_wt as ( select person_id,person_name, sum(weight) over(order by turn) as tot_wt from queue ) select person_name from queue_wt where tot_wt<=1000 order by tot_wt desc limit 1
+with res as (select person_name, sum(weight) over (order by turn) as cumulative_sum from queue) select person_name from res where cumulative_sum<=1000 group by person_name order by cumulative_sum desc limit 1
+with rolling_sum as ( select * , sum(weight) over (order by turn ASC) as rolling_sum from queue ) select person_name from rolling_sum where rolling_sum <= 1000 order by turn DESC limit 1
+with run_total AS (SELECT person_name, SUM(weight) OVER (ORDER BY turn ASC) AS run_total FROM Queue) SELECT person_name FROM run_total WHERE run_total.run_total <= 1000 ORDER BY run_total.run_total DESC LIMIT 1
+with t as ( select *, sum(weight) over(order by turn) as total from queue ) select person_name from t where total <= 1000 order by turn desc limit 1
+with t1 as ( select person_name, turn, sum(weight) over (order by turn) as running_sum from queue order by running_sum ) select person_name from t1 where running_sum <=1000 order by turn desc limit 1
+with t1 as (select person_id, person_name, sum(weight) over(order by turn) as total_weight from Queue group by 1,2) select person_name from t1 where total_weight<=1000 order by total_weight desc limit 1
+with table1 as (select *,sum(weight) over (order by turn) as weight_cumulative from queue) select person_name from queue where turn = (select max(turn) from table1 where weight_cumulative<=1000)
+with tb1 as( select person_name, turn, sum(weight)over(order by turn) as total_weight from Queue) select person_name from tb1 where total_weight <= 1000 order by total_weight desc limit 1
+with tbl as ( select person_name, sum(weight) over w as acc_weight from Queue window w as (order by turn) ) select person_name from tbl where acc_weight <= 1000 order by acc_weight desc limit 1
+with tbl as( select person_name, turn, sum(weight) over(order by turn) as maxweight, sum(weight) over(order by turn) - weight as minweight from Queue ) select person_name from tbl where maxweight<=1000 order by turn DESC limit 1
+with temp as ( SELECT person_name, SUM(weight) OVER(order by turn) total_weight FROM queue ) select person_name from temp where total_weight <= 1000 order by total_weight desc limit 1
+with temp as ( select person_id, person_name, sum(weight) over (order by turn) as running_average from queue) select person_name from temp where running_average <= 1000 order by running_average desc limit 1
+with temp as ( select person_name, turn, sum(weight) over (order by turn ASC) as cum_sum_weight from Queue ) select person_name from temp where cum_sum_weight <= 1000 order by turn DESC limit 1
+with temp as (select person_id, person_name, sum(weight) over (order by turn ) as cum_weight from Queue ) select person_name from temp where cum_weight <= 1000 order by cum_weight desc limit 1
+with temp as( select person_name, accumulated_weight from ( select *, sum(weight) over(order by turn) as accumulated_weight from Queue) as accumulated_weight_table where accumulated_weight <= 1000 order by 2 desc) select person_name from temp limit 1
+with tmp as (select person_name, sum(weight) over (order by turn) as total from queue) select person_name from tmp where total <= 1000 order by total desc limit 1
+with tmp as (select person_name, sum(weight) over(order by turn) as weight_sum from Queue) select person_name from tmp where weight_sum <= 1000 order by weight_sum desc limit 1
+with tmp as( select *, sum(weight) over(order by turn) as s from queue ) select person_name from tmp where s <= 1000 order by s desc limit 1
+with tmp as( select person_name, weight, turn, sum(weight) over(order by turn) as total from queue ) select person_name from tmp where turn=(select max(turn) from tmp where total <=1000 )
+with totals as ( select person_id, person_name, turn, sum(weight) over(order by turn) as running_total from queue ) select person_name from queue where turn = ( select max(turn) as last_person_turn from totals where running_total <= 1000 )
+with weight as ( select person_name, turn, sum(weight) over (order by turn) as sum_wt from queue group by 1,2 order by turn desc) select person_name from weight where sum_wt<=1000 limit 1
+with x as ( select person_name , turn , sum(weight) over(order by turn) as wt from queue ) select person_name from x where wt <= 1000 order by wt desc limit 1

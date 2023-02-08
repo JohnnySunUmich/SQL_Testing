@@ -1,0 +1,379 @@
+SELECT C.title from TVProgram TV left JOIN Content C ON TV.content_id = C.content_id where TV.program_date like '2020-06%' and C.Kids_content ='Y' and C.content_type = 'Movies' group by 1
+SELECT DISTINCT C.TITLE FROM TVPROGRAM T, CONTENT C WHERE T.CONTENT_ID = C.CONTENT_ID AND CONTENT_TYPE = 'Movies' AND KIDS_CONTENT = 'Y' AND MONTH(T.PROGRAM_DATE) = '06'
+SELECT DISTINCT C.TITLE FROM TVProgram T LEFT JOIN Content C ON T.CONTENT_ID = C.CONTENT_ID WHERE DATE_FORMAT(PROGRAM_DATE, '%M %Y') = 'June 2020' AND KIDS_CONTENT = 'Y' AND CONTENT_TYPE = 'Movies'
+SELECT DISTINCT C.title AS title FROM TVProgram AS T INNER JOIN Content C ON T.content_id = C.content_id WHERE C.Kids_content = 'Y' AND EXTRACT(YEAR FROM T.program_date) = 2020 AND EXTRACT(MONTH FROM T.program_date) = 6 AND C.content_type = 'Movies'
+SELECT DISTINCT C.title FROM TVProgram T INNER JOIN Content C ON T.content_id = C.content_id AND C.kids_content = 'Y' AND C.content_type = 'Movies' WHERE T.program_date LIKE '2020-06%'
+SELECT DISTINCT C.title FROM TVProgram T INNER JOIN Content C ON T.content_id = C.content_id WHERE T.program_date LIKE '2020-06%' AND C.kids_content = 'Y' AND C.content_type = 'Movies'
+SELECT DISTINCT Content.title as TITLE FROM content INNER JOIN tvprogram ON TVProgram.content_id = Content.content_id WHERE (TVProgram.program_date BETWEEN '2020-06-01 00:00' AND '2020-06-30 23:59') AND content.Kids_content ='Y' AND content_type = 'Movies'
+SELECT DISTINCT a.title FROM Content a JOIN TVProgram t ON a.content_id = t.content_id WHERE a.content_type ='Movies' AND a.kids_content = 'Y' AND LEFT(t.program_date,7) = '2020-06'
+SELECT DISTINCT b.title FROM TVProgram AS a LEFT JOIN Content AS b on a.content_id = b.content_id WHERE b.Kids_content = "Y" AND MONTH(a.program_date) = 06 AND YEAR(a.program_date) = 2020 AND content_type = "Movies"
+SELECT DISTINCT b.title FROM TVProgram a JOIN Content b on a.content_id = b.content_id WHERE b.Kids_content = 'Y' AND YEAR(program_date) = 2020 AND MONTH(program_date) = 6 AND b.content_type = 'Movies'
+SELECT DISTINCT c.title AS TITLE FROM TVProgram tv LEFT JOIN Content c ON tv.content_id = c.content_id WHERE LEFT(tv.program_date, 7) = '2020-06' AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content C left JOIN TVProgram T on T.content_id = C.content_id wherE YEAR(T.program_date) = '2020' AND MONTH(T.program_date) = '6' and c.KIDS_CONTENT = 'y' and c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c INNER JOIN (SELECT content_id FROM TVProgram WHERE MONTH(program_date) = 6 AND YEAR(program_date) = 2020) t ON t.content_id = c.content_id WHERE c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c INNER JOIN TVProgram t ON c.content_id = t.content_id AND c.Kids_content = "Y" AND MONTH(t.program_date )= '06' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c INNER JOIN TVProgram t ON c.content_id = t.content_id WHERE c.Kids_content = 'Y' AND YEAR(t.program_date) = 2020 AND MONTH(t.program_date) = 6 AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c INNER JOIN TVProgram tv ON tv.content_id = c.content_id WHERE c.Kids_content = 'Y' AND c.content_type = 'movies' AND tv.program_date BETWEEN'2020-06-01' AND '2020-06-30'
+SELECT DISTINCT c.title FROM Content c JOIN TVProgram p ON c.content_id = p.content_id WHERE c.Kids_content = 'Y' AND c.content_type = 'Movies' AND (p.program_date) like '2020-06%'
+SELECT DISTINCT c.title FROM Content c JOIN TVProgram p ON c.content_id = p.content_id WHERE c.Kids_content = 'Y' AND c.content_type = 'Movies' AND MONTH(p.program_date) = 6 AND YEAR(p.program_date) = 2020
+SELECT DISTINCT c.title FROM Content c JOIN TVProgram t ON c.content_id = t.content_id WHERE YEAR(t.program_date)=2020 AND MONTH(t.program_date)=6 AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c JOIN TVProgram t ON c.content_id = t.content_id WHERE t.program_date BETWEEN '2020-06-01' AND '2020-06-30' AND c.content_type = "Movies" AND Kids_content = 'Y'
+SELECT DISTINCT c.title FROM Content c JOIN TVProgram tv ON c.content_id = tv.content_id WHERE DATE(tv.program_date) BETWEEN DATE('2020-06-01') AND DATE('2020-06-30') AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c JOIN TVProgram tv ON c.content_id = tv.content_id WHERE DATE(tv.program_date) BETWEEN DATE('2020-06-01') AND DATE('2020-06-30') AND c.content_type = 'Movies' AND c.Kids_content = 'Y'
+SELECT DISTINCT c.title FROM Content c LEFT JOIN TVProgram t ON c.content_id = t.content_id WHERE c.Kids_content = 'Y' AND DATE_FORMAT(t.program_date, '%m-%Y') = '06-2020' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM Content c LEFT JOIN TVProgram t ON c.content_id = t.content_id WHERE c.Kids_content = 'Y' AND MONTH(t.program_date) = '6' AND YEAR(t.program_date) = '2020' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram as t JOIN Content as c ON t.content_id = c.content_id WHERE c.Kids_content = 'Y' and c.content_type = 'Movies' and year(t.program_date) = 2020 and month(t.program_date) = 6
+SELECT DISTINCT c.title FROM TVProgram t JOIN Content c ON c.content_id = t.content_id AND LEFT(program_date, 7) = '2020-06' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram t JOIN Content c ON t.content_id = c.content_id WHERE DATE_FORMAT(t.program_date, '%Y-%m') = '2020-06' AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram t JOIN Content c ON t.content_id = c.content_id WHERE c.Kids_content = 'Y' AND MONTH(t.program_date) = 6 AND YEAR(t.program_date) = 2020 AND c.content_type = "Movies"
+SELECT DISTINCT c.title FROM TVProgram t JOIN Content c ON t.content_id = c.content_id WHERE c.Kids_content = 'Y' AND MONTH(t.program_date) = 6 AND YEAR(t.program_date) = 2020 AND content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram t LEFT JOIN Content c ON c.content_id = t.content_id WHERE c.content_type = 'Movies' AND c.Kids_content = 'Y' AND (t.program_date BETWEEN '2020-06-01 00:00' AND '2020-06-30 23:59')
+SELECT DISTINCT c.title FROM TVProgram t LEFT JOIN Content c ON t.content_id=c.content_id WHERE program_date BETWEEN '2020-06-01 00:00' AND '2020-06-30 23:59' AND content_type ='Movies' AND kids_content = 'Y'
+SELECT DISTINCT c.title FROM TVProgram t LEFT JOIN Content c USING (content_id) WHERE c.kids_content = 'Y' AND c.content_type = 'Movies' AND LEFT(t.program_date,7) = '2020-06'
+SELECT DISTINCT c.title FROM TVProgram tp INNER JOIN Content c ON tp.content_id = c.content_id WHERE MONTH(tp.program_date) = 6 AND c.kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram tv JOIN Content c ON tv.content_id = c.content_id WHERE tv.program_date BETWEEN '2020-06-01' AND '2020-06-30' AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram tv LEFT JOIN Content c ON tv.content_id = c.content_id WHERE c.Kids_content = 'Y' AND DATE_FORMAT(CAST(tv.program_date AS DATE), '%Y-%m') = '2020-06' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM TVProgram tv LEFT JOIN Content c ON tv.content_id = c.content_id WHERE c.Kids_content = 'Y' AND EXTRACT(YEAR_MONTH FROM tv.program_date) = '202006' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title FROM content AS c INNER JOIN tvprogram AS t ON c.content_id = t.content_id WHERE c.content_type = 'Movies' AND c.Kids_content = 'Y' AND EXTRACT( YEAR_MONTH FROM t.program_date) = 202006
+SELECT DISTINCT c.title FROM content as c JOIN TVprogram as t using (content_id) WHERE date_format(t.program_date, "%Y-%m")='2020-06' and Kids_content='Y' and c.content_type='movies'
+SELECT DISTINCT c.title FROM content c LEFT JOIN tvprogram t ON c.content_id = t.content_id WHERE c.kids_content = "Y" AND month(t.program_date) = 06 AND content_type = "Movies"
+SELECT DISTINCT c.title FROM tvprogram t LEFT JOIN content c ON t.content_id = c.content_id WHERE EXTRACT(MONTH from program_date) = '06' AND EXTRACT(YEAR from program_date) = '2020' AND c.kids_content = 'Y' AND content_type = 'Movies' GROUP BY c.title
+SELECT DISTINCT c.title as TITLE FROM Content c JOIN TVProgram t ON c.content_id = t.content_id WHERE c.Kids_content = 'Y' AND c.content_type = 'Movies' AND MONTH(t.program_date) = 6
+SELECT DISTINCT c.title as TITLE FROM TVProgram t LEFT JOIN Content c ON t.content_id = c.content_id WHERE year(t.program_date) = 2020 AND month(t.program_date) = 6 AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT c.title as TITLE FROM content c JOIN TVProgram t ON c.content_id = t.content_id WHERE EXTRACT(YEAR_MONTH FROM t.program_date) = '202006' AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT ct.title FROM TVProgram as tp JOIN Content as ct ON ct.content_id=tp.content_id WHERE ct.content_type='Movies' AND tp.program_date >= timestamp '2020-06-01 00:00' AND tp.program_date < timestamp '2020-07-01 00:00' AND ct.Kids_content='Y'
+SELECT DISTINCT t2.title AS title FROM TVProgram AS t1 LEFT JOIN Content AS t2 ON t1.content_id = t2.content_id WHERE t2.Kids_content = 'Y' AND DATE_FORMAT(t1.program_date,'%Y-%m') = '2020-06' AND t2.content_type = 'Movies'
+SELECT DISTINCT t2.title AS title FROM TVProgram AS t1 LEFT JOIN Content AS t2 ON t1.content_id = t2.content_id WHERE t2.Kids_content = 'Y' AND program_date BETWEEN '2020-06-01' AND '2020-06-30' AND t2.content_type = 'Movies'
+SELECT DISTINCT title FROM ( SELECT DATE_FORMAT(t.program_date,"%Y-%m") AS program_date, t.content_id AS id, t.channel,c.* FROM TVProgram t LEFT JOIN Content c ON t.content_id = c.content_id ) Cb WHERE program_date = "2020-06" AND Kids_content = "Y" AND content_type = "Movies"
+SELECT DISTINCT title FROM ( SELECT Program_date,TVProgram.content_id,title,kids_content,content_type FROM TVProgram INNER JOIN Content ON TVProgram.content_id=Content.content_id WHERE Kids_content='Y' AND content_type='Movies') tb1 WHERE LEFT(Program_date,7)='2020-06'
+SELECT DISTINCT title FROM Content AS c LEFT JOIN TVProgram AS p ON c.content_id = p.content_id WHERE Kids_content='Y' AND YEAR(program_date)=2020 AND MONTH(program_date)=6 AND content_type='Movies'
+SELECT DISTINCT title FROM Content AS c LEFT JOIN TVProgram AS t ON c.content_id = t.content_id WHERE Kids_content = 'Y' AND content_type = 'Movies' AND MONTH(program_date) = 6 AND YEAR(program_date) = 2020
+SELECT DISTINCT title FROM Content C INNER JOIN TVProgram TV ON C.content_id = TV.content_id WHERE Kids_content = 'Y' AND content_type = 'Movies' AND LEFT(program_date,7) = '2020-06'
+SELECT DISTINCT title FROM Content INNER JOIN TVProgram ON Content.content_id = TVProgram.content_id AND LEFT(program_date, 7) = "2020-06" AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content INNER JOIN TVProgram ON Content.content_id=TVProgram.content_id WHERE Kids_content='Y' AND content_type='Movies' AND MONTH(program_date)='6' AND YEAR(program_date)='2020'
+SELECT DISTINCT title FROM Content INNER JOIN TVProgram USING(content_id) WHERE Kids_content = 'Y' AND LEFT(program_date,7)='2020-06' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content INNER JOIN TVProgram USING(content_id) WHERE MONTH(program_date) = 6 AND YEAR(program_date) = 2020 AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content JOIN TVProgram ON Content.content_id = TVProgram.content_id WHERE Kids_content = 'Y' AND content_type = 'Movies' AND SUBSTRING(program_date,1,7) = '2020-06'
+SELECT DISTINCT title FROM Content JOIN TVProgram USING(content_id) WHERE Kids_content = 'Y' AND content_type = 'Movies' and LEFT(program_date,7)= '2020-06'
+SELECT DISTINCT title FROM Content LEFT JOIN TVProgram USING(content_id) WHERE Kids_content = 'Y' AND content_type='Movies' AND program_date LIKE '2020-06%'
+SELECT DISTINCT title FROM Content RIGHT JOIN TVProgram USING (content_id) WHERE Kids_content = 'Y' AND content_type = 'Movies' AND LEFT(program_date, 7) = '2020-06'
+SELECT DISTINCT title FROM Content WHERE Kids_content = 'Y' AND (content_id IN (SELECT content_id FROM TVProgram WHERE MONTH(program_date) = 6 AND YEAR(program_date) = 2020)) AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content WHERE Kids_content = 'Y' AND content_type = 'Movies' AND content_id IN ( SELECT content_id FROM TVProgram WHERE YEAR(program_date) = 2020 AND MONTH(program_date) = 6 )
+SELECT DISTINCT title FROM Content c INNER JOIN TVProgram t ON c.content_id = t.content_id WHERE LEFT(program_date,7)='2020-06' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content c INNER JOIN TVProgram t ON t.content_id=c.content_id WHERE c.kids_content<>'N' AND EXTRACT(Month FROM Program_Date)=6 AND EXTRACT(Year FROM Program_Date)=2020 AND Content_type='Movies'
+SELECT DISTINCT title FROM Content c JOIN (SELECT * FROM TVProgram WHERE program_date between '2020-06-01' AND '2020-06-30') t on t.content_id = c.content_id WHERE c.content_type = 'Movies' AND c.Kids_content = 'Y'
+SELECT DISTINCT title FROM Content c JOIN TVProgram p ON c.content_id = p.content_id WHERE Kids_content = 'Y' AND content_type = 'Movies' AND DATE_FORMAT(program_date, '%Y-%m') = '2020-06'
+SELECT DISTINCT title FROM Content c JOIN TVProgram t ON c.content_id = t.content_id WHERE kids_content = 'Y' AND content_type = 'Movies' AND program_date BETWEEN '2020-06-01' AND '2020-06-30'
+SELECT DISTINCT title FROM Content c JOIN TVProgram t ON c.content_id = t.content_id WHERE program_date BETWEEN '2020-06-01' AND '2020-06-30' AND content_type = 'Movies' AND Kids_content = 'Y'
+SELECT DISTINCT title FROM Content c JOIN TVProgram t USING(content_id) WHERE LEFT(t.program_date, 7) = '2020-06' AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT title FROM Content c JOIN TVprogram t ON c.content_id = t.content_id AND kids_content = 'Y' AND t.program_date BETWEEN '2020-06-01' AND '2020-06-30' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content c LEFT JOIN TVProgram USING(content_id) WHERE Kids_content = 'Y' AND content_type = "Movies" AND LEFT(program_date, 7) = '2020-06'
+SELECT DISTINCT title FROM Content c LEFT JOIN TVProgram t ON c.content_id = t.content_id WHERE c.content_type = "Movies" AND c.Kids_content = "Y" AND left(t.program_date, 7) = "2020-06"
+SELECT DISTINCT title FROM Content c LEFT JOIN TVProgram t ON c.content_id = t.content_id WHERE program_date BETWEEN '2020-06-01' AND '2020-06-30'AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content c RIGHT JOIN TVProgram t ON c.content_id = t.content_id WHERE LEFT(program_date, 7) = '2020-06' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM Content t JOIN TVProgram tv ON t.content_id = tv.content_id WHERE LEFT(program_date,7)='2020-06' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM TVProgram AS T JOIN Content AS C USING(content_id) WHERE kids_content='Y' and program_date BETWEEN '2020-06-01' AND '2020-06-30' AND content_type='movies'
+SELECT DISTINCT title FROM TVProgram JOIN Content USING (content_id) WHERE kids_content = 'Y' AND LEFT(program_date,7) = '2020-06' AND content_type = 'Movies'
+SELECT DISTINCT title FROM TVProgram JOIN Content USING (content_id) WHERE program_date between '2020-06-01' and '2020-06-30' and Kids_content = 'Y' and content_type = 'Movies'
+SELECT DISTINCT title FROM TVProgram JOIN Content USING(content_id) WHERE Kids_content='Y' AND content_type="Movies" AND SUBSTRING(program_date, 1, 7)='2020-06'
+SELECT DISTINCT title FROM TVProgram NATURAL JOIN Content WHERE YEAR(program_date) = 2020 AND MONTH(program_date) = 6 AND Kids_content = 'Y' AND content_type = "Movies"
+SELECT DISTINCT title FROM TVProgram T INNER JOIN Content C ON T.content_id = C.content_id WHERE LEFT(program_date,7) = '2020-06' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM TVProgram a LEFT JOIN Content b ON a.content_id = b.content_id WHERE Kids_content = 'Y' and content_type = 'Movies' and left(program_date, 7) = '2020-06'
+SELECT DISTINCT title FROM TVProgram as tv LEFT JOIN Content as c ON tv.content_id=c.content_id WHERE DATE_FORMAT(program_date,"%Y-%m")="2020-06" and c.kids_content='Y' AND content_type='Movies'
+SELECT DISTINCT title FROM TVProgram p JOIN Content c ON p.content_id = c.content_id WHERE left(program_date,7)='2020-06' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT title FROM TVProgram p LEFT JOIN Content c ON p.content_id = c.content_id WHERE p.program_date LIKE "2020-06-%%" AND c.content_type = "Movies" AND c.Kids_content = "Y"
+SELECT DISTINCT title FROM TVProgram t LEFT JOIN Content c ON t.content_id = c.content_id WHERE Kids_content = 'Y' AND content_type = 'Movies' AND program_date LIKE '2020-06-%'
+SELECT DISTINCT title FROM TVProgram, Content WHERE TVProgram.content_id = Content.content_id AND Kids_content = 'Y' AND content_type = 'Movies' AND TVProgram.program_date >= CAST('2020-06-01' AS DATE) AND TVProgram.program_date < CAST('2020-07-01' AS DATE)
+SELECT DISTINCT title FROM content as c JOIN tvprogram as t on t.content_id=c.content_id WHERE t.program_date BETWEEN '2020-06-01' AND '2020-06-30' AND c.Kids_content = 'Y' AND c.content_type = 'Movies'
+SELECT DISTINCT title FROM content c JOIN TVProgram tv ON c.content_id = tv.content_id WHERE kids_content ="Y" AND content_type = "Movies" AND program_date BETWEEN "2020-06-01" AND "2020-06-30"
+SELECT DISTINCT title FROM content c JOIN tvprogram p ON c.content_id=p.content_id WHERE kids_content='Y' AND content_type='movies' AND DATE_FORMAT(program_date,'%Y-%m')='2020-06'
+SELECT DISTINCT title FROM content c JOIN tvprogram p ON c.content_id=p.content_id WHERE kids_content='Y' AND content_type='movies' AND LEFT(program_date,7)='2020-06'
+SELECT DISTINCT title FROM tvprogram JOIN content USING(content_id) WHERE LEFT(program_date, 7) = '2020-06' AND kids_content = 'Y' AND content_type= 'Movies'
+SELECT DISTINCT title FROm TVProgram t JOIN content c ON t.content_id = c.content_id WHERE Kids_content = 'Y' AND year(program_date) = 2020 AND month(program_date) = 06 AND content_type = 'Movies'
+SELECT DISTINCT title as title FROM TVProgram t JOIN Content c ON t.content_id = c.content_id WHERE YEAR(program_date) = '2020' AND MONTH(program_date) = '6' AND Kids_content = 'Y' AND content_type = 'Movies'
+SELECT DISTINCT(c.title) AS title FROM TVProgram AS t INNER JOIN Content AS c ON t.content_id = c.content_id WHERE c.Kids_content = 'Y' AND MONTH(t.program_date) = 6 AND c.content_type = 'Movies' AND YEAR(t.program_date) = 2020
+SELECT DISTINCT(c.title) FROM Content c JOIN tvprogram t ON c.content_id = t.content_id WHERE c.kids_content = 'Y' and c.content_type = 'Movies' AND YEAR(t.program_date) = 2020 and MONTH(t.program_date) = 6
+SELECT DISTINCT(title) FROM TVProgram JOIN Content ON TVProgram.content_id = Content.content_id WHERE program_date BETWEEN "2020-06-01" AND "2020-06-30" AND Kids_content = "Y" AND content_type = "Movies"
+SELECT Distinct c.title FROM content c Join TVProgram t on c.content_id = t.content_id Where t.program_date like '2020-06%' and c.content_type = 'Movies' and c.kids_content = 'Y'
+SELECT Distinct c.title FROM content c Left Join TVProgram t on c.content_id = t.content_id Where t.program_date like '2020-06%' and c.content_type = 'Movies' and c.kids_content = 'Y'
+SELECT TITLE from TVProgram t join Content c on t.content_id=c.content_id where left(program_date,7)='2020-06' AND content_type='Movies' and kids_content='Y' group by 1
+SELECT distinct Content.title from Content inner join TVProgram ON TVProgram.content_id = Content.content_id where Content.kids_content = 'Y' and Content.content_type = 'Movies' and year(TVProgram.program_date) = '2020' and month(TVProgram.program_date) = '06'
+SELECT distinct b.title FROM TVprogram as a LEFT JOIN Content as b ON a.content_id = b.content_id WHERE program_date >= '2020-06-01' and program_date <= '2020-06-30' AND b.kids_content = "Y" AND b.content_type = "Movies"
+SELECT distinct c.title FROM TVProgram as t JOIN Content as c ON c.content_id=t.content_id WHERE c.Kids_content="Y" AND MONTH(t.program_date)=6 AND content_type="Movies"
+SELECT distinct c.title FROM TVProgram tv JOIN Content c on c.content_id = tv.content_id WHERE tv.program_date between '2020-06-01' and '2020-06-30' and kids_content = 'Y' and content_type = 'Movies'
+SELECT distinct c.title FROM tvprogram tp JOIN content c USING(content_id) WHERE c.kids_content = 'Y' AND c.content_type = 'Movies' AND DATE_FORMAT(tp.program_date, '%Y-%m') = '2020-06'
+SELECT distinct c.title from content c join TVProgram t on c.content_id = t.content_id where extract( month from t.program_date) = 6 and c.kids_content ='Y' AND c.content_type = 'Movies'
+SELECT distinct content.title FROM COntent JOIN TVProgram ON TVPROGRAM.content_id=Content.Content_id WHERE Kids_content='y' and program_date like '2020-06%' and content_type = 'Movies'
+SELECT distinct title FROM Content JOIN TVProgram USING(content_id) WHERE Kids_content = 'Y' and MONTH(program_date) = 6 and YEAR(program_date) = 2020 and content_type = 'Movies'
+SELECT distinct title FROM Content as c INNER JOIN TVProgram as t ON c.content_id = t.content_id AND kids_content = 'Y' AND content_type ='Movies' AND (MONTH(program_date), YEAR(program_date))= (6,2020)
+SELECT distinct title FROM Content as c INNER JOIN TVProgram as t ON c.content_id = t.content_id AND kids_content = 'Y' AND content_type ='Movies' AND left(program_date,7)='2020-06'
+SELECT distinct title FROM Content c JOIN TVProgram t ON left(program_date, 7) = '2020-06' AND content_type = 'Movies' AND c.content_id = t.content_id AND Kids_content = 'Y'
+SELECT distinct title FROM TVProgram as t JOIN Content as c ON t.content_id = c.content_id WHERE date_format(program_date, '%Y-%m') = '2020-06' AND kids_content = 'Y' AND content_type = 'Movies'
+SELECT distinct title FROM TVProgram p left join Content c on p.content_id = c.content_id where left(program_date,7) = '2020-06' and c.kids_content = 'Y' and c.content_type = 'movies'
+SELECT distinct title as TITLE FROM content c JOIN TVProgram t ON c.content_id = t.content_id WHERE t.program_date LIKE '2020-06%' AND content_type = 'Movies' AND Kids_content = 'Y'
+SELECT distinct title from TVProgram t inner join content c on t.content_id = c.content_id WHERE c.content_type='Movies' and Kids_content='Y' and t.program_date>='2020-06-01 00:00' and t.program_date<'2020-07-01 00:00'
+SELECT distinct(TITLE) from Content Inner join tvprogram on content.content_id = tvprogram.content_id where substr(TVProgram.program_date,1,7)='2020-06' and Content.Kids_content = 'Y' and content_type = 'Movies'
+SELECT title FROM Content JOIN TVProgram ON Content.content_id = TVProgram.content_id AND program_date BETWEEN '2020-06-01' AND '2020-06-30' AND Kids_content = 'Y' AND content_type = 'Movies' GROUP BY Content.content_id
+SELECT title FROM Content JOIN TVProgram ON Content.content_id = TVProgram.content_id AND program_date BETWEEN CAST('2020-06-01' AS DATE) AND CAST('2020-06-30' AS DATE) AND Kids_content = 'Y' AND content_type = 'Movies' GROUP BY Content.content_id
+SELECT title FROM Content JOIN TVProgram USING(content_id) WHERE content_type='Movies' AND Kids_content='Y' AND date_format(program_date,'%Y-%m')='2020-06' GROUP BY 1
+SELECT title FROM Content WHERE Kids_content = "Y" AND content_type = "Movies" AND content_id IN ( SELECT DISTINCT content_id FROM TVProgram WHERE SUBSTR(program_date,1,7) = "2020-06" )
+SELECT title FROM Content WHERE Kids_content='Y' AND content_type='Movies' AND content_id in( SELECT content_id FROM TVProgram WHERE program_date BETWEEN '2020-06-01 00:00' AND '2020-06-30 23:59')
+SELECT title FROM content WHERE kids_content = 'Y' AND content_type = 'Movies' AND content_id IN ( SELECT DISTINCT content_id FROM tvprogram WHERE LEFT(program_date,7) = '2020-06' )
+SELECT title FROM( SELECT DISTINCT content_id FROM TVProgram WHERE program_date BETWEEN '2020-06-01' AND '2020-06-30' ) tmp JOIN( SELECT content_id, title FROM Content WHERE Kids_content = 'Y' AND content_type = 'Movies' ) c ON tmp.content_id = c.content_id
+Select distinct c.title FROM content c JOIN tvprogram t on c.content_id=t.content_id where c.kids_content='Y' and c.content_type='Movies'and year(t.program_date)='2020'and month(t.program_date)='6'
+Select distinct c.title from TVProgram t join Content c on t.content_id = c.content_id where Kids_content = 'Y' and date_format(t.program_date, '%Y-%m') = '2020-06' and content_type like 'Movies'
+Select distinct c.title from content c join TVprogram t on t.content_id = c.content_id where c.Kids_content = 'Y' and c.content_type = 'Movies' and MONTH(t.program_date) = 6 and YEAR(t.program_date) = 2020
+Select distinct t1.title from Content as t1 join Tvprogram as t2 on t1.content_id=t2.content_id where t1.Kids_content ='Y' and t1.content_type='Movies' and t2.program_date>='2020-06-01' and t2.program_date<'2020-07-01'
+Select distinct title From Content as C Join TVProgram as T on C.content_id = T.content_id Where C.Kids_content ='Y' And Left(T.program_date,7) like '2020-06' And C.content_type='Movies'
+Select distinct title as TITLE from ( Select title from Content c join TVProgram tv on c.content_id=tv.content_id where Kids_content ='Y' and content_type = 'Movies' and date_format(program_date, '%Y-%m') = "2020-06" ) tmp
+Select distinct title as TITLE from Content c inner join TVProgram tv on c.content_id = tv.content_id where month(program_date) = 6 and year(program_date) = 2020 and Kids_content = 'Y' and c.content_type = 'Movies'
+Select distinct title from Content a Join (select content_id from TVProgram where Program_date between '2020-06-01' and '2020-06-30' ) as b on a.Content_id = b.content_id where kids_content = 'Y' and content_type = 'Movies'
+Select distinct title from TVProgram p join Content c on p.content_id = c.content_id where date_format(program_date,"%Y-%m") = "2020-06" and kids_content = "Y" and content_type like "Movies"
+Select distinct title from TVProgram p join Content c on p.content_id = c.content_id where kids_content = "Y" and content_type like "Movies" and date_format(program_date,"%Y-%m") = "2020-06"
+Select distinct title from content left join TVProgram on content.content_id = TVProgram.content_id where month(TVProgram.program_date)='06' and content.Kids_content ='Y' and content_type ='movies'
+Select distinct title from tvprogram t left join content c on t.content_id=c.content_id where date(program_date) between '2020-06-01' and '2020-06-30' and kids_content='Y' and content_type='Movies'
+Select distinct(title) as TITLE from Content c JOIN TVProgram p ON c.content_id = p.content_id AND c.Kids_content='Y' AND c.content_type='Movies' AND p.program_date like '2020-06%'
+Select title From content Where content_id in ( Select tv.content_id From TVProgram as tv Left join content as c On tv.content_id = c.content_id Where tv.program_date between "2020-06-01" and "2020-06-30" And c.kids_content = "Y" And c.content_type = "Movies" )
+WITH JuneContent AS (SELECT content_id FROM TVProgram WHERE YEAR(program_date) = 2020 AND MONTH(program_date) = 6), KidFriendlyMovie AS (SELECT content_id ,title FROM Content WHERE Kids_content = 'Y' AND content_type = 'Movies') SELECT DISTINCT title FROM KidFriendlyMovie K INNER JOIN JuneContent J ON J.content_id = K.content_id
+WITH TEMP AS( SELECT DISTINCT(CONTENT_ID) FROM TVPROGRAM WHERE MONTH(PROGRAM_DATE)= 6 ) SELECT C.TITLE FROM TEMP T LEFT JOIN CONTENT C ON T.CONTENT_ID = C.CONTENT_ID WHERE C.CONTENT_TYPE ='MOVIES'AND C.KIDS_CONTENT = 'Y'
+WITH cte AS( SELECT c.content_id, channel, title, Kids_content, content_type FROM Content c LEFT JOIN TVProgram t ON c.content_id = t.content_id WHERE program_date BETWEEN '2020-06-01' AND '2020-06-30' ) SELECT DISTINCT title FROM cte WHERE Kids_content = 'Y' AND content_type = 'Movies'
+WITH kids_movies AS ( SELECT content_id, title FROM Content WHERE Kids_content = 'Y' AND content_type = 'Movies' ) SELECT k.title FROM ( SELECT DISTINCT content_id FROM TVProgram WHERE MONTH(program_date) = 6 AND YEAR(program_date) = 2020 ) j INNER JOIN kids_movies k ON j.content_id = k.content_id
+WITH t AS (SELECT * FROM TVProgram WHERE DATE_FORMAT(program_date, '%Y%m') = '202006') SELECT DISTINCT c.title FROM t JOIN content c ON t.content_id = c.content_id AND c.kids_content = 'Y' AND c.content_type = 'Movies'
+WITH temp AS ( SELECT DISTINCT C.title FROM TVProgram P INNER JOIN Content C ON P.content_id = C.content_id WHERE DATE_FORMAT(P.program_date, '%Y-%m') = '2020-06' AND C.Kids_content = 'Y' AND C.content_type = 'movies' ) SELECT * FROM temp
+select C .title from Content C LEFT JOIN TVProgram TV ON C.content_id = TV.content_id where C.Kids_content = 'Y' AND C.content_type = 'Movies' and TV.program_date like '2020-06%' group by 1
+select C.title from Content C right join TVProgram T on T.content_ID = C.content_id where T.program_date between '2020-06-01' and '2020-06-30' and C.Kids_content = 'Y' and c.content_type = 'Movies' group by C.title
+select DISTINCT title from TVProgram t inner join Content c on t.content_id = c.content_id and Kids_content ='Y' and program_date between '2020-06-01' and '2020-06-30' AND CONTENT_TYPE='Movies'
+select Distinct c.title from TVProgram T join Content C on T.content_id = C.content_id where YEAR(t.program_date)=2020 AND MONTH(t.program_date)=6 and Kids_content = 'Y' AND c.content_type = 'Movies'
+select a.title from content a inner join TVProgram b on a.content_id = b.content_id where a.kids_content ='Y' and a.content_type ='Movies' and left(b.program_date,7) ='2020-06' group by a.content_id
+select b.title as TITLE from TVProgram a left join Content b on a.content_id=b.content_id where Left(program_date,7)='2020-06' and kids_content='Y' and content_type='movies' group by b.title
+select c.title from content c join TVProgram t on c.content_id = t.content_id where month(program_date) = 06 and Kids_content = 'Y' and content_type = 'Movies' group by title
+select distinct (title) from content c inner join TVProgram t on c.content_id=t.content_id where program_date like "2020-06%" and kids_content = "Y" and content_type = "Movies"
+select distinct C.title from TVProgram TV, Content C where TV.content_id=C.content_id and kids_content ='Y' and left(program_date, 7)='2020-06' and content_type='Movies'
+select distinct TITLE from content c join TVProgram t on t.content_id = c.content_id where left(t.program_date,7) = '2020-06' and c.kids_content ='Y' and c.content_type ='Movies'
+select distinct a.title from (select content_id, title from content where kids_content='Y' and content_type='Movies') a join (select content_id from TVProgram where date_format(program_date,'%Y%m')=202006) b on a.content_id=b.content_id
+select distinct a.title from Content a join TVProgram b on a.content_id = b.content_id where a.Kids_content = 'Y' and a.content_type = 'Movies' and b.program_date like "2020-06%"
+select distinct a.title from content a inner join tvprogram b on a.content_id = b.content_id where a.kids_content = 'Y' and YEAR(date(b.program_date)) = 2020 and MONTH(date(b.program_date)) = 6 and a.content_type = 'Movies'
+select distinct a.title from content a join (select content_id from TVProgram where date_format(program_date,'%Y-%m') = '2020-06') b on b.content_id = a.content_id where a.Kids_content = 'Y' and a.content_type = 'Movies'
+select distinct a.title from content a join tvprogram b on a.content_id = b.content_id where a.kids_content = 'Y' and a.content_type = 'movies' and date_format(b.program_date, "%Y-%m") = '2020-06'
+select distinct a.title from content a left join TVProgram b on a.content_id=b.content_id WHERE a.kids_content='Y' and Month(b.program_date)=6 and Year(b.program_date)=2020 and a.content_type='Movies'
+select distinct b.title from Content b join TVProgram a on a.content_id=b.content_id and left(a.program_date ,7)='2020-06' where b.Kids_content='Y' and b.content_type="Movies" order by a.program_date
+select distinct b.title from TVPROGRAM a join content b on a.content_id = b.content_id where left(a.program_Date,7) = '2020-06' and b.kids_content = 'Y' and b.content_type = 'Movies'
+select distinct b.title from TVProgram a inner join Content b on a.content_id = b.content_id where Kids_content = 'Y' and a.program_date between '2020-06-01' and '2020-06-30' and b.content_type = 'Movies'
+select distinct b.title from TVprogram a join content b on a.content_id=b.content_id where b.Kids_content='Y' and content_type='Movies' and extract(year_month from program_date)=202006
+select distinct b.title from tvprogram a join content b on a.content_id = b.content_id where b.kids_content = 'Y' and b.content_type = 'Movies' and left(a.program_date, 7) = '2020-06'
+select distinct c.title as 'TITLE' from content c right join TVProgram t on c.content_id = t.content_id where (t.program_date between '2020-06-01' and '2020-06-30') and c.kids_content = True and c.content_type = 'Movies'
+select distinct c.title as TITLE from Content c left join TVProgram t on t.content_id = c.content_id where month(t.program_date) = 06 and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct c.title as TITLE from TVProgram as TV join content as c on(TV.content_id =c.content_id) where c.Kids_content ="Y" and content_type ="Movies" and TV.program_date like "2020-06%"
+select distinct c.title as TITLE from TVProgram t join content c on t.content_id=c.content_id where (t.program_date>='2020-06-01' and t.program_date<='2020-06-30') and c.kids_content='Y' and c.content_type='Movies'
+select distinct c.title as TITLE from TVProgram tv inner join Content c on tv.content_id=c.content_id where c.Kids_content="Y" and month(tv.program_date)="06" and c.content_type="Movies" group by c.content_id
+select distinct c.title as TITLE from TVProgram tvp left join Content c on tvp.content_id = c.content_id where month(tvp.program_date) = 6 and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct c.title as TITLE from tvProgram tv join content c on tv.content_id = c.content_id where c.kids_content = 'Y' and month(program_date) = 6 and c.content_type = 'Movies'
+select distinct c.title as TITLE from tvprogram t inner join content c on t.content_id = c.content_id and c.kids_content = 'Y' and c.content_type = 'Movies' where t.program_date like '2020-06%'
+select distinct c.title as Title from content c join tvprogram t on t.content_id = c.content_id where t.program_date between '2020-06-01 00:00' and '2020-06-30 23:59' and c.kids_content = 'Y' and c.content_type = 'Movies'
+select distinct c.title as title from Content c left join TVProgram t on c.content_id = t.content_id where Kids_content="Y" and content_type="Movies" and month(t.program_date)=6
+select distinct c.title as title from TVProgram as t join Content as c on t.content_id = c.content_id where c.content_type = "Movies" and c.Kids_content = "Y" and t.program_date like "2020-06%"
+select distinct c.title as title from TVProgram t inner join Content c on t.content_id = c.content_id where c.Kids_content = 'Y' AND c.content_type = 'Movies' AND MONTHNAME(program_date)='June' AND YEAR(program_date) = 2020
+select distinct c.title as title from TVProgram t inner join Content c on t.content_id = c.content_id where month(t.program_date) = 6 and year(t.program_date) = 2020 and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct c.title as title from content c INNER JOIN tvprogram tv ON tv.content_id = c.content_id where c.kids_content = 'Y' and c.content_type = "Movies" and EXTRACT(YEAR_MONTH from tv.program_date) = "202006"
+select distinct c.title from (select * from content where kids_content="Y" and content_type="Movies") c inner join (select * from TVProgram where month(program_date)="06" and year(program_date)="2020") p on c.content_id= p.content_id
+select distinct c.title from Content as c join TVProgram as tv on tv.content_id = c.content_id where c.Kids_content = 'Y' and c.content_type = 'Movies' and year(tv.program_date) = 2020 and month(tv.program_date)=6
+select distinct c.title from Content as c left join TVProgram as t using(content_id) where content_type = "Movies" and Kids_content = "Y" and left(t.program_date,7) = "2020-06"
+select distinct c.title from Content c join TVProgram t on c.content_id = t.content_id where left(program_date, 7) = '2020-06' and Kids_content = 'Y' and content_type = 'Movies'
+select distinct c.title from Content c join TVProgram t on c.content_id=t.content_id where c.Kids_content='Y' and c.content_type='Movies' and left(t.program_date, 7)='2020-06'
+select distinct c.title from Content c join TVProgram tv on c.content_id=tv.content_id and c.Kids_content='Y' and c.content_type='Movies' and month(tv.program_date)=06
+select distinct c.title from Content c left join TVProgram tv on c.content_id = tv.content_id WHERE tv.program_date between '2020-06-01' and '2020-06-30' AND c.Kids_content = 'Y' AND c.content_type = 'Movies' ORDER BY 1
+select distinct c.title from Content c, TVProgram t where c.content_id = t.content_id and c.Kids_content = 'Y' and c.content_type = 'Movies' and program_date like '2020-06%'
+select distinct c.title from TVProgram as t join Content as c on t.content_id = c.content_id where c.kids_content = 'Y' and year(t.program_date) = 2020 and month(t.program_date) = 6 and c.content_type = 'movies'
+select distinct c.title from TVProgram as t left join Content as c using(content_id) where content_type = "Movies" and Kids_content = "Y" and left(t.program_date,7) = "2020-06"
+select distinct c.title from TVProgram as t, Content as c where t.content_id = c.content_id and c.Kids_content = 'Y' and c.content_type = 'Movies' and program_date between '2020-06-01' and '2020-06-30'
+select distinct c.title from TVProgram as tv left join Content as c using (content_id) where date(tv.program_date) between '2020-06-01' and '2020-06-30' and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct c.title from TVProgram t JOIN Content c ON t.content_id = c.content_id where content_type = 'Movies' and c.kids_content = 'Y' and month(program_date) = 6 and year(program_date) = 2020
+select distinct c.title from TVProgram t inner join Content c on t.content_id = c.content_id where c.kids_content = "Y" and c.content_type="Movies" and t.program_date between "2020-06-01" and "2020-06-30" group by 1
+select distinct c.title from TVProgram t inner join Content c on t.content_id=c.content_id where kids_content='Y' and extract(month from program_date)=6 and content_type='Movies'
+select distinct c.title from TVProgram t join Content c on t.content_id=c.content_id where c.kids_content = 'Y' and extract(year from t.program_date)=2020 and extract(month from t.program_date)= '06' and content_type='Movies'
+select distinct c.title from TVProgram t join content c on c.content_id=t.content_id where c.Kids_content='Y' and year(t.program_date) ='2020' and month(t.program_date) ='06' and c.content_type='Movies'
+select distinct c.title from TVProgram t left join Content as c on t.content_id =c.content_id where month(t.program_date) = 6 and c.Kids_content = 'Y' and content_type = 'Movies'
+select distinct c.title from TVProgram t left join Content c on t.content_id = c.content_id where t.program_date between '2020-06-01' and '2020-06-30' and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct c.title from TVProgram tv join Content c on tv.content_id = c.content_id where c.Kids_content = 'Y' and left(tv.program_date, 7) = '2020-06' and c.content_type = 'movies'
+select distinct c.title from content c JOIN TVProgram t on c.content_id = t.content_id where LEFT(program_date,7) = '2020-06' and Kids_content = 'Y' and content_type = 'movies'
+select distinct c.title from content c inner join tvprogram p on c.content_id = p.content_id where c.kids_content = 'Y' and c.content_type = "Movies" and month(program_date) = 6 and year(program_date) = 2020
+select distinct c.title from content c inner join tvprogram t on c.content_id = t.content_id where c.kids_content = 'Y' and c.content_type = 'Movies' and month(program_date) = 6
+select distinct c.title from content c inner join tvprogram t on c.content_id = t.content_id where c.kids_content = 'Y' and c.content_type = 'Movies' and t.program_date between "2020-06-01" and "2020-06-30"
+select distinct c.title from content c join TVProgram t on c.content_id=t.content_id where c.Kids_content='Y' and year(t.program_date) ='2020' and month(t.program_date) ='06' and c.content_type='Movies'
+select distinct c.title from content c join TVProgram t on c.content_id=t.content_id where left(program_date ,7)='2020-06' AND Kids_content='Y' AND content_type='Movies'
+select distinct c.title from content c join TVProgram t on c.content_id=t.content_id where left(t.program_date,7)='2020-06' AND Kids_content='Y' AND content_type='Movies'
+select distinct c.title from content c join TVProgram t using(content_id) where kids_content='Y' and content_type='Movies' and (month(program_date),year(program_date))=(6,2020)
+select distinct c.title from content c join TVProgram tv on c.content_id=tv.content_id where c.Kids_content='Y' and c.content_type='movies' and left(tv.program_date,7)='2020-06'
+select distinct c.title from content c join TVprogram t on c.content_id=t.content_id where program_date like '2020-06-%' and kids_content='Y' and c.content_type = 'Movies'
+select distinct c.title from content c join tvprogram t on c.content_id = t.content_id where month(t.program_date) = 06 and c.kids_content = 'Y' and c.content_type = 'movies'
+select distinct c.title from content c join tvprogram t on c.content_id = t.content_id where program_date between "2020-06-01 %" and "2020-06-30 %" and c.kids_content = "Y" and c.content_type = "Movies"
+select distinct c.title from content c join tvprogram t using(content_id) where c.Kids_content = 'Y' and c.content_type = 'Movies' and t.program_date like '2020-06%'
+select distinct c.title from content c join tvprogram tv on c.content_id = tv.content_id where c.kids_content = 'Y' and date_format(tv.program_date,'%Y-%m') = '2020-06' and content_type = 'movies'
+select distinct c.title from content c, tvprogram t where c.content_id = t.content_id and c.kids_content = 'Y' and t.program_date between '2020-06-01' and '2020-06-30' and c.content_type = 'Movies'
+select distinct c.title from content c, tvprogram t where c.content_id = t.content_id and t.program_date between '2020-06-01' and '2020-06-30' and c.content_type = 'Movies' and c.kids_content = 'Y'
+select distinct c.title from tvprogram as t join content as c on t.content_id = c.content_id where c.kids_content = 'Y' and c.content_type = 'Movies' and date_format(t.program_date, '%Y-%m') = '2020-06'
+select distinct c.title from tvprogram t inner join content c on t.content_id = c.content_id where c.kids_content = 'Y' and c.content_type = 'Movies' and left(t.program_date,7) = '2020-06'
+select distinct c.title from tvprogram t join content c on t.content_id= c.content_id where kids_content='Y' and content_type='Movies' and extract(month from program_date)=6
+select distinct c.title from tvprogram t join content c on t.content_id=c.content_id where month(program_date)=6 and year(program_date)=2020 and kids_content='Y' and content_type='Movies'
+select distinct c.title from tvprogram tv join content c on c.content_id=tv.content_id where c.kids_content='Y' and tv.program_date between '2020-06-01' and '2020-06-30' and c.content_type='movies'
+select distinct c.title from tvprogram tv join content c on tv.content_id = c.content_id where date_format(program_date,'%Y-%m') = "2020-06" and kids_content='Y' and content_type='Movies'
+select distinct content.title from tvprogram left join content on tvprogram.content_id=content.content_id where kids_content='y' and content_type='movies' and month(program_date)='06'
+select distinct title From Content c Left Join TVProgram t ON c.content_id = t.content_id WHERE Month(program_Date) = 06 and Kids_content = "Y" and Content_type = "movies"
+select distinct title TITLE from Content join TVProgram using (content_id) where month(program_date) = 6 and year(program_date) = 2020 and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title as "TITLE" from Content c join TVProgram t on c.content_id=t.content_id where Kids_content='Y' and month(program_date)=6 and year(program_date)=2020 and content_type = 'Movies'
+select distinct title as 'TITLE' from TVProgram tv inner join content c on tv.content_id = c.content_id where substring(program_date,1,7) = '2020-06' and c.Kids_Content = 'Y' and c.content_type = 'Movies'
+select distinct title as TITLE from Content c join TVProgram t on c.content_id=t.content_id where Kids_content = 'Y' and content_type = 'Movies' and month(program_date)=6
+select distinct title as TITLE from TVProgram T inner join Content C on T.content_id = C.content_id where C.Kids_content = 'Y' and EXTRACT(MONTH FROM T.program_date) = 6 and EXTRACT(YEAR FROM T.program_date) = 2020 and C.content_type = 'Movies'
+select distinct title from ( select c.title,c.kids_content,c.content_type,t.program_date from content c left join tvprogram t on c.content_id = t.content_id where c.content_type = "movies" and c.kids_content = "Y" and date(t.program_date) between "2020-06-01" and "2020-06-30") t
+select distinct title from ( select tvp.program_date,tvp.content_id, con.title,con.Kids_content, con.content_type from TVProgram tvp right join Content con on tvp.content_id=con.content_id) t where '2020-06'=date_format(program_date,'%Y-%m') and Kids_content='Y' and content_type='Movies'
+select distinct title from (select c.content_id,c.title,c.Kids_content,left(program_date,7) program_date,c.content_type from Content c inner join TVProgram t on t.content_id=c.content_id and c.kids_content='Y' and c.content_type='Movies' and left(program_date,7)='2020-06') as p
+select distinct title from (select content_id from TVProgram tv where year(program_date) = 2020 and month(program_date) = 06) x join ( select content_id, title from content where kids_content = "Y" and content_type = "Movies") y on x.content_id = y.content_id
+select distinct title from (select date_format(t.program_date,'%Y-%m') as month, c.title from TVProgram t join content c on t.content_id = c.content_id where c.kids_content = 'Y' and c.content_type = 'Movies')p where month = '2020-06'
+select distinct title from Content C left join (select content_id, date_format(program_date,'%Y-%m') as program_date from TVProgram) as A on A.content_id=C.content_id where A.program_date='2020-06' and C.Kids_content='Y' and C.content_type='Movies'
+select distinct title from Content JOIN TVProgram using(content_id) where date_format(program_date, '%Y-%m') = '2020-06' and kids_content = 'Y'and content_type = 'movies'
+select distinct title from Content a inner join TVProgram b on a.content_id = b.content_id where Kids_content = 'Y' and program_date between'2020-06-01' and '2020-06-30' and content_type = 'Movies'
+select distinct title from Content a inner join TVProgram b on a.content_id = b.content_id where Kids_content = 'Y' and program_date like '2020-06-%' and content_type = 'Movies'
+select distinct title from Content as c join TVProgram as t on c.content_id = t.content_id where Kids_content = 'Y' and month(program_date) = 6 and content_type = 'Movies'
+select distinct title from Content as c left join TVProgram as T using (content_id) where Kids_content = 'Y' and content_type = 'Movies' and program_date between '2020-06-01' and '2020-06-30'
+select distinct title from Content as c left join TVProgram as v on c.content_id=v.content_id where c.Kids_content='Y' and c.content_type='Movies' and substr(v.program_date,1,7)='2020-06'
+select distinct title from Content c inner join TVProgram t on c.content_id = t.content_id where Kids_content="Y" and content_type="Movies" and (left(program_date,7)="2020-06")
+select distinct title from Content c inner join TVProgram t on c.content_id = t.content_id where date_format(program_date,'%Y %m') = '2020 06' and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from Content c inner join TVProgram t on c.content_id=t.content_id where Kids_content="Y" and content_type="Movies" and left(program_date,7)="2020-06"
+select distinct title from Content c join TVProgram t on c.content_id = t.content_id where Kids_content = "Y" and content_type = "Movies" and left(program_date,7) = "2020-06"
+select distinct title from Content c join TVProgram t on c.content_id = t.content_id where Kids_content = 'Y' and content_type = 'Movies' and program_date like '2020-06%'
+select distinct title from Content c join TVProgram t on c.content_id = t.content_id where Month(program_date)=6 and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from Content c join TVProgram t on c.content_id = t.content_id where date_format(t.program_date, '%Y-%m') = '2020-06' and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct title from Content c join TVProgram t on c.content_id = t.content_id where kids_content='Y' and date_format(program_date,"%Y-%m") = '2020-06' and content_type = 'Movies'
+select distinct title from Content c join TVProgram t on c.content_id = t.content_id where month(program_date) = 6 and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from Content c join TVProgram t on c.content_id=t.content_id where Kids_content='Y' and t.program_date like '2020-06%' and content_type='Movies'
+select distinct title from Content c join TVProgram t on c.content_id=t.content_id where c.Kids_content='Y' and month(t.program_date)= 6 and year(t.program_date)=2020 and content_type = 'Movies'
+select distinct title from Content c join TVProgram t using (content_id) where year(program_date)='2020' and month(program_date)='06' and Kids_content='Y' and content_type='Movies'
+select distinct title from Content c left join TVProgram t on c.content_id = t.content_id and Kids_content='Y' and content_type='Movies' where program_date like '2020-06%'
+select distinct title from Content c left join TVProgram t on t.content_id=c.content_id where Kids_content='Y' and content_type='Movies' and date_format(t.program_date,"%Y-%m")='2020-06'
+select distinct title from Content c left join TVProgram t on t.content_id=c.content_id where kids_content='Y' and month(program_date)='06' and year(program_date)='2020' and content_type='Movies'
+select distinct title from Content c left join TVProgram t using(content_id) where Kids_content = 'Y' and left(program_date, 7) = '2020-06' and content_type = 'Movies'
+select distinct title from Content c, TVProgram p where c.content_id = p.content_id and date_format(program_date, '%Y-%m') = '2020-06' and content_type = 'Movies' and Kids_content = 'Y'
+select distinct title from Content cont join TVProgram tv on cont.content_id = tv.content_id where cont.Kids_content = "Y" and content_type = "Movies" and left(program_date,7) = "2020-06"
+select distinct title from Content content join TVProgram tv on content.content_id = tv.content_id and tv.program_date between '2020-06-01' and '2020-06-30' and content.Kids_content = 'Y' and content.content_type = 'Movies'
+select distinct title from Content join TVProgram on Content.content_id = TVProgram.content_id where Kids_content = 'Y' and program_date between "2020-06-01" and "2020-06-30" and content_type = "Movies"
+select distinct title from Content join TVProgram on TVProgram.content_id = Content.content_id where content_type = 'Movies' and Kids_content = 'Y' and month(program_date) = '06' and year(program_date) = '2020'
+select distinct title from Content join TVProgram on TVProgram.content_id= Content.content_id where kids_content='Y' and content_type='Movies' and left(program_date,7)='2020-06'
+select distinct title from Content join TVProgram using(content_id) where Kids_content = "Y" and content_type = "Movies" and month(program_date) = 6 and year(program_date) = 2020
+select distinct title from Content join TVProgram using(content_id) where Kids_content='Y' and program_date BETWEEN '2020-06-01' AND '2020-06-30' and content_type='Movies'
+select distinct title from Content join TVProgram using(content_id) where Kids_content='Y' and program_date between '2020-06-01' and '2020-06-30' and content_type = 'Movies'
+select distinct title from Content join TVProgram using(content_id) where kids_content = 'Y' and content_type = 'Movies' and (month(program_date), year(program_date)) = (6, 2020)
+select distinct title from Content left join TVProgram using(content_id) where date_format(program_date,'%Y-%m') = '2020-06' and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from Content where Kids_content = 'Y' and content_type = 'Movies' and content_id in (select content_id from TVProgram where month(program_date)='06' and year(program_date)='2020')
+select distinct title from Content where Kids_content = 'Y' and content_type = 'Movies' and content_id in (select distinct content_id from TVProgram where date_format(program_date, '%Y-%m') = '2020-06')
+select distinct title from TVProgram A join Content C using (content_id) where kids_content = 'Y' and substr(program_date,1,7) ='2020-06' and content_type ='Movies'
+select distinct title from TVProgram T inner join Content C on T.content_id= C.content_id where MONTH(program_date)=06 and YEAR(program_date)=2020 and Kids_content='Y' and content_type='Movies'
+select distinct title from TVProgram T join Content C on T.content_id = C.content_id where Kids_content = 'Y' and content_type ='Movies' and left(program_date, 7) = '2020-06'
+select distinct title from TVProgram a join Content b on a.content_id = b.content_id where date_format(a.program_date, "%Y-%m")="2020-06" and b.Kids_content = "Y" and b.content_type = "Movies"
+select distinct title from TVProgram a join Content b on a.content_id = b.content_id where left(program_date, 7) = '2020-06' and Kids_content = 'Y' and content_type = 'movies'
+select distinct title from TVProgram a left join Content b on a.content_id = b.content_id where month(a.program_date) = 6 and year(a.program_date) = 2020 and content_type = 'Movies' and Kids_content = 'Y'
+select distinct title from TVProgram a left join content b on a.content_id=b.content_id where program_date like "2020-06%" and kids_content='Y' and content_type='movies'
+select distinct title from TVProgram as t join content as c on t.content_id=c.content_id where left(program_date,7)='2020-06' and kids_content='Y' and content_type='Movies'
+select distinct title from TVProgram as t left join Content as c on c.content_id = t.content_id where left(t.program_date,7) = '2020-06' and c.kids_content = 'Y' and content_type = 'Movies'
+select distinct title from TVProgram as t left join content as c on t.content_id = c.content_id where left(date(program_date),7) = '2020-06' and kids_content = 'Y' and content_type = 'Movies'
+select distinct title from TVProgram join Content on TVProgram.content_id = Content.content_id where TVProgram.program_date between '2020-06-01' and '2020-06-30' and Content.Kids_content = 'Y' and Content.content_type = 'Movies'
+select distinct title from TVProgram join Content on TVProgram.content_id = Content.content_id where(left(program_date, 7) = '2020-06' and content_type = 'Movies' and Kids_content = 'Y')
+select distinct title from TVProgram join Content on TVProgram.content_id=Content.content_id where Content.Kids_content='Y' and Content.content_type='Movies' and TVProgram.program_date between '2020-06-01' and '2020-06-30'
+select distinct title from TVProgram join content on TVProgram.content_id = content.content_id where kids_content = 'Y' and content_type = 'Movies' and left(program_date ,7)='2020-06'
+select distinct title from TVProgram join content on TVProgram.content_id = content.content_id where kids_content = 'Y' and content_type = 'Movies' and program_date between '2020-06-01'and '2020-06-30'
+select distinct title from TVProgram left join Content on TVProgram.content_id=Content.content_id where program_date between '2020-06-01' and '2020-06-30' and Kids_content = "Y" and content_type="Movies"
+select distinct title from TVProgram left join Content using(content_id) where kids_content="Y" and substring(program_date,1,7)="2020-06" and content_type="Movies"
+select distinct title from TVProgram t join Content c on t.content_id = c.content_id where Kids_content = "Y" and date_format(program_date,'%M' ) = "June" and content_type= 'Movies'
+select distinct title from TVProgram t join Content c on t.content_id=c.content_id where Kids_content='Y' and content_type='Movies' and year(program_date) = 2020 and MONTH(program_date)=06
+select distinct title from TVProgram t left join Content c on t.content_id = c.content_id where content_type = 'Movies' and Kids_content = 'Y' and date_format(program_date,'%Y-%m') = '2020-06'
+select distinct title from TVProgram t left join content c on t.content_id = c.content_id where kids_content = 'Y' and content_type = 'Movies' and program_date between '2020-06-01' and '2020-06-30'
+select distinct title from TVProgram tv join Content c on c.content_id =tv.content_id and Kids_content='Y' and content_type like 'Movies' where left(program_date, 7) = '2020-06'
+select distinct title from TVProgram tv join Content co on tv.content_id = co.content_id where Kids_content = 'Y' AND content_type = 'Movies' AND month(program_date) = 6 AND year(program_date) = 2020
+select distinct title from TVProgram x join Content y on x.content_id = y.content_id where substr(program_date,1,7) = '2020-06' and content_type = 'Movies' and Kids_content = 'Y'
+select distinct title from TVprogram as t join content as c on t.content_id = c.content_id where kids_content = 'Y' and date_format(program_date,"%Y-%m") = "2020-06" and content_type = "Movies"
+select distinct title from TVprogram join content on tvprogram.content_id=content.content_id where kids_content='Y' and content_type='Movies' and program_date like '2020-06%'
+select distinct title from content C join TVProgram T on C.content_id=T.content_id and Kids_content='Y' and content_type='Movies' and Date_format(program_date,'%Y-%m')='2020-06'
+select distinct title from content a join tvprogram b on a.content_id = b.content_id where b.program_date like "2020-06-%" and a.kids_content = "Y" and a.content_type = "Movies"
+select distinct title from content a join tvprogram b on a.content_id = b.content_id where b.program_date like '2020-06%' and a.Kids_content = 'Y' and a.content_type = 'movies'
+select distinct title from content a, tvprogram b where a.content_id = b.content_id and a.kids_content = 'Y' and a.content_type = 'Movies' and extract(month from b.program_date) = 06 and extract(year from b.program_date) = 2020 order by 1
+select distinct title from content as c left join TVProgram as t on c.content_id = t.content_id where kids_content = 'Y' and program_date BETWEEN '2020-06-01' AND '2020-06-30' and content_type = 'Movies'
+select distinct title from content c INNER JOIN TVProgram t ON t.content_id = c.content_id and monthname(t.program_date)='June' and year(t.program_date) = 2020 and Kids_content = "Y" and content_type = "Movies"
+select distinct title from content c inner join TVProgram t on c.content_id=t.content_id where c.kids_content="Y" and month(program_date)="06" and year(program_date)="2020" and c.content_type="Movies"
+select distinct title from content c inner join TVprogram t on c.content_id = t.content_id where Kids_content = 'Y' and content_type = 'Movies' and program_date >= '2020-06-01' and program_date <= '2020-06-30'
+select distinct title from content c join TVProgram p on c.content_id = p.content_id and left(p.program_date, 7) = '2020-06' and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from content c join TVProgram t on t.content_id=c.content_id where kids_content='Y' and year(program_date)="2020" and month(program_date)='06' and content_type='Movies'
+select distinct title from content c join TVProgram t on t.content_id=c.content_id where left(program_date,7)="2020-06" and kids_content="Y" and content_type="movies"
+select distinct title from content c join tvprogram t on c.content_id = t.content_id where kids_content = 'Y' and program_date like '2020-06%' and content_type = 'Movies'
+select distinct title from content c join tvprogram t on c.content_id = t.content_id where left(t.program_date,7)='2020-06' and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct title from content c join tvprogram t on c.content_id = t.content_id where month(t.program_date) = 6 and year(t.program_date) = 2020 and c.kids_content = "Y" and content_type = "movies"
+select distinct title from content c join tvprogram t on c.content_id=t.content_id where c.kids_content='Y' and c.content_type='Movies' and t.program_date between '2020-06-01' and '2020-06-30'
+select distinct title from content c join tvprogram t on c.content_id=t.content_id where kids_content='Y' and content_type='Movies' and left(program_date,7)='2020-06'
+select distinct title from content c join tvprogram t on t.content_id = c.content_id where month(program_date) =6 and kids_content = 'y' and content_type = 'Movies'
+select distinct title from content c left join TVProgram tp on c.content_id = tp.content_id where kids_content='Y' and date_format(program_date,'%Y-%m') ='2020-06' and content_type='Movies'
+select distinct title from content c left join tvprogram t on c.content_id = t.content_id where kids_content = 'Y' and year(program_date)=2020 and month(program_date)=06 and content_type = 'Movies'
+select distinct title from content c left join tvprogram t on t.content_id = c.content_id where left(t.program_date,7)="2020-06" and kids_content="Y" and c.content_type="Movies"
+select distinct title from content c left join tvprogram tv on c.content_id = tv.content_id where kids_content = 'Y' and program_date like '2020-06%' and content_type = 'movies'
+select distinct title from content c where content_id in ( select distinct content_id from tvprogram where extract(year from program_date) = 2020 and extract(month from program_date) = 6 ) and kids_content = 'Y' and content_type = 'Movies'
+select distinct title from content inner join TVProgram using (content_id) where month(program_date) = 06 and year(program_date) = 2020 and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from content join TVProgram using (content_id) where kids_content='Y' and content_type='Movies' and date_format(program_date,"%Y-%m")="2020-06"
+select distinct title from content join TVprogram on content.content_id=TVprogram.content_id where Kids_content="Y" and month(program_date)="6" and content_type="movies"
+select distinct title from content join TVprogram using (content_id) where kids_content='Y' and content_type='movies' and year(program_date)=2020 and month(program_date)=6
+select distinct title from content join tvprogram on content.content_id = tvprogram.content_id where Kids_content='Y' and substring(program_date,1,7)='2020-06' and content_type='Movies'
+select distinct title from content join tvprogram using(content_id) where left(program_date, 7) = "2020-06" and Kids_content="Y" and content_type="Movies"
+select distinct title from content where content_id in (select content_id from TVProgram where substr(program_date,1,7) = '2020-06') and Kids_content = 'Y' and content_type = 'Movies'
+select distinct title from content where kids_content = 'Y' and content_type = 'Movies' and content_id in (select distinct content_id from tvprogram where date_format(program_date, '%Y-%m') = '2020-06')
+select distinct title from tvProgram p inner join content c on c.content_id = p.content_id where p.program_date between '2020-06-01' and '2020-06-30' and c.kids_content = 'Y' and content_type = 'Movies'
+select distinct title from tvprogram a join content b on a.content_id = b.content_id where date_format(program_date, '%Y-%m') = '2020-06' and kids_content = 'Y' and content_type = 'Movies'
+select distinct title from tvprogram a left join content b on a.content_id = b.content_id where kids_content = 'Y' and program_date between '2020-06-01' and '2020-06-30' and content_type = 'Movies'
+select distinct title from tvprogram join content using (content_id) where program_date like '2020-06-%' AND kids_content = 'Y' AND content_type = 'Movies'
+select distinct title from tvprogram join content using(content_id) where month(program_Date) = 6 and Kids_content = "Y" and content_type = "Movies"
+select distinct title from tvprogram natural join content where content_type = 'movies' and kids_content = 'Y' and program_date like '2020-06%'
+select distinct title from tvprogram p join content c on p.content_id = c.content_id where p.program_date between '2020-06-01' and '2020-06-30' and kids_content = 'Y' and content_type = 'Movies'
+select distinct title from tvprogram t join content c on t.content_id = c.content_id where c.kids_content = 'Y' and c.content_type = 'Movies' and t.program_date between '20200601' and '20200630'
+select distinct title from tvprogram t join content c on t.content_id = c.content_id where kids_content = 'Y' and content_type = 'Movies' and month(program_date) = 6 and year(program_date) = 2020
+select distinct title from tvprogram t join content c on t.content_id = c.content_id where month(program_date) = 6 and content_type ='Movies' and kids_content = 'Y'
+select distinct title from tvprogram t join content c on t.content_id = c.content_id where program_date between '2020-06-01' and '2020-06-30' and kids_content = 'Y' and content_type = 'Movies'
+select distinct title from tvprogram t join content c on t.content_id=c.content_id where kids_content='Y' and content_type='Movies' and left(program_date,7)='2020-06'
+select distinct(C.title) from TVProgram T inner join Content C on C.content_id = T.content_id where left(T.program_date, 7) = '2020-06' and C.Kids_content = 'Y' and C.content_type = 'Movies'
+select distinct(Content.title) as "Title" from TVprogram join Content on TVprogram.content_id = Content.content_id where Year(program_date) = 2020 and Month(program_date) = 6 and Kids_content = 'Y' and content.content_type = 'Movies'
+select distinct(a.title) from content a left join tvprogram b on a.content_id=b.content_id where a.kids_content='Y' and a.content_type='Movies' and substr(b.program_date,1,7)='2020-06'
+select distinct(c.title) as TITLE from Content c join TVProgram t on c.content_id = t.content_id where c.Kids_content = 'Y' and month(program_date) = 06 and c.content_type = "Movies"
+select distinct(c.title) as TITLE from content c join tvprogram t on c.content_id = t.content_id where kids_content = 'Y' and content_type ='movies' and date_format(t.program_date, '%Y%m') = 202006
+select distinct(c.title) as TITLE from tvprogram t join content c on t.content_id=c.content_id and month(t.program_date)=06 and year(t.program_date)=2020 where c.kids_content="Y" and c.content_type='Movies'
+select distinct(c.title) as title from Content c inner join TVProgram t on t.content_id=c.content_id where c.Kids_content="Y" and c.content_type="Movies" and YEAR(t.program_date)="2020" and MONTH(t.program_date)="06"
+select distinct(c.title) as title from Content c left join TVProgram t on t.content_id=c.content_id where month(program_date)='06' and Kids_content='Y' and content_type='Movies'
+select distinct(c.title) from Content c inner join TVProgram t on c.content_id=t.content_id where year(t.program_date)='2020' and month(t.program_date)='6' and c.Kids_content='Y' and c.content_type='Movies'
+select distinct(c.title) from Content c join TVProgram t on c.content_id = t.content_id where t.program_date between '2020-06-01' and '2020-06-30' and c.Kids_content = 'Y' and c.content_type = 'Movies'
+select distinct(c.title) from Content c join TVProgram t using(content_id) where c.Kids_content = 'Y' and year(program_date) = '2020' and month(program_date) = '06' and c.content_type = 'Movies'
+select distinct(c.title) from TVProgram as t join Content as c on t.content_id = c.content_id where t.program_date like '%2020-06%' and c.Kids_content = 'Y' and c.content_type = 'movies'
+select distinct(c.title) from content c join tvprogram t on t.content_id = c.content_id where c.kids_content= 'Y' and content_type = 'Movies' and t.program_date like '2020-06%'
+select distinct(c.title) from tvprogram as t join content as c on t.content_id = c.content_id where t.program_date between '2020-06-01' and '2020-06-30' and c.kids_content = 'Y' and c.content_type = 'Movies'
+select distinct(c.title) from tvprogram t join content c using (content_id) where c.kids_content='Y' AND c.content_type = 'Movies' AND SUBSTR(program_date,6,2)='06'
+select distinct(title) as title from TVProgram t inner join content c on t.content_id = c.content_id where kids_content = 'Y' and year(program_date) = 2020 and month(program_date) = 6 and content_type = 'Movies'
+select distinct(title) from Content Where Kids_content = 'Y' and content_type='Movies' and content_id in (Select content_id from TVProgram Where LEFT(program_date,7)='2020-06')
+select distinct(title) from Content c inner join TVProgram tv on c.content_id = tv.content_id where c.Kids_content = 'Y' and c.content_type = "Movies" and month(tv.program_date) = 6
+select distinct(title) from Content c join TVProgram t on c.content_id = t.content_id where program_date >= '2020-06-01' and program_date <= '2020-06-30' and Kids_content = 'Y' and content_type = 'Movies'
+select distinct(title) from Content join TVProgram using (content_id) where program_date like "2020-06-%" and Kids_content = 'Y' and content_type='Movies'
+select distinct(title) from Content left join TVProgram on TVProgram.content_id = Content.content_id where Kids_content = 'Y' and content_type = 'Movies' and year(program_date) = 2020 and month(program_date) = 6
+select distinct(title) from Content where content_id in (select content_id from TVProgram where substring(program_date,1,7) = "2020-06" and Kids_content = 'Y' and content_type = 'Movies')
+select distinct(title) from Content, TVProgram where Kids_content = 'Y' and content_type = 'movies' and TVProgram.content_id = Content.content_id and program_date like '2020-06%'
+select distinct(title) from TVProgram join Content using(content_id) where Kids_content = 'Y' and content_type = 'Movies' and year(program_date) = 2020 and month(program_date) = 6
+select distinct(title) title from Content c left join TVProgram t on t.content_id = c.content_id where Kids_content = 'Y' and content_type = "Movies" and program_date between "2020-06-01 00:00" and "2020-06-30 11:59"
+select drv.title from Content drv left join TVProgram tvp on drv.content_id = tvp.content_id where Kids_content = 'Y' and content_type = 'Movies' and program_date between '2020-06-01' and '2020-06-30' group by 1
+select title from ( select distinct content_id, title from content where kids_content = 'Y' and content_type = 'Movies') as a join ( select distinct content_id from tvprogram where date_format(program_date, '%Y-%m') = '2020-06' ) as b on a.content_id = b.content_id
+select title from (select distinct content_id from TVProgram where program_date between "2020-06-01" and "2020-06-30") as A join Content c on A.content_id = c.content_id where Kids_Content = "Y" and Content_type = "movies"
+select title from Content where (content_id in ( select content_id from TVProgram where EXTRACT(MONTH FROM program_date) =6 and year(program_date) =2020 ) ) and (Kids_content="Y") and (content_type="Movies")
+select title from Content where Kids_content = 'Y' and content_type = 'Movies' and content_id in (select content_id from TVProgram where left(program_date,7) = '2020-06' )
+select title from Content where Kids_content ='Y' and content_type='Movies' and content_id in (select content_id from TVProgram where year(program_date)=2020 and month(program_date)=6)
+select title from Content where Kids_content='Y' and content_type='Movies' and content_id in (select content_id from TVProgram where date_format(program_date, '%Y-%m')='2020-06')
+select title from Content where Kids_content='Y' and content_type='Movies' and content_id in (select content_id from TVProgram where year(program_date)=2020 and month(program_date)=6)
+select title from content c where Kids_content = 'Y' and content_type ='Movies' and content_id in (select content_id from tvprogram where left(program_date,7) = '2020-06')
+select title from content c where exists (select program_date ,kids_content ,content_type from tvprogram t where t.content_id = c.content_id and kids_content ='Y' and content_type ='Movies' and program_date like '2020-06%')
+select title from content where kids_content = 'Y' and content_type = 'Movies' and content_id in (select content_id from TVProgram where left(program_date,7)='2020-06')
+select title from content where kids_content = 'Y' and content_type = 'Movies' and content_id in (select content_id from Tvprogram where program_date between '2020-06-01' and '2020-06-30' )
+select title from content where kids_content= 'Y' and content_type = 'Movies' and content_id in (select distinct content_id from TVProgram where date_format(program_date, '%Y-%m') = '2020-06')
+with cte as ( Select t.program_date,c.* from TVProgram t inner join Content c on t.content_id = c.content_id where content_type = "Movies" and left(t.program_date,7) LIKE "2020-06%" and Kids_content = 'Y' ) Select distinct title from cte
+with cte as ( select c.title , c.content_id from Content c where c.Kids_content='Y' and c.content_type='movies' ) , cte2 as ( select tp.content_id from TVProgram tp where month(tp.program_date)=6 and year(tp.program_date)=2020 ) select distinct title from cte join cte2 on cte.content_id=cte2.content_id
+with cte as ( select distinct title from Content a left join TVProgram b on a.content_id = b.content_id where a.Kids_content ='Y' and b.program_date >= '2020-06-01 00:00' and b.program_date < '2020-07-01 00:00' and a.content_type='Movies' )select * from cte
+with cte as (select content_id from TVProgram where month(program_date) = '06' and year(program_date) = '2020') select title from Content where Kids_content = 'Y' and content_type = 'Movies' and content_id IN (select content_id from cte)
+with june_cont as (select distinct content_id from tvprogram where date(program_date) between '2020-06-01' and '2020-06-30') select distinct title from content a join june_cont b on a.content_id=b.content_id where kids_content='Y' and content_type='Movies'
+with tmp as (select date_format(program_date, '%Y%m') as mth, a.content_id, title from tvprogram a join content b on a.content_id = b.content_id where kids_content = 'Y' and content_type = 'Movies') select distinct title from tmp where mth = '202006'

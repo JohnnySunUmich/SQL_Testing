@@ -1,0 +1,173 @@
+SELECT CAST(MIN(DISTINCT(sub1.dist_points)) AS DECIMAL(10,2)) AS shortest FROM (SELECT SQRT(((p1.x- p2.x)*(p1.x- p2.x))+ ((p1.y-p2.y)*(p1.y-p2.y))) as dist_points FROM point_2d p1 JOIN point_2d p2 ON p1.x != p2.x OR p1.y != p2.y ORDER BY 1 ) sub1
+SELECT CAST(SQRT(POWER(p1.x-p2.x, 2)+POWER(p1.y-p2.y, 2)) AS decimal(10,2)) AS shortest FROM point_2d p1 CROSS JOIN point_2d p2 WHERE (p1.x, p1.y) != (p2.x, p2.y) ORDER BY POWER(p1.x-p2.x, 2)+POWER(p1.y-p2.y, 2) LIMIT 1
+SELECT CAST(SQRT(POWER(p1.x-p2.x, 2)+POWER(p1.y-p2.y, 2)) AS decimal(10,2)) AS shortest FROM point_2d p1 CROSS JOIN point_2d p2 WHERE (p1.x, p1.y) != (p2.x, p2.y) ORDER BY SQRT(POWER(p1.x-p2.x, 2)+POWER(p1.y-p2.y, 2)) LIMIT 1
+SELECT MIN(ROUND((pow((pow((a.x-b.x),2)+pow((a.y-b.y),2)),0.5)),2)) AS shortest FROM point_2d a JOIN point_2d b ON concat(a.x,a.y) <> concat(b.x,b.y)
+SELECT MIN(ROUND(SQRT(ABS(a.x-b.x)*ABS(a.x-b.x)+ABS(a.y-b.y)*ABS(a.y-b.y)),2)) AS shortest FROM point_2d a CROSS JOIN point_2d b WHERE a.x != b.x OR a.y != b.y
+SELECT MIN(ROUND(SQRT(POWER(p.x - p1.x,2) + POWER(p.y -p1.y,2)),2)) AS shortest FROM (SELECT x , y , ROW_NUMBER() OVER (ORDER BY x AND y) AS id_1 FROM point_2d ) AS P CROSS JOIN (SELECT x , y , ROW_NUMBER() OVER (ORDER BY x AND y) AS id_2 FROM point_2d ) p1 WHERE id_1 <> id_2
+SELECT MIN(ROUND(SQRT(POWER(p1.x-p2.x,2)+POWER(P1.y-p2.y,2)),2)) AS 'shortest' FROM point_2d p1 JOIN point_2d p2 ON !(p1.x = p2.x AND p1.y = p2.y)
+SELECT MIN(ROUND(c.distance, 2)) AS shortest FROM (SELECT SQRT(POWER((a.x - b.x), 2) + POWER((a.y - b.y), 2)) AS distance FROM point_2d a CROSS JOIN point_2d b WHERE a.x <> b.x OR a.y <> b.y) c
+SELECT MIN(ROUND(power(power((P1.x-P2.x),2) + power((P1.y-P2.y),2), 0.5),2)) AS shortest FROM point_2d P1, point_2d P2 WHERE P1.x <> P2.x OR P1.y <> P2.y
+SELECT MIN(ROUND(sqrt(POW(t1.x-t2.x,2)+POW(t1.y-t2.y,2)),2)) shortest FROM point_2d t1, point_2d t2 WHERE t1.x != t2.x or t1.y != t2.y
+SELECT ROUND (SQRT(MIN((POW(a.x - b.x,2) + POW(a.y - b.y, 2)))),2) AS shortest FROM point_2d a join point_2d b on a.x <> b.x or a.y <> b.y
+SELECT ROUND( MIN( sqrt(pow((a.x-b.x),2)+ pow((a.y-b.y),2))),2) shortest FROM point_2d a JOIN point_2d b ON a.x!=b.x OR a.y!=b.y
+SELECT ROUND((SQRT(POWER((p2.x - p1.x), 2) + POWER((p2.y - p1.y), 2))), 2) AS shortest FROM point_2d p1, point_2d p2 having shortest != 0 ORDER BY shortest ASC LIMIT 1
+SELECT ROUND(MIN( SQRT(POWER(P1.X - P2.X, 2) + POWER(P1.Y - P2.Y, 2)) ), 2) AS shortest FROM point_2d P1 JOIN point_2d P2 ON NOT (P1.X = P2.X AND P1.Y = P2.Y)
+SELECT ROUND(MIN(SQRT( POWER(p1.x-p2.x, 2) + POWER(p1.y-p2.y, 2))), 2) AS shortest FROM point_2d p1, point_2d p2 WHERE (p1.x, p1.y) != (p2.x, p2.y)
+SELECT ROUND(MIN(SQRT((P2.Y-P1.Y)*(P2.Y-P1.Y)+(P2.X-P1.X)*(P2.X-P1.X)) ),2) AS SHORTEST FROM POINT_2D P1, POINT_2D P2 WHERE P1.X!=P2.X OR P1.Y!=P2.Y
+SELECT ROUND(MIN(SQRT((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2)))),2) as shortest FROM point_2d p1 JOIN point_2d p2 ON p1.x != p2.x OR p1.y != p2.y
+SELECT ROUND(MIN(SQRT((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y))), 2) AS shortest FROM point_2d a JOIN point_2d b ON a.x != b.x OR a.y != b.y
+SELECT ROUND(MIN(SQRT((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))), 2) AS shortest FROM point_2d p1 JOIN point_2d p2 ON p1.x!=p2.x OR p1.y!=p2.y
+SELECT ROUND(MIN(SQRT(POW(a.x - b.x, 2) + POW(a.y - b.y, 2))),2) AS shortest FROM point_2d AS a JOIN point_2d AS b ON a.x <> b.x OR a.y <> b.y
+SELECT ROUND(MIN(SQRT(POW(p1.x-p2.x,2)+POW(p1.y-p2.y,2))),2) AS shortest FROM point_2d p1 JOIN point_2d p2 ON p1.x!=p2.x OR p1.y!=p2.y
+SELECT ROUND(MIN(SQRT(POW(t1.x - t2.x, 2) + POW(t1.y - t2.y, 2))),2) AS shortest FROM point_2d t1, point_2d t2 WHERE t1.x != t2.x OR t1.y != t2.y
+SELECT ROUND(MIN(SQRT(POWER((p1.x-p2.x),2)+POWER((p1.y-p2.y), 2))), 2) AS shortest FROM point_2d p1 INNER JOIN point_2d p2 ON (p1.x,p1.y) != (p2.x,p2.y)
+SELECT ROUND(MIN(SQRT(POWER(a.x - b.x, 2) + POWER(a.y - b.y, 2))), 2) AS shortest FROM point_2d a CROSS JOIN point_2d b WHERE SQRT(POWER(a.x - b.x, 2) + POWER(a.y - b.y, 2)) > 0
+SELECT ROUND(MIN(ST_DISTANCE(POINT(p1.x, p1.y), POINT(p2.x, p2.y))), 2) AS shortest FROM point_2d p1, point_2d p2 WHERE p1.x != p2.x OR p1.y != p2.y
+SELECT ROUND(MIN(d), 2) AS shortest FROM ( SELECT sqrt(power((ina.x-inb.x),2)+power((ina.y-inb.y),2)) AS d FROM point_2d AS ina, point_2d AS inb ) AS inc WHERE d > 0
+SELECT ROUND(MIN(shortest),2) AS shortest FROM ( SELECT DISTINCT SQRT(POWER(p.x-p1.x,2)+POWER(p.y-p1.y,2)) AS shortest FROM point_2d p, point_2d p1 ) As A WHERE shortest != 0
+SELECT ROUND(POWER(POWER(t1.x-t2.x,2)+POWER(t1.y-t2.y,2),0.5),2) AS shortest FROM point_2d AS t1, point_2d AS t2 WHERE NOT (t1.x = t2.x AND t1.y = t2.y) ORDER BY shortest LIMIT 1
+SELECT ROUND(SQRT( MIN( POWER(p1.x - p2.x, 2) + POWER(p1.y - p2.y, 2) ) ), 2) AS shortest FROM point_2d AS p1 INNER JOIN point_2d AS p2 ON p1.x != p2.x OR p1.y != p2.y
+SELECT ROUND(SQRT(MIN((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2)))), 2) AS shortest FROM point_2d as p1 JOIN point_2d as p2 WHERE (p1.x,p1.y) != (p2.x,p2.y)
+SELECT ROUND(SQRT(MIN((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2)))), 2) AS shortest FROM point_2d p1 JOIN point_2d p2 ON p1.x != p2.x OR p1.y != p2.y
+SELECT ROUND(SQRT(MIN((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2)))),2) AS shortest FROM point_2d p1 JOIN point_2d p2 ON (p1.x <= p2.x AND p1.y < p2.y) OR (p1.x <= p2.x AND p1.y > p2.y) OR (p1.x < p2.x AND p1.y = p2.y)
+SELECT ROUND(SQRT(MIN((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y))),2) shortest FROM point_2d p1 CROSS JOIN point_2d p2 ON p1.x <> p2.x OR p1.y <> p2.y
+SELECT ROUND(SQRT(MIN(POW(P1.x - P2.x, 2) + POW(P1.y - P2.y, 2))), 2) AS shortest FROM POINT_2D P1, POINT_2D P2 WHERE P1.x > p2.x OR (p1.x = p2.x AND p1.y > p2.y)
+SELECT ROUND(SQRT(MIN(POW(a.x - b.x, 2) + POW(a.y - b.y, 2))), 2) AS shortest FROM point_2d a JOIN point_2d b ON a.x != b.x OR a.y != b.y
+SELECT ROUND(SQRT(MIN(POW(a.x - b.x, 2) + POW(a.y - b.y, 2))), 2) AS shortest FROM point_2d a JOIN point_2d b ON a.x < b.x OR (a.x = b.x AND a.y < b.y)
+SELECT ROUND(SQRT(MIN(POW(b.x-a.x, 2)+POW(b.y-a.y, 2))),2) AS shortest FROM point_2d a JOIN point_2d b ON a.x != b.x Or a.y != b.y
+SELECT ROUND(SQRT(POW(P1.x - P2.x, 2)+POW(P1.y - P2.y, 2)), 2) AS shortest FROM point_2d P1 JOIN point_2d P2 ON P1.x != P2.x OR P1.y != P2.y ORDER BY SQRT(POW(P1.x - P2.x, 2)+POW(P1.y - P2.y, 2)) LIMIT 1
+SELECT ROUND(SQRT(POW(T1.x - T2.x, 2) + POW(T1.y - T2.y, 2)),2) shortest FROM point_2d T1 JOIN point_2d T2 ON T1.x != T2.x OR T2.y != T1.y ORDER BY shortest ASC LIMIT 1
+SELECT ROUND(SQRT(POWER((P1.X-P2.X),2) +POWER((P1.Y-P2.Y),2)),2) AS SHORTEST FROM POINT_2D P1 INNER JOIN POINT_2D P2 ON P1.X!=P2.X OR P1.Y!=P2.Y ORDER BY SHORTEST LIMIT 1
+SELECT ROUND(SQRT(POWER(a.x - b.x,2)+POWER(a.y-b.y,2)),2) AS shortest FROM (SELECT *, ROW_NUMBER () OVER () AS rn FROM point_2d ) a JOIN (SELECT *, row_NUMBER () OVER () AS rn FROM point_2d ) b ON a.rn <> b.rn ORDER BY 1 LIMIT 1
+SELECT ROUND(SQRT(POWER(a.x-b.x,2) + POWER(a.y-b.y,2)),2) AS shortest FROM point_2d a JOIN point_2d b ON a.x != b.x OR a.y != b.y ORDER BY 1 LIMIT 1
+SELECT ROUND(c.distance, 2) AS shortest FROM (SELECT SQRT(POWER((a.x - b.x), 2) + POWER((a.y - b.y), 2)) AS distance FROM point_2d a CROSS JOIN point_2d b WHERE a.x <> b.x OR a.y <> b.y) c ORDER BY c.distance LIMIT 1
+SELECT ROUND(min(sqrt(((p2.x-p1.x)*(p2.x-p1.x))+(p2.y-p1.y)*(p2.y-p1.y))), 2) shortest FROM point_2d p1, point_2d p2 WHERE (p1.x, p1.y) != (p2.x, p2.y)
+SELECT ROUND(sqrt(min(pow(a.x-b.x,2) + pow(a.y-b.y,2))) ,2) as shortest FROM point_2d a,point_2d b where a.x<>b.x or a.y<>b.y
+SELECT ROUND(sqrt(power(p2.x-p1.x,2)+power(p2.y-p1.y,2)),2) as shortest FROM point_2d p1, point_2d p2 WHERE p1.x!=p2.x or p1.y!=p2.y ORDER BY shortest LIMIT 1
+SELECT min(round(SQRT((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2))), 2)) AS shortest FROM point_2d p1 JOIN point_2d p2 ON !(p1.x = p2.x and p1.y = p2.y)
+SELECT min(round(dist,2)) as shortest FROM( SELECT sqrt(pow(p1.x -p2.x,2) + pow(p1.y - p2.y,2)) as dist FROM Point_2d p1, Point_2d p2 WHERE (p1.x != p2.x) or (p1.y != p2.y)) t
+SELECT round(min(SQRT((power((p1.x-p2.x),2) + power((p1.y-p2.y),2)))),2) as shortest FROM point_2d p1 JOIN point_2d p2 ON p1.x != p2.x OR p1.y != p2.y
+SELECT round(min(distance),2) AS shortest FROM (select a.x AS p, a.y as c, b.x AS Q, b.y AS T, sqrt((POW(a.x-b.x,2)+pow(a.y-b.y,2))) AS distance FROM point_2d a JOIN point_2d b ON a.x != b.x OR a.y!=b.y) d
+SELECT round(min(sqrt(power(a.x-b.x,2)+power(a.y-b.y, 2))),2) AS shortest FROM point_2d a JOIN point_2d b ON (a.x, a.y)!=(b.x,b.y)
+SELECT round(sqrt(min(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2))),2) shortest FROM point_2d p1, point_2d p2 WHERE p1.x != p2.x OR p1.y != p2.y
+Select ROUND(SQRT(MIN((POW(a.x-b.x, 2)+ POW(a.y - b.y, 2)))),2) shortest From point_2d a join point_2d b On a.x != b.x Or a.y != b.y
+Select Round(Min(SQRT(Power(A.x-B.x, 2) + Power(A.y-B.y, 2))),2) as shortest From (Select *, ROW_NUMBER() OVER (ORDER BY x) AS `row_number` From point_2d) as A, (Select *, ROW_NUMBER() OVER (ORDER BY x) AS `row_number` From point_2d) as B Where A.row_number < B.row_number
+Select Round(min( SQRT((pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2) ))),2) as shortest from point_2d as p1 join point_2d as p2 on p1.x != p2.x Or p1.y != p2.y
+WITH A AS ( SELECT ROUND(SQRT((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y)),2) AS shortest FROM point_2d p1, point_2d p2) SELECT shortest from ( SELECT shortest, DENSE_RANK() OVER(ORDER BY shortest) AS rnk FROM A WHERE shortest<>0 ORDER BY rnk ASC limit 1)B
+WITH S0 AS (SELECT CONCAT(CAST(x AS CHAR), ',', CAST(y AS CHAR)) AS point0 FROM point_2d), S1 AS (SELECT CONCAT(CAST(x AS CHAR), ',', CAST(y AS CHAR)) AS point1 FROM point_2d), S2 AS (SELECT CAST(SUBSTRING_INDEX(point0, ',', 1) AS DECIMAL) AS x0, CAST(SUBSTRING_INDEX(point0, ',', -1) AS DECIMAL) AS y0, CAST(SUBSTRING_INDEX(point1, ',', 1) AS DECIMAL) AS x1, CAST(SUBSTRING_INDEX(point1, ',', -1) AS DECIMAL) AS y1 FROM S0 CROSS JOIN S1 WHERE point0 != point1), S3 AS (SELECT x0, y0, x1, y1, SQRT(POWER(x0-x1,2) + POWER(y0-y1,2)) AS distance FROM S2) SELECT ROUND(MIN(distance),2) AS shortest FROM S3
+WITH TEMP AS (SELECT a.x, a.y, b.x as a, b.y as b from point_2d a, point_2d b WHERE a.x <> b.x OR a.y <> b.y ) SELECT MIN(ROUND(sqrt(power(x-a,2)+power(y-b,2)),2)) AS shortest FROM TEMP ORDER BY 1
+WITH a AS ( SELECT POWER(a.x-b.x, 2)+POWER(a.y-b.y, 2) AS distance FROM point_2d AS a, point_2d AS b WHERE a.x != b.x OR a.y != b.y ORDER BY distance LIMIT 1) SELECT ROUND(SQRT(distance), 2) AS shortest FROM a
+WITH point AS ( SELECT x , y , ROW_NUMBER() OVER (ORDER BY x AND y) AS id FROM point_2d ) SELECT MIN(ROUND(SQRT(POWER(p.x - p1.x,2) + POWER(p.y -p1.y,2)),2)) AS shortest FROM point P CROSS JOIN point p1 WHERE p.id <> p1.id
+WITH points AS ( SELECT ROW_NUMBER() OVER () AS id, x, y FROM point_2d ) SELECT ROUND(POW(MIN((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)), 0.5), 2) AS shortest FROM (SELECT p1.x as x1, p1.y as y1, p2.x as x2, p2.y as y2 FROM points AS p1 JOIN points AS p2 ON p1.id != p2.id) AS combos
+select MIN(ROUND(SQRT(POWER(p1.x-p2.x,2)+POWER(p1.y-p2.y,2)),2)) shortest from point_2d p1, point_2d p2 where p1.x <>p2.x or (p1.y<>p2.y)
+select ROUND(SQRT((Power(X,2) + Power(Y, 2))), 2) shortest from(select p2.x-p1.x AS X, p2.y-p1.y AS Y from point_2d p1 join point_2d p2 on (p1.x <>p2.x or p1.y<>p2.y)) tmp order by shortest ASC limit 1
+select ROUND(SQRT(MIN((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2)))), 2) AS shortest from point_2d p1 join point_2d p2 on p1.x!=p2.x or p1.y!=p2.y
+select ROUND(SQRT(MIN((POW(p1.x-p2.x,2)+POW(p1.y-p2.y,2)))),2) as shortest from point_2d p1 join point_2d p2 on p1.x!=p2.x or p1.y!=p2.y
+select ROUND(SQRT(min((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))),2) as shortest from point_2d p1, point_2d p2 where (p1.x,p1.y)!=(p2.x,p2.y)
+select ROUND(SQRT(min((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))),2) as shortest from point_2d p1, point_2d p2 where p1.x != p2.x or p1.y != p2.y order by shortest desc
+select ROUND(SQRT(min((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))),2) as shortest from point_2d p1,point_2d p2 where p1.x != p2.x or p1.y != p2.y
+select ROUND(SQRT(min((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))),2) as shortest from point_2d p1,point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select ROUND(SQRT(min(POW(a.x-b.x,2) + POW(a.y-b.y,2))),2) shortest from point_2d a join point_2d b on a.x != b.x or a.y != b.y
+select ROUND(min(SQRT(POW(p1.x - p2.x, 2)+POW(p1.y - p2.y, 2))),2) as shortest from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y
+select cast(min(sqrt(pow(p.x-q.x,2)+pow(p.y-q.y,2))) as decimal(10,2)) as shortest from point_2d p inner join point_2d q on p.x!=q.x or p.y!=q.y
+select dist as shortest from (select round(sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)),2) as dist from point_2d as a join point_2d as b on a.x != b.x or a.y != b.y ) f order by dist asc limit 1
+select min(distance) as shortest from (select round(SQRT(power(p1.x - p2.x, 2) + power(p1.y - p2.y, 2)), 2) as distance from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y ) as temp
+select min(distance) as shortest from( SELECT ROUND(sqrt( pow(p1.x-p2.x, 2) + pow(p1.y-p2.y, 2) ), 2) as distance FROM point_2d as p1, point_2d as p2 WHERE p1.x!=p2.x or p1.y!=p2.y )a
+select min(if(round(sqrt(power(f.x - g.x, 2) + power(f.y - g.y, 2)), 2) = 0, null, round(sqrt(power(f.x - g.x, 2) + power(f.y - g.y, 2)), 2))) as shortest from point_2d f cross join point_2d g
+select min(round( sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) ), 2)) as shortest from point_2d a join point_2d b on a.x != b.x or a.y != b.y
+select min(round(power(power(a.x-b.x,2)+power(a.y-b.y,2),0.5),2)) as shortest from point_2d a cross join point_2d b where (a.x, a.y) <> (b.x,b.y)
+select min(round(sqrt (power((p1.x - p2.x), 2) + power((p1.y - p2.y), 2)), 2)) as shortest from point_2d p1 cross join point_2d p2 on not (p1.x = p2.x and p1.y = p2.y)
+select min(round(sqrt((P1.x - P2.x)*(P1.x - P2.x) + (P1.y-P2.y)*(P1.y - P2.y)),2)) as shortest from point_2d as P1 left join point_2d as P2 ON (P1.x, P1.y) != (P2.x,P2.y)
+select min(round(sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)),2)) as shortest from point_2d a,point_2d b where a.x!=b.x or a.y!=b.y
+select min(round(sqrt(pow((p2.x-p1.x),2)+pow((p2.y-p1.y),2)),2)) as shortest from point_2d p1 join point_2d p2 on (p1.x, p1.y) != (p2.x,p2.y)
+select min(round(sqrt(pow(b.y-a.y,2) + pow(b.x-a.x,2)),2)) as shortest from point_2d a, point_2d b where a.x != b.x or a.y != b.y
+select min(round(sqrt(pow(p1.x-p2.x,2) + pow(p1.y-p2.y,2)),2)) as shortest from point_2d p1 join point_2d p2 on p1.x <> p2.x or p1.y <> p2.y
+select min(round(sqrt(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2)),2)) as shortest from point_2d p1 cross join point_2d p2 on p1.x<>p2.x or p2.y<>p1.y
+select min(round(sqrt(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2)),2)) as shortest from point_2d p1, point_2d p2 where p1.x<>p2.x or p2.y<>p1.y
+select min(round(sqrt(power(b.x-a.x,2)+power(b.y-a.y,2)),2)) as shortest from point_2d a, point_2d b where a.x<>b.x or a.y<>b.y
+select min(round(sqrt(power(p1.x - p2.x, 2) + power(p1.y - p2.y, 2)),2)) as shortest from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select min(round(sqrt(power(p1.x-p2.x,2) + power(p1.y-p2.y,2)),2)) as shortest from point_2d p1, point_2d p2 where concat(p1.x,p1.y) != concat(p2.x, p2.y)
+select min(round(sqrt(power(p1.x-p2.x,2)+power(p1.y-p2.y,2)),2)) as "shortest" from point_2d p1 join point_2d p2 where (p1.x, p1.y) != (p2.x, p2.y)
+select min(round(sqrt(power(p1.x-p2.x,2)+power(p1.y-p2.y,2)),2)) as shortest from point_2d p1 cross join point_2d p2 where p1.x<>p2.x or p1.y<>p2.y
+select min(round(sqrt(power(t1.x-t2.x,2) + power(t1.y-t2.y,2)),2)) shortest from point_2d t1 JOIN point_2d t2 on !(t1.x = t2.x and t1.y=t2.y)
+select min(round(st_distance(point(t1.x, t1.y), point(t2.x, t2.y)),2)) as shortest from point_2d t1, point_2d t2 where t1.x != t2.x or t1.y != t2.y
+select min(shortest) as shortest from ( select round(sqrt(power(f.x - g.x, 2) + power(f.y - g.y, 2)), 2) as shortest from point_2d f cross join point_2d g where round(sqrt(power(f.x - g.x, 2) + power(f.y - g.y, 2)), 2) <> 0 ) f
+select min(temp.distance) as shortest from ( select round(sqrt(pow(p.x-p1.x,2)+pow(p.y-p1.y,2)),2) as distance from point_2d p inner join point_2d p1 where p.x != p1.x or p.y!=p1.y) temp
+select round( case when s_x=e_x then abs(s_y-e_y) when s_y=e_y then abs(s_x-e_x) else sqrt(pow(s_x-e_x, 2) + pow(s_y-e_y, 2)) end,2) as shortest from (select t1.x s_x, t1.y s_y, t2.x e_x, t2.y e_y from point_2d t1 join point_2d t2 where t1.x!=t2.x or t1.y!=t2.y) t3 order by shortest limit 1
+select round( min( sqrt(pow(p2.x-p1.x, 2)+ pow(p2.y-p1.y, 2)) ), 2) as shortest from point_2d p1 join point_2d p2 where p1.x!=p2.x or p1.y!=p2.y
+select round( sqrt(min(pow((p1.x-p2.x),2)+ pow((p1.y-p2.y),2))) ,2) as shortest from point_2d as p1 join point_2d as p2 on p1.x!=p2.x or p1.y !=p2.y
+select round(SQRT((POW(p1.x - p2.x, 2) + POW(p1.y - p2.y, 2))),2) AS shortest from point_2d p1 join point_2d p2 on p1.x!=p2.x or p1.y!=p2.y order by shortest limit 1
+select round(SQRT((POWer(a.x - b.x, 2) + POWer(a.y - b.y, 2))),2) AS shortest from point_2d a join point_2d b on (a.x<>b.x or a.y<>b.y) order by 1 limit 1
+select round(min(SQRT((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y))), 2) as shortest FROM point_2d p1, point_2d p2 where NOT (p1.x = p2.x AND p1.y = p2.y)
+select round(min(SQRT((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y))), 2) as shortest from point_2d p1 inner join point_2d p2 on (p1.x, p1.y) != (p2.x, p2.y)
+select round(min(sqrt( power(t1.x-t2.x,2) + power(t1.y-t2.y,2) )),2) as shortest from point_2d as t1 join point_2d as t2 on t1.x <> t2.x or t1.y <> t2.y
+select round(min(sqrt((pow(p1.x-p2.x,2)+ pow(p1.y-p2.y,2)))),2) as shortest from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y
+select round(min(sqrt((power((x1-x2), 2) + power((y1-y2), 2)))), 2) as shortest from ( select distinct a.x as x1, a.y as y1, b.x as x2, b.y as y2 from point_2d a cross join point_2d b where (a.x != b.x and a.y != b.y) or (a.x = b.x and a.y != b.y) or (a.x != b.x and a.y = b.y) ) t
+select round(min(sqrt((power(p1.x-p2.x,2)+power(p1.y-p2.y,2)))),2) as shortest from point_2d p1,point_2d p2 where (p1.x,p1.y)!=(p2.x,p2.y)
+select round(min(sqrt(abs(power((t1.x-t2.x),2)+power((t1.y-t2.y),2)))),2) as shortest from point_2d as t1, point_2d as t2 where (t1.x != t2.x or t1.y != t2.y)
+select round(min(sqrt(pow(a.x - b.x,2) + pow(a.y - b.y,2))), 2) as 'shortest' from point_2d a, point_2d b where a.x != b.x or a.y != b.y
+select round(min(sqrt(pow(a.x-b.x, 2)+pow(a.y-b.y, 2))),2) as shortest from point_2d a cross join point_2d b where a.x != b.x or a.y != b.y
+select round(min(sqrt(pow(b.x-a.x,2)+pow(b.y-a.y,2))),2) as 'shortest' from point_2d a, point_2d b where (a.x, a.y) < (b.x, b.y)
+select round(min(sqrt(pow(p.x-q.x,2)+pow(p.y-q.y,2))),2) as shortest from point_2d p inner join point_2d q on p.x!=q.x or p.y!=q.y
+select round(min(sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))), 2) as shortest from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y
+select round(min(sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))), 2) shortest from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select round(min(sqrt(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2))),2) as shortest from point_2d p1 join point_2d p2 on p1.x!=p2.x or p1.y!=p2.y
+select round(min(sqrt(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2))),2) as shortest from point_2d p1, point_2d p2 where p1.x!=p2.x or p1.y!=p2.y
+select round(min(sqrt(pow(point_2d_1.x - point_2d_2.x, 2) + pow(point_2d_1.y - point_2d_2.y, 2))), 2) as shortest from point_2d as point_2d_1 cross join point_2d as point_2d_2 on point_2d_1.x != point_2d_2.x or point_2d_1.y != point_2d_2.y
+select round(min(sqrt(power((a.x - b.x),2) + power((a.y - b.y),2) )) ,2) as shortest from point_2d a left join point_2d b on a.x <> b.x or (a.x = b.x and a.y <> b.y)
+select round(min(sqrt(power((p1.x-p2.x),2) + power((p1.y-p2.y),2) )),2) as shortest from point_2d p1 join point_2d p2 on (p1.x, p1.y) != (p2.x,p2.y)
+select round(min(sqrt(power((p1.x-p2.x),2)+power((p1.y-p2.y),2))),2) as shortest from point_2d p1 join point_2d p2 on (p1.x,p1.y) <> (p2.x,p2.y)
+select round(min(sqrt(power(a.x - b.x, 2) + power(a.y - b.y, 2))),2) as shortest from point_2d a, point_2d b where a.x < b.x or(a.x = b.x and a.y < b.y)
+select round(min(sqrt(power(a.x-b.x, 2)+power(a.y-b.y,2))),2) as shortest from point_2d a cross join point_2d b where sqrt(power(a.x-b.x, 2)+power(a.y-b.y,2))<>0
+select round(min(sqrt(power(a.x-b.x,2) + power(a.y-b.y,2))),2) as shortest From point_2d as a, point_2d as b Where sqrt(power(a.x-b.x,2) + power(a.y-b.y,2)) != 0
+select round(min(sqrt(power(p1.x - p2.x, 2) + power(p1.y - p2.y, 2))), 2) as shortest from point_2d p1, point_2d p2 where p1.x < p2.x or (p1.x = p2.x and p1.y < p2.y)
+select round(min(sqrt(power(p1.x - p2.x,2) + power(p1.y - p2.y,2))),2) as shortest from point_2d p1, point_2d p2 where (p1.x,p1.y) != (p2.x,p2.y)
+select round(min(sqrt(power(p1.x-p2.x, 2) + power(p1.y-p2.y, 2))),2) as shortest from point_2d p1, point_2d p2 where p1.x !=p2.x or p1.y!=p2.y
+select round(min(sqrt(power(p1.x-p2.x,2) + power(p1.y-p2.y,2))),2) as shortest from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select round(min(sqrt(power(p1.x-p2.x,2)+power(p1.y-p2.y,2))),2) as shortest from point_2d p1, point_2d p2 where (p1.x,p1.y) != (p2.x,p2.y)
+select round(pow(min(pow((a.x-b.x),2)+pow((a.y-b.y),2)),.5),2) as shortest from (select x, y, ROW_NUMBER() over() as i from point_2d) a, (select x, y, ROW_NUMBER() over() as i from point_2d) b where a.i<>b.i
+select round(power(power((x1-x2),2)+power((y1-y2),2),0.5),2) as shortest from( select a.x as x1, a.y as y1, b.x as x2, b.y as y2 from point_2d a, point_2d b ) temp having shortest != 0 order by shortest limit 1
+select round(sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y)),2) as shortest from point_2d as a join point_2d as b where a.x != b.x or a.y != b.y order by shortest limit 1
+select round(sqrt(min( pow((a.x - b.x),2) + pow((a.y - b.y),2) )),2) as shortest from point_2d a inner join point_2d b on (a.x != b.x or a.y!=b.y)
+select round(sqrt(min( pow((a.x - b.x),2) + pow((a.y - b.y),2) )),2) as shortest from point_2d a inner join point_2d b on (a.x+a.y < b.x+b.y)
+select round(sqrt(min((pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2)))), 2) as shortest from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y
+select round(sqrt(min((pow(p1.x-p2.x, 2) + pow(p1.y-p2.y, 2)))), 2) as shortest from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y
+select round(sqrt(min((pow(p1.x-p2.x,2) + pow(p1.y-p2.y,2)))),2) as shortest from point_2d p1 join point_2d p2 on p1.x != p2.x or p1.y != p2.y
+select round(sqrt(min((pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2)))),2) as shortest from point_2d as p1 join point_2d as p2 on p1.x!=p2.x or p1.y!=p2.y
+select round(sqrt(min(pow((a.x-b.x),2)+pow((a.y-b.y),2))),2) as shortest from point_2d a, point_2d b where a.x!=b.x or a.y!=b.y
+select round(sqrt(min(pow(a.x-b.x,2) + pow(a.y-b.y,2))), 2) as shortest from point_2d as a join point_2d as b on a.x!= b.x or a.y!= b.y
+select round(sqrt(min(pow(a.x-b.x,2)+pow(a.y-b.y,2))),2) as shortest from point_2d a, point_2d b where (a.x,a.y)!=(b.x,b.y)
+select round(sqrt(min(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))), 2) as shortest from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select round(sqrt(min(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))), 2) shortest from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select round(sqrt(min(pow(p1.x-p2.x, 2) + pow(p1.y-p2.y, 2))),2) as shortest from point_2d p1 join point_2d p2 ON p1.x != p2.x or p1.y != p2.y
+select round(sqrt(min(pow(p1.x-p2.x, 2) + pow(p1.y-p2.y,2))),2) as shortest from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y
+select round(sqrt(min(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2))),2) as shortest from point_2d as p1 join point_2d as p2 on p1.x!=p2.x or p1.y!=p2.y
+select round(sqrt(min(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2))),2) as shortest from point_2d p1, point_2d p2 where p1.x!=p2.x or p1.y!=p2.y
+select round(sqrt(min(pow(t1.x - t2.x, 2) + pow(t1.y - t2.y, 2))), 2) shortest from point_2d t1, point_2d t2 where (t1.x <= t2.x AND t1.y < t2.y) OR (t1.x <= t2.x AND t1.y > t2.y) OR (t1.x < t2.x AND t1.y = t2.y)
+select round(sqrt(min(pow(t1.x - t2.x, 2) + pow(t1.y - t2.y, 2))), 2) shortest from point_2d t1, point_2d t2 where (t1.x <= t2.x AND t1.y < t2.y) or (t1.x <= t2.x AND t1.y > t2.y) or (t1.x < t2.x AND t1.y = t2.y)
+select round(sqrt(min(power((p1.x-p2.x),2) + power((p1.y - p2.y),2))),2) as shortest from point_2d as p1 cross join point_2d as p2 on 1 = 1 where p1.x != p2.x or p1.y != p2.y
+select round(sqrt(min(power(t1.x - t2.x, 2) + power(t2.y - t1.y, 2))), 2) as shortest from point_2d t1, point_2d t2 where (t1.x, t1.y) != (t2.x, t2.y)
+select round(sqrt(pow((p1.x-p2.x),2)+pow((p1.y-p2.y),2)),2) as "shortest" from point_2d p1 join point_2d p2 on p1.x!=p2.x or p1.y!=p2.y order by shortest asc limit 1
+select round(sqrt(pow(-a.x+b.x,2)+pow(a.y-b.y,2)),2) as shortest from point_2d a join point_2d b on a.x != b.x or a.y != b.y order by shortest limit 1
+select round(sqrt(pow(a.x-b.x,2) + pow(a.y-b.y,2)),2) as shortest from point_2d a join point_2d b on a.x<>b.x or a.y<>b.y order by shortest limit 1
+select round(sqrt(pow(abs(t1.x-t2.x),2)+pow(abs(t1.y-t2.y),2)),2) as shortest from (select row_number() over() as row_num,x,y from point_2d) as t1 inner join (select row_number() over() as row_num,x,y from point_2d) as t2 on t1.row_num<t2.row_num order by shortest limit 1
+select round(sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) ), 2) as shortest from point_2d as p1 inner join point_2d as p2 on not (p1.x = p2.x and p1.y = p2.y) order by shortest limit 1
+select round(sqrt(power((b.x-a.x),2) + power((b.y-a.y),2)) ,2) as shortest from point_2d as a join point_2d as b on (a.x,a.y) <>(b.x,b.y) order by 1 limit 1
+select round(sqrt(power((p1.x-p2.x),2) + power((p1.y-p2.y),2)),2) as shortest from point_2d p1 join point_2d p2 on (p1.x, p1.y) != (p2.x, p2.y) order by shortest limit 1
+select round(sqrt(power(A.X-B.X, 2)+ power(A.Y-B.Y, 2)),2) as shortest from point_2d A, point_2d B where (A.X, A.Y ) != (B.X, B.Y ) order by shortest asc limit 1
+select round(sqrt(power(t1.x - t2.x, 2) + power(t2.y - t1.y, 2)), 2) as shortest from point_2d t1, point_2d t2 where (t1.x, t1.y) != (t2.x, t2.y) order by 1 limit 1
+select round(sqrt(power(t1.x-t2.x,2)+power(t1.y-t2.y,2)), 2) as 'shortest' from point_2d t1 cross join point_2d t2 where !(t1.x = t2.x and t1.y = t2.y) order by 1 limit 1
+with CTE as( select round(sqrt(power(p1.x-p2.x,2)+power(p1.y-p2.y,2)),2) as shortest from point_2d p1, point_2d p2 where (p1.x,p1.y) <>(p2.x,p2.y) ) select min(shortest) as shortest from cte
+with ct as (select p.x as x1,p.y as y1,p1.x as x2,p1.y as y2 from point_2d p cross join point_2d p1 where (p.x,p.y)!=(p1.x,p1.y)) select round(min(distinct sqrt(power((x2-x1),2)+power((y2-y1),2))),2) as shortest from ct
+with cte as ( select * , row_number() over () as id from point_2d ) select min( round( sqrt((C1.x - C2.x) * (C1.x - C2.x) + (C1.y - C2.y) * (C1.y - C2.y)) , 2 ) ) as shortest from cte C1 inner join cte C2 on C1.id < C2.id
+with cte as ( select t1.x as x1, t1.y as y1, t2.x as x2, t2.y as y2 from point_2d t1 cross join point_2d t2 where t1.x != t2.x or t1.y != t2.y ) select min(distance) as shortest from ( select round( sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)), 2) as distance from cte )t
+with cte as (select p1.x as x1, p1.y as y1, p2.x as x2, p2.y as y2 from point_2d p1, point_2d p2 where (p1.x, p1.y) != (p2.x, p2.y)) ,cte1 as (select distinct round(sqrt((power(x1-x2, 2)+power(y1-y2,2))),2) as shortest from cte where sqrt(power(x1-x2, 2)+power(y1-y2,2)) in (select min(sqrt(power(x1-x2, 2)+power(y1-y2,2))) from cte) ) select * from cte1
+with cte as( select p1.x as x1, p1.y as y1, p2.x as x2, p2.y as y2 from point_2d p1 join point_2d p2 where (p1.x,p1.y) != (p2.x,p2.y) ) select distinct round(min(sqrt(power(x1-x2,2)+power(y1-y2,2))),2) as shortest from cte
+with data_cte as ( select x, y, row_number() over () as "row_num" from point_2d ) select min( round( SQRT( (c1.x - c2.x)*(c1.x - c2.x) + (c1.y - c2.y)*(c1.y - c2.y) ),2 )) as "shortest" from data_cte c1 join data_cte c2 on c1.row_num != c2.row_num
+with dist as (select round(sqrt(pow(p1.x -p2.x,2 )+ pow(p1.y - p2.y,2 )),2) d from point_2d p1, point_2d p2 where p1.x <> p2.x or p1.y <> p2.y ) select min(d) as shortest from dist
+with req as ( select round(sqrt(power(p2.x-p1.x,2)+power(p2.y-p1.y,2)),2) as dist from point_2d p1,point_2d p2 ) select min(dist) as shortest from req where dist!=0
+with step1 as( select round(sqrt(power((a.x-b.x),2)+power((a.y-b.y),2)),2) as distance from point_2d as a cross join point_2d as b ) select min(distance) as shortest from step1 where distance <>0
+with t1 as (select row_number() over (order by x) as id, x, y from point_2d) select round(sqrt(pow((a.x - b.x),2) + pow((a.y - b.y), 2)), 2) as shortest from t1 a join t1 b on a.id < b.id order by 1 limit 1
+with temp as (select x, y, rank() over (order by x,y) as num from point_2d) select round(min(shortest) ,2) as shortest from (select sqrt(pow(delt_x,2) + pow(delt_y,2)) as shortest from (select (a.x-b.x) as delt_x, (a.y-b.y) as delt_y from temp a join temp b on a.num > b.num) sub ) sub2
+with tmp as ( select * , row_number() over () as rn from point_2d ) select round(sqrt(power(t1.x - t2.x, 2) + power(t2.y - t1.y, 2)), 2) as shortest from tmp t1, tmp t2 where t1.rn != t2.rn order by 1 limit 1
+with tmp as (select x,y,row_number() over() as row_num from point_2d ) select round(min(sqrt(power((a.x-b.x),2)+power((a.y-b.y),2))),2) as shortest from tmp a, tmp b where a.row_num < b.row_num

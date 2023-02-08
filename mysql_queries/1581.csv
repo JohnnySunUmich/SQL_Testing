@@ -1,0 +1,449 @@
+(select v.customer_id,count(v.customer_id) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where amount is null group by v.customer_id)
+SELECT CUSTOMER_ID, COUNT(VISIT_ID) AS COUNT_NO_TRANS FROM VISITS WHERE VISIT_ID NOT IN (SELECT DISTINCT VISIT_ID FROM TRANSACTIONS) GROUP BY CUSTOMER_ID
+SELECT DISTINCT Visits.customer_id, COUNT(IF(Transactions.visit_id IS NULL, 1, 0)) OVER (PARTITION BY Visits.customer_id)AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL
+SELECT DISTINCT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY customer_id ORDER BY count_no_trans DESC
+SELECT DISTINCT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT distinct visit_id FROM Transactions) GROUP BY customer_id
+SELECT DISTINCT v.customer_id, COUNT(*) as count_no_trans FROM visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT DISTINCT v.customer_id, COUNT(v.customer_id) as count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id ORDER BY count_no_trans DESC
+SELECT T1.customer_id, COUNT(*) AS count_no_trans FROM Visits AS T1 LEFT JOIN Transactions AS T2 ON T1.visit_id = T2.visit_id WHERE T2.transaction_id IS NULL GROUP BY T1.customer_id HAVING COUNT(*) > 0
+SELECT V.customer_id customer_id, COUNT(DISTINCT V.visit_id) count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id WHERE T.transaction_id IS NULL GROUP BY 1
+SELECT V.customer_id, COUNT(*) AS count_no_trans FROM (SELECT * FROM Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions)) V GROUP BY 1
+SELECT V.customer_id, COUNT(*) AS count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id WHERE T.transaction_id IS NULL GROUP BY V.customer_id
+SELECT V.customer_id, COUNT(T.transaction_id IS NULL) AS count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id WHERE T.visit_id IS NULL GROUP BY V.customer_id
+SELECT V.customer_id, COUNT(V.customer_id) AS count_no_trans FROM Visits AS V LEFT JOIN Transactions AS T ON V.visit_id = T.visit_id WHERE ISNULL(T.transaction_id) GROUP BY V.customer_id
+SELECT V.customer_id, COUNT(V.visit_id) AS 'count_no_trans' FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id WHERE T.transaction_id IS NULL GROUP BY V.customer_id
+SELECT V.customer_id, COUNT(V.visit_id) AS count_no_trans FROM Visits AS V LEFT JOIN Transactions AS T ON V.visit_id = T.visit_id WHERE T.transaction_id IS NULL GROUP BY V.customer_id
+SELECT V.customer_id, COUNT(V.visit_id) as count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id where T.visit_id is null group by 1
+SELECT V.customer_id, COUNT(V.visit_id) as count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id=T.visit_id WHERE T.visit_id IS NULL GROUP BY V.customer_id
+SELECT V.customer_id, COUNT(V.visit_id) as count_no_trans FROM Visits as V LEFT JOIN Transactions as T ON V.visit_id = T.visit_id WHERE T.amount IS NULL GROUP BY V.customer_id
+SELECT V.customer_id, count(V.visit_id) as count_no_trans FROM Visits V LEFT JOIN Transactions T on V.visit_id = T.visit_id where T.transaction_id is NULL group by 1
+SELECT Visits.customer_id as customer_id, sum(if(P.total_times is null, 1, 0)) as count_no_trans FROM Visits LEFT JOIN (SELECT visit_id, COUNT(transaction_id) as total_times, transaction_id FROM Transactions GROUP BY visit_id) P ON P.visit_id=Visits.visit_id WHERE P.transaction_id IS NULL GROUP BY Visits.customer_id
+SELECT Visits.customer_id, COUNT(Visits.visit_id) AS 'count_no_trans' FROM Visits LEFT JOIN Transactions ON Transactions.visit_id = Visits.visit_id WHERE Transactions.transaction_id IS NULL GROUP BY 1
+SELECT Visits.customer_id, COUNT(Visits.visit_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.amount IS NULL GROUP BY Visits.customer_id
+SELECT Visits.customer_id, count(Visits.visit_id) AS count_no_trans FROM Transactions RIGHT JOIN Visits ON Transactions.visit_id = Visits.visit_id WHERE Transactions.amount IS NULL GROUP BY 1
+SELECT a.customer_id , COUNT(a.visit_id) AS count_no_trans FROM Visits a LEFT JOIN Transactions b ON a.visit_id = b.visit_id WHERE b.transaction_id IS NULL GROUP BY 1
+SELECT a.customer_id, count(*) as count_no_trans FROM Visits as a left join Transactions as b on a.visit_id = b.visit_id where b.amount is null group by 1
+SELECT a.customer_id, count(a.visit_id) count_no_trans FROM Visits a LEFT JOIN Transactions b ON a.visit_id = b.visit_id WHERE b.visit_id IS NULL GROUP BY a.customer_id
+SELECT customer_id , COUNT(DISTINCT visit_id) AS count_no_trans FROM visits WHERE visit_id NOT IN (SELECT visit_id FROM transactions) GROUP BY customer_id
+SELECT customer_id , COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT Distinct visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id , SUM(case when t.visit_id IS NULL then 1 ELSE 0 END) as count_no_trans FROM Visits v LEFT JOIN Transactions t on v.visit_id = t.visit_id GROUP BY customer_id HAVING count_no_trans > 0
+SELECT customer_id ,SUM(CASE WHEN ct_trans=0 THEN 1 ELSE 0 END) AS count_no_trans FROM (SELECT v.visit_id ,v.customer_id ,COUNT(t.transaction_id) AS ct_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id GROUP BY 1,2) a GROUP BY 1 HAVING count_no_trans > 0
+SELECT customer_id ,SUM(CASE WHEN transaction_ct=0 THEN 1 ELSE 0 END) AS count_no_trans FROM (SELECT v.customer_id ,v.visit_id ,COUNT(t.transaction_id) AS transaction_ct FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id GROUP BY 1,2) a GROUP BY 1 HAVING count_no_trans > 0
+SELECT customer_id AS customer_id, count(1) AS count_no_trans FROM visits v LEFT JOIN transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id is null GROUP BY customer_id
+SELECT customer_id as customer_id, COUNT(visit_id) as count_no_trans FROM visits WHERE visit_id NOT IN( SELECT visit_id FROM transactions ) GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM ( SELECT t1.visit_id, t1.customer_id, t2.visit_id as trans_id FROM Visits t1 LEFT JOIN Transactions t2 ON t1.visit_id = t2.visit_id) t WHERE t.trans_id IS NULL GROUP BY 1 ORDER BY 2 DESC
+SELECT customer_id, COUNT(*) AS count_no_trans FROM (SELECT customer_id,transaction_id FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id) SUB WHERE SUB.transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits AS V LEFT JOIN Transactions AS T ON V.visit_id=T.visit_id WHERE T.transaction_id IS null GROUP BY V.customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Transactions.visit_id = Visits.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id=Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits WHERE visit_id NOT IN ( SELECT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY 1
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits WHERE visit_id NOT IN( SELECT DISTINCT visit_id FROM Transactions WHERE amount > 0 ) GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id=t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM Visits v LEFT JOIN Transactions t USING(visit_id) WHERE t.visit_id IS NULL GROUP BY 1
+SELECT customer_id, COUNT(*) AS count_no_trans FROM visits LEFT JOIN transactions USING(visit_id) WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) AS count_no_trans FROM visits WHERE visit_id NOT IN (SELECT visit_id FROM transactions) GROUP BY customer_id ORDER BY COUNT(*)
+SELECT customer_id, COUNT(*) AS count_no_trans FROM visits WHERE visits.visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(*) as count_no_trans FROM Visits NATURAL LEFT JOIN Transactions WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) as count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(*) count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(*) count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE amount IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(*) count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(DISTINCT A1.visit_id) AS count_no_trans FROM (SELECT customer_id, Visits.visit_id FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE amount IS NULL) A1 GROUP BY customer_id
+SELECT customer_id, COUNT(IFNULL(tid, 0)) AS count_no_trans FROM ( SELECT v.customer_id AS customer_id, v.visit_id AS visit_id, t.transaction_id AS tid FROM Visits AS v LEFT JOIN Transactions AS t ON v.visit_id = t.visit_id)a WHERE tid IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(IFNULL(transaction_id, 0)) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(IFNULL(transaction_id, 0)) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(V.visit_id) AS 'count_no_trans' FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id ORDER BY 'count_no_trans' desc, V.customer_id asc
+SELECT customer_id, COUNT(Visits.visit_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(Visits.visit_id) AS count_no_trans FROM visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(Visits.visit_id) AS count_no_trans FROM visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id is NULL GROUP BY customer_id
+SELECT customer_id, COUNT(Visits.visit_id) as count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(Visits.visit_id) as count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id=Transactions.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM ( SELECT customer_id FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id IS NULL ) AS a GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits AS v WHERE v.visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.Transaction_id IS NULL GROUP BY Visits.customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY Visits.customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE Transactions.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions USING(visit_id) WHERE amount IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits WHERE NOT EXISTS( SELECT null FROM Transactions WHERE Visits.visit_id = Transactions.visit_id ) GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT v.visit_id FROM Visits v INNER JOIN Transactions t ON v.visit_id = t.visit_id) GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id from Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits as v LEFT JOIN Transactions AS t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE amount IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT customer_id, COUNT(t.transaction_id IS NULL) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(transaction_id IS NULL) as count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.customer_id) AS count_no_trans FROM Visits AS V LEFT JOIN Transactions AS t ON t.visit_id = v.visit_id WHERE t.transaction_id is NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits AS v LEFT JOIN Transactions AS t ON t.visit_id = v.visit_id WHERE t.transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id is NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t USING (visit_id) WHERE t.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM visits v LEFT JOIN transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) AS count_no_trans FROM visits v LEFT JOIN transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(v.visit_id) as count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS 'count_no_trans' FROM Visits WHERE visit_id NOT IN ( SELECT DISTINCT visit_id FROM Transactions ) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM VISITS WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM TRANSACTIONS) GROUP BY 1
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits LEFT JOIN Transactions USING(visit_id) WHERE Transactions.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits LEFT JOIN Transactions USING(visit_id) WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN ( SELECT DISTINCT visit_id FROM Transactions ) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN ( SELECT visit_id FROM Transactions ) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT(visit_id) FROM Transactions) GROUP BY 1
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (Select DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t USING (visit_id) WHERE t.transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t USING(visit_id) WHERE t.visit_id IS NULL GROUP BY 1
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM Visits v WHERE visit_id NOT IN (SELECT distinct visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM visits V WHERE visit_id NOT IN(SELECT visit_id FROM transactions) GROUP BY customer_id ORDER BY count_no_trans
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM visits WHERE visit_id NOT IN (SELECT visit_id FROM transactions) GROUP BY customer_id ORDER BY 2
+SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM( SELECT v.visit_id, v.customer_id, transaction_id, amount FROM visits v LEFT JOIN transactions t ON v.visit_id = t.visit_id WHERE amount IS NULL ) sub GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) as 'count_no_trans' FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) as count_no_trans FROM Visits WHERE visit_id NOT IN ( SELECT DISTINCT visit_id FROM Transactions ) GROUP BY 1
+SELECT customer_id, COUNT(visit_id) as count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id from Transactions) GROUP BY customer_id
+SELECT customer_id, COUNT(visit_id) count_no_trans FROM Visits LEFT JOIN Transactions USING(visit_id) WHERE AMOUNT IS NULL GROUP BY customer_id
+SELECT customer_id, COUNT(visits.visit_id) AS count_no_trans FROM visits LEFT JOIN transactions ON visits.visit_id=transactions.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id, SUM(CASE WHEN t.amount IS NULL THEN 1 ELSE 0 END) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id GROUP BY 1 HAVING count_no_trans > 0
+SELECT customer_id, SUM(no_trans) AS count_no_trans FROM (SELECT v.customer_id, v.visit_id, t.amount, CASE WHEN t.amount IS NULL THEN 1 ELSE 0 END AS no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id) t GROUP BY 1 HAVING count_no_trans >0
+SELECT customer_id, SUM(num_transactions is NULL) as count_no_trans FROM Visits v LEFT JOIN ( SELECT COUNT(transaction_id) as num_transactions, visit_id FROM Transactions GROUP BY visit_id ) n ON v.visit_id = n.visit_id GROUP BY customer_id HAVING SUM(num_transactions is NULL) > 0
+SELECT customer_id, SUM(trans) AS count_no_trans FROM (SELECT customer_id , COALESCE(transaction_id, 1) AS trans FROM Visits v LEFT JOIN Transactions t ON t.visit_id = v.visit_id WHERE t.transaction_id IS NULL ) no_trans GROUP BY 1
+SELECT customer_id, count(*) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions) GROUP BY customer_id
+SELECT customer_id, count(*) AS count_no_trans FROM visits WHERE visit_id NOT IN ( SELECT DISTINCT visit_id FROM transactions ) GROUP BY customer_id
+SELECT customer_id, count(*) AS count_no_trans FROM visits v LEFT OUTER JOIN transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT customer_id, count(*) as count_no_trans FROM Visits LEFT JOIN Transactions USING (visit_id) WHERE amount IS NULL GROUP BY customer_id ORDER BY 2,1
+SELECT customer_id, count(*) as count_no_trans FROM visits v LEFT JOIN transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY customer_id
+SELECT customer_id, count(Visits.visit_id) as count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transaction_id is NULL GROUP BY customer_id
+SELECT customer_id, count(customer_id) as count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id WHERE amount is Null GROUP BY customer_id
+SELECT customer_id, count(customer_id) as count_no_trans FROM Visits v LEFT JOIN Transactions t on v.visit_id = t.visit_id WHERE transaction_id is null GROUP BY customer_id
+SELECT customer_id, count(visit_id) AS count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions) GROUP BY 1
+SELECT customer_id, count(visit_id) count_no_trans FROM Visits v WHERE v.visit_id not in (select visit_id FROM Transactions) GROUP BY 1
+SELECT customer_id, count_no_trans FROM (SELECT customer_id, SUM(ISNULL(transaction_id)) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id GROUP BY customer_id) AS A WHERE count_no_trans != 0
+SELECT customer_id,COUNT(*) AS count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id WHERE amount IS NULL GROUP BY customer_id
+SELECT customer_id,COUNT(V.visit_id) AS count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id=T.visit_id WHERE transaction_id IS NULL GROUP BY customer_id
+SELECT customer_id,COUNT(visit_id) as count_no_trans FROM Visits WHERE visit_id NOT IN (SELECT visit_id from Transactions) GROUP BY customer_id
+SELECT customer_id,count(*) as count_no_trans FROM Visits v WHERE v.visit_id NOT IN (select visit_id FROM transactions ) group by customer_id
+SELECT customer_id,count(*) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions) group by 1
+SELECT fin.customer_id, count(fin.customer_id) count_no_trans FROM (SELECT v.customer_id as customer_id FROM Visits as v Left join Transactions as t on v.visit_id = t.visit_id where t.visit_id is NULL) fin group by fin.customer_id order by count(fin.customer_id) desc
+SELECT v.customer_id , COUNT(*)As count_no_trans FROM Visits v Left JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id ,COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.amount is NULL GROUP BY v.customer_id
+SELECT v.customer_id AS customer_id, COUNT(v.customer_id) AS count_no_trans FROM Visits AS v LEFT JOIN Transactions AS t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id AS customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id as customer_id ,COUNT(*) as count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY 1 order by 2 desc
+SELECT v.customer_id, COUNT(*) AS count_no_trans FROM Visits AS v LEFT JOIN Transactions AS t ON v.visit_id = t.visit_id WHERE ISNULL(t.transaction_id) GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(*) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id ORDER BY customer_id
+SELECT v.customer_id, COUNT(*) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(*) count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY 1
+SELECT v.customer_id, COUNT(1) AS count_no_trans FROM visits AS v LEFT JOIN transactions AS t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY 1
+SELECT v.customer_id, COUNT(customer_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.customer_id) AS count_no_trans FROM Visits AS v LEFT JOIN Transactions AS t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.customer_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.customer_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t USING (visit_id) WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.customer_id) as count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits AS v LEFT JOIN Transactions AS t ON t.visit_id = v.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY 1
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id=t.visit_id WHERE t.amount IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v WHERE v.visit_id NOT IN (SELECT t.visit_id FROM Transactions t) GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) as count_no_trans FROM Visits AS v LEFT JOIN Transactions AS t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, COUNT(v.visit_id) count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY customer_id
+SELECT v.customer_id, Count(v.visit_id) as count_no_trans FROM Visits as v LEFT JOIN Transactions as t ON v.visit_id = t.visit_id WHERE t.visit_id is NULL GROUP BY v.customer_id
+SELECT v.customer_id, SUM( CASE WHEN t.transaction_id IS NULL THEN 1 ELSE 0 END ) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id GROUP BY v.customer_id HAVING count_no_trans != 0
+SELECT v.customer_id, SUM(CASE WHEN t.visit_id IS NULL THEN 1 END) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.visit_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, SUM(t.transaction_id IS NULL) as count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id GROUP BY customer_id HAVING SUM(t.transaction_id IS NULL) > 0
+SELECT v.customer_id, count(DISTINCT(v.visit_id)) as 'count_no_trans' FROM Visits as v, Transactions as t WHERE v.visit_id NOT IN (SELECT visit_id FROM Transactions) Group by customer_id
+SELECT v.customer_id, count(v.visit_id) as count_no_trans FROM VISITS v LEFT JOIN TRANSACTIONS t ON v.visit_id = t.visit_id WHERE amount IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, count(v.visit_id) as count_no_trans FROM VISITS v LEFT JOIN TRANSACTIONS t ON v.visit_id = t.visit_id WHERE transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id, count(v.visit_id) as count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v.customer_id,COUNT(v.customer_id) AS count_no_trans FROM Visits v WHERE v.visit_id NOT IN (SELECT distinct t.visit_id FROM Transactions t) GROUP BY 1 ORDER BY 2
+SELECT v.customer_id,COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id
+SELECT v1.customer_id, COUNT(v1.visit_id) AS count_no_trans FROM Visits v1 WHERE v1.visit_id NOT IN ( SELECT v.visit_id FROM Transactions t LEFT JOIN Visits v ON t.visit_id = v.visit_id) GROUP BY 1
+SELECT visits.customer_id, COUNT(visits.visit_id) as count_no_trans FROM visits LEFT JOIN ( SELECT visit_id, amount FROM transactions GROUP BY visit_id ) AS t ON visits.visit_id = t.visit_id WHERE t.amount IS NULL GROUP BY visits.customer_id
+Select Visits.customer_id As customer_id, count(Visits.visit_id) As count_no_trans From Visits Left join Transactions On Transactions.visit_id = Visits.visit_id Where transactions.visit_id Is Null Group by Visits.customer_id
+Select Visits.customer_id,count(Visits.visit_id) as count_no_trans from Visits Left join Transactions ON Visits.visit_id = Transactions.visit_id Where Transactions.transaction_id is null group by Visits.customer_id
+Select customer_id , count(customer_id) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where transaction_id is NULL group by customer_id
+Select customer_id, count(*) count_no_trans from Visits a left join Transactions t on a.visit_id = t.visit_id where transaction_id is null group by 1
+Select customer_id, count(customer_id) as count_no_trans From Visits WHERE visit_id NOT IN (SELECT visit_id FROM Transactions) Group by customer_id
+Select customer_id, count(distinct visit_id) as count_no_trans From Visits as v Left join Transactions as t using(visit_id) Where v.visit_id not in ( select distinct visit_id From Transactions) Group by customer_id
+Select customer_id,count(visit_id) as count_no_trans FROM Visits Where visit_id NOT IN (Select v.visit_id From Visits as v Inner Join Transactions Using (visit_id) ) Group by customer_id
+Select v.customer_id as customer_id , count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+Select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+WITH CTE1 AS ( SELECT Visits.visit_id, Visits.customer_id, Transactions.transaction_id FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id HAVING transaction_id IS NULL) SELECT customer_id, COUNT(*) AS count_no_trans FROM CTE1 GROUP BY customer_id
+WITH no_visits AS ( SELECT v.customer_id, v.visit_id FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL ) SELECT no_visits.customer_id, COUNT(DISTINCT no_visits.visit_id) count_no_trans FROM no_visits GROUP BY no_visits.customer_id
+WITH table1 AS (SELECT Visits.visit_id,customer_id, amount FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE amount IS NULL) SELECT customer_id, COUNT(*) AS count_no_trans FROM table1 GROUP BY customer_id
+WITH temp AS ( SELECT V.customer_id, V.visit_id FROM Visits V LEFT OUTER JOIN Transactions T ON V.visit_id = T.visit_id WHERE T.visit_id is null ), finalTable AS ( SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM temp GROUP BY customer_id ) SELECT * FROM finalTable
+WITH temp AS ( SELECT V.customer_id, V.visit_id, T.visit_id AS hasTransaction FROM Visits V LEFT OUTER JOIN Transactions T ON V.visit_id = T.visit_id HAVING T.visit_id is null ), finalTable AS ( SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM temp GROUP BY customer_id ) SELECT * FROM finalTable
+WITH visits AS ( SELECT v.customer_id, v.visit_id, COUNT(transaction_id) num_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id GROUP BY visit_id ) SELECT customer_id, COUNT(num_trans) count_no_trans FROM visits WHERE num_trans = 0 GROUP BY customer_id
+select A.customer_id as customer_id ,count(A.visit_id) as count_no_trans from Visits A where visit_id not in (select visit_id from Transactions) group by A.customer_id
+select V.customer_id as customer_id, count(V.visit_id) as count_no_trans from Visits V left join Transactions T on V.visit_id=T.visit_id where T.visit_id is null group by 1
+select V.customer_id as customer_id, count(V.visit_id) as count_no_trans from Visits V left join Transactions T on V.visit_id=T.visit_id where T.visit_id is null group by V.customer_id
+select V.customer_id, count(*) as count_no_trans from Visits V left join Transactions T on V.visit_id = T.visit_id where T.transaction_id is null group by V.customer_id
+select V.customer_id, count(*) count_no_trans from Visits V left join Transactions T on V.visit_id = T.visit_id where T.amount is null group by V.customer_id
+select V.customer_id, count(T.transaction_id is null) as count_no_trans from Visits V left join Transactions T on V.visit_id = T.visit_id where T.transaction_id is null group by V.customer_id
+select V.customer_id, count(V.customer_id) as count_no_trans FROM Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id where T.visit_id is null group by V.customer_id
+select V.customer_id, count(V.visit_id) as count_no_trans from Visits V LEFT JOIN Transactions T ON V.visit_id = T.visit_id where T.transaction_id is NULL group by 1
+select V.customer_id, count(V.visit_id) as count_no_trans from Visits V left join Transactions T ON V.visit_id = T.visit_id where T.visit_id is NULL group by 1
+select V.customer_id, count(V.visit_id) as count_no_trans from Visits as V left join Transactions as T on V.visit_id = T.visit_id where T.visit_id is NULL group by V.customer_id
+select V.customer_id, count(V.visit_id) as count_no_trans from Visits as V left outer join Transactions as T on V.visit_id = T.visit_id where T.visit_id is null group by V.customer_id
+select Visits.customer_id, count(Visits.customer_id) as count_no_trans from Visits left join (select T.visit_id, V.customer_id from Transactions T left join Visits V on V.visit_id = T.visit_id) A on Visits.visit_id = A.visit_id where A.visit_id is null group by Visits.customer_id
+select Visits.customer_id, count(Visits.visit_id) as count_no_trans from Visits left join Transactions ON Visits.visit_id = Transactions.visit_id where Transactions.visit_id is NULL group by customer_id
+select Visits.customer_id, sum( case when Transactions.amount is null then 1 else 0 end ) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id group by Visits.customer_id having count_no_trans>0
+select a. customer_id customer_id , count(customer_id) count_no_trans from Visits a left outer join Transactions b on (a.visit_id = b. visit_id) where b.visit_id is null group by 1 order by 1
+select a.customer_id , count(*) count_no_trans from Visits a left join Transactions b using(visit_id) where transaction_id is null group by a.customer_id
+select a.customer_id ,count(*) as count_no_trans from visits as a left join transactions as b on a.visit_id = b.visit_id where b.transaction_id is null group by a.customer_id
+select a.customer_id as customer_id, count(a.visit_id) as count_no_trans from visits a left join transactions b on a.visit_id=b.visit_id where b.visit_id is null group by a.customer_id
+select a.customer_id as customer_id, count(a.visit_id) as count_no_trans from visits a left join transactions b using(visit_id) where b.visit_id is null group by a.customer_id
+select a.customer_id, count(a.visit_id) as count_no_trans from Visits a where a.visit_id not in (select visit_id from Transactions ) group by a.customer_id
+select a.customer_id, count(a.visit_id) as count_no_trans from visits a left join transactions b on a.visit_id = b.visit_id where b.transaction_id is null group by 1
+select a.customer_id, count(a.visit_id) as count_no_trans from visits a left join transactions b on a.visit_id = b.visit_id where b.visit_id is null group by 1
+select a.customer_id, count(a.visit_id) as count_no_trans from visits a left outer join transactions b on a.visit_id = b.visit_id where b.transaction_id is null group by a.customer_id
+select a.customer_id, count(distinct a.visit_id) as count_no_trans from visits a left outer join transactions b on a.visit_id = b.visit_id where b.visit_id is null group by a.customer_id
+select a.customer_id, count(ifnull(a.amount,1)) count_no_trans from (select a.customer_id, b.amount from Visits a left join Transactions b on a.visit_id=b.visit_id where b.amount is null) a group by a.customer_id order by count_no_trans desc
+select a.customer_id, sum(case when transaction_id is null then 1 else 0 end) as count_no_trans from visits as a left join transactions as b on a.visit_id = b.visit_id group by 1 having sum(case when transaction_id is null then 1 else 0 end) <>0
+select agg.customer_id , count(*) as count_no_trans from ( select v.visit_id, v.customer_id from visits v left join Transactions T on v.visit_id = t.visit_id where t.transaction_id is null ) AGG group by 1
+select b.customer_id, sum(ifnull(a.transaction_id ,1)) as count_no_trans from Transactions a right join Visits b on a.visit_id = b.visit_id where a.transaction_id is NULL group by 1 order by 1 desc
+select b.customer_id,count(b.visit_id) as count_no_trans from ( select customer_id , visit_id from visits where visit_id not in (select visit_id from transactions) ) b group by 1
+select c.customer_id, count(c.visit_id) as count_no_trans from Visits c where c.visit_id not in (select visit_id from transactions) group by customer_id
+select customer_id , count(*) as count_no_trans from Visits V left join Transactions T on V.visit_id = T.visit_id where T.visit_id is null group by customer_id
+select customer_id , count(*) count_no_trans from Visits where visit_id not in (select visit_id from Transactions ) group by customer_id
+select customer_id , count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1
+select customer_id , count(v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id WHERE amount IS NULL group by customer_id
+select customer_id , sum(if(transaction_id is null, 1,0))count_no_trans from Visits v left join Transactions t on t.visit_id = v.visit_id group by customer_id having count_no_trans > 0
+select customer_id ,count(v.visit_id) as count_no_trans from visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1
+select customer_id ,count(visit_id) as count_no_trans from Visits where visit_id not in ( Select Visit_id from Transactions ) group by customer_id order by count_no_trans desc
+select customer_id, count( v.customer_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1
+select customer_id, count(*) as count_no_trans from (select customer_id from visits where visit_id not in (select visit_id from transactions)) a group by 1
+select customer_id, count(*) as count_no_trans from Visits as v Left Join Transactions as t on v.visit_id = t.visit_id where amount is null group by customer_id
+select customer_id, count(*) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select customer_id, count(*) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where Transactions.visit_id IS NULL group by customer_id
+select customer_id, count(*) as count_no_trans from Visits t1 left join (select Visit_id, sum(amount) as amount from Transactions t2 group by visit_id) t2 on t1.Visit_id = t2.visit_id where t2.visit_id is null group by customer_id
+select customer_id, count(*) as count_no_trans from Visits v left join Transactions t on t.visit_id = v.visit_id where t.visit_id is null group by customer_id
+select customer_id, count(*) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where amount is null group by 1
+select customer_id, count(*) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1
+select customer_id, count(*) as count_no_trans from Visits vis where visit_id not in ( select visit_id from Transactions ) group by 1
+select customer_id, count(*) as count_no_trans from Visits where Visits.visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(*) as count_no_trans from Visits where visit_id not in ( select visit_id from Transactions) group by customer_id
+select customer_id, count(*) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions ) group by customer_id
+select customer_id, count(*) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions) group by 1 order by 1
+select customer_id, count(*) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions) group by customer_id
+select customer_id, count(*) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(*) as count_no_trans from visits as v left join transactions as t on v.visit_id = t.visit_id where transaction_id is null group by customer_id
+select customer_id, count(*) as count_no_trans from visits left join transactions using(visit_id) where transaction_id is null group by customer_id
+select customer_id, count(*) as count_no_trans from visits left outer join Transactions using(visit_id) where amount is null group by customer_id
+select customer_id, count(*) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by 1
+select customer_id, count(*) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1
+select customer_id, count(*) as count_no_trans from visits where visit_id not in ( select distinct visit_id from transactions) group by 1
+select customer_id, count(*) as count_no_trans from visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(*) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by 1
+select customer_id, count(*) as count_no_trans from( select customer_id, transaction_id from visits v left join transactions t on v.visit_id = t.visit_id ) a where a.transaction_id is null group by customer_id
+select customer_id, count(*) count_no_trans from Visits v left join Transactions t USING (visit_id) where transaction_id is NULL group by customer_id
+select customer_id, count(*) count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.visit_id is null group by 1
+select customer_id, count(*) count_no_trans from Visits v where visit_id not in (select distinct visit_id from Transactions) group by 1
+select customer_id, count(*) count_no_trans from Visits where visit_id not in ( select visit_id from Transactions ) group by customer_id
+select customer_id, count(*) count_no_trans from visits left join transactions using(visit_id) where transaction_id is null group by customer_id
+select customer_id, count(*) count_no_trans from visits where visit_id not in ( select visit_id from transactions) group by customer_id
+select customer_id, count(*) count_no_trans from visits where visit_id not in (select visit_id from transactions) group by customer_id order by 2 desc
+select customer_id, count(1) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where amount is null group by 1
+select customer_id, count(1) as count_no_trans from visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by customer_id
+select customer_id, count(1) count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where v.visit_id not in (select visit_id from Transactions) group by 1
+select customer_id, count(Visits.visit_id) as count_no_trans from Transactions right join Visits on Transactions.visit_id = Visits.visit_id where Transactions.transaction_id is null group by Visits.customer_id
+select customer_id, count(Visits.visit_id) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where Transactions.visit_id is NULL group by customer_id
+select customer_id, count(Visits.visit_id) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where transaction_id is null group by customer_id
+select customer_id, count(customer_id) as count_no_trans from ( Select v.visit_id,customer_id, t.amount from Visits v left join Transactions t on v.visit_id = t.visit_id where amount is null) g group by customer_id
+select customer_id, count(customer_id) as count_no_trans from ( select Visits.visit_id, Visits.customer_id, Transactions.amount from Visits LEFT OUTER JOIN Transactions on Visits.visit_id = Transactions.visit_id having amount is null ) T group by customer_id
+select customer_id, count(customer_id) as count_no_trans from (select Transactions.visit_id as visitsId, Visits.customer_id as customer_id, Transactions.transaction_id, Transactions.amount as amount from Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE amount is null) as A GROUP BY customer_id
+select customer_id, count(customer_id) as count_no_trans from (select customer_id from visits as v left join transactions as t using(visit_id) where amount is null) as temp group by customer_id
+select customer_id, count(customer_id) as count_no_trans from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where Transactions.transaction_id is null group by customer_id
+select customer_id, count(customer_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by customer_id
+select customer_id, count(customer_id) as count_no_trans from Visits where visit_id not in (select distinct visit_id from transactions) group by 1 order by 2 desc
+select customer_id, count(customer_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id order by count_no_trans desc
+select customer_id, count(customer_id) as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.transaction_id is null group by 1
+select customer_id, count(customer_id) as count_no_trans from visits v where v.visit_id not in (select distinct(visit_id) from transactions) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from visits v where visit_id not in (select visit_id from transactions ) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id NOT IN (select visit_id from transactions) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by 1
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id not in (select visit_id from Transactions ) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by 1
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by customer_id
+select customer_id, count(customer_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by customer_id order by count_no_trans desc
+select customer_id, count(customer_id) count_no_trans from ( select visits.visit_id, customer_id, count(transaction_id) num from visits left join transactions on visits.visit_id=transactions.visit_id group by visit_id) as nums where num=0 group by customer_id
+select customer_id, count(customer_id) count_no_trans from Visits left join Transactions using(visit_id) where transaction_id is null group by customer_id
+select customer_id, count(customer_id) count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(customer_id) count_no_trans from visits left join transactions on visits.visit_id = transactions.visit_id where transactions.visit_id is null group by customer_id order by count(customer_id) desc
+select customer_id, count(customer_id) count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where transaction_id is null group by customer_id
+select customer_id, count(distinct v.visit_id) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where transaction_id is null group by 1
+select customer_id, count(distinct visit_id ) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(distinct visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(distinct visit_id) count_no_trans from Visits v left join Transactions t USING (visit_id) where transaction_id is NULL group by customer_id
+select customer_id, count(t.transaction_id is null) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.transaction_id is null group by customer_id
+select customer_id, count(t.visit_id) as count_no_trans from Visits as v join (select v.visit_id from visits as v left join transactions as t on v.visit_id = t.visit_id where transaction_id is NULL) as t on v.visit_id = t.visit_id group by v.customer_id
+select customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by customer_id
+select customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where transaction_id is null group by 1 order by 1
+select customer_id, count(v.visit_id) as count_no_trans from visits v left join (select distinct visit_id from transactions)a on v.visit_id = a.visit_id where a.visit_id is null group by customer_id
+select customer_id, count(v.visit_id) as count_no_trans from visits v left join Transactions t on v.visit_id = t.visit_id where transaction_id is null group by customer_id
+select customer_id, count(v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.amount is null group by v.customer_id
+select customer_id, count(v.visit_id) as count_no_trans from visits v where v.visit_id not in (select visit_id from Transactions) group by v.customer_id
+select customer_id, count(visit_id) 'count_no_trans' from visits where visit_id not in (select distinct visit_id from transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans FROM visits WHERE visit_id not in (select visit_id from transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits V where V.visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits left join Transactions using (visit_id) where transaction_id is null group by 1
+select customer_id, count(visit_id) as count_no_trans from Visits v where not exists(select * from Transactions t where t.visit_id = v.visit_id) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in ( select distinct visit_id from Transactions ) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in ( select distinct visit_id from Transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions ) group by customer_id order by count(visit_id)
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions group by visit_id ) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions group by visit_id) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by 1
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id having count(visit_id)>0
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id order by count(visit_id) desc
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from Visits where visit_id not in (select visit_id from transactions) group by customer_id order by 2
+select customer_id, count(visit_id) as count_no_trans from visits v where visit_id not in (select distinct visit_id from Transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in ( select distinct visit_id from transactions ) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in ( select visit_id from transactions ) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in ( select visit_id from transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by 1
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from Transactions) group by 1
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions ) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions group by visit_id) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by customer_id
+select customer_id, count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by customer_id order by count_no_trans desc, customer_id asc
+select customer_id, count(visit_id) count_no_trans from visits v left join transactions t using (visit_id) where t.visit_id is null group by customer_id
+select customer_id, count(visits.visit_id) as count_no_trans from visits left join transactions on visits.visit_id = transactions.visit_id where transaction_id is null group by 1
+select customer_id, count(visits.visit_id) as count_no_trans from visits left join transactions on visits.visit_id=transactions.visit_id where transactions.transaction_id is null group by customer_id
+select customer_id, count_no_trans from ( select customer_id, sum(case when t.visit_id is null then 1 else 0 end) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id group by 1) t1 where t1.count_no_trans<>0
+select customer_id, count_no_trans from ( select v.customer_id as customer_id , t.transaction_id, count(customer_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id) a
+select customer_id, sum(case when t.transaction_id is null then 1 else 0 end ) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id group by 1 having count_no_trans>0
+select customer_id, sum(case when t.transaction_id is null then 1 else 0 end) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id group by 1 having count_no_trans > 0
+select customer_id, sum(case when transaction_id IS NULL then 1 else 0 end) as count_no_trans from Visits v left join transactions t using (visit_id) group by customer_id having sum(case when transaction_id IS NULL then 1 else 0 end) > 0
+select customer_id, sum(case when transaction_id is null then 1 else 0 end)as count_no_trans from visits left join transactions using (visit_id) group by 1 having sum(case when transaction_id is null then 1 else 0 end)>0
+select customer_id,Count(visit_id) as count_no_trans from Visits where visit_id NOT IN (select distinct visit_id from Transactions) group by 1 order by 2
+select customer_id,count(*) as count_no_trans from (select customer_id,transaction_id from Visits left join Transactions on Visits.visit_id = Transactions.visit_id where transaction_id is null )a group by customer_id
+select customer_id,count(*) as count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions) group by 1
+select customer_id,count(*) as count_no_trans from Visits where visit_id not in(select visit_id from Transactions) group by customer_id
+select customer_id,count(*) count_no_trans from ( select customer_id,v.visit_id v,t.visit_id t from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null) tt group by 1
+select customer_id,count(*) count_no_trans from ( select customer_id,v.visit_id v,t.visit_id t from visits v left join transactions t on v.visit_id=t.visit_id) tt where t is null group by 1
+select customer_id,count(*) count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null group by 1
+select customer_id,count(*) count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by customer_id
+select customer_id,count(A.visit_id) as count_no_trans from ( select v.customer_id,v.visit_id from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null ) A group by customer_id
+select customer_id,count(customer_id) AS count_no_trans from Visits where visit_id not in (select distinct visit_id from Transactions ) group by customer_id ORDER BY count_no_trans DESC
+select customer_id,count(customer_id) as count_no_trans from visits left join transactions on visits.visit_id=transactions.visit_id where transaction_id is null group by customer_id
+select customer_id,count(customer_id) as count_no_trans from visits v left join transactions t using (visit_id) where transaction_id is null group by customer_id
+select customer_id,count(customer_id) count_no_trans from visits v where not exists (select 1 from transactions where visit_id=v.visit_id) group by customer_id
+select customer_id,count(visit_id) as count_no_trans from Visits where visit_id not in (select DISTINCT visit_id from Transactions) group by 1 order by 2 desc
+select customer_id,count(visit_id) as count_no_trans from visits where visit_id not in ( select visit_id from transactions ) group by 1 order by 2 desc,1
+select customer_id,count(visit_id) as count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by customer_id
+select customer_id,count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by 1
+select customer_id,count(visit_id) as count_no_trans from visits where visit_id not in (select visit_id from transactions) group by customer_id order by customer_id
+select customer_id,count(visit_id) count_no_trans from Visits where visit_id not in (select visit_id from Transactions) group by customer_id
+select customer_id,count(visit_id) count_no_trans from visits where visit_id not in (select distinct visit_id from transactions) group by 1
+select customer_id,count(visits.visit_id) as count_no_trans from visits left join transactions on visits.visit_id = transactions.visit_id where transactions.amount is null group by customer_id
+select distinct V.customer_id, Count(V.visit_id) as "count_no_trans" from Visits as V where V.visit_id not in (select visit_id from Transactions) group by customer_id
+select distinct customer_id, count(*) over (partition by customer_id) count_no_trans from Visits left join Transactions using(visit_id) where transaction_id is null
+select distinct customer_id, count(v.visit_id) over(partition by customer_id) as count_no_trans from Visits v left outer join Transactions t on v.visit_id = t.visit_id where transaction_id IS NULL group by v.visit_id
+select distinct customer_id, count(visit_id)over(partition by customer_id) as count_no_trans from Visits where visit_id not in( select distinct visit_id from transactions)
+select distinct customer_id, sum(case when t.transaction_id is null then 1 else 0 end) as count_no_trans from Visits v left join Transactions t on t.visit_id = v.visit_id where t.transaction_id is null group by 1
+select distinct(customer_id), count(customer_id) as count_no_trans from visits where visit_id not in(select distinct(visit_id) from transactions) group by customer_id order by count(customer_id)
+select distinct(customer_id), count(visit_id) over (partition by customer_id) as count_no_trans from Visits where visit_id not in (select visit_id from transactions) order by 2 desc
+select t1.customer_id, count(t1.visit_id) as count_no_trans from visits as t1 left join transactions as t2 on t1.visit_id = t2.visit_id where t2.transaction_id is NULL group by t1.customer_id
+select v.customer_id , count(distinct(v.visit_id)) as count_no_trans from Visits v where visit_id not in ( select visit_id from Transactions) group by v.customer_id
+select v.customer_id ,count(v.visit_id) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id as 'customer_id', count(v.customer_id) as 'count_no_trans' from visits v left join Transactions t on v.visit_id = t.visit_id where transaction_id is null group by v.customer_id
+select v.customer_id as customer_id , count(v.visit_id) as count_no_trans from visits v left outer join transactions t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id as customer_id, count(*) as count_no_trans from Visits v left join transactions t on v.visit_id = t.visit_id where t.visit_id is NULL group by v.customer_id order by count_no_trans desc
+select v.customer_id as customer_id, count(v.customer_id) as count_no_trans from visits as v left join transactions as t on v.visit_id = t.visit_id where t.transaction_id is NULL group by v.customer_id
+select v.customer_id as customer_id, count(v.visit_id) as count_no_trans from visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id order by 2 desc
+select v.customer_id as customer_id,count(distinct v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.transaction_id is null group by 1 order by 2 desc
+select v.customer_id customer_id, count(1) count_no_trans from Visits v left outer join Transactions txn on (v.visit_id = txn.visit_id) where txn.visit_id is null group by v.customer_id
+select v.customer_id, COUNT(v.visit_id) AS count_no_trans from Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id where t.transaction_id IS NULL group by v.customer_id
+select v.customer_id, count(*) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(*) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(*) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.amount is null group by 1
+select v.customer_id, count(*) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.visit_id is null group by 1
+select v.customer_id, count(*) as count_no_trans from visits as v left join transactions as t on v.visit_id = t.visit_id where t.amount is null group by v.customer_id
+select v.customer_id, count(*) as count_no_trans from visits v LEFT JOIN transactions t on t.visit_id = v.visit_id where t.transaction_id is NULL group by v.customer_id
+select v.customer_id, count(*) as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(*) count_no_trans from Visits v left join Transactions t on t.visit_id = v.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(*) count_no_trans from Visits v where v.visit_id not in (select visit_id from Transactions) group by v.customer_id
+select v.customer_id, count(1) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.amount is null group by v.customer_id
+select v.customer_id, count(1) as count_no_trans from Visits v where v.visit_id not in ( select distinct visit_id from Transactions) group by v.customer_id
+select v.customer_id, count(1) count_no_trans from Visits v where not exists ( select 1 from Transactions t where v.visit_id = t.visit_id ) group by v.customer_id
+select v.customer_id, count(1) count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by 1
+select v.customer_id, count(customer_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where amount is null group by customer_id order by count_no_trans desc
+select v.customer_id, count(customer_id) as count_no_trans from visits v where visit_id not in (select visit_id from transactions) group by customer_id
+select v.customer_id, count(distinct v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id= t.visit_id where v.visit_id not in( select visit_id from Transactions t ) group by customer_id
+select v.customer_id, count(distinct v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1
+select v.customer_id, count(v.customer_id) as "count_no_trans" from visits v where v.visit_id not in (select t.visit_id from transactions t) group by v.customer_id order by count_no_trans desc
+select v.customer_id, count(v.customer_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.amount is NULL group by v.customer_id
+select v.customer_id, count(v.customer_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where v.visit_id = t.visit_id is null group by v.customer_id order by count_no_trans desc
+select v.customer_id, count(v.customer_id) as count_no_trans from Visits v where v.visit_id not in ( select visit_id from Transactions) group by v.customer_id
+select v.customer_id, count(v.customer_id) as count_no_trans from visits as v left join transactions as t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(v.customer_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where (v.visit_id,t.transaction_id) not in (select visit_id, transaction_id from transactions) group by v.customer_id order by count_no_trans desc
+select v.customer_id, count(v.customer_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(v.customer_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where v.visit_id not in (select t.visit_id from transactions t) group by v.customer_id
+select v.customer_id, count(v.customer_id)as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as 'count_no_trans' from Visits as v left join Transactions as t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as 'count_no_trans' from Visits v where v.visit_id not in (select distinct t.visit_id from Transactions t) group by v.customer_id order by count_no_trans desc
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where t.visit_id is null group by customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits as v left join Transactions as tr using(visit_id) where tr.transaction_id is null group by 1
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id where t.transaction_id is NULL group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v Left join Transactions T on v.visit_id=T.visit_id where T.transaction_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on t.visit_id = v.visit_id where v.visit_id not in ( select visit_id from Transactions ) group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.visit_id is null group by 1
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id=t.visit_id where t.visit_id is null group by 1 order by 2 desc, 1
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v left join transactions t on v.visit_id = t.visit_id where transaction_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v where v.visit_id not in ( select visit_id from Transactions ) group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from Visits v where v.visit_id not in (select visit_id from Transactions) group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from visits as v where not exists (select transaction_id from transactions as t where v.visit_id = t.visit_id) group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from visits v left join transactions as t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.visit_id is null group by 1 order by count( v.visit_id) desc
+select v.customer_id, count(v.visit_id) as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id, count(v.visit_id) as count_no_trans from visits v where v.visit_id not in (select distinct visit_id from transactions) group by 1
+select v.customer_id, count(v.visit_id) count_no_trans from Visits v left join Transactions t on t.visit_id = v.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id, count(visit_id) as count_no_trans from Visits v where v.visit_id not in (select visit_id from Transactions) group by v.customer_id
+select v.customer_id, sum(case when t.transaction_id is null then 1 else 0 end) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id group by customer_id having count_no_trans >= 1
+select v.customer_id, sum(if(t.transaction_id is null, 1, 0)) count_no_trans from visits v left join transactions t using(visit_id) where t.transaction_id is null group by 1
+select v.customer_id,count(*) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id,count(*) as count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.transaction_id is null group by 1
+select v.customer_id,count(*) count_no_trans from visits v left join transactions t on v.visit_id = t.visit_id where t.visit_id is null group by v.customer_id
+select v.customer_id,count(1) as count_no_trans from visits v LEFT JOIN transactions t ON v.visit_id = t.visit_id where t.transaction_id IS NULL group by v.customer_id
+select v.customer_id,count(1) as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.transaction_id is null group by v.customer_id
+select v.customer_id,count(v.customer_id) as count_no_trans from Visits v inner join ( select visit_id from Visits where visit_id not in (select visit_id from Transactions) ) as t on v.visit_id =t.visit_id group by v.customer_id
+select v.customer_id,count(v.visit_id) as count_no_trans from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null group by customer_id
+select v.customer_id,count(v.visit_id) as count_no_trans from Visits v left join transactions t on v.visit_id = t.visit_id where t.amount is null group by 1
+select v.customer_id,count(v.visit_id) count_no_trans from visits v left join Transactions T on (t.visit_id=v.visit_id) where t.transaction_id is null group by v.customer_id
+select v.customer_id,count(v.visit_id) count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where v.visit_id is not null and t.transaction_id is null group by v.customer_id order by count(v.visit_id) desc
+select v.customer_id,count(v.visit_id)as count_no_trans from visits v left join transactions t on v.visit_id=t.visit_id where t.visit_id is null group by v.customer_id
+select v1.customer_id, count(v1.visit_id) as count_no_trans from visits v1 left join transactions t on v1.visit_id = t.visit_id where transaction_id is null group by v1.customer_id
+select vi.customer_id,count(*) as 'count_no_trans' from visits vi left join transactions trn on vi.visit_id = trn.visit_id where trn.transaction_id is null group by 1
+select visits.customer_id as customer_id,count(visits.visit_id)as count_no_trans from visits left join transactions on visits.visit_id = transactions.visit_id where transaction_id is null group by customer_id
+select visits.customer_id, count(visits.visit_id)as count_no_trans from VISITS LEFT OUTER JOIN Transactions ON Visits.visit_id= transactions.visit_id WHERE Transactions.transaction_id IS NULL group by visits.customer_id ORDER BY count_no_trans DESC
+with a as (select v.customer_id, v.visit_id, t.transaction_id, t.amount from visits v left join transactions t on v.visit_id = t.visit_id where transaction_id is NULL) select customer_id, count(customer_id) as count_no_trans from a group by customer_id
+with cte as ( Select v.*,t.transaction_id from Visits v left join Transactions t on v.visit_id = t.visit_id where transaction_id is null ) Select customer_id ,count(visit_id) as 'count_no_trans' from cte group by customer_id order by count_no_trans desc
+with cte as ( select v.customer_id,t.transaction_id from visits as v left join transactions as t on v.visit_id=t.visit_id where t.transaction_id is null ) select customer_id,count(*) as count_no_trans from cte group by customer_id
+with cte as( select * from visits where visit_id not in (select visit_id from transactions) ) select customer_id, count(visit_id) as count_no_trans from cte group by customer_id
+with cte_agg_filter as ( select customer_id, count(distinct v.visit_id) as count_no_trans from Visits as v left join Transactions as t on v.visit_id = t.visit_id where transaction_id is null group by 1 ) select * from cte_agg_filter
+with new as ( select v.customer_id, ifnull(t.visit_id,0) as counting from visits v left join transactions t on v.visit_id = t.visit_id ) select customer_id, count(*) as count_no_trans from new where counting = 0 group by customer_id
+with ta as (select v.*, t.visit_id as t_visit, t.transaction_id from Visits v left join Transactions t on v.visit_id = t.visit_id where t.visit_id is null) select customer_id, count(*) as count_no_trans from ta group by customer_id
+with tran_per_visit as ( select visit_id, sum(amount) as total_amount from Transactions group by visit_id ), visits_trans as ( select a.*, b.total_amount from Visits as a left join tran_per_visit as b on a.visit_id = b.visit_id ) select customer_id, count(*) as count_no_trans from visits_trans where total_amount is null group by customer_id
+with visit_totals AS ( SELECT v.customer_id, v.visit_id, COALESCE(SUM(t.amount),0) AS visit_total FROM Visits v LEFT JOIN Transactions t ON t.visit_id = v.visit_id GROUP BY v.visit_id ) SELECT customer_id, COUNT(visit_id) AS count_no_trans FROM visit_totals WHERE visit_total = 0 GROUP BY customer_id

@@ -1,0 +1,332 @@
+(SELECT gender, day, SUM(score_points) OVER(ORDER BY day) AS total FROM Scores WHERE gender = 'F' GROUP BY day ORDER BY day) UNION (SELECT gender, day, SUM(score_points) OVER(ORDER BY day) AS total FROM Scores WHERE gender = 'M' GROUP BY day ORDER BY day)
+(SELECT gender,day,sum(score_points) over(order by gender,day rows between unbounded preceding and current row) as total FROM Scores WHERE gender='F' GROUP BY gender,day order by gender, day) union (SELECT gender,day,sum(score_points) over(order by gender,day rows between unbounded preceding and current row) as total FROM Scores WHERE gender='M' GROUP BY gender,day order by gender, day)
+SELECT DISTINCT gender, day, SUM(score_points) OVER (PARTITION BY gender order by day) AS total FROM Scores ORDER BY gender, day
+SELECT DISTINCT s1.gender, s1.day, SUM(s2.score_points) AS total FROM Scores s1 JOIN Scores s2 ON s1.gender=s2.gender WHERE s2.day <= s1.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT GENDER, DAY, SUM(SCORE_POINTS) OVER(PARTITION BY GENDER ORDER BY DAY) AS TOTAL FROM SCORES GROUP BY GENDER, DAY ORDER BY GENDER, DAY
+SELECT GENDER, DAY, SUM(SCORE_POINTS) OVER(PARTITION BY GENDER ORDER BY DAY) AS TOTAL FROM SCORES ORDER BY GENDER, DAY
+SELECT GENDER, DAY, SUM(SCORE_POINTS) OVER(PARTITION BY GENDER ORDER BY GENDER,DAY) AS TOTAL FROM SCORES
+SELECT GENDER, DAY, SUM(SCORE_POINTS) OVER(PARTITION BY GENDER ORDER BY GENDER,DAY) AS TOTAL FROM SCORES ORDER BY GENDER, DAY
+SELECT GENDER,DAY,SUM(SCORE_POINTS) OVER(PARTITION BY GENDER ORDER BY DAY) AS 'TOTAL' FROM SCORES
+SELECT S1.gender, S1.day, SUM(S2.score_points) AS total FROM Scores S1 JOIN Scores S2 ON S1.day >= S2.day AND S1.gender=S2.gender GROUP BY 1,2 ORDER BY 1,2
+SELECT S1.gender,S1.day,SUM(S2.score_points) As total FROM Scores AS S1 JOIN Scores AS S2 ON S1.gender=S2.gender AND S1.day>=S2.day GROUP BY gender,day ORDER BY gender,day
+SELECT a.gender, a.day, SUM(b.score_points) AS total FROM Scores a JOIN Scores b ON a.gender=b.gender AND a.day >= b.day GROUP BY a.gender,a.day ORDER BY a.gender ASC, a.day ASC
+SELECT a.gender, a.day, SUM(b.total) total FROM (SELECT gender, day, SUM(score_points) total FROM scores GROUP BY gender, day) a LEFT JOIN (SELECT gender, day, SUM(score_points) total FROM scores GROUP BY gender, day) b ON a.gender = b.gender AND a.day >= b.day GROUP BY a.gender, a.day ORDER BY gender, day
+SELECT a.gender, a.day, sum(b.score_points) as total FROM Scores a LEFT JOIN Scores b on a.day >= b.day and a.gender = b.gender GROUP BY a.gender, a.day ORDER BY a.gender, a.day
+SELECT c.gender, c.day, SUM(p.score_points) AS total FROM Scores c LEFT JOIN Scores p ON c.gender = p.gender AND c.day >= p.day GROUP BY c.gender, c.day ORDER BY c.gender, c.day
+SELECT gender , day , SUM(score_points) OVER (PARTITION BY gender ORDER BY day) total FROM Scores
+SELECT gender , day , SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM Scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender , day , sum(score_points) over (partition by gender order by day) as total FROM Scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender ,day ,SUM(score_points) OVER(PARTITION BY gender ORDER BY day ASC) AS total FROM Scores ORDER BY 1 ASC, 2 ASC
+SELECT gender ,day ,sum(score_points)OVER(PARTITION BY gender ORDER BY day) AS total FROM Scores
+SELECT gender, day , SUM(score_points) OVER( PARTITION BY gender ORDER BY day )AS total FROM Scores ORDER BY gender, day
+SELECT gender, day , sum(score_points) OVER(PARTITION BY gender ORDER BY day) as total FROM Scores ORDER BY 1,2
+SELECT gender, day, SUM(dtotal) OVER(PARTITION BY gender ORDER BY day ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total FROM ( SELECT gender, day, SUM(score_points) as dtotal FROM Scores GROUP BY gender, day ) a ORDER BY gender, day
+SELECT gender, day, SUM(score) OVER(PARTITION BY gender ORDER BY day) AS total FROM ( SELECT gender, day, SUM(score_points) AS score FROM Scores GROUP BY gender, day ) t ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER ( PARTITION BY gender ORDER BY day ASC ) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER ( PARTITION BY gender ORDER BY gender, day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total FROM Scores GROUP BY 1, 2
+SELECT gender, day, SUM(score_points) OVER ( PARTITION BY gender ORDER BY gender,day) as total FROM Scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY GENDER ORDER BY DAY ASC)AS total FROM SCORES S
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ) AS total FROM Scores GROUP BY gender,day ORDER BY gender,day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total FROM (SELECT day, gender, SUM(score_points) AS score_points FROM Scores GROUP BY day, gender) sub ORDER BY gender, day ASC
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ASC) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ASC) AS total FROM Scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ASC) total FROM Scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores GROUP BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores ORDER BY 1, 3
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) as total FROM (SELECT * FROM Scores GROUP BY gender, day) t
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) as total FROM Scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) as total FROM scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) total FROM scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day, gender ASC) AS 'total' FROM Scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY gender, day) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender ORDER BY gender, day) AS total FROM scores GROUP BY gender, day ORDER BY 1, 2
+SELECT gender, day, SUM(score_points) OVER (PARTITION BY gender order by day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as total FROM Scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER (partition by gender order by day) as total FROM scores GROUP BY gender, day ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER( PARTITION BY gender ORDER BY day ) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER( PARTITION BY gender ORDER BY day ASC ) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER( PARTITION BY gender ORDER BY day) total FROM Scores
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day ASC) AS total FROM Scores GROUP BY day, gender ORDER BY gender, day ASC
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day ROWS UNBOUNDED PRECEDING) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS 'total' FROM Scores GROUP BY 1,2
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM ( SELECT gender, day, SUM(score_points) AS score_points FROM Scores GROUP BY gender, day) X ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM Scores
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM Scores GROUP BY 1,2 ORDER BY 1,2
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM Scores GROUP BY gender, day ORDER BY gender,day
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM Scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) AS total FROM scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) as total FROM Scores
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) as total FROM Scores ORDER BY 1, 2
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) total FROM Scores
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) total FROM Scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) total FROM scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY gender, day) AS total FROM scores
+SELECT gender, day, SUM(score_points) over (PARTITION BY gender ORDER BY day) AS total FROM Scores
+SELECT gender, day, SUM(score_points) over (partition by gender order by day asc) as total FROM Scores
+SELECT gender, day, SUM(score_points)OVER(PARTITION BY gender ORDER BY DAY) AS total FROM Scores ORDER BY gender, day
+SELECT gender, day, SUM(score_points)OVER(PARTITION BY gender ORDER BY day) AS total FROM scores
+SELECT gender, day, SUM(total) OVER (PARTITION BY gender ORDER BY day) AS total FROM ( SELECT gender, day, SUM(score_points) AS total FROM scores GROUP BY gender, day ORDER BY gender, day ) z
+SELECT gender, day, sum(score_points) OVER (PARTITION BY gender ORDER BY day) as total FROM scores ORDER BY 1,2
+SELECT gender, day, sum(score_points) OVER (partition by gender order by day) AS total FROM scores GROUP BY gender, day order by gender, day
+SELECT gender, day, sum(score_points) OVER(PARTITION BY gender order by day ASC) AS total FROM Scores
+SELECT gender, day, sum(score_points) OVER(partition by gender order by day ASC) as total FROM Scores
+SELECT gender, day, sum(score_points) over (partition by gender order by day) as total FROM Scores
+SELECT gender, day, sum(score_points) over(partition by gender order by day asc rows between unbounded preceding and current row) as total FROM ( SELECT gender, day, sum(score_points) as score_points From Scores s group by 1,2 ) a
+SELECT gender, day, sum(score_points) over(partition by gender order by day) AS total FROM Scores ORDER BY 1, 2
+SELECT gender, day, sum(score_points)OVER(PARTITION BY gender ORDER BY gender, day) as total FROM Scores
+SELECT gender, day, total FROM (SELECT gender, day, CASE WHEN @pre_gender = gender THEN @total := @total + score_points ELSE @total := score_points END AS total, @pre_gender := gender FROM Scores, (SELECT @total := 0, @pre_gender := NULL) as init ORDER BY gender, day) AS need
+SELECT gender,day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day ASC) AS total FROM Scores
+SELECT gender,day, SUM(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores
+SELECT gender,day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day ASC) AS total FROM Scores
+SELECT gender,day, Sum(score_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM Scores
+SELECT s1.Gender, s1.day, SUM(s2.score_points) as total FROM Scores s1 JOIN Scores s2 ON s1.day>= s2.day AND s1.gender = s2.gender GROUP BY s1.gender, s1.day ORDER by gender, day
+SELECT s1.gender AS gender ,s1.day AS day,SUM(s2.score_points) AS total FROM Scores s1 JOIN Scores s2 ON s1.gender=s2.gender AND s1.day>=s2.day GROUP BY s1.gender,s1.day ORDER BY s1.gender,s1.day
+SELECT s1.gender, s1.day, SUM(s2.score_points) AS total FROM Scores AS s1, Scores AS s2 WHERE s1.gender = s2.gender AND s2.day <= s1.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s1.gender, s1.day, SUM(s2.score_points) AS total FROM Scores AS s1, Scores AS s2 WHERE s1.gender=s2.gender AND s2.day<=s1.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s1.gender, s1.day, SUM(s2.score_points) AS total FROM Scores s1 JOIN Scores s2 ON s1.gender = s2.gender AND s1.day >= s2.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s1.gender, s1.day, SUM(s2.score_points) AS total FROM Scores s1 LEFT JOIN Scores s2 ON s1.day >= s2.day AND s1.gender = s2.gender GROUP BY s1.day, s1.gender ORDER BY gender, day
+SELECT s1.gender, s1.day, SUM(s2.score_points) as total FROM scores as s1, scores as s2 WHERE s1.gender = s2.gender AND s2.day <= s1.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s1.gender, s1.day, SUM(s2.score_points) as total FROM scores s1, scores s2 WHERE s1.gender = s2.gender AND s2.day <= s1.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s1.gender, s1.day, SUM(s2.score_points) total FROM Scores s1 join Scores s2 WHERE s1.gender = s2.gender AND s1.day >= s2.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s1.gender, s1.day, sum(s2.score_points) as total FROM Scores as s1, Scores as s2 Where s1.gender = s2.gender and s1.day >= s2.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+SELECT s2.gender, s2.day, SUM(s1.score_points) AS total FROM Scores s1, Scores s2 WHERE s1.day <= s2.day AND s1.gender = s2.gender GROUP BY gender, day ORDER BY gender, day
+SELECT t1.gender, t1.day, SUM(t2.score_points) AS total FROM Scores AS t1, Scores AS t2 WHERE t1.gender = t2.gender AND t2.day <= t1.day GROUP BY t1.gender, t1.day ORDER BY t1.gender, t1.day
+Select gender, day, SUM(score_points) OVER(PARTITION BY gender ORDER BY day) as total From Scores Group by gender, day Order by gender, day
+Select gender, day, sum(score_points) over (partition by gender order by day) Total from Scores order by gender, day
+Select gender, day, sum(score_points) over (partition by gender order by day) as Total from Scores order by gender, day
+Select gender, day, sum(score_points) over(partition by Gender Order by day) total From Scores Group by day, Gender Order by gender, day
+Select gender, day, sum(score_points) over(partition by gender order by day) as total From Scores Order by gender, day
+Select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores
+Select gender, day, sum(sum(score_points)) over(partition by gender order by day) as total from scores group by 1,2 order by 1,2
+Select gender,day, sum(total_day) over (partition by gender order by day) as total from (select gender,day,sum(score_points) as total_day from Scores group by gender,day order by gender,day)A
+Select t1.gender, t1.day, sum(t2.score_points) as total From Scores as t1 Inner Join Scores as t2 On t1.gender = t2.gender and t1.day >= t2.day Group by t1.day, t1.gender Order by 1, 2
+WITH CTE1 AS ( SELECT gender, day, SUM(score_points) AS total FROM Scores GROUP BY gender, day ORDER BY gender, day) SELECT gender, day, SUM(total) OVER (PARTITION BY gender ORDER by day) AS total FROM CTE1
+WITH cte AS ( SELECT gender, day, SUM(score_points) AS total FROM Scores GROUP BY gender, day ) SELECT c1.gender, c1.day, SUM(c2.total) AS total FROM cte c1 JOIN cte c2 ON c1.gender = c2.gender AND c1.day >= c2.day GROUP BY c1.gender, c1.day ORDER BY c1.gender, c1.day
+WITH cte AS ( SELECT gender, day, sum(score_points) as score_per_day FROM Scores GROUP BY 1,2) SELECT gender, day, SUM(score_per_day) OVER(PARTITION BY gender ORDER BY day) as total FROM cte GROUP BY 1,2 ORDER BY 1,2
+WITH cte AS ( SELECT gender,day,SUM(score_points) AS get_points FROM Scores GROUP BY gender,day ) SELECT gender,day, SUM(get_points) OVER (PARTITION BY gender ORDER BY day) AS total FROM cte
+WITH daily_score AS (SELECT gender, day, SUM(score_points) as daily_total from Scores GROUP BY gender, day), male_running_score AS ( SELECT gender, day, SUM(daily_total) OVER (ORDER BY day, gender) as total from daily_score WHERE gender = 'M' ), female_running_score AS ( SELECT gender, day, SUM(daily_total) OVER (ORDER BY day, gender) as total from daily_score WHERE gender = 'F' ) SELECT * FROM female_running_score UNION SELECT * from male_running_score
+WITH day_totals AS ( SELECT gender, day, SUM(score_points) AS day_total FROM Scores GROUP BY gender, day ORDER BY gender, day ) SELECT dt1.gender, dt1.day, (SELECT SUM(dt2.day_total) FROM day_totals dt2 WHERE dt1.gender = dt2.gender AND dt1.day >= dt2.day) AS total FROM day_totals dt1
+WITH scores AS (SELECT gender, day, SUM(score_points) AS score FROM Scores GROUP BY 1,2) SELECT gender, day, SUM(score) OVER (PARTITION BY gender ORDER BY day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total FROM scores ORDER BY 1,2
+WITH t1 as (select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores ) select gender, day, total from t1 order by gender, day, total
+WITH tb AS ( SELECT gender, day, total, row_number() over (order by gender) 'rk' FROM ( SELECT gender, day, SUM(score_points) 'total' FROM Scores GROUP BY 1,2 ORDER BY 1, 2 ) S ) SELECT DISTINCT T1.gender, T1.day, SUM(T2.total)'total' FROM tb T1 LEFT JOIN tb T2 ON T1.gender = T2.gender AND T1.rk>=T2.rk GROUP BY 1,2
+WITH temp AS ( SELECT gender, day, SUM(score_points) AS "total_points" FROM Scores GROUP BY gender, day ORDER by gender, day ) SELECT gender, day, SUM(total_points) OVER (PARTITION BY gender ORDER BY day ASC) AS "total" FROM temp ORDER BY gender, day
+WITH temp AS ( SELECT gender, day, SUM(score_points) AS day_total FROM Scores GROUP BY gender, day ORDER BY gender, day ) SELECT T1.gender, T1.day, SUM(T2.day_total) AS total FROM temp T1 INNER JOIN temp T2 ON T1.gender = T2.gender AND T2.day <= T1.day GROUP BY T1.gender, T1.day ORDER BY T1.gender, T1.day
+select * from (select a.gender, a.day, sum(a1.score_points) as total from scores as a join scores as a1 on a.day >= a1.day and a.gender=a1.gender where a.gender="F" group by a.day UNION ALL select b.gender, b.day, sum(b1.score_points) as total from scores as b join scores as b1 on b.day >=b1.day and b.gender=b1.gender where b.gender="M" group by b.day) as c order by gender, day
+select A.gender, A.day, sum(B.score_points) as total from Scores A, Scores B where A.gender = B.gender and A.day >= B.day group by A.gender, A.day order by A.gender, A.day
+select S.gender, S.day, MAX(S.score_points) + COALESCE(SUM(S2.score_points),0) as total from Scores S LEFT JOIN Scores S2 ON S.gender = S2.gender and S.day > S2.day group by S.gender, S.day order by 1,2
+select S1.gender, S1.day, sum(S2.score_points) as total from Scores S1 left join Scores S2 on S1.gender = S2.gender and S1.day >= S2.day group by S1.gender, S1.day order by 1,2
+select a.gender, a.day, sum(a.daily_total) over (partition by a.gender order by a.day) as total from ( select gender, day, sum(score_points) as daily_total from Scores group by gender, day ) a
+select a.gender, a.day, sum(b.score_points ) total from Scores a join Scores b on a.gender=b.gender and a.day>=b.day group by a.gender, a.day order by a.gender, a.day
+select a.gender, a.day, sum(b.score_points) as total from Scores a inner join Scores b on a.day >= b.day and a.gender = b.gender group by a.gender, a.day order by a.gender, a.day
+select a.gender, a.day, sum(b.score_points) as total from Scores a join Scores b on a.day >= b.day and a.gender = b.gender group by a.gender, a.day order by 1,2
+select a.gender, a.day, sum(b.score_points) as total from Scores a join Scores b on a.gender = b.gender and a.day >= b.day group by a.gender, a.day order by a.gender, a.day
+select a.gender, a.day, sum(b.score_points) as total from Scores a join Scores b on a.gender = b.gender and a.day >= b.day group by day, gender order by gender, day
+select a.gender, a.day, sum(b.score_points) as total from Scores a left join Scores b on a.day >= b.day and a.gender = b.gender group by a.gender, a.day order by a.gender, a.day
+select a.gender, a.day, sum(b.score_points) as total from Scores a, Scores b where a.day >= b.day and a.gender=b.gender group by a.gender, a.day order by a.gender, a.day
+select a.gender, a.day, sum(b.score_points) as total from Scores a, Scores b where a.gender = b.gender and a.day >= b.day group by 1,2 order by 1,2
+select a.gender, a.day, sum(b.score_points) as total from Scores a, Scores b where a.gender = b.gender and b.day <= a.day group by a.gender, a.day order by a.gender, a.day
+select a.gender, a.day, sum(b.score_points) as total from Scores a, Scores b where a.gender=b.gender and a.day >= b.day group by a.gender, a.day order by gender,total asc
+select a.gender, a.day, sum(b.score_points) as total from Scores a, Scores b where a.gender=b.gender and a.day>=b.day group by a.gender, a.day order by gender,day asc
+select a.gender, a.day, sum(b.score_points) as total from Scores as a join Scores as b on a.gender = b.gender where a.day >= b.day group by a.gender, a.day order by gender, day
+select a.gender, a.day, sum(b.score_points) as total from scores a join scores b on a.day >= b.day and a.gender = b.gender group by 1,2 order by 1,2
+select a.gender, a.day, sum(b.score_points) as total from scores a join scores b on a.gender = b.gender and a.day >= b.day group by 1,2 order by 1, 2
+select a.gender, a.day, sum(b.score_points)as total from scores a join scores b where a.gender = b.gender and a.day>= b.day group by 1, 2 order by 1,2
+select a.gender,a.day, sum(b.score_points) as total from Scores a left join Scores b on a.gender=b.gender and a.day>=b.day group by gender, day Order by gender, day
+select a.gender,a.day, sum(b.score_points) as total from Scores as a left join Scores as b on a.day >= b.day and a.gender = b.gender group by a.gender,a.day order by a.gender,a.day
+select a.gender,a.day,sum(b.score_points ) as total from scores a left join scores b on a.gender = b.gender and a.day>=b.day group by a.day,a.gender order by a.gender, a.day
+select a.gender,a.day,sum(b.score_points) as total from scores a left join scores b on a.gender=b.gender and a.day>=b.day group by 1,2 order by 1,2
+select distinct gender, day , sum(score_points) over (partition by gender order by day ) as total from Scores order by gender, day
+select distinct s1.gender, s1.day, sum(s2.score_points) total from scores s1, scores s2 where s1.gender = s2.gender and s2.day <= s1.day group by 1,2 order by 1,2
+select gender , day , sum(score_points) over (partition by gender order by day) as total from Scores GROUP BY gender , day ORDER BY gender , day
+select gender , day , sum(score_points) over( partition by gender order by day ) as total from scores order by 1, 2
+select gender , day , sum(score_points) over(partition by gender order by day) as total from Scores group by gender , day order by gender , day
+select gender , day , sum(score_points) over(partition by gender order by day) as total from scores group by 1,2 order by 1,2
+select gender , day , sum(score_points) over(partition by gender order by day) as total from scores order by 1, 2
+select gender , day , sum(score_points) over(partition by gender order by gender, day) as total from Scores
+select gender, day , sum(score_points) OVER (partition by gender order by day) as total from Scores
+select gender, day , sum(score_points) over (partition by gender order by day ) as total from Scores group by gender, day order by gender, day
+select gender, day , sum(score_points) over(partition by gender order by day) as total from scores
+select gender, day ,sum(score_points) over(partition by gender order by day asc) as total from scores
+select gender, day, ( sum(score_points) over (partition by gender order by day))total from scores
+select gender, day, SUM( score_points) OVER ( PARTITION BY gender ORDER by day ASC) total from scores s1 order by gender, day
+select gender, day, SUM(score_points) over(partition by gender order by day rows between unbounded preceding and current row) as total from Scores order by gender, day
+select gender, day, SUM(score_points) over(partition by gender order by day) as total from Scores group by gender, day
+select gender, day, SUM(score_points) over(partition by gender order by day) as total from scores
+select gender, day, SUM(score_points) over(partition by gender order by gender, day) as total from Scores
+select gender, day, Sum(score_points) over(partition by gender order by day ROWS UNBOUNDED PRECEDING ) as total from Scores
+select gender, day, sum(score) over (partition by gender order by day) as total from (select gender, day, sum(score_points) as score from Scores group by gender, day) a
+select gender, day, sum(score_points) over ( partition by gender order by day) as total from Scores order by gender, day
+select gender, day, sum(score_points) over (Partition by gender order by day) as total from Scores order by 1, 2
+select gender, day, sum(score_points) over (partition by gender order by day ) as total from Scores
+select gender, day, sum(score_points) over (partition by gender order by day ) as total from scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over (partition by gender order by day ) as total from scores group by gender, day ORDER BY gender, day
+select gender, day, sum(score_points) over (partition by gender order by day ASC) as total from scores order by gender ASC, day ASC
+select gender, day, sum(score_points) over (partition by gender order by day asc range between unbounded preceding and current row) as total from Scores
+select gender, day, sum(score_points) over (partition by gender order by day asc) as total from Scores
+select gender, day, sum(score_points) over (partition by gender order by day asc) as total from Scores order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day asc) as total from scores
+select gender, day, sum(score_points) over (partition by gender order by day asc) as total from scores group by gender, day order by gender asc,day asc
+select gender, day, sum(score_points) over (partition by gender order by day asc) as total from scores order by gender asc, day asc
+select gender, day, sum(score_points) over (partition by gender order by day asc) as total from scores order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day rows unbounded preceding) as total from Scores order by 1,2
+select gender, day, sum(score_points) over (partition by gender order by day) as 'total' from scores
+select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores
+select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores group by 1, 2 order by 1, 2
+select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores order by 1,2
+select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores order by gender,day
+select gender, day, sum(score_points) over (partition by gender order by day) as total from scores
+select gender, day, sum(score_points) over (partition by gender order by day) as total from scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over (partition by gender order by day) as total from scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day) as total from scores order by 1,2
+select gender, day, sum(score_points) over (partition by gender order by day) as total from scores order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day) total from Scores
+select gender, day, sum(score_points) over (partition by gender order by day) total from Scores order by gender,day
+select gender, day, sum(score_points) over (partition by gender order by day) total from scores order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by day,gender) as total from Scores
+select gender, day, sum(score_points) over (partition by gender order by gender asc, day asc) as total from scores order by gender asc, day asc
+select gender, day, sum(score_points) over (partition by gender order by gender, day) as total from Scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by gender, day) as total from Scores order by gender, day
+select gender, day, sum(score_points) over (partition by gender order by gender, day) as total from scores
+select gender, day, sum(score_points) over (partition by gender order by gender,day ) as total from Scores
+select gender, day, sum(score_points) over (partition by gender order by gender,day ROWS UNBOUNDED PRECEDING) as total from Scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over( partition by gender order by day) as total from Scores
+select gender, day, sum(score_points) over(partition by gender order by day ) as total from Scores
+select gender, day, sum(score_points) over(partition by gender order by day )total from Scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day asc ) as total from scores
+select gender, day, sum(score_points) over(partition by gender order by day asc rows between unbounded preceding and current row) as total from Scores group by 1,2 order by 1,2 asc
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from Scores
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from Scores group by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from Scores group by 1,2 order by 1 asc,2 asc
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from Scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from Scores order by gender, day asc
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from scores
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from scores group by gender,day order by gender,day
+select gender, day, sum(score_points) over(partition by gender order by day asc) as total from scores order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day asc) total from scores
+select gender, day, sum(score_points) over(partition by gender order by day range between unbounded preceding and current row) as total from scores order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day rows between unbounded preceding and current row) as total from scores
+select gender, day, sum(score_points) over(partition by gender order by day rows between unbounded preceding and current row) as total from scores group by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day rows between unbounded preceding and current row) total from scores order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) 'total' from scores order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as "total" from Scores
+select gender, day, sum(score_points) over(partition by gender order by day) as 'total' from scores order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from (select gender, day, sum(score_points) as score_points from Scores group by gender, day) t order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores
+select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores group by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores order by 1, 2
+select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores group by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores group by day, gender order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores group by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores group by gender, day order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores group by gender, day order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by day) as total from scores order by gender, day asc
+select gender, day, sum(score_points) over(partition by gender order by day) total from Scores
+select gender, day, sum(score_points) over(partition by gender order by day) total from Scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by day) total from scores order by gender, day
+select gender, day, sum(score_points) over(partition by gender order by gender, day rows between unbounded preceding and current row) as total from Scores group by 1,2 order by 1,2
+select gender, day, sum(score_points) over(partition by gender order by gender, day) as total from scores
+select gender, day, sum(score_points) over(partition by gender order by gender,day) as "total" from Scores
+select gender, day, sum(score_points) over(partition by gender order by gender,day) total from scores
+select gender, day, sum(score_points)over (partition by gender order by day) as total from scores
+select gender, day, sum(score_points)over(order by day) as total from Scores where gender='F' union select gender, day, sum(score_points)over(order by day) as total from Scores where gender='M' order by gender,day
+select gender, day, sum(score_points)over(partition by gender order by day ) as total from Scores
+select gender, day, sum(score_points)over(partition by gender order by day asc) as total from scores group by 1,2 order by 1,2
+select gender, day, sum(score_points)over(partition by gender order by day asc) as total from scores order by 1,2
+select gender, day, sum(score_points)over(partition by gender order by day) as total from Scores
+select gender, day, sum(score_points)over(partition by gender order by day) as total from Scores group by 1,2 order by gender asc, day asc
+select gender, day, sum(score_points)over(partition by gender order by day) as total from Scores order by 1, 2
+select gender, day, sum(score_points)over(partition by gender order by day) as total from scores group by gender,day order by gender, day
+select gender, day, sum(score_points)over(partition by gender order by day) as total from scores order by gender, day
+select gender, day, sum(tot) over (partition by gender order by day ) as total from ( select gender, day , sum(score_points) as tot from Scores group by gender, day order by gender, day) A
+select gender, day, sum(total) over (partition by gender order by day) as total from ( select gender, day, sum(score_points) as total from scores group by gender, day ) a order by gender, day
+select gender, day, sum(total) over (partition by gender order by day) as total from (select gender, day, sum(score_points) as total from Scores group by gender, day order by gender, day) temp
+select gender, day, sum(total) over (partition by gender order by day) as total from (select gender,day, sum(score_points) as total from Scores group by gender, day )a order by gender, day
+select gender, day, sum(total) over (partition by gender order by day) total from ( select gender, day, sum(score_points) total from scores group by 1, 2 ) cte
+select gender, day, total from ( select gender, day, score_points, sum(score_points) over (partition by gender order by day) as total from Scores ) as aggregate
+select gender, day,sum(score_points)over( partition by gender order by day ASC) as total from scores
+select gender,day, sum(score_points ) over(partition by gender order by day) as total from Scores
+select gender,day, sum(score_points) over (partition by gender order by day) as total from Scores group by 1,2 order by 1,2
+select gender,day, sum(score_points) over (partition by gender order by day) as total from scores
+select gender,day, sum(score_points) over (partition by gender order by gender,day) total from scores
+select gender,day, sum(score_points) over(partition by gender order by day asc) as total from Scores order by gender, day
+select gender,day, sum(score_points) over(partition by gender order by day) as total from Scores order by gender, day
+select gender,day, sum(score_points) over(partition by gender order by day) as total from scores group by gender,day order by 1,2
+select gender,day, sum(score_points) over(partition by gender order by day) as total from scores order by 1,2
+select gender,day, sum(score_points) over(partition by gender order by day) as total from scores order by gender, day
+select gender,day, sum(score_points) over(partition by gender order by day)as total from Scores group by gender,day
+select gender,day, sum(score_points)over(partition by gender order by day) as total from Scores order by gender,day
+select gender,day,sum(score_points) over (partition by gender order by day) as total from Scores
+select gender,day,sum(score_points) over (partition by gender order by day) as total from scores group by 1,2 order by 1,2
+select gender,day,sum(score_points) over (partition by gender order by day)total from scores
+select gender,day,sum(score_points) over(partition by gender order by day asc) as total from scores
+select gender,day,sum(score_points) over(partition by gender order by day) as total from Scores order by 1,2
+select gender,day,sum(score_points) over(partition by gender order by day) as total from scores
+select gender,day,sum(score_points) over(partition by gender order by day) as total from scores group by gender,day order by gender,day
+select gender,day,sum(score_points) over(partition by gender order by day)as total from scores group by 1,2
+select gender,day,sum(score_points) over(partition by gender order by gender,day ) as total from Scores
+select gender,day,sum(score_points)over(partition by gender order by day ) as total from scores
+select gender,day,sum(score_points)over(partition by gender order by day asc) as total from scores group by gender,day order by gender,day
+select gender,day,sum(score_points)over(partition by gender order by day)as total from Scores order by gender,day
+select p1.gender,p1.day, sum(p2.score_points)as total from Scores as p1 join Scores as p2 on p1.gender = p2.gender and p1.day>=P2.day group by p1.gender,p1.day order by p1.gender,p1.day
+select s.gender, s.day , SUM(s.score_points) OVER (partition by s.gender order by day) as total from scores s order by s.gender, s.day
+select s.gender, s.day, sum(s.score_points) over (partition by s.gender order by day) as total from scores s
+select s.gender, s.day, sum(s1.score_points) as total from Scores s join Scores s1 where s.gender = s1.gender and s1.day <= s.day group by 1, 2 order by 1, 2
+select s.gender, s.day, sum(s2.score_points) as total from Scores as s, Scores as s2 where s.gender = s2.gender AND s2.day <= s.day group by s.gender, s.day order by s.gender, s.day
+select s.gender, s.day,sum(f.score_points ) total from scores s left join scores f on f.gender = s.gender and f.day <= s.day where f.gender = 'F' group by s.day union all select s.gender, s.day,sum(f.score_points ) total from scores s left join scores f on f.gender = s.gender and f.day <= s.day where f.gender = 'M' group by s.day order by gender,day
+select s1.gender, s1.day, sum(case when s2.day <= s1.day then s2.score_points else 0 end) as total from Scores s1, Scores s2 where s1.day >= s2.day and s1.gender = s2.gender group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) 'total' from scores s1 join scores s2 on s1.gender = s2.gender and s2.day<=s1.day group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) as 'total' from scores s1 join scores s2 where s1.gender = s2.gender and s2.day <= s1.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores as s1 join Scores as s2 on s1.gender = s2.gender and s1.day >= s2.day group by s1.gender, s1.day order by gender, day
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores s1 inner join Scores s2 on (s1.gender=s2.gender and s1.day>=s2.day) group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores s1 join Scores s2 on s1.gender = s2.gender and s2.day <= s1.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores s1 left join Scores s2 on s1.gender = s2.gender and s1.day >= s2.day group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores s1 left join Scores s2 on s1.gender = s2.gender and s1.day >= s2.day group by gender, s1.day order by gender, s1.day asc
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores s1, Scores s2 where s1.gender = s2.gender and s1.day >= s2.day group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) as total from Scores s1, Scores s2 where s1.gender = s2.gender and s1.day >= s2.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores as s1 join scores as s2 on s1.gender=s2.gender and s1.day>=s2.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores as s1 join scores as s2 where s1.day >= s2.day and s1.gender = s2.gender group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender = s2.gender and s1.day >= s2.day group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender = s2.gender and s1.day >= s2.day group by s1.day, s1.gender order by 1, 2
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender = s2.gender and s1.day >= s2.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender = s2.gender and s2.day <=s1.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender=s2.gender and s1.day >= s2.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender=s2.gender and s2.day<=s1.day group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 left join scores s2 on s1.day >= s2.day and s1.gender = s2.gender group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) as total from scores s1 left join scores s2 on s1.gender=s2.gender and s1.day >=s2.day group by 1,2 order by 1,2
+select s1.gender, s1.day, sum(s2.score_points) total from scores s1 join scores s2 on s1.day >= s2.day and s1.gender = s2.gender group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) total from scores s1 join scores s2 on s1.gender = s2.gender and s1.day >= s2.day GROUP BY s1.gender, s1.day ORDER BY s1.gender, s1.day
+select s1.gender, s1.day, sum(s2.score_points) total from scores s1 left join scores s2 on s1.gender = s2.gender and s1.day >= s2.day group by s1.gender, s1.day order by s1.gender, s1.day
+select s1.gender,s1.day, sum(s2.score_points) as total from scores s1, scores s2 where s1.day >= s2.day and s1.gender = s2.gender group by s1.gender,s1.day order by s1.gender,s1.day
+select s1.gender,s1.day,sum(s2.score_points) as total from scores s1 join scores s2 on s1.gender=s2.gender and s1.day>=s2.day group by 1,2 order by 1,2
+select t1.gender, t1.day, sum(t2.score_points) as total from Scores as t1 inner join Scores as t2 on t1.gender = t2.gender and t1.day>=t2.day group by t1.gender, t1.day order by t1.gender, t1.day
+with cte as ( SELECT gender, day, sum(score_points) as score FROM Scores GROUP BY gender, day ) SELECT gender, day, sum(score) over(partition by gender order by day) as total FROM cte order by 1,2
+with cte as ( select s.gender, s.day, sum(s.score_points) as 'points' from Scores s group by 1,2 ) select gender, day, sum(points) over (partition by gender order by day ASC) as 'total' from cte group by 1,2 order by 1 ASC, 2 ASC
+with cte as (select gender ,day ,sum(score_points) as total from scores group by 1,2) select t1.gender ,t1.day ,sum(t2.total) as total from cte as t1 left join cte as t2 on t2.day<=t1.day and t2.gender=t1.gender group by 1,2 order by 1,2
+with cte as (select gender,day, sum(score_points) as score from scores group by gender, day order by gender,day) select gender,day, sum(score)over(partition by gender order by day) as total from cte
+with cte as( select gender, day, sum(score_points) over (partition by gender order by day) as total from Scores) select a.gender, a.day,sum(b.score_points) as total from Scores as a, Scores as b where a.gender=b.gender and b.day<=a.day group by a.gender,a.day order by a.gender,a.day
+with cte1 as ( select 'F' as gender, day, sum(score_points) as total, row_number() over(order by day) as row_num from Scores where gender='F' group by day order by day ), cte2 as ( select gender, day, @prev:=@prev+total as total from cte1, (select @prev:=0) init ), cte3 as ( select 'M' as gender, day, sum(score_points) as total, row_number() over(order by day) as row_num from Scores where gender='M' group by day order by day ), cte4 as ( select gender, day, @prevm:=@prevm+total as total from cte3, (select @prevm:=0) init ) select * from cte2 union select * from cte4
+with cte1 as (select gender, day, sum(score_points) over(partition by gender order by day) as total from Scores) select * from cte1
+with final as ( with cte as ( Select gender,day,score_points from Scores order by gender,day asc ) Select gender,day,sum(score_points) over(partition by gender order by day asc rows between unbounded preceding and current row) as 'total' from cte ) Select * from final
+with points_per_day as ( select gender, day, sum(score_points) daily_total from scores s group by 1,2 order by 1, 2 ) select gender, day, sum(daily_total) over(partition by gender order by day) as total from points_per_day p
+with t as ( select gender, day, sum(score_points) as points from scores group by day, gender ) select gender, day, sum(points) over(partition by gender order by day) as total from t order by gender, day
+with t as( select gender, day, sum(score_points)as 'total' from Scores group by gender, day order by 1, 2 ) select gender, day, sum(total) over(partition by gender order by day) as 'total' from t
+with t1 as ( select gender, day, sum(score_points) as day_points from scores group by gender, day order by gender, day ) select gender, day, sum(day_points) over (partition by gender order by day rows between unbounded preceding and current row) as total from t1
+with tab as ( select gender, day, sum(score_points) as total from scores group by gender, day order by gender, day) select gender, day, sum(total) over(partition by gender order by day) as total from tab
+with temp as ( select gender, day, sum(score_points) as ttl from scores group by gender, day order by gender, day ) select gender, day, sum(ttl) over (partition by gender order by day rows between UNBOUNDED PRECEDING and current row) as total from temp
+with temp as ( select gender, day, sum(score_points) over (partition by gender order by day rows between UNBOUNDED PRECEDING and current row) as total from scores group by gender, day order by gender, day ) select * from temp
+with woman_score as ( select gender , day , sum(score_points) over (order by day) as total from scores where gender = 'F' group by day ), man_score as ( select gender , day , sum(score_points) over (order by day) as total from scores where gender = 'M' group by day ) select * from woman_score union all select * from man_score

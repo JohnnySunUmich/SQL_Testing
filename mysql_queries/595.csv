@@ -1,0 +1,129 @@
+SELECT NAME, POPULATION, AREA FROM WORLD WHERE AREA>3000000 OR POPULATION > 25000000
+SELECT NAME, POPULATION, AREA FROM WORLD WHERE AREA>3000000 OR POPULATION>25000000
+SELECT NAME, POPULATION, AREA FROM WORLD WHERE POPULATION > 25000000 OR AREA > 3000000
+SELECT NAME, POPULATION,AREA FROM WORLD WHERE POPULATION >25000000 OR AREA >3000000
+SELECT NAME,POPULATION,AREA FROM WORLD WHERE AREA>3000000 OR POPULATION>25000000
+SELECT World.name, World.area, World.population FROM World WHERE area > 3000000 OR population > 25000000
+SELECT name ,population ,area FROM world WHERE population > 25000000 OR area > 3000000
+SELECT name, area, population FROM World WHERE population > 25000000 OR area > 3000000
+SELECT name, population ,area FROM World WHERE area>3000000 OR population>25000000
+SELECT name, population, area FROM WORLD WHERE area > 3000000 or population > 25000000
+SELECT name, population, area FROM World WHERE ((area > 3000000) OR (population > 25000000))
+SELECT name, population, area FROM World WHERE (population > 25000000 OR area > 3000000)
+SELECT name, population, area FROM World WHERE (population > 25000000) OR (area > 3000000)
+SELECT name, population, area FROM World WHERE (population > 25000000) or (area > 3000000)
+SELECT name, population, area FROM World WHERE AREA > 3000000 OR population > 25000000
+SELECT name, population, area FROM World WHERE World.area > 3000000 OR World.population > 25000000
+SELECT name, population, area FROM World WHERE area > 3000000 OR population > 25000000
+SELECT name, population, area FROM World WHERE area > 3000000 OR population > 25000000 ORDER BY 1,2,3
+SELECT name, population, area FROM World WHERE area > 3000000 OR population > 25000000 ORDER BY name
+SELECT name, population, area FROM World WHERE area > 3000000 OR population >25000000
+SELECT name, population, area FROM World WHERE area > 3000000 UNION SELECT name, population, area FROM World WHERE population > 25000000
+SELECT name, population, area FROM World WHERE area > 3000000 or population > 25000000
+SELECT name, population, area FROM World WHERE area > 3e6 OR population > 25e6
+SELECT name, population, area FROM World WHERE area >= 3000000 or population >= 25000000
+SELECT name, population, area FROM World WHERE area>3000000 OR population> 25000000
+SELECT name, population, area FROM World WHERE population > 25000000 OR area > 3000000
+SELECT name, population, area FROM World WHERE population > 25000000 or area > 3000000
+SELECT name, population, area FROM World WHERE population >= 25000000 OR area >= 3000000
+SELECT name, population, area FROM World WHERE population >= 25000000 or area >= 3000000
+SELECT name, population, area FROM World WHERE population>25000000 OR area > 3000000
+SELECT name, population, area FROM World Where population > 25000000 OR area > 3000000
+SELECT name, population, area FROM World where area > 3000000 OR population > 25000000
+SELECT name, population, area FROM world WHERE (area) > 3000000 OR population > 25000000
+SELECT name, population, area FROM world WHERE area > 3000000 OR population > 25000000
+SELECT name, population, area FROM world WHERE area > 3000000 UNION SELECT name, population, area FROM world WHERE population > 25000000
+SELECT name, population, area FROM world WHERE area > 3000000 union SELECT name, population, area FROM world WHERE population > 25000000
+SELECT name, population, area FROM world WHERE area>3000000 OR population>25000000
+SELECT name, population, area FROM world WHERE population > 25000000 OR area > 3000000
+SELECT name, population, area from World Where area > 3000000 or population >25000000
+SELECT name, population, area from World where area> 3000000 OR population > 25000000
+SELECT name,population, area FROM World WHERE area > 3000000 OR population > 25000000
+SELECT name,population,area FROM World WHERE (population>25000000 || area>3000000 )
+SELECT name,population,area FROM World WHERE area > 3000000 or population > 25000000
+SELECT name,population,area FROM World WHERE area >3000000 OR population > 25000000
+SELECT name,population,area FROM World WHERE population > 25000000 OR area > 3000000
+SELECT name,population,area FROM World WHERE population >= 25000000 || area >= 3000000
+SELECT name,population,area fROM World WHERE area >= 3000000 OR population >= 25000000
+SELECT name,population,area from World WHERE area > 3000000 UNION SELECT name,population,area from World WHERE population > 25000000
+SELECT name,population,area from World WHERE population > 25000000 OR area > 3000000
+SELECT name,population,area from World WHERE population > 25000000 || area > 3000000
+SELECT name,population,area from World WHERE population >= 25000000 || area >= 3000000
+SELECT name,population,area from World where (population>25000000 or area>3000000)
+SELECT name,population,area from World where area>3000000 OR population>25000000
+SELECT name,population,area from World where area>3000000 or population>25000000
+SELECT name,population,area from World where population > 25000000 or area > 3000000
+SELECT w.name, w.population, w.area FROM World w WHERE w.area > 3000000 OR w.population > 25000000
+SELECT w.name, w.population, w.area FROM World w WHERE w.area > 3000000 or w.population > 25000000
+SELECT w.name, w.population, w.area FROM World w WHERE w.area >= 3000000 OR w.population >= 25000000
+SELECT w.name, w.population, w.area FROM World w WHERE w.population>25000000 OR w.area>3000000
+Select Name, Population, Area from World Where Area>3000000 OR Population>25000000
+Select name , population , area From world Where (area > 3000000) or(population>25000000)
+Select name, population, area From World Where area > 3000000 OR population >= 25000000
+Select name, population, area From World Where area > 3000000 or population > 25000000
+Select name, population, area from World Where area > 3000000 or population >25000000
+Select name, population, area from World where area > 3000000 or population> 25000000
+Select name, population, area from World where area>3000000 UNION Select name, population, area from World where population>25000000
+Select name, population, area from World where population > 25000000 or area > 3000000
+Select name, population, area from World where population>25000000 or area>3000000
+Select name,population, area from World where (area>3000000) or (population> 25000000)
+Select name,population,area From World Where area>3000000 or population> 25000000
+Select name,population,area from world where area > 3000000 || population > 25000000
+WITH pop AS ( SELECT name, population, area FROM world WHERE population > 25000000 ), area AS ( SELECT name, population, area FROM world WHERE area > 3000000 ) SELECT * FROM pop UNION SELECT * FROM area
+select name , population , area from World where area > 3000000 or population > 25000000
+select name , population , area from world where area > 3000000 or population > 25000000
+select name , population ,area from world where area >3000000 or population > 25000000
+select name , population, area from World where area > 3000000 or population > 25000000
+select name , population, area from world where area > 3000000 OR population > 25000000
+select name , population, area from world where area > 3000000 or population > 25000000
+select name, population, area From world where population > 25000000 or area > 3000000
+select name, population, area from World WHERE area > 3000000 or population > 25000000
+select name, population, area from World w where w.population > 25000000 or w.area > 3000000
+select name, population, area from World where (area > 3000000 or population > 25000000)
+select name, population, area from World where (area > 3000000) OR (population > 25000000)
+select name, population, area from World where (area > 3000000) or (population > 25000000)
+select name, population, area from World where area > 3000000 OR population > 25000000
+select name, population, area from World where area > 3000000 or population > 25000000
+select name, population, area from World where area > 3000000 union select name, population, area from World where population > 25000000
+select name, population, area from World where area > 3e6 or population > 25e6
+select name, population, area from World where area >3000000 or population > 25000000
+select name, population, area from World where area >3000000 or population >25000000
+select name, population, area from World where area> (3* power(10,6)) || population > (25 * power(10,6))
+select name, population, area from World where area>3000000 or population >25000000
+select name, population, area from World where area>3000000 or population>25000000
+select name, population, area from World where area>3e6 or population>25e6
+select name, population, area from World where population > 25000000 or area > 3000000
+select name, population, area from World where population > 25000000 or area> 3000000
+select name, population, area from World where population > 25000000 || area > 3000000
+select name, population, area from World where population >25000000 or area > 3000000
+select name, population, area from World where population >= 25000000 or area >= 3000000
+select name, population, area from World where population>25000000 or area > 3000000
+select name, population, area from World where population>25000000 or area>3000000
+select name, population, area from world where ( population > 25000000 OR area> 3000000)
+select name, population, area from world where (area > 3000000 OR population > 25000000)
+select name, population, area from world where (population > 25000000 or area > 3000000)
+select name, population, area from world where area > 3000000 OR population > 25000000
+select name, population, area from world where area > 3000000 OR population>25000000
+select name, population, area from world where area > 3000000 or population > 25000000
+select name, population, area from world where area > 3000000 or population >25000000
+select name, population, area from world where area > 3000000 union select name, population, area from world where population > 25000000
+select name, population, area from world where area >3000000 or population >25000000
+select name, population, area from world where area >= 3000000 or population >= 25000000
+select name, population, area from world where population > 25000000 or area > 3000000
+select name, population,area from World where area>3000000 or population>25000000
+select name, population,area from World where population>25000000 or area > 3000000
+select name, population,area from World where population>25000000 or area>3000000
+select name, population,area from world where area >3000000 or population > 25000000
+select name, population,area from world where population > 25000000 or area > 3000000
+select name,population , area from world where area > 3000000 or population > 25000000
+select name,population ,area from world where area>3000000 or population>25000000
+select name,population,area from World where area>3000000 OR population > 25000000
+select name,population,area from World where area>3000000 or population>25000000
+select name,population,area from World where population > 25000000 or area > 3000000
+select name,population,area from World where population>25000000 or area>3000000
+select name,population,area from world where area > 3000000 or population > 25000000
+select name,population,area from world where area > 3000000 or population > 25000000 order by area asc
+select name,population,area from world where area>3000000 or population>25000000
+select name,population,area from world where population > 25000000 or area > 3000000
+select w.name, w.population, w.area from World w where w.area > 3000000 or population > 25000000
+select w.name, w.population, w.area from World w where w.area > 3000000 or w.population > 25000000

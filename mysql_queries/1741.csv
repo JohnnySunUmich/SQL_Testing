@@ -1,0 +1,130 @@
+SELECT A.EVENT_DAY AS DAY, EMP_ID, (TOTAL_OUT-TOTAL_IN) AS TOTAL_TIME FROM (SELECT EMP_ID, EVENT_DAY, SUM(IN_TIME) AS TOTAL_IN,SUM(OUT_TIME) AS TOTAL_OUT FROM Employees GROUP BY 1,2)A
+SELECT DISTINCT day, emp_id, sum(total_time) OVER (PARTITION BY day, emp_id) AS total_time FROM ( SELECT event_day AS day, emp_id, out_time - in_time AS total_time FROM Employees)a
+SELECT E.event_day AS day, E.emp_id, SUM(E.out_time - E.in_time) AS total_time FROM Employees AS E GROUP BY E.event_day, E.emp_id
+SELECT em.event_day AS day, em.emp_id, SUM(em.out_time-em.in_time) AS total_time FROM Employees AS em GROUP BY em.event_day, em.emp_id
+SELECT event_day AS 'day', emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY emp_id, event_day
+SELECT event_day AS 'day', emp_id, SUM(out_time)-SUM(in_time) AS total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day AS day ,emp_id ,SUM(out_time - in_time) AS total_time FROM Employees GROUP BY event_day,emp_id
+SELECT event_day AS day, emp_id AS emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY day, emp_id
+SELECT event_day AS day, emp_id, SUM((out_time - in_time)) AS total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS 'total_time' FROM Employees GROUP BY 1,2
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY 1, 2
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY 1,2
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY day, emp_id ORDER BY day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY emp_id, event_day
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM employees GROUP BY event_day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time) - SUM(in_time) AS total_time FROM Employees GROUP BY 1,2
+SELECT event_day AS day, emp_id, SUM(out_time) - SUM(in_time) AS total_time FROM Employees GROUP BY day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time) - SUM(in_time) AS total_time FROM Employees GROUP BY event_day, emp_id ORDER BY event_day ASC, emp_id ASC
+SELECT event_day AS day, emp_id, SUM(out_time-in_time) AS total_time FROM Employees GROUP BY day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time-in_time) AS total_time FROM Employees GROUP BY emp_id, event_day
+SELECT event_day AS day, emp_id, SUM(out_time-in_time) AS total_time FROM Employees GROUP BY emp_id,event_day
+SELECT event_day AS day, emp_id, SUM(out_time-in_time) AS total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day AS day, emp_id, SUM(out_time-in_time) as total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day AS day, emp_id, sum(out_time-in_time) AS total_time FROM Employees GROUP BY emp_id, day
+SELECT event_day AS day,emp_id,SUM(out_time)-SUM(in_time) AS total_time FROM Employees GROUP BY day,emp_id
+SELECT event_day AS day,emp_id,SUM(out_time-in_time) AS total_time FROM Employees GROUP BY event_day,emp_id
+SELECT event_day as 'day', emp_id, SUM(out_time - in_time) as 'total_time' FROM Employees GROUP BY event_day, emp_id
+SELECT event_day as 'day', emp_id, SUM(out_time-in_time) as 'total_time' FROM Employees GROUP BY event_day, emp_id
+SELECT event_day as day ,emp_id ,SUM(out_time - in_time) as total_time FROM Employees GROUP BY 1,2
+SELECT event_day as day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY 1, 2
+SELECT event_day as day, emp_id, SUM(out_time - in_time) AS total_time FROM employees GROUP BY emp_id, event_day
+SELECT event_day as day, emp_id, SUM(out_time - in_time) as total_time FROM Employees GROUP BY day, emp_id
+SELECT event_day as day, emp_id, SUM(out_time - in_time) as total_time FROM Employees GROUP BY emp_id, event_day
+SELECT event_day as day, emp_id, SUM(out_time - in_time) as total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day as day, emp_id, SUM(out_time) - SUM(in_time) as total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day as day, emp_id, SUM(out_time-in_time) as total_time FROM Employees GROUP BY 1,2
+SELECT event_day as day, emp_id, sum(out_time - in_time) as total_time FROM Employees GROUP BY event_day, emp_id
+SELECT event_day as day, emp_id, sum(out_time - in_time) as total_time FROM Employees GROUP BY event_day, emp_id ORDER BY total_time desc
+SELECT event_day as day,emp_id, SUM(out_time - in_time) as total_time FROM Employees GROUP BY event_day,emp_id
+SELECT event_day day, emp_id, SUM(out_time-in_time) total_time FROM Employees GROUP BY event_day, emp_id
+Select emp_id, event_day as day, Sum(out_time - in_time) as total_time from Employees group by event_day, emp_id
+Select event_day AS 'day', emp_id, sum(out_time - in_time) AS 'total_time' From Employees Group By emp_id, event_day
+Select event_day as day, emp_id, Sum(out_time-in_time) as total_time from Employees Group by day, emp_id
+Select event_day as day, emp_id, sum(out_time-in_time) as total_time From Employees group by 1,2
+Select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by 1,2
+Select event_day as day, emp_id,sum(out_time-in_time) as total_time From Employees Group by event_day, emp_id
+Select event_day as day,emp_id, sum(out_time - in_time) as total_time from Employees group by day,emp_id
+WITH temp AS ( SELECT event_day AS day, emp_id, SUM(out_time) - SUM(in_time) AS total_time FROM Employees GROUP BY day, emp_id ) SELECT * FROM temp
+select A.event_day as day, A.emp_id, sum(A.minus) as total_time from (select event_day, emp_id, out_time-in_time as minus from Employees) A group by A.event_day, A.emp_id
+select E.event_day as day, E.emp_id, sum(E.out_time - E.in_time) as total_time from Employees as E group by day, emp_id
+select a.event_day as day,a.emp_id,sum(a.minuts_spend) as total_time from (select emp_id,event_day,(out_time-in_time) as minuts_spend from Employees) a group by a.emp_id,day
+select day, emp_id, total_time from (select distinct event_day day, emp_id, sum(out_time - in_time) over(partition by emp_id, event_day) total_time from Employees) w
+select distinct event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by day, emp_id
+select distinct event_day as day, emp_id, sum(out_time - in_time) over (partition by emp_id, event_day)as total_time from employees
+select distinct event_day as day, emp_id, sum(out_time - in_time) over (partition by emp_id,event_day) as total_time from employees order by emp_id
+select distinct event_day day, emp_id, sum(out_time - in_time) over(partition by emp_id, event_day) total_time from Employees
+select emp_id, event_day as day, sum(out_time-in_time) as total_time from Employees group by event_day, emp_id
+select event_day as "day" , emp_id , SUM(out_time) - SUM(in_time) as total_time from employees group by 1,2
+select event_day as "day", emp_id, sum(out_time - in_time) total_time from employees group by 1,2
+select event_day as 'day', emp_id, sum(out_time - in_time) as 'total_time' from Employees group by emp_id, event_day
+select event_day as 'day', emp_id, sum(out_time) - sum(in_time) as total_time from employees group by event_day, emp_id
+select event_day as day , emp_id ,sum(out_time-in_time) as total_time from Employees group by emp_id,event_day
+select event_day as day , emp_id, SUM(out_time - in_time) as total_time from employees group by event_day, emp_id
+select event_day as day , emp_id, sum(out_time - in_time) total_time from Employees group by day , emp_id
+select event_day as day , emp_id, sum(out_time)- sum(in_time) as total_time from Employees group by event_day,emp_id
+select event_day as day ,emp_id ,sum(out_time - in_time) total_time from employees group by emp_id,day order by day asc
+select event_day as day ,emp_id, sum(out_time-in_time) as total_time from Employees group by event_day,emp_id
+select event_day as day, emp_id , sum(out_time - in_time) total_time from Employees group by 1,2
+select event_day as day, emp_id , sum(out_time -in_time ) as total_time from Employees group by event_day , emp_id
+select event_day as day, emp_id ,sum(out_time - in_time) as total_time from employees group by event_day,emp_id
+select event_day as day, emp_id, (sum(out_time) - sum(in_time)) as total_time from employees group by emp_id, event_day
+select event_day as day, emp_id, SUM(out_time - in_time) as total_time from Employees group by emp_id, event_day
+select event_day as day, emp_id, SUM(out_time-in_time) AS total_time FROM Employees GROUP BY emp_id, event_day
+select event_day as day, emp_id, out_time_emp - in_time_emp as total_time from (select emp_id, event_day, sum(in_time) as in_time_emp, sum(out_time) as out_time_emp from employees group by 1,2 )a order by 1
+select event_day as day, emp_id, sum(duration) as total_time from( select emp_id, event_day, (out_time - in_time) as duration from employees) as sub group by day, emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees Group by emp_id,event_day
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by 1, 2
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by 1,2
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by 1,2 order by 1, 2
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by day, emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by day,emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by emp_id, day
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by emp_id, event_day
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by event_day, emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by event_day,emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by 1,2
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by 1,2 order by 1,2
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by day, emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by emp_id, event_day
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by event_day, emp_id
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by event_day, emp_id order by event_day
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from employees group by event_day,emp_id
+select event_day as day, emp_id, sum(out_time) - sum(in_time) as total_time from Employees Group by event_day, emp_id
+select event_day as day, emp_id, sum(out_time) - sum(in_time) as total_time from Employees group by event_day, emp_id
+select event_day as day, emp_id, sum(out_time)-sum(in_time) as total_time from employees group by 1,2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees GROUP By 1,2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by 1, 2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by 1,2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by 1,2 order by 1,2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by emp_id, day
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by emp_id, event_day
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by emp_id,event_day
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by event_day, emp_id
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from Employees group by event_day,emp_id
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from employees e group by emp_id, event_day
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from employees group by 1, 2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from employees group by 1,2
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from employees group by day, emp_id order by day
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from employees group by event_day, emp_id
+select event_day as day, emp_id, sum(out_time-in_time) as total_time from employees group by event_day, emp_id order by day
+select event_day as day, emp_id,sum(out_time-in_time) as total_time from Employees group by event_day,emp_id
+select event_day as day,emp_id, sum(out_time - in_time) as total_time from employees group by event_day,emp_id
+select event_day as day,emp_id,sum(duration) as total_time from( select emp_id,event_day,out_time-in_time as duration from employees) a group by 1,2
+select event_day as day,emp_id,sum(out_time - in_time) as total_time from employees group by 1,2
+select event_day as day,emp_id,sum(out_time-in_time ) as total_time from Employees group by event_day,emp_id
+select event_day as day,emp_id,sum(out_time-in_time) as total_time from Employees group by emp_id,event_day
+select event_day as day,emp_id,sum(out_time-in_time) as total_time from employees group by emp_id,event_day
+select event_day as day,emp_id,sum(out_time-in_time) as total_time from employees group by event_day,emp_id
+select event_day as day,emp_id,sum(out_time-in_time)total_time from employees group by 1,2 order by 1,2
+select event_day day, emp_id, sum(out_time - in_time) total_time from Employees group by event_day, emp_id
+select event_day day, emp_id, sum(out_time - in_time) total_time from employees group by event_day, emp_id
+select event_day day, emp_id, sum(out_time-in_time) total_time from employees group by emp_id, event_day order by total_time desc
+select event_day day, emp_id, sum(out_time-in_time) total_time from employees group by event_day, emp_id
+select event_day day, emp_id, sum(out_time-in_time)total_time from Employees group by 1,2
+select m.event_day as day,m.emp_id,sum(time_spent) as total_time from ( select emp_id,event_day,out_time-in_time as time_spent from Employees) m group by 1,2
+with temp as (select event_day , emp_id , (out_time - in_time) as Tot_time from employees) select event_day as day , emp_id , sum(tot_time) as total_time from temp group by event_day , emp_id order by event_day , emp_id
+with time_table as (select Employees.*, (out_time-in_time) as time from Employees) select event_day as day, emp_id, sum(time) as total_time from time_table group by event_day, emp_id
+with x as (select emp_id, event_day, in_time, out_time, out_time-in_time as diff from Employees ) select event_day as day,emp_id ,sum(diff)as total_time from x group by event_day,emp_id

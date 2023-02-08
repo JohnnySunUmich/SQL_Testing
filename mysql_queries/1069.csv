@@ -1,0 +1,216 @@
+( SELECT product_id, SUM(quantity) as total_quantity FROM Sales GROUP BY product_id )
+SELECT A.product_id,SUM(quantity) AS total_quantity FROM Sales A LEFT JOIN Product B ON A.product_id = B.product_id GROUP BY A.product_id
+SELECT DISTINCT S.product_id, SUM(S.quantity) AS total_quantity FROM Sales AS S GROUP BY S.product_id
+SELECT DISTINCT a.product_id, SUM(a.quantity) AS total_quantity FROM Sales AS a GROUP BY a.product_id
+SELECT DISTINCT p.product_id, SUM(quantity) total_quantity FROM sales s JOIN product p USING(product_id) GROUP BY 1
+SELECT DISTINCT product_id, SUM(quantity) OVER (PARTITION BY product_id) AS total_quantity FROM Sales
+SELECT DISTINCT product_id, SUM(quantity) OVER(PARTITION BY product_id) as total_quantity FROM Sales
+SELECT P.PRODUCT_ID, SUM(S.QUANTITY) TOTAL_QUANTITY FROM PRODUCT P, SALES S WHERE P.PRODUCT_ID = S.PRODUCT_ID GROUP BY P.PRODUCT_ID
+SELECT P.product_id, SUM(S.quantity) AS total_quantity FROM Product P INNER JOIN Sales S ON P.product_id = S.product_id GROUP BY P.product_id
+SELECT P.product_id, SUM(S.quantity) AS total_quantity FROM Product P JOIN Sales S ON P.product_id = S.product_id GROUP BY P.product_id
+SELECT P.product_id, SUM(S.quantity) AS total_quantity FROM Sales S LEFT JOIN Product P on S.product_id=P.product_id GROUP BY IFNULL(P.product_id,UUID())
+SELECT P.product_id, sum(S.quantity) AS total_quantity FROM Product P INNER JOIN Sales S ON P.product_id = S.product_id GROUP BY P.product_id
+SELECT PRODUCT_ID , SUM(QUANTITY ) AS TOTAL_QUANTITY FROM SALES GROUP BY 1
+SELECT PRODUCT_ID, SUM(QUANTITY) AS TOTAL_QUANTITY FROM SALES GROUP BY PRODUCT_ID
+SELECT PRODUCT_ID,SUM(QUANTITY) AS TOTAL_QUANTITY FROM SALES GROUP BY PRODUCT_ID
+SELECT S.product_id, SUM(S.quantity) AS total_quantity FROM Sales S GROUP BY S.product_id
+SELECT S.product_id, SUM(S.quantity) AS total_quantity FROM Sales S LEFT JOIN Product P ON S.product_id = P.product_id GROUP BY S.product_id
+SELECT S.product_id, SUM(quantity) AS total_quantity FROM sales S LEFT JOIN product P on S.product_id=P.product_id GROUP BY product_id ORDER BY total_quantity DESC
+SELECT Sales.product_id, SUM(Sales.quantity) AS total_quantity FROM Sales JOIN Product ON Sales.product_id = Product.product_id GROUP BY Sales.product_id
+SELECT Sales.product_id, sum(Sales.quantity) as total_quantity FROM Sales GROUP BY Sales.product_id ORDER BY product_id
+SELECT T1.product_id, IFNULL(total_quantity, 0) as total_quantity FROM PRODUCT AS T1 JOIN (SELECT product_id, SUM(quantity) as total_quantity FROM Sales GROUP BY product_id ) AS T2 ON(T1.product_id = T2.product_id) GROUP BY T1.product_id
+SELECT a.product_id , SUM(quantity) AS total_quantity FROM Product a LEFT JOIN Sales b ON a.product_id = b.product_id WHERE b.product_id IS NOT NULL GROUP BY 1
+SELECT p.product_id AS product_id, SUM(s.quantity) AS total_quantity FROM Sales s, Product p WHERE s.product_id = p.product_id GROUP BY p.product_id
+SELECT p.product_id, SUM(quantity) AS total_quantity FROM Sales s INNER JOIN Product p ON p.product_id = s.product_id GROUP BY p.product_id
+SELECT p.product_id, SUM(quantity) AS total_quantity FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id GROUP BY p.product_id
+SELECT p.product_id, SUM(s.quantity) AS 'total_quantity' FROM Product p INNER JOIN Sales s ON p.product_id = s.product_id GROUP BY s.product_id
+SELECT p.product_id, SUM(s.quantity) AS total_quantity FROM Product p JOIN Sales s ON p.product_id = s.product_id GROUP BY p.product_id
+SELECT p.product_id, SUM(s.quantity) AS total_quantity FROM Product p LEFT JOIN Sales s ON p.product_id=s.product_id GROUP BY p.product_id HAVING total_quantity IS NOT NULL
+SELECT p.product_id, SUM(s.quantity) AS total_quantity FROM Sales s JOIN Product p ON s.product_id = p.product_id GROUP BY product_id ORDER BY 2 DESC
+SELECT p.product_id, SUM(s.quantity) AS total_quantity FROM sales AS s JOIN product AS p ON s.product_id = p.product_id GROUP BY 1
+SELECT p.product_id, SUM(s.quantity) as total_quantity FROM product p JOIN sales s ON p.product_id = s.product_id GROUP BY 1
+SELECT p.product_id, SUM(s.quantity) total_quantity FROM Product p RIGHT JOIN Sales s using (product_id) GROUP BY product_id
+SELECT p.product_id, sum(s.quantity) as total_quantity FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id GROUP BY p.product_id HAVING total_quantity != 0
+SELECT p.product_id, sum(s.quantity) as total_quantity from product as p join sales as s on p.product_id = s.product_id group by product_id
+SELECT product.product_id, COALESCE(SUM(quantity), 0) as total_quantity FROM Sales LEFT JOIN product ON product.product_id = Sales.product_id GROUP BY 1
+SELECT product_id , SUM(quantity) AS total_quantity FROM Sales GROUP BY product_id
+SELECT product_id , SUM(quantity) AS total_quantity FROM sales GROUP BY product_id
+SELECT product_id , sum(quantity) AS total_quantity FROM Sales GROUP BY product_id
+SELECT product_id ,SUM(quantity) AS total_quantity FROM Sales GROUP BY 1
+SELECT product_id ,SUM(quantity) AS total_quantity FROM Sales GROUP BY product_id
+SELECT product_id ,SUM(quantity) as total_quantity FROM Sales GROUP BY 1
+SELECT product_id, SUM(quantity) AS 'total_quantity' FROM Sales GROUP BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM Product INNER JOIN Sales USING(product_id) GROUP BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales GROUP BY 1
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales GROUP BY 1 ORDER BY 1
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales GROUP BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales GROUP BY product_id ORDER BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales S GROUP BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales s GROUP BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM Sales s JOIN Product p Using (product_id) GROUP BY product_id
+SELECT product_id, SUM(quantity) AS total_quantity FROM sales GROUP BY 1
+SELECT product_id, SUM(quantity) AS total_quantity FROM sales GROUP BY product_id
+SELECT product_id, SUM(quantity) as 'total_quantity' FROM Sales GROUP BY product_id
+SELECT product_id, SUM(quantity) as total_quantity FROM Sales GROUP BY 1
+SELECT product_id, SUM(quantity) as total_quantity FROM Sales GROUP BY product_id
+SELECT product_id, SUM(quantity) as total_quantity FROM Sales Group BY product_id
+SELECT product_id, SUM(quantity) as total_quantity FROM sales GROUP BY 1
+SELECT product_id, SUM(quantity) as total_quantity FROM sales GROUP BY product_id
+SELECT product_id, SUM(quantity) total_quantity FROM Sales LEFT JOIN Product USING(product_id) GROUP BY product_id
+SELECT product_id, sum(quantity) as total_quantity FROM Sales GROUP BY 1
+SELECT product_id, sum(quantity) as total_quantity FROM Sales GROUP BY 1 ORDER BY 1
+SELECT product_id, sum(quantity) as total_quantity FROM Sales GROUP BY product_id
+SELECT product_id, sum(quantity) as total_quantity FROM Sales JOIN Product p USING(product_id) GROUP BY product_id
+SELECT product_id, sum(quantity) as total_quantity FROM sales GROUP BY product_id
+SELECT product_id,SUM(quantity) AS total_quantity FROM Sales GROUP BY product_id
+SELECT product_id,sum(quantity) as total_quantity FROM sales Group by product_id
+SELECT s.product_id , SUM(s.quantity) as 'total_quantity' From Sales s JOIN Product p ON s.product_id = p.product_id GROUP BY s.product_id ORDER BY total_quantity DESC
+SELECT s.product_id , sum(s.quantity) total_quantity FROM Sales s left join Product p on s.product_id = p.product_id group by s.product_id
+SELECT s.product_id product_id, SUM(quantity) total_quantity FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id GROUP BY p.product_id
+SELECT s.product_id, SUM(quantity) AS total_quantity FROM Sales AS s LEFT JOIN Product AS p ON s.product_id = p.product_id GROUP BY product_id
+SELECT s.product_id, SUM(quantity) AS total_quantity FROM Sales as s JOIN Product as p ON s.product_id = p.product_id GROUP BY product_id
+SELECT s.product_id, SUM(quantity) as total_quantity FROM Sales as s INNER JOIN Product as p ON s.product_id = p.product_id GROUP BY s.product_id
+SELECT s.product_id, SUM(quantity) as total_quantity FROM Sales s JOIN Product p ON s.product_id = p.product_id GROUP BY p.product_id
+SELECT s.product_id, SUM(quantity) as total_quantity FROM Sales s JOIN Product p ON s.product_id=p.product_id GROUP BY 1
+SELECT s.product_id, SUM(s.quantity) AS total_quantity FROM Sales AS s GROUP BY product_id
+SELECT s.product_id, SUM(s.quantity) AS total_quantity FROM Sales s GROUP BY s.product_id
+SELECT s.product_id, SUM(s.quantity) as total_quantity FROM Sales s INNER JOIN Product p ON p.product_id = s.product_id GROUP BY s.product_id
+SELECT s.product_id, sum(quantity) AS total_quantity FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id GROUP BY s.product_id
+SELECT s.product_id, sum(quantity) total_quantity from Sales s group by s.product_id
+SELECT s.product_id,SUM(s.quantity) as total_quantity FROM Sales s LEFT JOIN Product p ON s.product_id=p.product_id GROUP BY s.product_id
+SELECT s.product_id,sum(quantity) total_quantity FROM Sales s GROUP BY s.product_id
+SELECT s.product_id,sum(quantity) total_quantity from Sales s group by s.product_id
+SELECT sales.product_id, sum(quantity) as total_quantity from sales group by product_id
+Select a.product_id, sum(a.quantity) as total_quantity from sales a join product b on a.product_id = b.product_id group by a.product_id
+Select distinct (sales.product_id) ,sum(quantity) total_quantity From Sales group by sales.product_id
+Select product_id AS product_id, Sum(quantity) AS total_quantity From Sales Group by product_id
+Select product_id, IFNULL(Sum(quantity), 0) as total_quantity from Sales group by product_id
+Select product_id, SUM(quantity) as total_quantity from Sales group by product_id
+Select product_id, sum(quantity) as total_quantity From Sales Group by product_id
+Select product_id, sum(quantity) as total_quantity From Sales group by 1 order by 2
+Select product_id, sum(quantity) as total_quantity from Sales group by product_id
+Select product_id, sum(quantity) total_quantity from sales group by product_id
+Select product_id,sum(quantity) as total_quantity From Sales GROUP BY product_id
+Select s.product_id, Sum(s.quantity) as total_quantity From sales s inner join product p On s.product_id = p.product_id group by s.product_id
+Select s.product_id, sum(quantity) as total_quantity FROM Sales s left join Product p ON s.product_id = p.product_id group by s.product_id
+select P.product_id, sum(S.quantity) AS total_quantity from Sales S INNER JOIN Product P ON S.product_id=P.product_id group by P.product_id
+select Product.product_id as product_id, sum(quantity) as total_quantity from Sales join Product on Sales.product_id = Product.product_id group by Product.product_id
+select Sales.product_id , sum(quantity) as total_quantity from Sales,Product where Sales.product_id = Product.product_id group by product_id
+select Sales.product_id as product_id ,SUM(Sales.quantity) as total_quantity from Sales left join Product on Sales.product_id=Product.product_id group by product_id
+select Sales.product_id, sum(quantity) as total_quantity from Sales join Product on Sales.product_id = Product.product_id group by Sales.product_id order by total_quantity desc
+select Sales.product_id, sum(quantity) as total_quantity from Sales left join Product on Sales.product_id = Product.product_id group by product_id
+select a.product_id , sum(a.quantity) as total_quantity from sales a group by 1
+select a.product_id, sum(a.quantity) as total_quantity from Sales a group by a.product_id
+select a.product_id, sum(a.quantity) as total_quantity from Sales a left join Product b on a.product_id = b.product_id group by a.product_id
+select a.product_id, sum(a.quantity) as total_quantity from sales a group by a.product_id
+select a.product_id, sum(a.quantity) as total_quantity from sales a join product b on a.product_id=b.product_id group by a.product_id
+select a.product_id, sum(quantity) total_quantity from sales a join product b using (product_id) group by 1
+select a.product_id,sum(b.quantity) as total_quantity from product a join sales b on a.product_id=b.product_id group by a.product_id
+select b.product_id as product_id, sum(a.quantity) as total_quantity from sales a right join product b on a.product_id = b.product_id group by b.product_id having sum(a.quantity) is not null
+select b.product_id, sum(quantity) as total_quantity from Sales as a inner join Product as b on a.product_id=b.product_id group by a.product_id
+select distinct product_id, sum(quantity) as total_quantity from Sales group by 1
+select distinct product_id, sum(quantity) as total_quantity from Sales group by product_id order by product_id
+select distinct product_id, sum(quantity) over (partition by product_id order by product_id) as total_quantity from sales
+select distinct product_id, sum(quantity) over (partition by product_id) as 'total_quantity' from sales
+select distinct product_id, sum(quantity) over(partition by product_id) as total_quantity from Sales
+select distinct s.product_id, sum(s.quantity) as total_quantity from sales s join product p on s.product_id = p.product_id group by s.product_id
+select distinct(product_id), sum(quantity) as total_quantity from sales group by product_id
+select distinct(s.product_id), sum(s.quantity) as total_quantity from Sales as s inner join Product as p on s.product_id = p.product_id group by s.product_id
+select p.product_id , sum(s.quantity) as total_quantity from sales s join product p on s.product_id=p.product_id group by p.product_id
+select p.product_id, coalesce(tmp.total_quantity,0) as total_quantity from Product p join ( select product_id , sum(quantity) as total_quantity from Sales group by product_id )tmp on p.product_id = tmp.product_id
+select p.product_id, sum(coalesce(s.quantity,0)) as total_quantity from Product p inner join Sales s on p.product_id=s.product_id group by p.product_id
+select p.product_id, sum(quantity) as total_quantity from Product as p join Sales as s on s.product_id = p.product_id group by 1
+select p.product_id, sum(quantity) as total_quantity from Product p inner join Sales s on p.product_id = s.product_id group by 1
+select p.product_id, sum(quantity) as total_quantity from Sales s join Product p on s.product_id = p.product_id group by product_id
+select p.product_id, sum(quantity) as total_quantity from Sales s join product p on s.product_id = p.product_id group by p.product_id
+select p.product_id, sum(quantity) as total_quantity from product p inner join sales s on s.product_id = p.product_id group by product_id
+select p.product_id, sum(quantity) as total_quantity from product p join sales s on p.product_id = s.product_id group by p.product_id
+select p.product_id, sum(quantity) as total_quantity from product p join sales s using (product_id) group by 1
+select p.product_id, sum(quantity) as total_quantity from sales s join product p on s.product_id=p.product_id group by p.product_id
+select p.product_id, sum(quantity) as total_quantity from sales s left join product p on p.product_id = s.product_id group by product_id
+select p.product_id, sum(s.quantity) as total_quantity from Sales s join Product p on s.product_id = p.product_id group by p.product_id
+select p.product_id, sum(s.quantity) as total_quantity from product as p left join sales as s on p.product_id=s.product_id where s.product_id is not null group by 1
+select p.product_id, sum(s.quantity) as total_quantity from product p join sales s on p.product_id = s.product_id group by 1
+select p.product_id, sum(s.quantity) as total_quantity from product p join sales s on p.product_id = s.product_id group by p.product_id
+select p.product_id, sum(s.quantity) as total_quantity from product p join sales s on p.product_id=s.product_id group by product_id order by 1
+select p.product_id, sum(s.quantity) as total_quantity from product p, sales s where p.product_id = s.product_id group by 1
+select p.product_id, sum(s.quantity) as total_quantity from sales s join product p using(product_id) group by 1
+select p.product_id, sum(s.quantity) total_quantity from sales s inner join Product p on s.product_id=p.product_id group by p.product_id
+select p.product_id, total_quantity from product p, ( select sum(quantity)as total_quantity, product_id from sales group by product_id) s where p.product_id=s.product_id
+select p.product_id,sum(s.quantity) as total_quantity from Product p inner join Sales s on p.product_id = s.product_id group by s.product_id
+select product.product_id, sum(quantity) as total_quantity from product join sales on product.product_id = sales.product_id group by product_id
+select product.product_id, sum(quantity) as total_quantity from sales, product where sales.product_id = product.product_id group by product.product_id order by product.product_id
+select product.product_id,sum(sales.quantity) as total_quantity from sales LEFT JOIN product ON product.product_id = sales.product_id group by product.product_id
+select product_id , sum(quantity) as total_quantity from Sales group by product_id
+select product_id , sum(quantity) as total_quantity from Sales group by product_id order by product_id
+select product_id , sum(quantity) as total_quantity from sales group by 1
+select product_id , sum(quantity) as total_quantity from sales group by product_id
+select product_id , sum(quantity) total_quantity from Sales group by product_id
+select product_id as product_id, sum(quantity) as total_quantity from Sales group by 1
+select product_id, SUM(quantity) as total_quantity FROM Sales group by product_id
+select product_id, SUM(quantity) as total_quantity from Sales group by product_id
+select product_id, SUM(quantity) as total_quantity from sales group by product_id
+select product_id, Sum(quantity) as total_quantity from Sales group by product_id
+select product_id, coalesce(sum(quantity),0) as total_quantity from sales group by 1
+select product_id, ifnull(sum(quantity),0) as total_quantity from Sales group by 1 order by 1
+select product_id, ifnull(sum(quantity),0) as total_quantity from sales group by product_id
+select product_id, sum(quantity ) as total_quantity from Sales group by product_id
+select product_id, sum(quantity) as 'total_quantity' from Sales group by product_id
+select product_id, sum(quantity) as 'total_quantity' from Sales s group by s.product_id
+select product_id, sum(quantity) as 'total_quantity' from sales group by product_id
+select product_id, sum(quantity) as total_quantity FROM sales GROUP BY product_id
+select product_id, sum(quantity) as total_quantity from Sales Group by product_id
+select product_id, sum(quantity) as total_quantity from Sales group by (product_id)
+select product_id, sum(quantity) as total_quantity from Sales group by 1
+select product_id, sum(quantity) as total_quantity from Sales group by 1 order by 1
+select product_id, sum(quantity) as total_quantity from Sales group by product_id
+select product_id, sum(quantity) as total_quantity from Sales group by product_id order by product_id
+select product_id, sum(quantity) as total_quantity from Sales s group by product_id
+select product_id, sum(quantity) as total_quantity from product join sales using(product_id) group by product_id
+select product_id, sum(quantity) as total_quantity from sales group by 1
+select product_id, sum(quantity) as total_quantity from sales group by 1 order by 1
+select product_id, sum(quantity) as total_quantity from sales group by product_id
+select product_id, sum(quantity) as total_quantity from sales group by product_id order by product_id
+select product_id, sum(quantity) as total_quantity from sales left join product using(product_id) group by product_id
+select product_id, sum(quantity) total_quantity from Sales group by 1
+select product_id, sum(quantity) total_quantity from Sales group by product_id
+select product_id, sum(quantity) total_quantity from Sales join Product using (product_id) group by product_id
+select product_id, sum(quantity) total_quantity from sales group by 1
+select product_id, sum(quantity) total_quantity from sales group by product_id
+select product_id, sum(quantity) total_quantity from sales s group by product_id
+select product_id, sum(quantity)as total_quantity from Sales group by 1
+select product_id, sum(quantity)as total_quantity from Sales group by product_id
+select product_id,sum(quantity) 'total_quantity' from sales group by product_id
+select product_id,sum(quantity) as total_quantity from Sales group by 1
+select product_id,sum(quantity) as total_quantity from Sales group by product_id
+select product_id,sum(quantity) as total_quantity from sales as s group by 1
+select product_id,sum(quantity) as total_quantity from sales group by product_id
+select s.product_id , sum(s.quantity) as total_quantity from sales s group by 1
+select s.product_id , sum(s.quantity) as total_quantity from sales s group by product_id
+select s.product_id , sum(s.quantity) as total_quantity from sales s group by s.product_id order by s.product_id
+select s.product_id as product_id, sum(quantity) as total_quantity from Sales s left join Product p on s.product_id = p.product_id group by 1
+select s.product_id, SUM(s.quantity) as total_quantity from sales s group by product_id
+select s.product_id, sum(quantity) as total_quantity from Sales as s left join Product as p on s.product_id=p.product_id group by 1
+select s.product_id, sum(quantity) as total_quantity from Sales s inner join Product p using(product_id) group by p.product_id
+select s.product_id, sum(quantity) as total_quantity from Sales s join Product p on s.product_id = p.product_id group by s.product_id
+select s.product_id, sum(quantity) as total_quantity from Sales s join Product p on s.product_id= p.product_id group by product_id
+select s.product_id, sum(quantity) as total_quantity from Sales s join Product p where s.product_id = p.product_id group by s.product_id
+select s.product_id, sum(quantity) as total_quantity from sales as s inner join product as p on s.product_id=p.product_id group by product_id
+select s.product_id, sum(quantity) as total_quantity from sales as s inner join product as p on s.product_id=p.product_id group by s.product_id
+select s.product_id, sum(quantity) as total_quantity from sales s group by product_id
+select s.product_id, sum(quantity) as total_quantity from sales s group by s.product_id
+select s.product_id, sum(quantity) as total_quantity from sales s join Product p on s.product_id = p.product_id group by product_id
+select s.product_id, sum(s.quantity) as total_quantity from Sales s group by s.product_id
+select s.product_id, sum(s.quantity) as total_quantity from Sales s inner join Product p on s.product_id = p.product_id group by s.product_id
+select s.product_id, sum(s.quantity) as total_quantity from sales as s group by product_id
+select s.product_id, sum(s.quantity) as total_quantity from sales s group by product_id
+select s.product_id, sum(s.quantity) as total_quantity from sales s group by s.product_id
+select s.product_id, sum(s.quantity) as total_quantity from sales s join product p on s.product_id = p.product_id group by s.product_id
+select s.product_id, sum(s.quantity) total_quantity from sales s inner join product p on p.product_id = s.product_id group by s.product_id
+select s.product_id, sum(s.quantity) total_quantity from sales s left join product p on s.product_id=p.product_id group by s.product_id
+select s.product_id,coalesce(SUM(s.quantity), 0) AS total_quantity from Sales s inner join Product p on s.product_id=p.product_id group by s.product_id
+select s.product_id,sum(quantity) as total_quantity from Sales s join Product p on s.product_id=p.product_id group by product_id
+select s.product_id,sum(quantity)as total_quantity from sales s inner join product p on s.product_id=p.product_id group by s.product_id
+select s.product_id,sum(s.quantity) as total_quantity from Sales s group by 1
+select sales.product_id,sum(quantity) as total_quantity from sales join product on sales.product_id=product.product_id group by sales.product_id
+select sls.product_id as product_id, sum(quantity) as total_quantity from sales as sls join product prd on sls.product_id = prd.product_id group by product_id

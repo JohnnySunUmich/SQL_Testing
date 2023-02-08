@@ -1,0 +1,277 @@
+SELECT EMPLOYEE_ID, (CASE WHEN NAME NOT LIKE "M%"AND EMPLOYEE_ID%2=1 THEN SALARY ELSE 0 END) AS BONUS FROM EMPLOYEES
+SELECT EMPLOYEE_ID, CASE WHEN EMPLOYEE_ID%2<>0 AND LEFT(NAME, 1)<>'M' THEN SALARY ELSE 0 END AS BONUS FROM EMPLOYEES
+SELECT EMPLOYEE_ID, CASE WHEN MOD(EMPLOYEE_ID,2) = 1 AND NAME NOT LIKE 'M%' THEN SALARY ELSE 0 END AS BONUS FROM EMPLOYEES ORDER BY 1
+SELECT Employees.employee_id,ifNULL(t.salary-t.t.salary,Employees.salary) as bonus FROM Employees LEFT JOIN (Select employee_id,salary from Employees where name like 'M%' || employee_id%2 is false) as t ON t.employee_id = Employees.employee_id
+SELECT e.employee_id, (CASE WHEN (e.employee_id % 2 = 1 AND e.name NOT LIKE 'M%') THEN e.salary ELSE 0 END) AS bonus FROM Employees e
+SELECT e.employee_id, CASE WHEN (e.employee_id % 2 = 1 AND LEFT(e.name, 1) <> 'M') THEN e.salary ELSE 0 END bonus FROM Employees e ORDER BY e.employee_id
+SELECT employee_id , CASE WHEN (MOD(employee_id,2)=1) AND (LEFT(name, 1) != 'M') THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id , CASE WHEN (employee_id % 2 <> 0 and lower(SUBSTRING(name, 1, 1)) <> 'm') THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY 1
+SELECT employee_id , CASE WHEN (employee_id % 2 <> 0 and lower(SUBSTRING(name,1,1)) <> 'm' ) THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY 1
+SELECT employee_id , CASE WHEN (employee_id % 2 <> 0 and lower(SUBSTRING(name,1,1)) <> 'm' )THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY 1
+SELECT employee_id , CASE WHEN name not like 'M%' and employee_id%2=1 then salary ELSE 0 END bonus FROM Employees ORDER BY employee_id
+SELECT employee_id ,CASE WHEN employee_id % 2 != 0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id ASC
+SELECT employee_id ,CASE WHEN employee_id%2!=0 AND name not like 'M%' THEN salary ELSE 0 END AS "bonus" FROM Employees
+SELECT employee_id, ( CASE WHEN employee_id % 2 = 1 AND name not like "M%" THEN salary ELSE 0 END ) AS bonus FROM Employees
+SELECT employee_id, ( CASE WHEN employee_id%2=1 AND LEFT(name, 1)!='M' THEN salary ELSE 0 END ) AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN (MOD(employee_id,2)=1 AND LEFT(name,1)!="M") THEN salary ELSE 0 END) AS 'bonus' FROM Employees
+SELECT employee_id, (CASE WHEN (employee_id % 2 = 1) AND (name NOT LIKE 'M%') THEN salary ELSE 0 END) AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN LEFT(name,1) != 'M' AND employee_id % 2 <> 0 THEN salary ELSE 0 END) AS bonus FROM employees
+SELECT employee_id, (CASE WHEN MOD(employee_id, 2) = 0 OR name LIKE('M%') THEN 0 ELSE salary END) AS bonus FROM Employees
+SELECT employee_id, (CASE WHEN MOD(employee_id, 2) = 1 AND name NOT LIKE "M%" THEN salary ELSE 0 END) AS bonus FROM Employees
+SELECT employee_id, (CASE WHEN MOD(employee_id, 2) = 1 AND name NOT LIKE 'M%' THEN salary ELSE 0 END) AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN employee_id % 2 != 0 AND LEFT(name, 1) != 'M' THEN salary ELSE 0 END) AS bonus FROM Employees
+SELECT employee_id, (CASE WHEN employee_id % 2 != 0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END) AS bonus FROM Employees
+SELECT employee_id, (CASE WHEN employee_id % 2 != 0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END) bonus FROM employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN employee_id % 2 <> 0 AND name not like 'M%' THEN salary ELSE 0 END) AS bonus FROM Employees
+SELECT employee_id, (CASE WHEN employee_id %2 !=0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END) AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN name LIKE 'M%' THEN 0 WHEN MOD(employee_id, 2) = 0 THEN 0 ELSE salary END) bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN name LIKE 'M%' THEN 0 WHEN mod(employee_id, 2) = 0 THEN 0 ELSE salary END) AS bonus FROM Employees
+SELECT employee_id, (CASE WHEN name LIKE 'M%' THEN salary * 0 WHEN MOD(employee_id, 2) = 0 THEN salary * 0 ELSE salary * 1 END) AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, (CASE WHEN name NOT LIKE 'M_%' AND (employee_id % 2) <> 0 THEN 1 * salary ELSE 0 END) AS bonus FROM Employees ORDER BY employee_id ASC
+SELECT employee_id, (case when employee_id%2 !=0 and name not like "m%" then salary else 0 end) as bonus FROM Employees
+SELECT employee_id, CASE WHEN ((employee_id % 2 != 0) AND (name REGEXP '^[^ M]')) THEN salary ELSE 0 END bonus FROM Employees
+SELECT employee_id, CASE WHEN ((employee_id % 2) != 0) AND (name NOT LIKE 'M%') THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN (employee_id % 2 != 0 AND LEFT(name,1) != 'M') THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN (employee_id % 2 != 0 AND SUBSTRING(name, 1, 1) != 'M') THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN (employee_id % 2 <> 0 AND name NOT LIKE 'M%') THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN (employee_id % 2 <>0 and substring(name,1,1) <> 'M') THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN (employee_id % 2 = 0 or substring(name,1,1) = 'M') THEN 0 ELSE salary END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN (employee_id % 2 = 1 AND LEFT(name,1) <> 'M') THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN (employee_id%2) = 1 and name not like 'M%' then (salary*100)/100 else 0 end bonus FROM Employees
+SELECT employee_id, CASE WHEN (name LIKE 'M%' or employee_id % 2 = 0) THEN 0 ELSE salary END as bonus FROM employees
+SELECT employee_id, CASE WHEN MOD(employee_id, 2) != 0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN MOD(employee_id, 2) = 1 AND substring(name, 1, 1) != 'M' THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN MOD(employee_id, 2) = 1 and name NOT LIKE 'M%' THEN salary ELSE 0 END as bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN MOD(employee_id,2)<>0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN MOD(employee_id,2)=0 THEN 0 WHEN name LIKE "M%" THEN 0 ELSE salary END AS bonus FROM employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN SUBSTRING(name, 1, 1) != 'M' AND MOD(employee_id, 2) != 0 THEN salary ELSE 0 END AS bonus FROM employees
+SELECT employee_id, CASE WHEN employee_id % 2 != 0 AND SUBSTRING(name, 1, 1) != 'M' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN employee_id % 2 != 0 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id % 2 != 0 and name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN employee_id % 2 <> 0 AND SUBSTR(name,1,1) <> 'M' THEN salary ELSE 0 END AS bonus FROM employees
+SELECT employee_id, CASE WHEN employee_id % 2 <> 0 and name not like 'm%' THEN salary ELSE 0 END AS bonus FROM employees
+SELECT employee_id, CASE WHEN employee_id % 2 = 0 or substring(name,1,1) = 'M' THEN 0 ELSE salary END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND LEFT(name, 1) != "M" THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND LEFT(name, 1) != 'M' THEN salary ELSE 0 END AS "bonus" FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND LEFT(name, 1) != 'M' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND SUBSTRING(name, 1, 1) != 'M' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND name NOT LIKE "M%" THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 AND name NOT LIKE 'M%' THEN salary ELSE 0 end AS bonus FROM employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 and LEFT(name,1) != 'M' THEN salary ELSE 0 END AS bonus FROM Employees ORDER BY 1
+SELECT employee_id, CASE WHEN employee_id % 2 = 1 and name not like "m%" THEN SALARY ELSE 0 END AS BONUS FROM Employees
+SELECT employee_id, CASE WHEN employee_id MOD 2 = 1 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id%2 != 0 AND name NOT LIKE 'm%' THEN salary ELSE 0 END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id%2 != 0 AND name not like 'M%' THEN salary ELSE 0 END as bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id%2!=0 AND name NOT LIKE ('M%') THEN salary ELSE 0 END AS bonus FROM employees
+SELECT employee_id, CASE WHEN employee_id%2=0 THEN 0 WHEN LEFT(name,1)='M' THEN 0 ELSE salary END as bonus FROM Employees
+SELECT employee_id, CASE WHEN employee_id%2=1 AND LEFT(name,1)<>'M' THEN salary ELSE 0 END bonus FROM employees ORDER BY employee_id
+SELECT employee_id, CASE WHEN mod(employee_id,2) = True AND LEFT(name,1) != 'M' then salary ELSE 0 END as bonus FROM Employees
+SELECT employee_id, CASE WHEN name LIKE 'M%' OR employee_id%2=0 THEN 0 ELSE salary END AS bonus FROM Employees ORDER BY 1
+SELECT employee_id, CASE WHEN name LIKE 'M%' THEN 0 ELSE (CASE WHEN employee_id%2 != 0 THEN salary ELSE 0 END) END as bonus FROM Employees
+SELECT employee_id, CASE WHEN name LIKE 'M%' THEN 0 WHEN employee_id%2=0 THEN 0 ELSE salary END AS bonus FROM Employees
+SELECT employee_id, CASE WHEN name like 'm%' then 0 WHEN employee_id%2 = 0 then 0 ELSE salary END as 'bonus' FROM employees ORDER BY employee_id
+SELECT employee_id, IF (employee_id % 2 =1 and name NOT LIKE 'M%', salary, 0) as bonus FROM Employees
+SELECT employee_id, IF (employee_id%2 = 1 AND name NOT LIKE 'M%', salary, 0 ) AS bonus FROM Employees
+SELECT employee_id, IF((MOD(employee_id,2) != 0),IF((name LIKE 'M%'),0,salary),0) as bonus FROM employees ORDER BY employee_id ASC
+SELECT employee_id, IF((employee_id % 2) <> 0 AND SUBSTRING(name, 1,1) NOT IN ("M"), salary, 0) as bonus FROM Employees
+SELECT employee_id, IF(LEFT(name, 1) != 'M' AND employee_id % 2 = 1, salary,0) bonus FROM Employees
+SELECT employee_id, IF(LOWER(name) NOT LIKE 'm%' AND MOD(employee_id,2) != 0, salary, 0) AS bonus FROM employees GROUP BY employee_id
+SELECT employee_id, IF(LOWER(name) NOT LIKE 'm%' AND employee_id % 2 != 0, salary, 0) AS bonus FROM employees GROUP BY employee_id
+SELECT employee_id, IF(MOD(employee_id, 2) = 1 AND LEFT(name, 1) != "M", salary , 0) as bonus FROM Employees
+SELECT employee_id, IF(MOD(employee_id,2)!=0 AND name NOT LIKE 'M%',1,0)*SALARY as bonus FROM Employees
+SELECT employee_id, IF(employee_id % 2 = 1 AND name NOT LIKE 'M%', salary, 0) AS bonus FROM Employees
+SELECT employee_id, IF(employee_id % 2 = 1 AND name NOT LIKE 'M%', salary, 0) as bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, IF(employee_id % 2 = 1 and name NOT LIKE'M%', salary, 0) as bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, IF(employee_id %2 =1 and left(name,1) != 'M', salary,0) as bonus FROM employees
+SELECT employee_id, IF(employee_id%2 != 0 AND name NOT LIKE 'M%', salary, 0) AS bonus FROM Employees
+SELECT employee_id, IF(employee_id%2 != 0 AND name not like 'M%', salary, 0) AS bonus FROM Employees
+SELECT employee_id, IF(employee_id%2 !=0 AND name NOT LIKE 'M%', salary, 0) AS bonus FROM Employees ORDER BY employee_id ASC
+SELECT employee_id, IF(employee_id%2=1 AND name NOT LIKE 'M%',salary,0) AS bonus FROM Employees
+SELECT employee_id, IF(employee_id%2=1 AND name NOT LIKE 'M%',salary,0) AS bonus FROM employees
+SELECT employee_id, IF(name NOT LIKE 'M%' AND MOD(employee_id,2) = 1, salary, 0) AS bonus FROM Employees ORDER BY employee_id
+SELECT employee_id, case when employee_id % 2 = 1 and name not like 'M%' then salary else 0 end as bonus FROM employees ORDER BY employee_id
+SELECT employee_id, case when employee_id%2=1 and left(name,1)!='m' then salary else 0 end as bonus from employees
+SELECT employee_id, if(employee_id%2 != 0 And name not like 'M%', salary, 0) As bonus FROM Employees
+SELECT employee_id, salary * if(employee_id%2 != 0,1,0) * if(substring(name,1,1) != 'M',1,0) AS bonus FROM Employees
+SELECT employee_id, salary*b_rate AS bonus FROM( SELECT employee_id, salary, CASE WHEN employee_id%2 = 1 AND name NOT LIKE "M%" THEN 1 ELSE 0 END AS b_rate FROM employees) AS T ORDER BY employee_id
+SELECT employee_id,(employee_id%2=1 AND SUBSTR(name,1,1)!='M')*salary as bonus FROM Employees
+SELECT employee_id,CASE WHEN employee_id % 2 = 1 AND SUBSTR(name,1,1) != 'M' THEN salary ELSE 0 END AS bonus FROM employees ORDER BY employee_id
+SELECT employee_id,IF((employee_id % 2 != 0) AND (LEFT(name,1) != 'M'),salary,0) AS bonus FROM Employees
+Select employee_id , ( case when (employee_id%2) = 1 and name not like 'M%' then salary else 0 end ) as bonus from Employees
+Select employee_id , case when employee_id % 2 = 1 and name not like 'M%' then salary else 0 end as bonus from Employees
+Select employee_id , case when employee_id%2 = 1 and lower(name) not like 'm%' then salary else 0 end as bonus from Employees order by employee_id
+Select employee_id, CASE When employee_id%2=1 and Left(name,1)!='M' then salary ELSE 0 END as bonus from Employees
+Select employee_id, Case when employee_id%2 = 1 and left(name, 1) != "M" Then salary else salary = 0 End as bonus From Employees Order by employee_id
+Select employee_id, case when (mod(employee_id,2) = 1) and substring(name, 1,1) <> 'M' then salary else 0 end as bonus from Employees
+Select employee_id, case when employee_id % 2 = 0 OR name LIKE CONCAT('M', '%') then 0 else salary end as 'bonus' From Employees
+Select employee_id, case when name not like 'M%' and (employee_id % 2) <> 0 then salary else 0 end as bonus from employees
+Select employee_id, if (employee_id % 2 <> 0 and name not like 'M%', salary, 0) as bonus from employees
+Select employee_id, if(employee_id%2 = 1 and left(name, 1) != "M", salary, 0) As bonus From Employees Order by employee_id
+WITH cte_bonus AS ( SELECT employee_id,salary AS bonus FROM Employees WHERE MOD(employee_id,2)!=0 AND name NOT IN (SELECT name FROM Employees WHERE LEFT(name,1)='M')) SELECT e.employee_id, IFNULL(bonus,0)AS bonus FROM Employees e LEFT JOIN cte_bonus b ON e.employee_id=b.employee_id
+WITH sub AS (SELECT employee_id, name, salary, CASE WHEN employee_id%2 = 1 AND name NOT LIKE 'M%' THEN salary ELSE 0 END AS bonus FROM Employees) SELECT employee_id, bonus FROM sub ORDER BY employee_id
+WITH temp AS ( SELECT employee_id, IF(employee_id % 2 = 0, 0, IF(SUBSTRING(name,1,1) <> 'M', salary, 0) ) AS bonus FROM Employees ORDER BY employee_id ) SELECT * FROM temp
+if (left(name,1)!='M' and employee_id%2=1, salary, 0) as bonus from employees group by employee_id
+if (name like 'M%' or employee_id%2=0, 0, salary) as bonus from employees group by employee_id
+if (name not like 'M%' and employee_id%2=1, salary, 0) as bonus from employees group by employee_id
+select all_ids.employee_id as employee_id , COALESCE(salary, 0) as bonus from (select employee_id from Employees) as all_ids left join (select employee_id, salary from Employees where employee_id%2=1 and name not like "M%") as cond on all_ids.employee_id=cond.employee_id
+select distinct employee_id, if(employee_id%2=1 and name not like 'M%',salary,0) as bonus from employees order by employee_id
+select e.employee_id, IF(mod(e.employee_id, 2) = 1 and (e.name RLIKE '^[M]') = false, e.salary, 0) as bonus from Employees e
+select e.employee_id, case when e.employee_id%2 = 1 and left(e.name, 1) != 'M' then e.salary else 0 end bonus from employees e
+select e2.employee_id, case when t.bonus is null then 0 else t.bonus end bonus from (select e1.employee_id, e1.salary as bonus from Employees e1 where e1.employee_id%2 = 1 and left(e1.name, 1) != 'M') t right join employees e2 on t.employee_id = e2.employee_id
+select employee_Id, case when employee_id%2 = 0 then 0 when name like 'M%' then 0 else Salary end as 'bonus' from Employees
+select employee_id , (case when employee_id % 2 != 0 and name not like 'M%' then salary else 0 end ) as bonus from employees
+select employee_id , (case when mod(employee_id,2) <> 0 AND name not like 'M%' then salary else 0 end) as bonus from Employees
+select employee_id , CASE WHEN (employee_id%2!=0 and name NOT LIKE 'M%' ) THEN Salary ELSE 0 END AS Bonus FROM employees order by employee_id
+select employee_id , CASE WHEN employee_id%2 =0 or name like 'M%' THEN 0 ELSE salary END AS bonus from Employees
+select employee_id , case when (employee_id %2=1 and left(name,1)!='M') then salary* 1 else 0 end as bonus from Employees
+select employee_id , case when employee_id % 2 != 0 and name not like 'M%' then salary else 0 end as bonus from Employees
+select employee_id , case when employee_id % 2 = 1 AND name not like 'M%' THEN salary else 0 end as bonus from Employees
+select employee_id , case when employee_id%2 = 0 or substring(name,1,1)='M' then 0 else salary end as bonus from Employees
+select employee_id , if( employee_id % 2 =1 and left(name,1)!='M',salary,0) as bonus from Employees order by employee_id
+select employee_id , if((employee_id%2)=1 and name not like 'M%',salary,0) as bonus from employees order by employee_id
+select employee_id , if(employee_id%2=1 and name not like'M%', salary,0) as bonus from Employees
+select employee_id ,Sum(case when employee_id%2 !=0 and name not like ('M%') then salary else 0 end) as bonus from employees group by employee_id
+select employee_id, (CASE WHEN employee_id %2 != 0 and LEFT(name,1) != 'M' THEN salary ELSE 0 END) as bonus from Employees order by employee_id
+select employee_id, (IF((mod(employee_id,2)=1 and name Not like "M%"), salary,0)) 'bonus' From Employees
+select employee_id, (case when (employee_id%2 = 0 or name like "M%") then 0 else salary end) as bonus from employees
+select employee_id, (case when (mod(employee_id,2)<>0) and name not like 'M%' then salary else 0 end ) as bonus from Employees
+select employee_id, (case when (mod(employee_id,2)<>0) and substr(name,1,1)<>'M' then salary else 0 end ) as bonus from Employees
+select employee_id, (case when (mod(employee_id,2)<>0) and upper(substr(name,1,1))<>'M' then salary else 0 end ) as bonus from Employees
+select employee_id, (case when employee_id % 2 != 0 and name not like 'M%' then salary else 0 end) as bonus from Employees
+select employee_id, (case when employee_id % 2 = 0 then 0 when name like 'M%' then 0 else salary end) as bonus from Employees
+select employee_id, (case when employee_id % 2 = 1 and left(name, 1)!= 'M' then salary else 0 end) bonus from Employees
+select employee_id, (case when employee_id % 2 = 1 and left(name,1)<>'M' then salary *1 else 0 end) as bonus from employees
+select employee_id, (case when employee_id % 2 = 1 and name not like 'M%' then salary *1 else 0 end) as bonus from employees
+select employee_id, (case when employee_id % 2 =1 and name not like 'M%' then salary else 0 end) bonus from Employees
+select employee_id, (case when employee_id %2 <> 0 and left(name,1) <> 'M' then salary else 0 end) as bonus from employees
+select employee_id, (case when employee_id mod 2 = 1 and left(name, 1) <> 'M' then salary else 0 end)as bonus from Employees
+select employee_id, (case when employee_id%2 != 0 and name not like 'M%' then salary else 0 end) as bonus from Employees order by employee_id
+select employee_id, (case when employee_id%2 = 1 and name not like "M%" then salary else 0 end) as bonus from employees order by employee_id
+select employee_id, (case when employee_id%2!=0 and name NOT LIKE 'M%' then salary else 0 end) bonus from employees
+select employee_id, (case when employee_id%2<>0 and name not like 'M%' then salary else 0 end ) as bonus from Employees
+select employee_id, (case when employee_id%2<>0 and name not like'M%' then salary else 0 end) as bonus from employees
+select employee_id, (case when employee_id%2=0 then 0 when employee_id%2=1 and name not like 'M%' then salary else 0 end) as bonus from Employees
+select employee_id, (case when left(name,1) = 'M' or mod(employee_id, 2)=0 then 0 else salary end) bonus from Employees
+select employee_id, (case when mod(employee_id,2)=1 and name not LIKE 'M%' then salary else 0 end) as bonus from Employees
+select employee_id, (employee_id%2 =1 AND substring(name, 1,1)!= 'M')*salary as bonus from Employees
+select employee_id, CASE WHEN (employee_id%2)!=0 AND (name NOT LIKE 'M%') THEN Salary ELSE 0 END AS bonus from Employees order by employee_id
+select employee_id, CASE WHEN MOD(employee_id,2) = 1 AND name not like 'M%' THEN salary else 0 end as bonus from Employees
+select employee_id, CASE WHEN name not like 'M%' and employee_id % 2 != 0 THEN salary ELSE 0 END AS bonus from Employees
+select employee_id, CASE when name NOT LIKE 'M%' and MOD(employee_id, 2) != 0 then salary ELSE salary = 0 END as bonus from Employees
+select employee_id, Case when mod(employee_id,2)=1 AND substring(name,1,1) !='M' then salary else 0 end as bonus from Employees
+select employee_id, IF (employee_id % 2 = 1 AND name not like 'M%', salary, 0) AS bonus from Employees
+select employee_id, IF(employee_id%2!=0 and lower(substring(name,1,1))!='m',salary,0) bonus from employees order by employee_id
+select employee_id, case when ((employee_id % 2) != 0) and name not like 'M%' then salary else 0 end as bonus from employees
+select employee_id, case when ((name < 'm') or (name >= 'n')) and (employee_id % 2 != 0) then salary else 0 end as bonus from Employees
+select employee_id, case when (employee_id % 2 != 0 and name not like 'M%') then salary else 0 end bonus from Employees order by employee_id
+select employee_id, case when (employee_id % 2) = 0 then 0 when substr(name,1,1) = 'M' then 0 else salary end as bonus from employees
+select employee_id, case when (employee_id %2 != 0 and name not like 'M%') then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when (employee_id mod 2)!=0 and substr(name,1,1)!= 'M' then salary else 0 end as bonus from employees
+select employee_id, case when (employee_id%2 != 0 and left(name,1) != 'M') then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when (employee_id%2 != 0 and name not like 'M%') then salary else 0 end bonus from employees e order by employee_id
+select employee_id, case when (employee_id%2<>0 and left(name,1)<>"M") then salary else 0 end bonus from Employees
+select employee_id, case when (name) not like 'M%' and employee_id%2!=0 then salary else 0 end as bonus from Employees
+select employee_id, case when MOD(employee_id,2) = 1 and name not like 'M%' then salary else 0 end as bonus from employees
+select employee_id, case when MOD(employee_id,2)=1 and name not like 'm%' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id % 2 != 0 and left(name,1) != 'M 'then salary else 0 end as bonus from employees
+select employee_id, case when employee_id % 2 != 0 and name not like 'M%' then salary else 0 end as bonus from Employees
+select employee_id, case when employee_id % 2 != 0 and substring(name, 1, 1) != 'M' then salary else 0 end as bonus from Employees
+select employee_id, case when employee_id % 2 <> 0 and left(name, 1) !='M' then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when employee_id % 2 <> 0 and name not like 'M%' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id % 2 = 0 then 0 when name LIKE 'M%' then 0 else salary end as bonus from Employees
+select employee_id, case when employee_id % 2 = 0 then 0 when name like 'M%' then 0 else salary end as 'bonus' from employees
+select employee_id, case when employee_id % 2 = 0 then 0 when name like 'M%' then 0 when employee_id % 2 != 0 and name not like 'M%' then salary else null end as bonus from Employees order by 1
+select employee_id, case when employee_id % 2 = 1 and left(name, 1) != 'M' then salary else 0 end bonus from employees
+select employee_id, case when employee_id % 2 = 1 and left(name, 1) !='M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id % 2 = 1 and name not like 'M%' then salary else 0 end as bonus from Employees
+select employee_id, case when employee_id % 2 = 1 and name not like 'M%' then salary else 0 end as bonus from Employees order by 1
+select employee_id, case when employee_id % 2 = 1 and name not like 'M%' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id % 2 = 1 and name not like 'M%' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id % 2 = 1 and substring(name,1,1) != 'M' then salary else 0 end as bonus from Employees
+select employee_id, case when employee_id % 2 =1 and name not like 'M%' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id % 2 =1 and substr(name,1,1) <> 'M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id % 2 and name not like 'M%' then salary else 0 end as bonus from Employees
+select employee_id, case when employee_id % 2!=0 and name not like 'M%' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id % 2=1 and left(name,1) <> "M" then salary else 0 end bonus from Employees
+select employee_id, case when employee_id %2 <>0 and left(name,1) <> 'M' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id mod 2 = 1 and substr(name, 1, 1) != 'M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id%2 != 0 and name not like 'M%' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id%2 <> 0 AND name not like 'M%' then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when employee_id%2 <> 0 and name not like 'M%' then salary else 0 end as Bonus from Employees order by employee_id
+select employee_id, case when employee_id%2 <> 0 and name not like 'm%' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id%2 = 0 or name like 'M%' then 0 else salary end as bonus from Employees
+select employee_id, case when employee_id%2 = 0 or name like 'M%' then 0 else salary end as bonus from employees
+select employee_id, case when employee_id%2 = 0 then 0 when name like 'M%' then 0 else salary end as 'bonus' from Employees
+select employee_id, case when employee_id%2 = 0 then 0 when name like 'M%' then 0 else salary end as bonus from Employees
+select employee_id, case when employee_id%2 = 0 then 0 when name like 'M%' then 0 else salary end as bonus from employees
+select employee_id, case when employee_id%2 = 1 and name not like 'M%' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id%2 = 1 and name not like 'M%' then salary else 0 end bonus from Employees
+select employee_id, case when employee_id%2 = 1 and name not like 'M%' then salary*1.00 else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id%2!=0 and left(name,1)!='M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id%2!=0 and name not like 'M%' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id%2!=0 and substr(name,1,1)!='M' THEN salary else 0 end as bonus from Employees
+select employee_id, case when employee_id%2=0 or substr(name,1,1)='M' then 0 else salary END as bonus from Employees order by employee_id
+select employee_id, case when employee_id%2=0 then 0 when name like "M%" then 0 else salary end as bonus from Employees
+select employee_id, case when employee_id%2=1 and left(name, 1) != 'M' then salary else 0 end as bonus from employees
+select employee_id, case when employee_id%2=1 and left(name, 1) <> 'M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when employee_id%2=1 and left(name,1) <> 'M' then salary when employee_id%2=0 or left(name,1) = 'M' then 0 end as bonus from employees
+select employee_id, case when employee_id%2=1 and name NOT LIKE "M%" then salary else 0 end as 'bonus' from employees
+select employee_id, case when employee_id%2=1 and name not like "M%" then salary else 0 end as bonus from Employees order by employee_id asc
+select employee_id, case when employee_id%2=1 and name not like 'M%' then salary else 0 end as bonus from Employees E
+select employee_id, case when employee_id%2=1 and name not like 'M%' then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when employee_id%2=1 and name not like 'M%' then salary else 0 end bonus from employees
+select employee_id, case when employee_id%2=1 and substring(name, 1, 1) <> 'M' then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when employee_id%2=1 then case when name not Like 'M%' then salary else 0 end else 0 end as bonus from employees
+select employee_id, case when left(name, 1) != 'M' and employee_id%2=1 then salary else 0 end as bonus from employees
+select employee_id, case when lower(name) like 'm%' then 0 when employee_id % 2 = 0 then 0 else salary end "bonus" from employees
+select employee_id, case when lower(name) not like 'm%' and employee_id%2!=0 then salary else 0 end as bonus from Employees
+select employee_id, case when mod(employee_id, 2) !=0 and name not like 'M%' then salary else 0 end as bonus from Employees
+select employee_id, case when mod(employee_id, 2) = 1 and left(name, 1) != 'M' then salary else 0 end as bonus from employees
+select employee_id, case when mod(employee_id, 2)= 1 and left(name,1) !='M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when mod(employee_id, 2)=1 and substr(name,1,1) != 'M' then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when mod(employee_id,2) = 1 and name not like 'M%' then salary else 0 end as bonus from Employees order by 1
+select employee_id, case when mod(employee_id,2) = 1 and upper(substr(name,1,1)) <> 'M' then salary else 0 end as bonus from Employees order by 1
+select employee_id, case when mod(employee_id,2)!=0 and left(name,1)!="M" then salary else 0 end as bonus from Employees
+select employee_id, case when mod(employee_id,2)!=0 and left(name,1)!='M' then salary else 0 end as bonus from employees
+select employee_id, case when mod(employee_id,2)<>0 and name not like 'M%' then salary else 0 end as bonus from Employees
+select employee_id, case when mod(employee_id,2)<>0 and substr(name,1,1)!='M' then salary else 0 end as bonus from Employees
+select employee_id, case when mod(employee_id,2)<>0 and substring(name,1,1) <> 'M' then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when mod(employee_id,2)=0 or name like 'M%' then 0 else salary end as bonus from Employees
+select employee_id, case when mod(employee_id,2)=1 and SUBSTRING(name,1,1)!='M' then salary else 0 end as bonus from Employees order by employee_id asc
+select employee_id, case when mod(employee_id,2)=1 and left(name,1)!='M' then salary else 0 end as bonus from Employees
+select employee_id, case when mod(employee_id,2)=1 and name NOT LIKE 'M%' then salary else 0 end as bonus from Employees
+select employee_id, case when name like "M%" then 0 else( case when employee_id%2!=0 then salary else 0 end) end as bonus from Employees order by employee_id
+select employee_id, case when name like 'M%' or mod(employee_id,2) = 0 then 0 else salary end as bonus from Employees
+select employee_id, case when name like 'M%' then 0 else(case when employee_id%2 !=0 then salary else 0 end)end bonus from Employees order by employee_id
+select employee_id, case when name not like "M%" and (employee_id % 2) <> 0 then salary else 0 end as bonus from employees
+select employee_id, case when name not like 'M%' and Mod(employee_id,2) = 1 then salary else 0 end as bonus from Employees
+select employee_id, case when name not like 'M%' and employee_id % 2 != 0 then salary else 0 end as bonus from Employees
+select employee_id, case when name not like 'M%' and employee_id %2 <> 0 then salary else 0 end as bonus from employees
+select employee_id, case when name not like 'M%' and employee_id%2 = 1 then salary else 0 end 'bonus' from employees order by 1 asc
+select employee_id, case when name not like 'M%' and employee_id%2!=0 then salary else 0 end as bonus from Employees
+select employee_id, case when name not like 'M%' and employee_id%2!=0 then salary else 0 end as bonus from employees order by employee_id
+select employee_id, case when name not like 'M%' and employee_id%2=1 then salary else 0 end as bonus from Employees
+select employee_id, case when name not like 'M%' and mod(employee_id,2) <>0 then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, case when substring(name,1,1)!='M' and employee_id%2=1 then salary else 0 end as bonus from Employees order by employee_id
+select employee_id, if (employee_id % 2 = 0 or name like 'M%', 0, Salary) as 'Bonus' from Employees
+select employee_id, if (employee_id%2=1 and name not like "M%",salary,0) as bonus from Employees
+select employee_id, if (mod(employee_id, 2) = 1 and left(name, 1) != "M", salary, 0) bonus from Employees order by employee_id
+select employee_id, if((employee_id%2!=0 and substring(name, 1, 1) != 'M'),salary,0) as bonus from employees
+select employee_id, if(employee_id % 2 = 1 and substring(name,1,1) != 'M', salary, 0) bonus from employees
+select employee_id, if(employee_id%2 = 1 and left(name,1) != 'M', salary, 0) bonus from employees
+select employee_id, if(employee_id%2=1 and left(name, 1)!='M', salary, 0) bonus from Employees
+select employee_id, if(employee_id%2=1 and name not like 'M%', salary, 0) as bonus from Employees
+select employee_id, if(employee_id%2=1 and name not like'M%', salary,0) as bonus from Employees
+select employee_id, if(employee_id%2=1 and name not like'M%', salary,0) as bonus from employees
+select employee_id, if(left(name,1) != 'M' and employee_id%2=1,salary,0) as bonus from Employees
+select employee_id, if(mod(employee_id,2) = 1 and left(name,1) != 'M', salary, 0) as bonus from Employees
+select employee_id, salary as bonus from Employees where MOD(employee_id, 2) = 1 AND name NOT LIKE "M%" UNION select employee_id, 0 as bonus from Employees where MOD(employee_id, 2) = 0 OR name LIKE "M%" Order by employee_id
+select employee_id, sum(case when mod(employee_id,2) = 1 and name not like 'M%' then salary else 0 end) as bonus from employees group by employee_id
+select employee_id,(case when employee_id%2 != 0 and name not like 'M%' then salary else 0 end) as bonus from employees order by 1
+select employee_id,case when employee_id%2=1 and name not like'M%' then salary else 0 end 'bonus' from Employees order by employee_id
+select employee_id,case when left(name,1)<>'M' and mod(employee_id,2)=1 then salary else 0 end as bonus from Employees order by employee_id
+with bonus as ( select employee_id, salary as bonus from employees where (employee_id%2) != 0 and name not like 'M_%') select employee_id, 0 as bonus from employees where employee_id not in (select employee_id from bonus) union all select employee_id, bonus from bonus order by employee_id
+with cte as ( select employee_id, name, salary, salary as bonus from Employees where employee_id%2 <> 0 and name not like 'M%' ), cte2 as (select employee_id, name, salary,0 as bonus from Employees where employee_id not in ( select employee_id from cte)) select * from ( select employee_id, bonus from cte union all select employee_id, bonus from cte2) a order by employee_id
+with temp as( SELECT * FROM employees WHERE mod(employee_id, 2) <> 0 and left(name, 1) <> 'M' ) SELECT employee_id, ifnull(temp.salary, 0) as bonus FROM employees as e left join temp using(employee_id)
+with temp as( select *, case when left(name,1)='M' or employee_id %2=0 then 0 else 1 end as bin from employees) select employee_id, salary*bin as bonus from temp

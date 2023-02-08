@@ -1,0 +1,238 @@
+SELECT * , CASE WHEN x+y>z AND y+z>x AND z+x>y THEN 'Yes' ELSE 'No' END as triangle FROM triangle
+SELECT *, (CASE WHEN (x + y > z) AND (x + z > y) AND (y + z > x) THEN 'Yes' ELSE 'No' END) AS triangle FROM triangle
+SELECT *, (CASE WHEN (x + y > z) AND (x + z > y) AND (z + y > x) THEN 'Yes' ELSE 'No' END ) AS triangle FROM triangle
+SELECT *, (CASE WHEN x + y > z AND x + z > y AND y + z > x THEN "Yes" ELSE "No" END) AS triangle FROM triangle
+SELECT *, (CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE "No" END) AS triangle FROM triangle
+SELECT *, (CASE WHEN x >= y + z OR y >= x + z OR z >= x + y THEN 'No' ELSE 'Yes' END) AS 'triangle' FROM triangle
+SELECT *, (CASE WHEN x+y > z AND x+z > y AND y+z > x THEN 'Yes' ELSE 'No' END) AS 'triangle' FROM triangle
+SELECT *, (CASE WHEN x+y > z AND y+z>x AND x+z>y THEN "Yes" ELSE "No" END) AS triangle FROM triangle
+SELECT *, (CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END) as 'triangle' FROM triangle
+SELECT *, (CASE WHEN x+y>z AND y+z>x AND z+x>y THEN 'Yes' ELSE 'No' END) AS 'triangle' FROM triangle
+SELECT *, (CASE WHEN x+y>z and x+z>y and y+z>x THEN 'Yes' ELSE 'No' END) AS triangle FROM triangle
+SELECT *, (CASE WHEN x+z>y AND x+y>z AND y+z>x THEN 'Yes' ELSE 'No' END) AS triangle FROM triangle
+SELECT *, (IF(X+Y>Z AND Y+Z>X AND X+Z>Y,'Yes','No')) AS triangle FROM triangle
+SELECT *, CASE WHEN (abs(x-y) <z AND abs(y-z) < x AND abs (z-x) < y AND x+y > z AND x+z > y AND y+z >x) THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT *, CASE WHEN (x+y) > z AND (y+z) > x AND (x+z) > y THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT *, CASE WHEN (x+y>z) AND (x+z>y) AND (y+z>x) AND (ABS(x-y)<z) AND (ABS(x-z)<y) AND (ABS(y-z)<x) THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT *, CASE WHEN x + y + z > 2*GREATEST(x, y, z) THEN "Yes" ELSE "No" END AS `triangle` FROM triangle
+SELECT *, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT *, CASE WHEN x+y > z AND x+z > y AND y+z > x THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT *, CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT *, CASE WHEN x+y>z AND x+z>y AND z+y>x THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT *, CASE WHEN x+y>z AND y+z>x AND z+x>y THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT *, CASE WHEN x+y>z and y+z>x and x+z>y THEN "Yes" ELSE "No" END AS triangle FROM triangle
+SELECT *, CASE WHEN z >= y AND z >= x AND x + y > z THEN "Yes" WHEN x >= y AND x >= z AND y + z > x THEN "Yes" WHEN y >= x AND y >= z AND x + z > y THEN "Yes" ELSE "No" END As triangle FROM triangle
+SELECT *, IF (x+y>z AND y+z>x AND x+z>y, 'Yes', 'No') as triangle FROM triangle
+SELECT *, IF(x + y > z and x + z > y and y + z > x, 'Yes', 'No') AS triangle FROM triangle
+SELECT *, IF(x+y>z AND x+z>y AND y+z>x, 'Yes', "No") AS 'triangle' FROM triangle
+SELECT *, IF(x+y>z AND x+z>y AND y+z>x, 'Yes', 'No') AS triangle FROM triangle
+SELECT *, IF(x+y>z AND y+z>x AND z+x>y, 'Yes', 'No') as triangle from triangle
+SELECT *, IF(x+y>z and x+z>y and y+z>x, 'Yes', 'No') as triangle FROM triangle
+SELECT T.x, T.y, T.z, ( CASE WHEN ((T.x + T.y > T.z) AND (T.y + T.z > T.x) AND (T.x + T.z > T.y)) THEN 'Yes' ELSE 'No' END ) AS triangle FROM triangle T
+SELECT X,Y,Z, CASE WHEN X+Y>Z AND Y+Z>X AND X+Z>Y THEN 'Yes' ELSE 'No' end as 'triangle' from triangle
+SELECT t.x, t.y, t.z, (CASE WHEN t.x + t.y > t.z AND t.x + t.z > t.y AND t.y + t.z > t.x THEN "Yes" ELSE "No" END) AS `triangle` FROM triangle AS t
+SELECT x, y, z, (CASE WHEN (x + y > z AND y + z > x AND z + x > y) THEN "Yes" ELSE ("No") END) AS triangle FROM triangle
+SELECT x, y, z, (CASE WHEN x + y <= z THEN 'No' WHEN y + z <= x THEN 'No' WHEN z + x <= y THEN 'No' ELSE 'Yes' END) AS 'triangle' FROM triangle
+SELECT x, y, z, (CASE WHEN x + y > z AND y + z > x AND z + x > y THEN 'Yes' ELSE 'No' END) triangle FROM triangle
+SELECT x, y, z, (CASE WHEN x + y > z and x + z > y and y + z > x THEN 'Yes' ELSE 'No' END) AS triangle FROM triangle
+SELECT x, y, z, (CASE WHEN x+y <=z or y+z<=x or z+x <=y THEN 'No' ELSE 'Yes' END) triangle FROM triangle
+SELECT x, y, z, (CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END) AS triangle FROM triangle
+SELECT x, y, z, (IF(x+y>z AND x+z>y AND y+z>x, 'Yes', 'No')) triangle FROM triangle
+SELECT x, y, z, CASE WHEN ((x + y) <= z) OR ((x + z) <= y) OR ((y + z) <= x) THEN 'No' ELSE 'Yes' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN ((x+y)>z) AND ((x+z)>y) AND ((y+z)>x) then 'Yes' else 'No' END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN (x + y > z) AND (x + z > y) AND (y + z > x) THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN (x + y > z) AND (x + z > y) AND (z + y > x) THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN (x+y > z AND x+z > y AND y+z >x) THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN (x+y)>z AND (y+z)>x AND (z+x)>y THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN (x+y<=z) OR (x+z<=y) OR (y+z<=x) THEN 'No' ELSE 'Yes' END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN ABS(x-y) < z AND z < x+y THEN 'Yes' WHEN ABS(y-z) < x AND x < y+z THEN 'Yes' WHEN ABS(x-z) < y AND y < x+z THEN 'Yes' ELSE 'No' END AS `triangle` FROM triangle
+SELECT x, y, z, CASE WHEN X+Y<=Z OR Y+Z<=X OR X+Z<=Y THEN 'No' ELSE 'Yes' END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN x + y + z - 2 * GREATEST(x, y, z) > 0 THEN "Yes" ELSE "No" END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN "Yes" ELSE "No" END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE 'No'END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN x + y > z AND x + z > y AND z + y > x THEN 'Yes' ELSE 'No' END as Triangle FROM triangle
+SELECT x, y, z, CASE WHEN x + y > z AND x+z >y AND z+y > x THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN x + y > z AND y + z > x AND z + x > y THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN x < (y + z) AND y < (x + z) AND z < (x + y) THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x, y, z, CASE WHEN x+y > z AND x+z > y AND y+z > x THEN "Yes" ELSE "No" END as triangle FROM triangle
+SELECT x, y, z, CASE WHEN x+y > z AND y+z > x AND x+z > y THEN 'Yes' ELSE 'No' END as triangle FROM triangle
+SELECT x, y, z, CASE WHEN x+y > z AND z+y > x AND x+z > y THEN "Yes" ELSE "No" END as triangle FROM triangle
+SELECT x, y, z, CASE WHEN x+y >z AND y+z > x AND x+z > y THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN x+y<=z OR x+z<=y OR y+z<=x THEN 'No' ELSE 'Yes' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN x+y<=z OR x+z<=y OR y+z<=x THEN 'No' ELSE 'Yes' END triangle FROM triangle
+SELECT x, y, z, CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END triangle FROM triangle
+SELECT x, y, z, CASE WHEN x+y>z AND y+z>x AND x+z>y THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x, y, z, CASE when abs(x + y) > abs(z) AND abs(x - y) < abs(z) then 'Yes' else 'No' END as triangle FROM triangle
+SELECT x, y, z, Case When (x+y) > z And (y+z) > x And (x+z) >y Then 'Yes' Else 'No' End as 'triangle' FROM triangle
+SELECT x, y, z, IF( x + y > z AND x + z > y AND y + z > x, "Yes", "No" ) AS triangle FROM triangle
+SELECT x, y, z, IF( x + y > z AND x + z > y AND y + z > x, 'Yes', 'No' ) AS triangle FROM triangle
+SELECT x, y, z, IF( x + y > z AND y + z > x AND z + x > y, 'Yes', 'No' ) as triangle FROM triangle
+SELECT x, y, z, IF(x + y > z AND y + z > x AND x + z > y, "Yes", "No") AS triangle FROM triangle
+SELECT x, y, z, IF(x+y>z AND x+z>y AND y+z>x, 'Yes', 'No') AS triangle FROM triangle
+SELECT x,y,z, (CASE WHEN x+y>z AND x+z >y AND y+z >x THEN 'Yes' ELSE 'No' END) AS triangle FROM triangle
+SELECT x,y,z, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x,y,z, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x,y,z, CASE WHEN x+y > z AND y+z > x AND x+z > y THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x,y,z, CASE WHEN x+y > z AND y+z > x AND z+x > y THEN 'Yes' ELSE 'No' END AS triangle FROm triangle
+SELECT x,y,z, CASE WHEN x+y > z AND y+z>x AND z+x > y THEN 'Yes' ELSE 'No' END AS Triangle FROM triangle
+SELECT x,y,z, CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x,y,z, CASE WHEN x+y>z AND y+z>x AND z+x>y THEN 'Yes' ELSE 'No' END AS 'triangle' FROM triangle
+SELECT x,y,z, CASE WHEN x+y>z and y+z>x and x+z>y THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x,y,z, IF(x+y>z AND y+z>x AND z+x>y, 'Yes', 'No') AS triangle FROM triangle
+SELECT x,y,z, case when x+y > z AND y+z > x AND x+z > y THEN 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x,y,z, case when x+y>z AND x+z>y AND z+y>x then 'Yes' ELSE 'No' END AS triangle FROM triangle
+SELECT x,y,z, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as 'triangle' from triangle
+SELECT x,y,z, if(x+y>z AND z+y>x AND z+x>y, 'Yes','No') as triangle from triangle
+SELECT x,y,z,(CASE WHEN x+y>z AND x+z>y AND y+z>x THEN 'Yes' ELSE 'No' END) as triangle FROM triangle
+Select * ,(case when x+y>z and x+z>y and y+z>x then "Yes" else "No" end) as triangle from triangle
+Select *, IF(x+y>z AND x+z>y AND y+z>x, 'Yes','No') as triangle from triangle
+Select x, y, z, CASE When x + y > z AND x + z > y AND y + z > x Then 'Yes' Else 'No' END As 'Triangle' From Triangle
+Select x, y, z, IF(x+y>z and x+z>y and y+z>x, 'Yes', 'No') as 'triangle' FROM triangle
+Select x,y,z, case when ((x+y > z) and (y+z > x) and (x+z > y) ) then 'Yes' else 'No' end as 'triangle' from triangle
+Select x,y,z, case when x+y > z and y+z > x and z+x >y then 'Yes' else 'No' end as 'triangle' from triangle
+Select x,y,z, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+if((x + y) > z and (y + z) > x and (z + x) > y, 'Yes', 'No') as 'triangle' from triangle
+select * , case when x + y > z and x + z > y and y + z > x then 'Yes' else 'No' end as triangle from triangle
+select * , case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+select * , if(x+y>z and y+z>x and x+z>y,'Yes','No') as triangle from triangle
+select *, (CASE WHEN (x+y>z) and (x+z>y) and (y+z>x) THEN 'Yes' ELSE 'No' END) as triangle from triangle
+select *, (case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end) triangle from triangle
+select *, (case when x+y>z and x+z>y and y+z>x then 'Yes'else 'No' end) as Triangle from triangle
+select *, (case when x+y>z and x+z>y and z+y>x then 'Yes' else 'No' end) as triangle from triangle
+select *, CASE when x + y > z and x + z > y and y + z > x THEN 'Yes' ELSE 'No' END triangle from triangle
+select *, IF(x + y > z AND x + z > y AND y + z > x, 'Yes', 'No') as triangle from triangle
+select *, case WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' else 'No' end as 'triangle' from triangle
+select *, case when (((x+y)>z) and ((y+z)>x) and ((x+z)>y) ) then 'Yes' else 'No' end as triangle from triangle
+select *, case when ((t.x + t.y) <= t.z) or ((t.z + t.y) <= t.x) or ((t.x + t.z) <= t.y) then 'No' else 'Yes' end triangle from triangle t
+select *, case when (x+y>z and x+z>y and y+z>x) then 'Yes' else 'No' end as triangle from triangle
+select *, case when (x=y=z) or (((x+y)>z) and ((y+z)>x) and ((x+z)>y) ) then 'Yes' else 'No' end as triangle from triangle
+select *, case when x + y > z &amp;&amp; abs(x - y) < z then 'Yes' else 'No' end as triangle from triangle
+select *, case when x + y > z and x + z > y and y + z > x then 'Yes' else 'No' end as triangle from triangle
+select *, case when x+ y >z and x+z > y and y+z > x then 'Yes' else 'No' end as triangle from triangle
+select *, case when x+y > z and x+z > y and y+z > x then "Yes" else "No" end as triangle from triangle
+select *, case when x+y > z and x+z > y and y+z > x then 'Yes' else 'No' end as 'triangle' from triangle
+select *, case when x+y > z and y+z > x and x+z > y then 'Yes' else 'No' end as `triangle` from triangle
+select *, case when x+y >z and x+z>y and z+y>x then 'Yes' else 'No' end as 'triangle' from triangle
+select *, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+select *, case when x+y>z and x+z>y and z+y>x then 'Yes' Else 'No' End AS triangle from triangle
+select *, case when z<(x+y) and z > abs(x-y) then 'Yes' else 'No' end as triangle from triangle
+select *, case((case when x+y>z then true else false end) and (case when y+z>x then true else false end) and (case when x+z>y then true else false end)) when True then "Yes" when False then "No" end as triangle from triangle
+select *, if((x+y>z and x+z>y and y+z>x), 'Yes', 'No') 'triangle' from triangle
+select *, if(x + y > z and abs(x - y) < z, 'Yes', 'No' ) as triangle from triangle
+select *, if(x+y > z and x+z > y and z + y > x, "Yes", "No") as triangle from triangle
+select *, if(x+y >z and x+z>y and z+y>x , 'Yes', 'No') as 'triangle' from triangle
+select *, if(x+y>z and x+z>y and y+z>x, 'Yes','No') as 'triangle' from triangle
+select *, if(x+y>z and x+z>y and y+z>x,'Yes','No') as triangle from triangle
+select *, if(x+y>z and y+z>x and x+z>y, "Yes","No") as 'triangle' from triangle
+select *,case when (t.x+t.y) > t.z and (t.y + t.z) > t.x and (t.z + t.x) > t.y then 'Yes' else 'No' end as triangle from triangle t
+select a.x , a.y ,a.z , case when a.x < (a.y+a.z) and a.y <(a.x+a.z) and a.z<(a.x+a.y) then 'Yes' else 'No' end as triangle from triangle a
+select x , y , z, case WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE "No" END AS triangle from triangle
+select x , y, z , CASE when x+y > z and y+z > x and z+x > y then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, (CASE WHEN X+Y > Z AND X+Z > Y AND Y+Z > X THEN 'Yes' ELSE 'No' END) 'triangle' from triangle
+select x, y, z, (case when (x+y > z and x+z > y and y+z >x) then 'Yes' else 'No' end) as triangle from triangle
+select x, y, z, (case when (x+y) > z and abs(x-y) < z and (z+y) > x and abs(z-y) < x and (x+z) > y and abs(x-z) < y then "Yes" else "No" end) triangle from triangle
+select x, y, z, (case when (x+y>z and y+z>x and z+x>y) then 'Yes' else 'No' end) as triangle from triangle
+select x, y, z, (case when x + y > z and abs(x - y) < z then 'Yes' else 'No' end) as triangle from triangle
+select x, y, z, (case when x + y > z and x + z > y and y + z > x then "Yes" else "No" End) as "triangle" from triangle
+select x, y, z, (case when x + y > z and x + z > y and y + z > x then 'Yes' else 'No' end ) as triangle from triangle
+select x, y, z, (case when x+y > z and x+z > y and y+z > x then 'Yes' else 'No' end) as triangle from triangle
+select x, y, z, (case when x+y>z and x+z>y and y+z>x then "Yes" else "No" end) as triangle from triangle
+select x, y, z, (case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' END) as triangle from triangle
+select x, y, z, (case when x+y>z and y+z>x and x+z>y then "Yes" else "No" end) as triangle from triangle
+select x, y, z, CASE WHEN x+y>z and y+z>x and x+z>y THEN "Yes" ELSE "No" END AS triangle FROM triangle
+select x, y, z, case (x + y > z and x + z > y and y + z > x) when 1 then 'Yes' when 0 then 'No' end as triangle from triangle
+select x, y, z, case when (abs(x-y)<z and abs(x-z)<y and abs(y-z)<x and x+y>z and x+z>y and z+y>x) then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when (x + y > z and x + z > y and y + z > x) then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when (x+y > z) and (z+x>y) and (y+z> x) then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when (x+y>z and y+z>x and x+z>y) then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when (x>0 and y>0 and z>0) and( x+y>z and x+z>y and y+z>x ) then "Yes" else "No" end as triangle from triangle
+select x, y, z, case when (x>abs(y-z) and x<(y+z)) and (y > abs(x-z) and y<(x+z)) and (z > abs(x-y) and z<(x+y)) then "Yes" else "No" end as triangle from triangle
+select x, y, z, case when abs(x+y)>abs(z) and abs(x+z)>abs(y) and abs(y+z)>abs(x) then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x + y <= z or x + z <= y or y + z <= x then 'No' else 'Yes' end as 'triangle' from triangle
+select x, y, z, case when x + y <= z or x + z <= y or z + y <= x then "No" else "Yes" end as triangle from triangle
+select x, y, z, case when x + y <= z then 'No' when x + z <= y then 'No' when y + z <= x then 'No' else 'Yes' end as triangle from triangle
+select x, y, z, case when x + y > z and x + z > y and y + z > x then "Yes" else "No" end as triangle from triangle
+select x, y, z, case when x + y > z and x + z > y and y + z > x then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x + y > z and x + z > y and z + y > x then "Yes" else "No" End as triangle from triangle
+select x, y, z, case when x + y > z and y + z > x and x + z > y THEN 'Yes' ELSE 'No' end as triangle from triangle
+select x, y, z, case when x + y > z and y + z > x and x + z > y then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x + y > z and y + z > x and z + x > y then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x + y >z and x + z >y and y + z >x then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y > z and x+z > y and y+z > x then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y > z and x+z > y and y+z > x then 'Yes' when x=y and y=z then 'Yes' else 'No' end as Triangle from triangle
+select x, y, z, case when x+y > z and x+z >y and y+z> x then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x+y > z and x+z>y and z+y >x then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x+y > z and x-y < z and y+z > x and y-z < x then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y > z and y + z > x and x + z > y then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y > z and y+z > x and z+x > y then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y >z and x+z > y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x+y<=z or x+z<=y or y+z<=x then "No" else 'Yes' end as 'triangle' from triangle
+select x, y, z, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x+y>z and x+z>y and z+y>x then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, case when x+y>z and y+z >x and x+z>y then 'Yes' else 'No' End triangle from triangle
+select x, y, z, case when x+y>z and y+z>x and x+z>y then 'Yes' else 'No' end as 'triangle' from triangle
+select x, y, z, case when x+y>z and y+z>x and x+z>y then 'Yes' else 'No' end as triangle from triangle
+select x, y, z, if (x + y > z and x + z > y and y + z > x, "Yes", "No") as triangle from triangle
+select x, y, z, if((x+y<=z or x+z<=y or z+y<=x), 'No', 'Yes') as triangle from triangle
+select x, y, z, if(x + y > z AND x + z > y AND y + z > x, 'Yes', 'No') as `triangle` from triangle
+select x, y, z, if(x + y > z and y + z > x and x + z > y, 'Yes', 'No') as triangle from triangle
+select x, y, z, if(x+y>z and x+z>y and y+z>x ,'Yes','No') as triangle from triangle
+select x, y, z, if(x+y>z and x+z>y and y+z>x, 'Yes', 'No') triangle from triangle
+select x, y,z, if(x+y>z and x+z>y and y+z>x, "Yes", "No") as triangle from triangle
+select x,y,z , case when x + y > z and x +z > y and y +z > x then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, ( case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end ) as 'triangle' from triangle
+select x,y,z, (CASE WHEN x+y<=z THEN 'No' WHEN z+y<=x THEN 'No' WHEN x+z<=y THEN 'No' ELSE 'Yes' END) as triangle FROM triangle
+select x,y,z, (CASE WHEN x+y> z AND x+z > y AND z+y > x then "Yes" ELSE "No" END) as triangle from triangle
+select x,y,z, (CASE WHEN x+y>z AND z+y>x AND x+z>y THEN 'Yes' ELSE 'No' END) as triangle FROM triangle
+select x,y,z, (case when (x + y) > z and abs(x-y) < z then 'Yes' else 'No' end) as 'triangle' from triangle
+select x,y,z, IF(x > 0 and y > 0 and z > 0 and x + y > z and x + z > y and z + y > x and x - y < z and y - x < z and x - z < y and z - x < y and y - z < x and z - y < x, 'Yes', 'No') as triangle from triangle
+select x,y,z, case when ((x + y> z) and (y+z >x) and (z+x>y)) then 'Yes' else 'No' end as triangle from triangle as t
+select x,y,z, case when ((x+y)>z and (x+z)>y and (y+z)>x AND (x>0 and y>0 and z>0) ) then "Yes" else "No" end as triangle from triangle
+select x,y,z, case when (x + y <= z) or (y+z <= x) or (z+x <= y) then "No" else "Yes" end "triangle" from triangle
+select x,y,z, case when (x+y>z) AND (y+z>x) AND (x+z>y) THEN 'Yes' ELSE 'No' END as triangle from triangle
+select x,y,z, case when a.e1 > z and a.e2>y and a.e3>x then 'Yes' else 'No' end as triangle from (select x+y as e1, x+z as e2, y+z as e3, x, y, z from triangle) a
+select x,y,z, case when abs(x+y) > abs(z) and y+z >x and x+z > y then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x + y > z and x + z > y and y + z > x then "Yes" else "No" end as triangle from triangle
+select x,y,z, case when x + y > z and x + z > y and y + z > x then 'Yes' else 'No' end as 'triangle' from triangle
+select x,y,z, case when x + y > z and x + z > y and z + y > x then 'Yes' else 'No' end as 'triangle' from triangle
+select x,y,z, case when x + y > z and y + z > x and x + z > y then 'Yes' else 'No' end as Triangle from triangle
+select x,y,z, case when x + y >z and x+z >y and y+z>x then "Yes" else 'No' end as 'triangle' from triangle
+select x,y,z, case when x+y > z and x+z>y and y+z >x then 'Yes' else 'No' end as'triangle' from triangle
+select x,y,z, case when x+y > z and y+z > x and x+z > y then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y > z and y+z > x and z+x > y and x>0 and y>0 and z>0 then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y > z and y+z > x and z+x > y then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y > z and y+z>x and x+z>y then 'Yes' else 'No' end as 'triangle' from triangle
+select x,y,z, case when x+y >z and y+z > x and z+x > y then "Yes" else 'No' End as 'triangle' from triangle
+select x,y,z, case when x+y<=z OR x+z<=y OR y+z<=x then 'No' else 'Yes' end as triangle from triangle
+select x,y,z, case when x+y<=z or x+z<=y or y+z<= x then 'No' else 'Yes' end as triangle from triangle
+select x,y,z, case when x+y>z and x+z>y and y+z>x then "Yes" else "No" end as "triangle" from triangle
+select x,y,z, case when x+y>z and x+z>y and y+z>x then "Yes" else "No" end as triangle from triangle
+select x,y,z, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end triangle from triangle
+select x,y,z, case when x+y>z and x+z>y and z+y>x then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y>z and y+z > x and x+z > y then 'Yes' else 'No' end as 'triangle' from triangle
+select x,y,z, case when x+y>z and y+z>x and x+z>y then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y>z and y+z>x and z+x>y then "Yes" else "No" end as triangle from triangle
+select x,y,z, case when x+y>z and y+z>x and z+x>y then 'Yes' else 'No' end as 'triangle' from triangle
+select x,y,z, case when x+y>z and y+z>x and z+x>y then 'Yes' else 'No' end as triangle from triangle
+select x,y,z, case when x+y>z and z>0 and x+z>y and z+y>x then 'Yes' else'No' end as triangle from triangle
+select x,y,z, case when xy<=z or xz<=y or yz<=x then 'No' else 'Yes' end as triangle from ( select *, x+y as xy, x+z as xz, y+z as yz from triangle ) a
+select x,y,z, case when z< x+y and x< y+z and y <x+z then 'Yes' else 'No' end 'triangle' from triangle
+select x,y,z, if(x+y>z and x+z>y and y+z>x, 'Yes','No') as triangle from triangle
+select x,y,z, if(x+y>z and y+z>x and x+z>y,"Yes","No") as "triangle" from triangle
+select x,y,z, if(x+y>z and y+z>x and z+x>y,'Yes','No') triangle from triangle
+select x,y,z,(case when x + y > z AND x + z > y AND y + z > x then 'Yes' else 'No' end) as triangle from triangle
+select x,y,z,(case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end) as triangle from triangle
+select x,y,z,(case when x+y>z and x+z>y and z+y>x then 'Yes' else 'No' End) as triangle from triangle
+select x,y,z,(case when x+y>z and y+z>x and x+z>y then "Yes" else "No" end) as triangle from triangle
+select x,y,z,(case when x+y>z and y+z>x and x+z>y then 'Yes' else 'No' end) as triangle from triangle
+select x,y,z,case when x+y > z and y+z > x and x+z > y then 'Yes' else 'No' end triangle from triangle
+select x,y,z,case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle from triangle
+select x,y,z,case when x+y>z and y+z>x and z+x>y then 'Yes' else 'No' end as triangle from triangle
+select x,y,z,if((x+y>z) &amp; (y+z>x) &amp; (x+z>y),"Yes","No") as triangle from triangle
+select x,y,z,if(x + y > z and x + z > y and y + z > x,'Yes','No') as triangle from triangle
+with cte_trian_inequ as ( SELECT x, y, z, CASE WHEN ((x + y) > z) AND ((x + z) > y) AND ((y + z) > x) THEN "Yes" ELSE "No" END AS TRIANGLE FROM TRIANGLE ) select * from cte_trian_inequ
+with ineqs AS (SELECT *, CASE WHEN x+y>z THEN 'T' ELSE 'F' END AS c1, CASE WHEN y+z>x THEN 'T' ELSE 'F' END AS c2, CASE WHEN x+z>y THEN 'T' ELSE 'F' END AS c3 FROM triangle) SELECT x, y, z, CASE WHEN c1='T' AND c2='T' AND c3='T' THEN 'Yes' ELSE 'No' END AS triangle FROM ineqs

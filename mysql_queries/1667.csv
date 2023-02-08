@@ -1,0 +1,288 @@
+SELECT USER_ID, CONCAT(UPPER(LEFT(NAME,1)) , LOWER(RIGHT(NAME, LENGTH(NAME) -1))) AS NAME FROM USERS ORDER BY USER_ID
+SELECT USER_ID, CONCAT(UPPER(LEFT(NAME,1)), LOWER(RIGHT(NAME, LENGTH(NAME)-1))) AS NAME FROM USERS ORDER BY USER_ID
+SELECT USER_ID, CONCAT(UPPER(LEFT(NAME,1)), LOWER(RIGHT(NAME,LENGTH(NAME)-1))) AS NAME FROM USERS ORDER BY 1
+SELECT USER_ID, CONCAT(UPPER(SUBSTR(NAME, 1, 1)), LOWER(SUBSTR(NAME, 2))) NAME FROM USERS ORDER BY USER_ID
+SELECT USER_ID, CONCAT(UPPER(SUBSTR(NAME,1,1)),LOWER(SUBSTR(NAME,2,LENGTH(NAME)))) AS NAME FROM USERS ORDER BY 1
+SELECT USER_ID, concat(upper(substring(name,1,1)),lower(substring(name,2,char_length(name)-1))) as name from users ORDER BY 1
+SELECT user_id , CONCAT(UPPER(LEFT(name, 1)), LOWER(RIGHT(name, LENGTH(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id , CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) AS name FROM Users ORDER BY user_id
+SELECT user_id , CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2))) AS name FROM Users Order BY user_id
+SELECT user_id , CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2))) as name FROM Users order by 1
+SELECT user_id ,CONCAT(UPPER(LEFT(name,1)),LOWER(RIGHT(name,LENGTH(name)-1))) AS name FROM Users ORDER BY 1
+SELECT user_id ,CONCAT(UPPER(LEFT(name,1)),LOWER(RIGHT(name,LENGTH(name)-1))) AS name FROM Users ORDER BY 1 ASC
+SELECT user_id ,concat(upper(left(name, 1)), lower(right(name, length(name)-1))) AS name FROM Users ORDER BY 1
+SELECT user_id ,concat(upper(substring(name,1,1)), lower(substring(name,2, 200))) as name FROM Users ORDER BY user_id
+SELECT user_id AS USER_ID, CONCAT(UCASE(LEFT(name, 1)), LCASE(SUBSTRING(name, 2))) AS NAME FROM users ORDER BY user_id
+SELECT user_id as USER_ID, CONCAT(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)))) as NAME FROM Users ORDER by user_id
+SELECT user_id, (CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTR(name, 2)))) AS 'name' FROM Users ORDER BY user_id ASC
+SELECT user_id, (CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTR(name, 2)))) AS name FROM Users ORDER BY user_id ASC
+SELECT user_id, (CONCAT(UPPER(SUBSTRING(name, 1,1)), LOWER(SUBSTRING(name, 2, LENGTH(name))))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT( UPPER(SUBSTR(name, 1, 1)), LOWER(SUBSTR(name, 2)) ) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT( UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2)) ) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT( UPPER(SUBSTRING(name, 1,1)),LOWER(SUBSTRING(name, 2, LENGTH(name)-1)) ) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT((UPPER(LEFT(name,1))),LOWER(SUBSTR(name,2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(IFNULL(LEFT(UPPER(name),1),''),IFNULL(RIGHT(LOWER(name),LENGTH(name)-1),'')) name FROM users ORDER BY user_id
+SELECT user_id, CONCAT(SUBSTRING(UPPER(name), 1, 1), SUBSTRING(LOWER(name), 2, LENGTH(name)-1)) AS name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)) , LOWER(RIGHT(name, length(name) - 1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(RIGHT(name, LENGTH(name) - 1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(RIGHT(name, LENGTH(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(RIGHT(name, LENGTH(name)-1))) AS name FROM users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTR(name, 2))) as name from Users u order by user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) AS name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) AS name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name,2))) AS name FROM users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)),LOWER(SUBSTRING(name, 2, length(name)))) as name FROM users order by 1
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)), LOWER(RIGHT(name, LENGTH(name) - 1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)), LOWER(RIGHT(name, LENGTH(name)-1)) )AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)), LOWER(RIGHT(name, char_length(name)-1)) )AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)), LOWER(SUBSTRING(name, 2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),'', LOWER(SUBSTRING(name,2))) AS name FROM Users Order by user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(MID(name,2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(RIGHT(name, length(name)-1))) name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(SUBSTRING(name, 2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(SUBSTRING(name,2))) AS name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(SUBSTRING(name,2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(SUBSTRING(name,2))) as name FROM Users Order by user_id
+SELECT user_id, CONCAT(UPPER(SUBSTR(name, 1, 1)), LOWER(SUBSTR(name, 2))) AS name FROM users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(SUBSTR(name, 1, 1)), LOWER(SUBSTR(name, 2, LENGTH(name)))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTR(name,1,1)), LOWER(SUBSTR(name,2,LENGTH(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTR(name,1,1)),LOWER(SUBSTR(name,2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTR(name,1,1)),LOWER(SUBSTR(name,2,LENGTH(name)-1))) AS name FROM users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTR(name,1,1)),LOWER(SUBSTR(name,2,LENGTH(name)-1))) as name FROM users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2))) AS name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2, CHAR_LENGTH(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) as name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2, length(name)))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1,1)), LOWER(SUBSTRING(name, 2, LENGTH(name)-1))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1,1)),(LOWER(SUBSTRING(name, 2)))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1,1)),(LOWER(SUBSTRING(name, 2)))) AS name FROM users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1,1)),LOWER(SUBSTRING(name, 2))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1,1)),LOWER(SUBSTRING(name, 2, LENGTH(name)-1))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2))) AS name FROM Users ORDER BY 1
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2))) name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2,LENGTH(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(UPPER(left(name,1)),LOWER(SUBSTRING(name,2,length(name)-1))) as name from Users order by user_id
+SELECT user_id, CONCAT(Upper(SUBSTRING(name,1,1)), Lower(SUBSTRING(name,2, length(name)))) as name FROM Users ORDER BY user_id
+SELECT user_id, CONCAT(upper(substr(name,1,1)), lower(substr(name,2))) AS name FROM users ORDER BY 1
+SELECT user_id, CONCAT(upper(substring(name,1,1)),LOWER(SUBSTRING(name,2,length(name)-1))) as name FROM Users order by user_id
+SELECT user_id, concat(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name) - 1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, concat(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) AS name FROM Users ORDER BY user_id
+SELECT user_id, concat(UPPER(LEFT(name, 1)),LOWER(substring(name,2))) as name FROM Users ORDEr BY user_id
+SELECT user_id, concat(UPPER(substr(name, 1, 1)), LOWER(substr(name, 2))) as name FROM Users ORDER BY user_id
+SELECT user_id, concat(UPPER(substr(name,1,1)), LOWER(substr(name,2))) as name FROM users ORDER BY 1
+SELECT user_id, concat(Upper(substring(name,1,1)),Lower(substring(name, 2, length(name)))) as name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(left(name, 1)), lower(right(name, length(name)-1))) "name" FROM users ORDER BY user_id
+SELECT user_id, concat(upper(left(name, 1)), lower(substring(name, 2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(left(name,1)),lower(right(name,(length(name)-1)))) as name FROM Users ORDER BY 1
+SELECT user_id, concat(upper(left(name,1)),lower(right(name,length(name)-1))) as name FROM Users order by user_id
+SELECT user_id, concat(upper(substr(name,1,1)), lower(substr(name, 2))) AS name FROM Users ORDER BY 1
+SELECT user_id, concat(upper(substr(name,1,1)),lower(substr(name,2))) name FROM Users Order by 1
+SELECT user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) AS name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name) - 1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) as Name FROM users order by user_id
+SELECT user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)-1))) as name FROM Users ORDER BY 1
+SELECT user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)-1))) as name FROM Users order by user_id
+SELECT user_id, concat(upper(substring(name,1,1)),lower(substring(name,2))) as name FROM Users ORDER BY 1
+SELECT user_id, concat(upper(substring(name,1,1)),lower(substring(name,2))) as name FROM Users order by user_id
+SELECT user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) AS name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) as name FROM Users ORDER BY user_id
+SELECT user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) as name FROM Users order by user_id
+SELECT user_id, concat_ws('', upper(substring(name,1,1)),lower(substring(name, 2))) as name FROM Users ORDER BY user_id asc
+SELECT user_id,CONCAT(UPPER(LEFT(name,1)),LOWER(RIGHT(name,LENGTH(name)-1))) AS name FROM Users ORDER BY 1 ASC
+SELECT user_id,CONCAT(UPPER(LEFT(name,1)),LOWER(SUBSTRING(name,2))) AS name FROM Users ORDER BY user_id
+SELECT user_id,CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2, length(name)-1))) as name FROM USERS ORDER by user_id
+SELECT user_id,CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2,LENGTH(name)))) as NAME FROM USERS ORDER BY 1
+Select user_id , concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) as name from Users order by user_id
+Select user_id, CONCAT((Upper(Left(name,1))), (LOWER(substring(name, 2, Length(name))))) as Name FROM Users Order by user_id ASC
+Select user_id, CONCAT(UCASE(LEFT(name, 1)), LCASE(SUBSTRING(name, 2))) as name from Users Order by user_id
+Select user_id, CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2))) as name FROM USERS order by user_id
+Select user_id, case length(name) when 0 then "" else concat(ucase(substring(name,1,1)),lcase(substring(name,2,length(name)-1))) end as name from users order by user_id
+Select user_id, concat (upper(substring(name, 1, 1)),lower(substring(name, 2, length(name)))) name From Users order by user_id
+Select user_id, concat(Upper(SUBSTRING(name,1,1)),lower(SUBSTRING(name,2))) as name from Users order by user_id
+Select user_id, concat(Upper(left(Name,1)),Lower(right(Name,length(Name)-1))) as name from users order by user_id
+Select user_id, concat(Upper(left(name, 1)), lower(right(name, (length(name) - 1)))) as name from Users order by user_id
+Select user_id, concat(upper(left(name,1)), lower(right(name, length(name)-1))) as name from Users order by user_id
+Select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) as name from users order by user_id
+Select user_id,concat(upper(left(name,1)),lower(substring(name,2,length(name)))) as name from users order by user_id
+Select user_id,concat(upper(substring(name,1,1)),lower(substring(name,2))) as name from Users order by 1
+WITH names as ( select *,UPPER(LEFT(name,1)) as upper, LOWER(RIGHT(name,LENGTH(name)-1)) as lowcase from Users) select user_id, CONCAT(upper,lowcase) as name from names order by user_id
+WITH temp AS ( SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2,LENGTH(name)-1))) AS name FROM Users ORDER BY user_id ) SELECT * FROM temp
+select USER_ID , concat(upper(substring(name,1,1)),lower(substring(name,2,length(name))))as Name from Users order by USER_ID
+select a.user_id, concat(a.first_letter, a.sec_let) as name from (select user_id, upper(substr(name, 1,1)) as first_letter, lower(substr(name, 2)) as sec_let from users)a order by a.user_id
+select a.user_id,concat(a.first_char,b.rest_char) name from (select user_id, upper(substring(name,1,1)) first_char from Users) a left join (select user_id, lower(substring(name,2)) rest_char from Users) b on a.user_id=b.user_id order by a.user_id
+select user_id , CONCAT( upper(left(name, 1)) , substring(lower(name), 2) ) as name from Users order by user_id
+select user_id , concat(Left(upper(name),1), Right(Lower(name), length(name)-1)) as 'name' from users order by user_id
+select user_id , concat(UPPER(substring(name, 1,1)),LOWER(substring(name, 2))) as Name from Users order by 1
+select user_id , concat(ucase(substr(name,1,1)), lcase(substr(name,2))) as name from users order by user_id
+select user_id , concat(upper(left(name, 1)), lower(substring(name, 2))) as name from Users order by user_id
+select user_id , concat(upper(left(name,1)),lower(right(name, length(name)-1))) as name from users order by 1
+select user_id , concat(upper(left(name,1)),lower(substr(name,2)))name from Users order by user_id
+select user_id , concat(upper(left(name,1)),lower(substring(name,2,char_length(name)))) as name from users order by user_id asc
+select user_id , concat(upper(left(name,1)),lower(substring(name,2,length(name)))) as name from users order by user_id asc
+select user_id , concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from Users order by user_id
+select user_id , concat(upper(substr(name,1,1)),lower(substr(name,2,length(name)))) name from Users order by user_id
+select user_id , concat(upper(substring(name, 1,1)), lower(substring(name,2))) as name from users order by 1
+select user_id as 'USER_ID', concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) as 'NAME' from Users order by user_id
+select user_id as USER_ID, CONCAT(UCASE(SUBSTRING(`name`, 1, 1)), LOWER(SUBSTRING(`name`, 2))) as NAME from Users order by USER_ID asc
+select user_id as USER_ID, concat(upper(left(name, 1)), lower(substr(name, 2))) as NAME from Users order by user_id
+select user_id as USER_ID, concat(upper(left(name, 1)), lower(substring(name, 2))) as NAME from users order by 1
+select user_id as USER_ID, concat(upper(left(name,1)),lower(right(name,length(name)-1))) as NAME from Users order by user_id
+select user_id as USER_ID, concat(upper(substr(name,1,1)),lower(substr(name,2))) as NAME from Users order by user_id
+select user_id as USER_ID, concat(upper(substring(name, 1,1)), lower(substring(name, 2, length(name)))) as NAME from Users order by user_id
+select user_id as user_id, concat(upper(substr(name,1,1)), lower(substr(name,2, length(name)-1))) as name from users order by user_id
+select user_id, (concat(upper(left(name,1)), lower(right(name,length(name)-1)))) as name from users order by user_id
+select user_id, CONCAT( Upper(SUBSTRING(name, 1, 1)),LOWER( SUBSTRING(name, 2,LENGTH(name)) ) ) as name from users order by user_id asc
+select user_id, CONCAT(UCASE(LEFT(name, 1)), LCASE(SUBSTRING(name, 2))) as name from Users order by user_id
+select user_id, CONCAT(UCASE(LEFT(name, 1)), LCASE(SUBSTRING(name, 2))) as name from Users order by user_id asc
+select user_id, CONCAT(UPPER(LEFT(name, 1)),LOWER(RIGHT(NAME, LENGTH(name)-1))) as name from Users order by user_id asc
+select user_id, CONCAT(UPPER(LEFT(name,1)), LOWER(RIGHT(NAME, LENGTH(NAME)-1))) as name FROM Users ORDER BY 1
+select user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(RIGHT(name,LENGTH(name)-1))) as name from Users order by user_id
+select user_id, CONCAT(UPPER(LEFT(name,1)),LOWER(SUBSTRING(name,2,length(name)))) as name from Users order by user_id asc
+select user_id, CONCAT(UPPER(SUBSTRING(name, 1,1)),(LOWER(SUBSTRING(name, 2)))) AS name from users order by user_id
+select user_id, CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2))) AS name from Users order by user_id
+select user_id, CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2))) as name from Users order by user_id
+select user_id, CONCAT(UPPER(SUBSTRING(name,1,1)),LOWER(SUBSTRING(name,2,LENGTH(name)-1))) as name from Users order by user_id
+select user_id, CONCAT(UPPER(Substring(name,1,1)), Lower(Substring(name,2,length(name)-1))) as name from Users order by user_id
+select user_id, CONCAT(UPPER(left(name,1)), LOWER(substring(name,2,length(name)))) as name from users order by user_id
+select user_id, CONCAT(UPPER(substr(name,1,1)),LOWER(substr(name,2))) as name from users order by user_id
+select user_id, CONCAT(UPPER(substring(name,1,1)), LOWER(substring(name,2,length(name)))) as name from users order by user_id
+select user_id, CONCAT(UPPER(substring(name,1,1)),LOWER(SUBSTRING(name,2,LENGTH(name)-1))) as name from Users order by user_id
+select user_id, CONCAT(upper(left(name,1)),lower(substring(name,2))) as name from users order by user_id
+select user_id, CONCAT(upper(left(name,1)),lower(substring(name,2,LENGTH(name)))) as name from Users order by user_id
+select user_id, CONCAT(upper(substr(name,1,1)),lower(substr(name,2))) as Name from users order by user_id
+select user_id, concat ( upper(substring(name,1,1)), lower(substring(name,2, length(name)-1))) as name from Users order by user_id
+select user_id, concat (UCASE(LEFT(name, 1)), lower(SUBSTRING(name, 2))) as name from Users order by 1
+select user_id, concat (upper(left(name,1)), lower(right(name,length(name)-1))) as name from Users order by 1
+select user_id, concat( upper(substr(name, 1, 1)) , lower(substr(name, 2)) ) as name from users order by 1
+select user_id, concat( upper(substring(name,1,1)), lower(substring(name,2,char_length(name)-1))) as name from Users order by user_id
+select user_id, concat( upper(substring(name,1,1)),lower(substring(name,2))) as name from Users order by user_id
+select user_id, concat(UCASE(LEFT(name, 1)), lower(SUBSTRING(name, 2))) as name from users order by user_id
+select user_id, concat(UCASE(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name, 2))) as `name` from Users order by user_id
+select user_id, concat(UCASE(left(name, 1)), Lcase(right(name, char_length(name)-1))) as name from users order by user_id
+select user_id, concat(UPPER(LEFT(name,1)), LOWER(SUBSTRING(name,2, length(name)))) as name from Users order by user_id
+select user_id, concat(UPPER(substring(name, 1,1)), LOWER(substring(name, 2))) as name from Users order by user_id
+select user_id, concat(UPPER(substring(name,1,1)), LOWER(substring(name,2,length(name)))) as name from users order by 1
+select user_id, concat(Upper(left(name,1)),Lower(SUBSTRING(name,2))) as name from Users order by user_id
+select user_id, concat(Upper(left(name,1)),lower(right(name,length(name)-1))) as name from Users order by user_id
+select user_id, concat(left(upper(name),1), SUBSTRING(lower(name),2,length(name))) as name from users order by user_id
+select user_id, concat(left(upper(name),1), right(lower(name),length(name)-1)) as name from Users order by user_id
+select user_id, concat(substring(upper(name),1,1), substring(lower(name),2,length(name)-1)) as name from Users order by user_id
+select user_id, concat(ucase(left(name, 1)), lcase(right(name, length(name) - 1))) as name from users order by user_id asc
+select user_id, concat(ucase(left(name,1)), lcase(substring(name,2))) as name from users order by user_id
+select user_id, concat(ucase(left(name,1)), lower(substring(name,2))) as name from users order by 1
+select user_id, concat(ucase(left(name,1)),lcase(substring(name,2))) as name from users order by user_id
+select user_id, concat(ucase(left(name,1)),lower(substring(name,2))) as name from Users order by 1
+select user_id, concat(upper(left(name, 1)) , lower(substring(name, 2, length(name)))) name from users order by user_id asc
+select user_id, concat(upper(left(name, 1)), lower(right(name, length(name) - 1))) as name from users order by 1
+select user_id, concat(upper(left(name, 1)), lower(right(name, length(name)-1))) as name from users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substr(name, 2))) as name from Users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substr(name, 2))) as name from users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substr(name,2))) as name from users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substring(name, 2))) "name" from users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substring(name, 2))) as name from Users order by 1
+select user_id, concat(upper(left(name, 1)), lower(substring(name, 2))) name from users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substring(name, 2, length(name) - 1))) as name from Users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substring(name, 2, length(name)))) as name from users order by user_id
+select user_id, concat(upper(left(name, 1)), lower(substring(name,2,length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)) , lower(substring(name,2, length(name)))) as name from users order by user_id
+select user_id, concat(upper(left(name,1)), lower(right (name, length(name)-1))) as name from users order by user_id
+select user_id, concat(upper(left(name,1)), lower(right(name, length(name) - 1))) as name from users group by 1 order by 1
+select user_id, concat(upper(left(name,1)), lower(right(name, length(name)-1)) ) as name from users order by user_id
+select user_id, concat(upper(left(name,1)), lower(right(name, length(name)-1))) as name from users order by user_id
+select user_id, concat(upper(left(name,1)), lower(right(name,length(name)-1) ) ) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)), lower(right(name,length(name)-1))) as name from Users group by user_id order by user_id
+select user_id, concat(upper(left(name,1)), lower(right(name,length(name)-1))) as name from users order by 1
+select user_id, concat(upper(left(name,1)), lower(substring(name, 2, length(name)))) as name from users order by user_id asc
+select user_id, concat(upper(left(name,1)), lower(substring(name,2))) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)), lower(substring(name,2,length(name)))) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)),+lower(right(name, length(name) - 1))) name from users order by user_id
+select user_id, concat(upper(left(name,1)),lower(right(name,(length(name)-1)))) as name from users order by user_id
+select user_id, concat(upper(left(name,1)),lower(right(name,length(name)-1))) as name from Users order by 1
+select user_id, concat(upper(left(name,1)),lower(right(name,length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)),lower(right(name,length(name)-1))) name from Users order by 1
+select user_id, concat(upper(left(name,1)),lower(right(name,length(name)-1))) name from users order by 1
+select user_id, concat(upper(left(name,1)),lower(substr(name,2))) as name from users order by 1
+select user_id, concat(upper(left(name,1)),lower(substring(name, 2))) as name from Users order by 1
+select user_id, concat(upper(left(name,1)),lower(substring(name,2))) as "name" from Users order by user_id
+select user_id, concat(upper(left(name,1)),lower(substring(name,2))) as 'name' from users order by user_id
+select user_id, concat(upper(left(name,1)),lower(substring(name,2))) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)),lower(substring(name,2))) as name from users order by user_id
+select user_id, concat(upper(left(name,1)),lower(substring(name,2, length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(left(name,1)),lower(substring(name,2,length(name)))) as name from users order by user_id
+select user_id, concat(upper(left(name,1)),lower(substring(name,2,length(name)-1))) as name from users order by user_id
+select user_id, concat(upper(substr(name, 1, 1)), lower(substr(name, 2))) as name from Users order by user_id
+select user_id, concat(upper(substr(name, 1, 1)), lower(substr(name, 2))) as name from Users order by user_id asc
+select user_id, concat(upper(substr(name, 1, 1)), lower(substr(name, 2))) as name from users order by user_id
+select user_id, concat(upper(substr(name, 1, 1)), lower(substr(name, 2, length(name)))) as name from Users order by user_id
+select user_id, concat(upper(substr(name, 1, 1)), lower(substr(name, 2, length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(substr(name, 1,1)), lower(substr(name, 2))) as name from Users order by user_id
+select user_id, concat(upper(substr(name, 1,1)), lower(substr(name, 2))) as name from users order by 1
+select user_id, concat(upper(substr(name,1,1)), lower(substr(name, 2))) as name from Users order by user_id
+select user_id, concat(upper(substr(name,1,1)), lower(substr(name,2))) as name from Users order by user_id
+select user_id, concat(upper(substr(name,1,1)), lower(substr(name,2))) as name from users order by user_id
+select user_id, concat(upper(substr(name,1,1)),Lower(substr(name,2))) as name from users order by user_id
+select user_id, concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from Users order by 1
+select user_id, concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from Users order by user_id
+select user_id, concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from users order by 1
+select user_id, concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from users order by user_id
+select user_id, concat(upper(substr(name,1,1)),substr(lower(name),2)) as name from users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2)) ) as name FROM users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2)) )as name from users order by 1
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) as name from Users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) as name from users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name))) )as name from users order by 1
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)))) as name from Users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)))) as name from users order by 1
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)))) as name from users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)-1))) as name from users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2, length(name)-1))) name from Users order by user_id
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name,2))) as name from Users order by user_id
+select user_id, concat(upper(substring(name, 1,1 )), lower(substring(name, 2, length(name) - 1))) as name from users order by 1
+select user_id, concat(upper(substring(name, 1,1)) ,lower(substring(name, 2, length(name))) ) as name from Users order by user_id
+select user_id, concat(upper(substring(name, 1,1)),lower(substring(name, 2, length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1 )),lower(substring(name,2))) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)) , lower(substring(name,2))) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)) ,lower(substring(name,2,length(name)))) name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substr(name,2))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) as name from Users order by 1
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) as name from users order by 1
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) as name from users order by user_id asc
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) name from users order by 1
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2))) name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2, length(name)))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)))) as name from users order by 1
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)))) name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)-1))) as name from users order by 1
+select user_id, concat(upper(substring(name,1,1)), lower(substring(name,2,length(name)-1))) name from users order by 1
+select user_id, concat(upper(substring(name,1,1)), substring(lower(name),2)) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)),(lower(substring(name,2)))) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2)) ) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2))) as name from Users order by user_id asc
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2))) as name from users order by 1
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2))) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2)))as name from users order by 1
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)+10))) as name from users order by user_id
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) 'name' from Users order by 1
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) as name from Users order by user_id
+select user_id, concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) as name from users order by user_id
+select user_id,concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from users order by 1
+select user_id,concat(upper(substr(name,1,1)),lower(substr(name,2))) as name from users order by user_id
+select user_id,concat(upper(substr(name,1,1)),lower(substr(name,2,length(name)-1))) as name from Users order by user_id
+select user_id,concat(upper(substring(Users.name,1,1)),lower(substring(Users.name,2,length(Users.name)-1))) as name from Users order by user_id
+select user_id,concat(upper(substring(name,1,1)),lower(substring(name,2))) as name from users order by user_id
+select user_id,concat(upper(substring(name,1,1)),lower(substring(name,2,length(name))) ) as name from users order by user_id
+select user_id,concat(upper(substring(name,1,1)),lower(substring(name,2,length(name)-1))) name from users order by user_id

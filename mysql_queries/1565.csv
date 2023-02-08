@@ -1,0 +1,305 @@
+SELECT COUNT(DISTINCT customer_id) AS customer_count, COUNT(DISTINCT order_id) AS order_count, LEFT(order_date, 7) AS month FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, "%Y-%m") AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, "%Y-%m") AS month, COUNT(order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, "%Y-%m") as month, COUNT(distinct order_id) AS order_count, COUNT(distinct customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY year(order_date), month(order_date)
+SELECT DATE_FORMAT(order_date, "%Y-%m") month,COUNT(order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM Orders WHERE invoice >20 GROUP BY YEAR(order_date), MONTH(order_date)
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(*) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice > 20 GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(DISTINCT(order_id)) AS order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice >20 GROUP BY 1
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(DISTINCT order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice>20 GROUP BY 1
+SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(distinct order_id) as order_count, COUNT(distinct customer_id) as customer_count FROM orders WHERE invoice > 20 GROUP BY 1
+SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(order_id) as order_count, COUNT(distinct customer_id) as customer_count FROM orders WHERE invoice > 20 GROUP BY 1
+SELECT DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(order_id) as order_count,COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date,"%Y-%m") AS 'month', COUNT(DISTINCT order_id) AS 'order_count', COUNT(DISTINCT customer_id) AS 'customer_count' FROM Orders WHERE invoice > 20 GROUP BY 1 ORDER BY 1
+SELECT DATE_FORMAT(order_date,'%Y-%m') AS month ,count( customer_id) as order_count,count( distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+SELECT DATE_FORMAT(order_date,'%Y-%m') AS month, COUNT(DISTINCT order_id) AS order_count , COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY Month
+SELECT DATE_FORMAT(order_date,'%Y-%m') AS month, COUNT(DISTINCT order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM Orders WHERE invoice>20 GROUP BY 1
+SELECT DATE_FORMAT(order_date,'%Y-%m') AS month, COUNT(invoice) AS order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM orders WHERE invoice>20 GROUP BY month
+SELECT DATE_FORMAT(order_date,'%Y-%m') AS month,count(order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+SELECT DATE_FORMAT(order_date,'%Y-%m') as month, COUNT(DISTINCT(customer_id)) as customer_count, COUNT(invoice) as order_count FROM Orders WHERE invoice>20 GROUP BY month
+SELECT DATE_FORMAT(order_date,'%Y-%m') as month, COUNT(invoice) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY YEAR(order_date), MONTH(order_date)
+SELECT DATE_FORMAT(order_date,'%Y-%m') as month, COUNT(order_id) AS order_count, COUNT(DISTINCT(customer_id)) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DATE_FORMAT(order_date,'%Y-%m') as month,count(DISTINCT order_id) as order_count,count(DISTINCT customer_id) as customer_count FROM Orders o where o.invoice>20 GROUP by month
+SELECT DATE_FORMAT(order_date,'%Y-%m') month, COUNT(DISTINCT order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM orders WHERE invoice > 20 GROUP BY 1
+SELECT DISTINCT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT DISTINCT LEFT(order_date,7) month, COUNT(DISTINCT order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM Orders WHERE invoice>20 GROUP BY month
+SELECT DISTINCT(DATE_FORMAT(order_date, '%Y-%m')) month, count(distinct order_id) order_count, count(DISTINCT customer_id) customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(O.order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders O WHERE O.invoice > 20 GROUP BY 1
+SELECT LEFT(ORDER_DATE,7) AS month, COUNT(*) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE (INVOICE) > 20 GROUP BY 1
+SELECT LEFT(ORDER_DATE,7) AS month, COUNT(*) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE (INVOICE) > 20 GROUP BY 1 HAVING SUM(INVOICE) > 20
+SELECT LEFT(order_date, 7) AS 'month', COUNT(DISTINCT order_id) AS 'order_count', COUNT(DISTINCT customer_id) AS 'customer_count' FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT LEFT(order_date, 7) AS month, COUNT(*) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY LEFT(order_date, 7)
+SELECT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY LEFT(order_date, 7)
+SELECT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice>20 GROUP BY month
+SELECT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice > 20 GROUP BY 1
+SELECT LEFT(order_date, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice > 20 GROUP BY LEFT(order_date, 7)
+SELECT LEFT(order_date, 7) AS month, COUNT(invoice) AS order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date, 7) AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM Orders WHERE invoice>20 GROUP BY month
+SELECT LEFT(order_date, 7) as month, COUNT(DISTINCT order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY LEFT(order_date, 7)
+SELECT LEFT(order_date, 7) as month, COUNT(DISTINCT order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date, 7) month, COUNT(DISTINCT order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT LEFT(order_date,7) AS MONTH, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM ORDERS WHERE INVOICE > 20 GROUP BY 1
+SELECT LEFT(order_date,7) AS MONTH, COUNT(order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM ORDERS WHERE INVOICE>20 GROUP BY 1
+SELECT LEFT(order_date,7) AS MONTH, COUNT(order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM ORDERS WHERE INVOICE>20 GROUP BY MONTH
+SELECT LEFT(order_date,7) AS month , COUNT(distinct order_id) AS order_count, COUNT(distinct customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY year(order_date), month(order_date)
+SELECT LEFT(order_date,7) AS month ,COUNT(DISTINCT CASE WHEN invoice>20 THEN order_id END) AS order_count ,COUNT(DISTINCT CASE WHEN invoice>20 THEN customer_id END) AS customer_count FROM Orders GROUP BY 1 HAVING order_count > 0
+SELECT LEFT(order_date,7) AS month ,SUM(CASE WHEN invoice > 20 THEN 1 ELSE 0 END) AS order_count ,COUNT(DISTINCT CASE WHEN invoice > 20 THEN customer_id END) AS customer_count FROM Orders GROUP BY 1 HAVING order_count > 0
+SELECT LEFT(order_date,7) AS month, COUNT(*) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date,7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice > 20 GROUP BY 1
+SELECT LEFT(order_date,7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice>20 GROUP BY month
+SELECT LEFT(order_date,7) AS month, COUNT(DISTINCT order_id)AS order_count, COUNT(DISTINCT customer_id)AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date,7) AS month, COUNT(DISTINCT(order_id)) AS order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY LEFT(order_date,7)
+SELECT LEFT(order_date,7) AS month, COUNT(DISTINCT(order_id)) AS order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date,7) AS month, COUNT(invoice) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY LEFT(order_date,7)
+SELECT LEFT(order_date,7) AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT LEFT(order_date,7) AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT LEFT(order_date,7) as month, COUNT(order_id) as order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice >20 GROUP BY 1 ORDER BY 1
+SELECT LEFT(order_date,7) as month, COUNT(order_id) as order_count, count(distinct customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY LEFT(order_date,7)
+SELECT LEFT(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 Group by month
+SELECT SUBSTR(CAST(order_date AS CHAR), 1, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT SUBSTR(order_date, 1, 7) AS month ,COUNT(DISTINCT order_id) AS order_count ,COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT SUBSTR(order_date, 1, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT SUBSTRING(order_date, 1, 7) AS 'month', COUNT(DISTINCT order_id) AS 'order_count', COUNT(DISTINCT customer_id) AS 'customer_count' FROM Orders WHERE invoice > 20 GROUP BY SUBSTRING(order_date, 1, 7)
+SELECT SUBSTRING(order_date, 1, 7) AS month , COUNT(order_date) AS order_count , COUNT(DISTINCT customer_id) AS customer_count FROM orders WHERE invoice > 20 GROUP BY month
+SELECT SUBSTRING(order_date, 1, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM (SELECT * FROM Orders WHERE invoice > 20) sub GROUP BY month
+SELECT SUBSTRING(order_date, 1, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT SUBSTRING(order_date, 1, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY 1 ORDER BY 1
+SELECT SUBSTRING(order_date, 1, 7) AS month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY SUBSTRING(order_date, 1, 7)
+SELECT SUBSTRING(order_date, 1, 7) as month, COUNT(invoice) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT SUBSTRING(order_date, 1, 7) as month, COUNT(order_id) as order_count, COUNT(distinct customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY SUBSTRING(order_date, 1, 7)
+SELECT SUBSTRING(order_date, 1, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by SUBSTRING(order_date, 1, 7)
+SELECT SUBSTRING(order_date,1,7) AS month,COUNT(DISTINCT(order_id)) order_count, COUNT(DISTINCT(customer_id)) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT SUBSTRING(order_date,1,7) as 'month', count(distinct order_id) as 'order_count', count(distinct customer_id) as 'customer_count' FROM Orders WHERE invoice > 20 GROUP BY SUBSTRING(order_date,1,7)
+SELECT b.month, COUNT(DISTINCT b.order_id) AS order_count, COUNT(DISTINCT b.customer_id) AS customer_count FROM ( SELECT customer_id,order_id, left(order_date,7) AS month, SUM(invoice) AS Total FROM Orders GROUP BY 1,2,3 HAVING Total > 20 ) b GROUP BY 1
+SELECT date_format(o.order_date, "%Y-%m") as month, COUNT(DISTINCT o.order_id) as order_count, COUNT(distinct o.customer_id) as customer_count FROM Orders as o WHERE invoice>20 GROUP BY month
+SELECT date_format(order_date, '%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count FROM orders WHERE invoice > 20 GROUP BY 1
+SELECT date_format(order_date,"%Y-%m") as month, count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+SELECT date_format(order_date,'%Y-%m') as month, COUNT(invoice) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT date_format(order_date,'%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT left(order_date, 7) AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT left(order_date, 7) as month, COUNT(order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY month
+SELECT left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count FROM Orders WHERE invoice > 20 GROUP BY 1
+SELECT left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice >20 group by left(order_date,7)
+SELECT month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM( SELECT order_id, LEFT(order_date,7) AS month, customer_id, invoice FROM Orders WHERE invoice>20 ) AS t1 GROUP BY month
+SELECT month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM(SELECT order_id, LEFT(order_date,7) AS month, customer_id FROM Orders WHERE invoice>20) AS abc GROUP BY month
+SELECT month, COUNT(order_id) AS order_count, COUNT(distinct customer_id) AS customer_count FROM ( SELECT SUBSTRING(order_date, 1, 7) AS month, customer_id, order_id FROM Orders WHERE invoice > 20 ) AS tbl GROUP BY month ORDER BY month ASC
+SELECT month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count FROM (SELECT DATE_FORMAT(order_date, '%Y-%m') as month, order_id, customer_id FROM Orders WHERE invoice>20) t GROUP BY month
+SELECT substring(order_date, 1, 7) as month ,count(order_id) as order_count ,count(distinct customer_id) as customer_count FROM Orders WHERE invoice > 20 group by substring(order_date, 1, 7)
+SELECT substring(order_date,1,7) as "month" , count(distinct order_id) as "order_count" , count(distinct customer_id) as "customer_count" from Orders where invoice > 20 group by substring(order_date,1,7)
+Select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count From Orders Where invoice > 20 group by month
+Select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count From Orders where invoice > 20 group by DATE_FORMAT(order_date,'%Y-%m')
+Select Date_Format(order_date, "%Y-%m") as month, Count(*) as order_count, Count(Distinct customer_id) as customer_count From Orders Where invoice > 20 Group By month
+Select LEFT(order_date,7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1 order by 1
+Select LEFT(order_date,7) as month, count(order_id) as order_count, count(distinct customer_id)as customer_count from Orders where invoice > 20 group by 1 order by 1
+Select date_format(order_date, "%Y-%m") month, count(order_date) order_count, count(distinct customer_id) customer_count From Orders Where invoice > 20 Group by date_format(order_date, "%Y-%m")
+Select date_format(order_date, '%Y-%m') as month, COUNT(DISTINCT order_id) as order_count, COUNT(DISTINCT customer_id) as customer_count from Orders WHERE invoice>20 Group by month
+Select left(order_date, 7) as "month", count(distinct order_id) as "order_count", count(distinct customer_id) as "customer_count" from Orders where invoice > 20 group by 1
+Select left(order_date,7) as month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM Orders WHERE invoice > 20 GROUP BY left(order_date,7)
+Select month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count From ( Select DATE_FORMAT(order_date,'%Y-%m') as month, order_id, customer_id, invoice from Orders ) as tb Where invoice > 20 group by month
+Select month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from ( select order_id,order_date,customer_id,invoice,substr(order_date,1,7) as month from Orders where invoice > 20) as a group by month
+WITH a AS ( SELECT order_id, SUBSTRING(order_date, 1, 7) as month, customer_id FROM Orders WHERE invoice>20), b AS ( SELECT month, COUNT(order_id) AS order_count FROM a GROUP BY month), c AS ( SELECT month, COUNT(customer_id) as customer_count FROM (SELECT DISTINCT month, customer_id FROM a) AS kk GROUP BY month ) SELECT b.month, b.order_count, c.customer_count FROM b JOIN c ON b.month = c.month
+WITH cte AS ( SELECT *, LEFT(order_date, 7) AS order_month FROM Orders WHERE invoice > 20 ) SELECT order_month AS month, COUNT(order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM cte GROUP BY order_month
+WITH invoices AS (SELECT order_id, order_date, customer_id FROM Orders WHERE invoice > 20 ) SELECT DATE_FORMAT(order_date,'%Y-%m') month, COUNT(DISTINCT order_id) order_count, COUNT(DISTINCT customer_id) customer_count FROM invoices GROUP BY 1
+WITH temp AS ( SELECT order_id, SUBSTR(CAST(order_date AS CHAR), 1, 7) AS month, customer_id, invoice FROM Orders WHERE invoice > 20 ) SELECT month, COUNT(DISTINCT order_id) AS order_count, COUNT(DISTINCT customer_id) AS customer_count FROM temp GROUP BY month
+date_format(order_date,'%Y-%m') as month, count(distinct order_id) as 'order_count' , count(distinct customer_id) as 'customer_count' from Orders where invoice > 20 group by date_format(order_date,'%Y-%m')
+select A.month, count(distinct A.order_id) as order_count, count(distinct A.customer_id) as customer_count from (select left(order_date,7) as month, order_id, customer_id, invoice from Orders where invoice > 20) A group by A.month
+select A.month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from (select distinct order_id, customer_id, date_format(order_date,'%Y-%m') as month from Orders where invoice>20) A group by A.month
+select DATE_FORMAT(order_date, "%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice >20 group by 1
+select DATE_FORMAT(order_date, "%Y-%m") as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice >20 group by month
+select DATE_FORMAT(order_date, "%Y-%m") as month,count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by month
+select DATE_FORMAT(order_date, '%Y' '-' '%m') as month, count(distinct(order_id)) as order_count, count(distinct(customer_id)) as customer_count from orders where invoice > 20 group by month
+select DATE_FORMAT(order_date, '%Y-%m') as month, COUNT(distinct(order_id)) as order_count, COUNT(distinct customer_id) as customer_count from Orders where invoice> 20 group by 1
+select DATE_FORMAT(order_date, '%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by DATE_FORMAT(order_date, '%Y-%m')
+select DATE_FORMAT(order_date, '%Y-%m') month, count(*) order_count , count(distinct customer_id) customer_count from orders where invoice > 20 group by 1 order by 1
+select DATE_FORMAT(order_date, '%Y-%m')as month, count(distinct order_id)as order_count, count(distinct customer_id)as customer_count from Orders where invoice > 20 group by month
+select DATE_FORMAT(order_date,"%Y-%m") as month, count(order_id) as order_count ,count(distinct customer_id) as customer_count from Orders as o where o.invoice >20 GROUP BY YEAR(order_date),MONTH(order_date)
+select DATE_FORMAT(order_date,'%Y-%m') AS Month, count(DISTINCT customer_id) AS customer_count, count(DISTINCT order_id) AS order_count from Orders where invoice > 20 group by 1
+select DATE_FORMAT(order_date,'%Y-%m') AS month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select DATE_FORMAT(order_date,'%Y-%m') as month , count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month order by month
+select DATE_FORMAT(order_date,'%Y-%m') as month ,count(distinct order_id) as order_count ,count(DISTINCT customer_id) as customer_count from orders where invoice > 20 group by month
+select DATE_FORMAT(order_date,'%Y-%m') as month ,count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice>20 group by month
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month order by month
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice >20 group by DATE_FORMAT(order_date,'%Y-%m')
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by month
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select DATE_FORMAT(order_date,'%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by DATE_FORMAT(order_date,'%Y-%m')
+select DATE_FORMAT(order_date,'%Y-%m') as month,count(distinct(order_id)) order_count , count(distinct(customer_id)) customer_count from Orders where invoice > 20 group by 1
+select DATE_FORMAT(order_date,'%Y-%m') month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by month
+select Date_Format(order_date, '%Y-%m') month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by month
+select LEFT(order_date,7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select SUBSTRING(order_date, 1, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select SUBSTRING(order_date, 1, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month order by month
+select SUBSTRING(order_date, 1, 7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by SUBSTRING(order_date, 1, 7)
+select a.month, a.order_count, b.customer_count from (select substring(order_date, 1, 7) as month, count(distinct order_id) as order_count from Orders where invoice > 20 group by substring(order_date, 1, 7) ) a inner join (select substring(order_date, 1, 7) as month, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by substring(order_date, 1, 7) ) b on a.month = b.month
+select b.month, b.order_count,c.customer_count from (select month,count(distinct order_id) as order_count from (select left(order_date,7) as month,order_id,customer_id from Orders where invoice>20)a group by month) b left join (select month,count(distinct customer_id) as customer_count from (select left(order_date,7) as month,order_id,customer_id from Orders where invoice>20)a group by month) c on b.month=c.month
+select concat(year(a.order_date),'-',lpad(convert(month(a.order_date), char(2)), 2, '0')) as month , count(a.order_id) as order_count , count(distinct a.customer_id) as customer_count from Orders a where a.invoice > 20 group by year(a.order_date), month(a.order_date) order by year(a.order_date), month(a.order_date)
+select concat(z.y,'-',lpad(z.m, 2, '00')) as month, z.order_count, z.customer_count from (select year(order_date) as y, month(order_date) as m, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by m, y) as z
+select count(distinct(order_id)) as order_count, count(distinct(customer_id)) as customer_count, substring(order_date, 1, 7) as month from Orders where invoice > 20 group by month order by month
+select date_format(order_date, "%Y-%m") as month , count(distinct order_id) as order_count , count(distinct customer_id ) as customer_count from Orders where invoice >20 group by date_format(order_date, "%Y-%m")
+select date_format(order_date, "%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select date_format(order_date, "%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by date_format(order_date, "%Y-%m")
+select date_format(order_date, "%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month order by month
+select date_format(order_date, "%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select date_format(order_date, "%Y-%m") as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by date_format(order_date, "%Y-%m")
+select date_format(order_date, "%Y-%m") as month, count(order_id) as order_count, count(distinct(customer_id)) as customer_count from orders where invoice>20 group by extract(year_month from order_date) order by extract(year_month from order_date)
+select date_format(order_date, "%Y-%m") month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select date_format(order_date, '%Y-%m') as month , count(distinct order_id) as order_count , count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select date_format(order_date, '%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by date_format(order_date, '%Y-%m')
+select date_format(order_date, '%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select date_format(order_date, '%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by date_format(order_date, '%Y-%m')
+select date_format(order_date, '%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice >20 group by month
+select date_format(order_date, '%Y-%m') as month, count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select date_format(order_date, '%Y-%m') as month, count(distinct(order_id)) as order_count, count(distinct(customer_id)) as customer_count from Orders where invoice>20 group by 1
+select date_format(order_date, '%Y-%m') as month, count(invoice) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by date_format(order_date, '%Y-%m')
+select date_format(order_date, '%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders o where invoice > 20 group by 1
+select date_format(order_date, '%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select date_format(order_date, '%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by month
+select date_format(order_date, '%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by date_format(order_date, '%Y-%m')
+select date_format(order_date, '%Y-%m') month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by 1
+select date_format(order_date,"%Y-%m") as month , count(distinct order_id) as order_count , count(distinct customer_id) as customer_count from Orders where invoice >20 group by month
+select date_format(order_date,"%Y-%m") as month, count(distinct customer_id) as order_count, count(invoice) as customer_count from orders where invoice>20 group by date_format(order_date,"%Y-%m")
+select date_format(order_date,"%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id ) as customer_count from orders where invoice > 20 group by 1 having count(distinct case when invoice > 20 then customer_id end) > 0 order by 1
+select date_format(order_date,"%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice >20 group by month
+select date_format(order_date,"%Y-%m") as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select date_format(order_date,"%Y-%m") as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1 order by 1
+select date_format(order_date,'%Y-%m') AS month, count(order_date) as order_count, count(distinct customer_id) as customer_count from orders where invoice > '20' group by 1
+select date_format(order_date,'%Y-%m') as "month" , agg.customer_count , SUM(CASE WHEN invoice > 20 THEN 1 ELSE 0 END) as order_count from orders o inner join ( select date_format(order_date,'%Y-%m') as "month" , count(distinct customer_id) as customer_count from orders o where invoice > 20 group by 1 ) AGG ON AGG.month = date_format(o.order_date,'%Y-%m') group by 1
+select date_format(order_date,'%Y-%m') as "month" , count(distinct order_id) as order_count , count(distinct customer_id) as customer_count from orders o where invoice > 20 group by 1
+select date_format(order_date,'%Y-%m') as month , count(distinct order_id ) as order_count, count(distinct customer_id ) as customer_count from Orders where invoice > 20 group by year(order_date),month(order_date)
+select date_format(order_date,'%Y-%m') as month , count(order_id) order_count ,count(distinct customer_id ) customer_count from Orders where invoice >20 group by month
+select date_format(order_date,'%Y-%m') as month, count(1) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select date_format(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select date_format(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice >20 group by month
+select date_format(order_date,'%Y-%m') as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by month
+select date_format(order_date,'%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by date_format(order_date,'%Y%m')
+select date_format(order_date,'%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select date_format(order_date,'%Y-%m') month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by 1
+select date_format(order_date,'%Y-%m') month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice>20 group by 1
+select date_format(order_date,'%Y-%m') month, count(distinct order_id) order_count,count(distinct customer_id) customer_count from Orders where invoice>20 group by date_format(order_date,'%Y-%m')
+select distinct date_format(order_date, "%Y-%m") as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select distinct date_format(order_date, '%Y-%m') as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select distinct left(order_date ,7) as month,count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select distinct left(order_date, 7) as 'month', count(invoice) as 'order_count', count(distinct customer_id) as 'customer_count' from Orders where invoice > 20 group by month
+select distinct left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > '20' group by month
+select distinct left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select distinct left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by month
+select distinct left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select distinct left(order_date,7) month, count(order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice>20 group by 1
+select distinct substring(order_date,1,7) as month, count( order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice >20 group by 1
+select distinct substring(order_date,1,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select distinct(date_format(order_date, '%Y-%m')) as month, count(distinct order_id) as order_count, count(distinct(customer_id)) as customer_count from orders where invoice > 20 group by month
+select distinct(left(order_date, 7)) as month, count(distinct(order_id)) as order_count, count(distinct(customer_id)) as customer_count from Orders where invoice > 20 group by month
+select distinct(left(order_date,7)) as month, count(distinct order_id) as order_count, count( distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select left(order_Date,7) as month, count(invoice) as order_count , count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select left(order_date, 7) as 'month', count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select left(order_date, 7) as `month`, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by `month` order by `month`
+select left(order_date, 7) as month , count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice>20 group by 1 order by 1
+select left(order_date, 7) as month ,count(order_id) as order_count ,count(distinct(customer_id)) as customer_count from orders where invoice > 20 group by left(order_date, 7)
+select left(order_date, 7) as month, count(DISTINCT order_id) as order_count, count(DISTINCT(customer_id)) as customer_count from Orders where invoice > 20 group by left(order_date, 7)
+select left(order_date, 7) as month, count(distinct order_id ) as order_count, count(distinct customer_id ) as customer_count from orders where invoice >20 group by left(order_date, 7)
+select left(order_date, 7) as month, count(distinct order_id) as order_count , count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1 order by 1
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id ) as customer_count from orders where invoice > 20 group by month
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1 order by 1
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by left(order_date,7)
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by month
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice >20 group by 1
+select left(order_date, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by left(order_date, 7)
+select left(order_date, 7) as month, count(order_id) as order_count, count(distinct(customer_id)) as customer_count From Orders where invoice >20 group by month order by month asc
+select left(order_date, 7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by month
+select left(order_date, 7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by month order by month
+select left(order_date, 7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice > 20 group by 1
+select left(order_date, 7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice > 20 group by month
+select left(order_date, 7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice > 20 group by month order by month
+select left(order_date, 7) month, count(order_id) order_count, count(distinct customer_id) customer_count from orders where invoice > 20 group by month
+select left(order_date,7) as "month", count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select left(order_date,7) as month ,count(distinct order_id) as order_count ,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month order by month
+select left(order_date,7) as month, count(distinct customer_id) as customer_count, count(order_id) as order_count from orders where invoice>20 group by month order by month
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from ( select * from Orders where invoice > 20 )tmp group by left(order_date,7)
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where (invoice)>20 group by 1
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice >20 group by month
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by month order by year(order_date),month(order_date)
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by left(order_date, 7)
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by month
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by left(order_date,7) order by left(order_date,7) asc
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by month
+select left(order_date,7) as month, count(distinct order_id) as order_count, count(distinct customer_id)as customer_count from Orders where invoice > 20 group by left(order_date,7)
+select left(order_date,7) as month, count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by 1
+select left(order_date,7) as month, count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select left(order_date,7) as month, count(distinct(order_id)) as order_count, count(distinct(customer_id)) as customer_count from Orders where invoice>20 group by left(order_date,7)
+select left(order_date,7) as month, count(distinct(order_id)) as order_count, count(distinct(customer_id)) as customer_count from orders where invoice>20 group by month
+select left(order_date,7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select left(order_date,7) as month,count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select left(order_date,7) as month,count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from orders where invoice > 20 group by left(order_date,7)
+select left(order_date,7) as month,count(order_date)as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select left(order_date,7) as month,count(order_id)as order_count,count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select left(order_date,7) month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by month
+select left(order_date,7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice > 20 group by left(order_date,7)
+select left(order_date,7) month,count(distinct order_id) order_count,count(distinct customer_id) customer_count from orders where invoice > 20 group by month
+select left(order_date,7)as month,count(distinct order_id)as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select left(order_date,7)month , count(distinct order_id )order_count ,count(distinct customer_id ) customer_count from Orders where invoice > 20 group by left(order_date,7)
+select left(order_date,7)month,count(distinct order_id) order_count,count(distinct customer_id)customer_count from orders where invoice > 20 group by 1 order by 1
+select left(r.order_date, 7) as month, count(distinct r.order_id) as order_count, count(distinct r.customer_id) as customer_count from ( select order_id, order_date, customer_id from Orders where invoice > 20 ) r group by month
+select month, count(*) as order_count, count(distinct customer_id) as customer_count from ( select *, date_format(order_date,"%Y-%m") as month from orders where invoice>20 ) as o1 group by month
+select month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from ( select date_format(order_date, '%Y-%m') as month, order_id, customer_id from orders where invoice > 20 ) t1 group by month
+select month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from ( select distinct DATE_FORMAT(order_date, '%Y-%m') as month, order_id, customer_id, sum(invoice) as sum_amt from Orders group by DATE_FORMAT(order_date, '%Y-%m'), order_id, customer_id having sum(invoice) > 20 ) T group by month
+select month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from ( select order_id,order_date,customer_id,invoice,substr(order_date,1,7) as month from Orders where invoice > 20) as a group by month
+select month, count(order_id) as order_count, count(Distinct customer_id) as customer_count from (select *,DATE_FORMAT(order_date,'%Y-%m') as month from Orders where invoice > 20) as temp group by month
+select month, count(order_id) as order_count, count(distinct customer_id) as customer_count from ( select substr(order_date,1, 7) as month, order_id, customer_id from Orders where invoice > 20 ) t1 group by month
+select month,count(month) as order_count,count(distinct customer_id) as customer_count from (select customer_id,substring(order_date,1,7) as month from Orders where invoice>20 ) as p group by month
+select substr(order_date, 1, 7) as month , count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice >20 group by month
+select substr(order_date,1,7) as month, count(distinct order_id ) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by substr(order_date,1,7)
+select substr(order_date,1,7) as month, count(distinct order_id) as order_Count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select substr(order_date,1,7) as month, count(distinct order_id) as order_count , count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1 having order_count>0
+select substr(order_date,1,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by substr(order_date,1,7)
+select substr(order_date,1,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by 1
+select substr(order_date,1,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by 1
+select substr(order_date,1,7) as month, count(distinct order_id) as order_count, count(distinct customer_id) customer_count from orders where invoice>20 group by 1
+select substr(order_date,1,7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice > 20 group by substr(order_date,1,7)
+select substr(order_date,1,7) as month, count(order_id) as order_count, count(distinct(customer_id)) as customer_count from orders where invoice > 20 group by substr(order_date,1,7)
+select substr(order_date,1,7) as month,count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by substr(order_date,1,7)
+select substr(order_date,1,7) as month,count(order_id) as order_count,count(distinct customer_id)as customer_count from orders where invoice > 20 group by month
+select substr(order_date,1,7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from Orders where invoice > 20 group by month
+select substring(order_date ,1,7) as month , count(distinct order_id) as order_count , count(DISTINCT customer_id) as customer_count from orders Where invoice > 20 group by month
+select substring(order_date, 1, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by SUBSTRING(order_date, 1, 7)
+select substring(order_date, 1, 7) as month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select substring(order_date, 1, 7) as month, count(distinct order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice > 20 group by substring(order_date, 1, 7)
+select substring(order_date, 1, 7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select substring(order_date, 1,7) month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from orders where invoice > 20 group by 1
+select substring(order_date,1,7) as month, Count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select substring(order_date,1,7) as month, count(distinct order_id) as order_count , count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1 order by 1
+select substring(order_date,1,7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from Orders where invoice > 20 group by month
+select substring(order_date,1,7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from orders where invoice>20 group by month
+select substring(order_date,1,7) as month, count(order_id) as order_count, count(distinct(customer_id)) as customer_count from Orders where invoice >20 group by month
+select substring(order_date,1,7) as month,Count(order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice>20 group by 1
+select substring(order_date,1,7) as month,Count(order_id) as order_count,count(distinct customer_id) as customer_count from Orders where invoice>20 group by month
+select substring(order_date,1,7) as month,count(order_id) as order_count, count(distinct(customer_id)) as customer_count from Orders where invoice > 20 group by 1
+select t.order_date month, count(distinct order_id) order_count, count(distinct customer_id) customer_count from (select date_format(order_date, '20%y-%m') as order_date, order_id, customer_id, invoice from orders where invoice > 20) t group by t.order_date
+with a as( select order_id,substring(order_date,1,7) as month,customer_id from orders where invoice>20 ) select month,count(distinct order_id) as order_count,count(distinct customer_id)as customer_count from a group by 1
+with big as ( select * from Orders where invoice > 20) select left(order_date, 7) as month, count(order_id) as order_count, count(distinct customer_id) as customer_count from big group by 1 order by 1
+with cte as ( select *, date_format(order_date,'%Y-%m') as month from orders where invoice > 20 ) select month, count(order_id) as order_count, count(distinct customer_id) as customer_count from cte where invoice > 20 group by month
+with cte as ( select order_id, substr(order_date, 1, 7) as month, customer_id, invoice from orders where invoice > 20 ) select month, count(order_id) order_count, count(distinct customer_id) customer_count from cte group by month
+with cte as ( select order_id,customer_id, date_format(order_date,"%Y-%m") as month from Orders where invoice > 20) select month, count(distinct order_id) as order_count, count(distinct customer_id) as customer_count from cte group by 1
+with short_date as ( select order_id, date_format(order_date, '%Y-%m') as month, customer_id, invoice from Orders group by order_id, customer_id, invoice having invoice > 20 ) , order_count as ( select month, count(distinct order_id) as order_count from short_date group by month ) , customer_count as ( select month, count(distinct customer_id) as customer_count from short_date group by month ) select a.month, order_count, customer_count from order_count a join customer_count b using(month)
+with t1 as ( select date_format(order_date, '%Y-%m') month, count(distinct customer_id) customer_count from Orders where invoice > 20 group by 1 ), t2 as ( select date_format(order_date, '%Y-%m') month, count(distinct order_id) order_count from Orders where invoice > 20 group by 1 ) select t1.month, t2.order_count, t1.customer_count from t1 join t2 on t1.month=t2.month
+with table1 as ( select order_id,date_format(order_date,'%Y-%m') as month,customer_id,invoice from orders ) select month,count(order_id) as order_count,count(distinct customer_id) as customer_count from table1 where invoice>20 group by month
+with unique_orders as ( select DATE_FORMAT(order_date,'%Y-%m') as month, count(order_id) as order_count from orders where invoice > 20 group by DATE_FORMAT(order_date,'%Y-%m') ) , unique_customers as ( select DATE_FORMAT(order_date,'%Y-%m') as month, count(distinct customer_id) as customer_count from orders where invoice > 20 group by DATE_FORMAT(order_date,'%Y-%m') ) select o.month, o.order_count, c.customer_count from unique_orders o inner join unique_customers c on o.month = c.month
+with uniqueorders as( select DATE_FORMAT(order_date,'%Y-%m') as order_date , count(distinct order_id) as order_count from orders where invoice >20 group by 1 ), uniquecustomers as ( select DATE_FORMAT(order_date,'%Y-%m') as order_date , count(distinct customer_id) as customer_count from orders where invoice >20 group by 1 ) select a.order_date as month,b.order_count,a.customer_count from uniquecustomers a join uniqueorders b on a.order_date=b.order_date

@@ -1,0 +1,314 @@
+SELECT DISTINCT query_name, ROUND(AVG(rating/position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(query_name)*100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT DISTINCT query_name, quality, ROUND(num_good_results*100/num_query_results,2) AS poor_query_percentage FROM (SELECT *, ROUND(AVG(rating/position) OVER (PARTITION BY query_name),2) AS quality, COUNT(result) OVER (PARTITION BY query_name) AS num_query_results, COUNT(CASE WHEN rating < 3 THEN 1 END) OVER (PARTITION BY query_name) AS num_good_results FROM Queries) query_results_table
+SELECT QUERY_NAME, ROUND(AVG(RATING/POSITION),2) AS QUALITY, ROUND((SUM(CASE WHEN RATING<3 THEN 1 ELSE 0 END)/COUNT(*))*100,2) AS POOR_QUERY_PERCENTAGE FROM Queries GROUP BY QUERY_NAME
+SELECT QUERY_NAME, ROUND(AVG(RATING/POSITION),2) AS QUALITY, ROUND(AVG(CASE WHEN RATING <3 THEN 1 ELSE 0 END)*100,2) AS POOR_QUERY_PERCENTAGE FROM QUERIES GROUP BY QUERY_NAME
+SELECT QUERY_NAME,ROUND(AVG(RATING/POSITION),2) AS QUALITY, ROUND(AVG( CASE WHEN RATING < 3 THEN 1 ELSE 0 END)*100,2) AS POOR_QUERY_PERCENTAGE FROM QUERIES GROUP BY QUERY_NAME
+SELECT a1.query_name, round(avg(a1.temp),2) as quality, round(100*(sum(a1.q)/count(a1.q)),2) as poor_query_percentage from (SELECT query_name, rating/position as temp, case WHEN rating<3 then 1 else 0 end as q from Queries) a1 group by a1.query_name
+SELECT distinct query_name, round(avg(rating/position),2) as quality, round(avg(rating < 3 ) *100,2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT q.query_name, ROUND(AVG(q.rating / q.position), 2) AS 'quality', ROUND((SELECT COUNT(q1.rating) FROM Queries q1 WHERE q1.rating < 3 AND q1.query_name = q.query_name) / (SELECT COUNT(*) FROM Queries q2 WHERE q2.query_name = q.query_name) * 100, 2) AS 'poor_query_percentage' FROM Queries q GROUP BY q.query_name
+SELECT q.query_name, ROUND(AVG(q.rating / q.position), 2) AS 'quality', ROUND(SUM(IF(q.rating < 3, 1, 0)) / COUNT(q.rating) * 100, 2) AS 'poor_query_percentage' FROM Queries q GROUP BY q.query_name
+SELECT q.query_name, ROUND(AVG(q.rating/q.position),2) AS quality, ROUND(AVG(CASE WHEN q.rating<3 then 1 else 0 end)*100,2) AS poor_query_percentage FROM queries q GROUP BY q.query_name
+SELECT q1.query_name, ROUND(AVG(q1.rating/q1.position),2) AS quality, ROUND(COUNT(DISTINCT q2.result)/COUNT(DISTINCT q1.result)*100,2) AS poor_query_percentage FROM queries q1 LEFT JOIN (SELECT query_name, result FROM queries WHERE rating < 3 ) q2 ON q1.query_name = q2.query_name GROUP BY q1.query_name
+SELECT query_name , ROUND(AVG(rating*100 / position), 0)/100 AS quality , ROUND(AVG(case when rating < 3 then 1 else 0 end )*100, 2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name ,ROUND(AVG(rating / position), 2) AS quality ,ROUND(AVG(rating < 3)* 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name ,ROUND(AVG(rating/position),2) AS quality ,ROUND(SUM(IF(rating < 3,1,0)) * 100 / COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name ,ROUND(AVG(rating/position),2) AS quality ,ROUND(SUM(IF(rating<3,1,0))*100/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name ,round(sum((rating/position))/count(query_name),2) as quality , ROUND(avg(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100,2)as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, CAST( AVG(rating*1.0/position) AS DECIMAL(10,2) ) AS quality, CAST( AVG(CASE WHEN rating < 3 THEN 100.0 ELSE 0 END) AS DECIMAL(10,2) ) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, IFNULL(ROUND(AVG(rating/position),2),0.00) as quality, IFNULL(ROUND(AVG(rating<3)*100,2),0.00) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND (AVG(rating/position), 2) AS quality, ROUND ((COUNT(CASE WHEN rating < 3 THEN 1 END)/COUNT(*)) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND (AVG(rating/position),2) AS quality, ROUND (AVG(rating<3) *100,2) AS poor_query_percentage From Queries GROUP BY query_name
+SELECT query_name, ROUND( SUM(rating / position) / COUNT(query_name), 2 ) AS quality, ROUND( 100 * SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(query_name) , 2 ) AS poor_query_percentage FROM Queries Group BY 1
+SELECT query_name, ROUND((SUM(rating / position) / COUNT(query_name)), 2) AS quality, ROUND((COUNT(CASE WHEN rating < 3 THEN 1 END) / COUNT(query_name) * 100), 2) AS poor_query_percentage FROM queries GROUP BY query_name
+SELECT query_name, ROUND((SUM(rating/position))/count(query_name) , 2) as quality, ROUND((SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END)*100)/count(query_name),2) as poor_query_percentage FROM queries group by query_name order by query_name
+SELECT query_name, ROUND(AVG((rating/position)),2) as quality, ROUND(AVG(case when rating<3 then 1 ELSE 0 END)*100,2) as poor_query_percentage from Queries GROUP by query_name
+SELECT query_name, ROUND(AVG(1.0*rating/position),2) AS quality, ROUND(AVG(rating<3)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(quality),2) quality,ROUND(AVG(poor)*100,2) poor_query_percentage FROM( SELECT query_name, rating/position quality, IF(rating<3,1,0) poor FROM Queries ) t GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating * 100 / POSITION)) / 100 AS quality, ROUND(SUM(rating < 3) * 100 / COUNT(*), 2) AS poor_query_percentage FROM Queries GROUP BY query_name ORDER BY NULL
+SELECT query_name, ROUND(AVG(rating / position), 2) AS 'quality', ROUND(AVG(rating < 3) * 100, 2) AS 'poor_query_percentage' FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(100 * SUM(IF(rating < 3, 1, 0)) / COUNT(query_name), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(100 * SUM(rating < 3) / COUNT(result), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(AVG(IF(rating < 3, 1, 0))*100, 2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(AVG(rating < 3) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(AVG(rating < 3) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(COUNT(CASE WHEN rating < 3 THEN rating ELSE NULL END) / COUNT(1) * 100, 2) AS poor_query_percentage FROM queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100/ COUNT(rating), 2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(query_name) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/ COUNT(rating) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(IF(rating < 3, 1, 0)) / COUNT(*) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(rating < 3) / COUNT(*) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) AS quality, ROUND(SUM(rating < 3) / COUNT(rating) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) as quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END ) / COUNT(*) * 100, 2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position), 2) quality, ROUND(100 * AVG(rating < 3), 2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position),2) AS quality, ROUND( SUM(CASE WHEN rating<3 THEN 100 ELSE 0 END) / COUNT(*) ,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating / position),2) as quality, round((sum( case when rating < 3 then 1 else 0 end) / count(*) ) * 100, 2) as poor_query_percentage from queries group by query_name
+SELECT query_name, ROUND(AVG(rating/position), 2) AS quality, ROUND(100*AVG(rating < 3),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position), 2) AS quality, ROUND(AVG(CASE WHEN rating < 3 THEN 100 ELSE 0 END), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position), 2) AS quality, ROUND(AVG(IF(rating < 3, 1, 0)) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position), 2) AS quality, ROUND(AVG(rating < 3) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(*)*100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(((SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END))/ COUNT(*)) *100,2) AS poor_query_percentage FROM queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND((COUNT(CASE WHEN rating < 3 THEN 1 ELSE null END)/COUNT(*))*100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND((SUM(IF(rating<3,1,0))/COUNT(rating))*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND((SUM(if(rating<3,1,0))/count(*)*100),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(100 * SUM(IF(rating<3, 1, 0))/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY query_name ORDER BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(100*SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(rating),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(100*SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END)/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(100*SUM(IF(rating < 3, 1, 0))/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100,2) AS poor_query_percentage FROM queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(CASE WHEN rating<3 THEN 1 ELSE 0 END)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(rating < 3) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(rating < 3)*100,2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(rating < 3)*100,2) AS poor_query_percentage From Queries GROUP By query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(rating<3)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM((CASE WHEN rating < 3 THEN 1 ELSE 0 END))/COUNT(*) * 100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(rating)*100, 2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM(CASE WHEN rating <3 THEN 1 ELSE 0 END)*100/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END)/COUNT(rating)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM(IF(rating < 3, 100, 0))/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM(IF(rating < 3, 100, 0))/COUNT(*),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(SUM(IF(rating<3,1,0))/COUNT(rating)*100,2) AS poor_query_percentage FROM queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) AS quality,ROUND((SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END)/COUNT(query_name))*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) As 'quality', ROUND(100*SUM(IF(rating<3,1,0))/COUNT(query_name),2) As 'poor_query_percentage' FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) As quality , ROUND(COUNT(CASE WHEN rating < 3 THEN 1 END)/COUNT(*)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) as quality, ROUND((SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END)/COUNT(*)*100),2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(AVG(rating/position),2) as quality, ROUND(100*SUM(IF(rating <3, 1, 0))/COUNT(rating),2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(RATING/POSITION)/COUNT(*),2) AS quality, ROUND(SUM(RATING<3)/COUNT(*) * 100,2) AS poor_query_percentage FROM QUERIES GROUP BY query_name
+SELECT query_name, ROUND(SUM(quality)/COUNT(*), 2) quality, ROUND((SUM(poor)/COUNT(*)*100), 2) poor_query_percentage FROM (SELECT *, rating/position quality, CASE WHEN rating < 3 THEN 1 ELSE 0 END poor FROM queries) t1 GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating / position) / COUNT(*), 2) AS quality, ROUND(100 * SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(*), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating / position) / COUNT(*), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100 / COUNT(*), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating / position) / COUNT(*), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating / position) / COUNT(*),2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100 / COUNT(*), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating / position) / COUNT(position), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(rating)*100,2 ) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating / position)/ COUNT(rating), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/ COUNT(rating) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(SUM(rating/ position) / COUNT(query_name),2) AS quality, ROUND(SUM(rating < 3) / COUNT(query_name) * 100 , 2) AS poor_query_percentage FROM queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating/position) / COUNT(position),2) AS quality, ROUND(100*SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(rating),2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating/position)/COUNT(*), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(*) * 100, 2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(SUM(rating/position)/COUNT(*), 2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(*)*100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating/position)/COUNT(*),2) AS quality, ROUND(1.0*100*COUNT(CASE WHEN rating <3 THEN 1 END)/COUNT(*),2) AS poor_query_percentage FROM queries GROUP BY 1
+SELECT query_name, ROUND(SUM(rating/position)/COUNT(*),2) AS quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/COUNT(*)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(SUM(rating/position)/COUNT(query_name),2) AS quality, ROUND(SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END)/COUNT(query_name)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, ROUND(avg(rating/position),2) AS quality, ROUND(100*AVG(rating < 3),2) AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, ROUND(avg(rating/position),2) as quality, ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100/COUNT(rating),2) as poor_query_percentage FROM queries GROUP BY 1
+SELECT query_name, ROUND(sum(rating/position)/count(rating), 2) as quality, ROUND(SUM(CASE WHEN rating<3 THEN 1 ELSE 0 END) * 100 / count(rating), 2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, cast(sum((rating* 1.0)/(position*1.0))/count(*) as decimal(32,2)) quality, cast((sum(case when rating < 3 then 1 else 0 end )* 100.00)/count(rating) as decimal(32,2)) as poor_query_percentage From Queries Group by query_name
+SELECT query_name, round(AVG(rating / position),2) AS quality, round(100 * COUNT(IF(rating < 3, 1, NULL)) / COUNT(1), 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, round(AVG(rating/position), 2) AS quality, round(COUNT(CASE WHEN rating < 3 THEN query_name END)/COUNT(query_name)*100, 2) AS poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, round(AVG(rating/position),2) as quality, round(AVG(case when rating < 3 then 1 else 0 end)*100, 2) as poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, round(AVG(rating/position),2) as quality, round(sum(If(rating<3,100,0))/count(*),2) as poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, round(avg(rating/position), 2) as quality, round(SUM(rating<3)/COUNT(*)*100, 2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, round(avg(rating/position), 2) as quality, round(sum(case when rating<3 then 1 else 0 end)/count(rating)*100, 2) as poor_query_percentage from Queries group by query_name
+SELECT query_name, round(avg(rating/position),2) as quality, round(avg(CASE WHEN rating<3 THEN 1 ELSE 0 END)*100,2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name, round(sum(rating/position)/count(*),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(*)*100, 2) as poor_query_percentage FROM Queries GROUP BY 1
+SELECT query_name, round(sum(rating/position)/count(query_name),2) as quality, round(sum(if(rating<3,1,0))/count(query_name)*100,2) as poor_query_percentage FROM Queries GROUP BY query_name
+SELECT query_name,ROUND(avg(rating/position),2)AS quality, round(sum(if(rating<3,1,0))/count(1)*100,2)AS poor_query_percentage FROM Queries GROUP BY 1
+SELECT t1.query_name , ROUND(AVG(t1.rating/t1.position), 2) as quality, ROUND((COUNT(CASE WHEN t1.rating < 3 THEN 1 END)/ COUNT(*))*100, 2) as poor_query_percentage from (SELECT DISTINCT * from Queries) t1 group by t1.query_name
+Select q2.query_name,round(SUM(q1.rating/q1.position)/ count(q1.query_name),2) as quality, round((SUM(CASE WHEN q2.rating<3 THEN 1 ELSE 0 END)/count(q2.query_name))*100,2) as poor_query_percentage FROM QUERIES q1 Inner Join Queries q2 Using (query_name) GROUP BY q2.query_name
+Select query_name , cast(sum((rating*1.0) / (position*1.0)) / count(*) as decimal (32,2)) quality , Cast((Sum(case When rating < 3 then 1 else 0 end)*100.00) / count(rating) as decimal (32,2)) as poor_query_percentage From Queries Group by Query_name
+Select query_name , round(avg(rating/position),2) as quality , round(sum(case when rating < 3 then 1 else 0 end)*100/count(rating),2) as poor_query_percentage From Queries Group by query_name
+Select query_name as query_name, Round(sum(rating/position)/count(*),2) as quality, Round(sum(Case When rating < 3 Then 1 Else 0 End)/count(*)*100,2) as poor_query_percentage From Queries Group By query_name
+Select query_name, IFNULL(ROUND(AVG(rating/position),2),0) As quality, IFNULL(ROUND((Sum(Case when rating <3 then 1 else 0 end) / Count(*)) *100,2),0) As poor_query_percentage From (Select Distinct query_name,result,position,rating from Queries) Q Group By query_name
+Select query_name, ROUND(AVG(rating/position),2) AS quality, ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100,2) AS poor_query_percentage FROM Queries GROUP BY query_name
+Select query_name, Round(Avg(rating/position), 2) as quality, Round(Avg(rating < 3) * 100, 2) as poor_query_percentage From Queries Group By query_name
+Select query_name, coalesce( Round( sum(rating/position)/count(query_name) ,2) ,0) as quality, coalesce( Round( sum(if(rating < 3, 1, 0))/count(query_name) *100 ,2) ,0) as poor_query_percentage from Queries Group by query_name
+Select query_name, round((sum(rating/position))/count(query_name),2) as quality, round(((sum(if(rating<3,1,0)))/count(query_name))*100,2) as poor_query_percentage from queries group by query_name
+Select query_name, round(AVG(rating/position),2) as quality, ROUND(SUM( CASE WHEN rating <3 then 1 else 0 end)*100/count(query_name),2) as poor_query_percentage FROM Queries Group by query_name
+Select query_name, round(avg((rating/position)),2) quality , round(avg(case when rating < 3 then 1 else 0 end)*100,2) poor_query_percentage from Queries group by 1
+Select query_name, round(avg(rating/position), 2) as quality, round(100*sum(case when rating < 3 Then 1 Else 0 End)/count(*), 2) as poor_query_percentage From Queries Group by query_name
+Select query_name, round(avg(rating/position),2) as 'quality', round(SUM(CASE when rating < 3 then 1 else 0 end)/count(*)*100,2) as 'poor_query_percentage' from Queries group by query_name
+Select query_name, round(avg(rating/position),2) as quality, round((count(case when rating < 3 then 1 else NUll end)/count(*))*100,2) as poor_query_percentage from queries group by 1
+Select query_name, round(avg(rating/position),2) as quality, round((sum(if(rating<3,1,0))/count(*))*100,2) poor_query_percentage from Queries group by query_name
+Select query_name, round(avg(rating/position),2) as quality, round(avg(case when rating<3 then 1 else 0 end)*100,2) as poor_query_percentage From Queries Group by query_name
+Select query_name, round(avg(rating/position),2) as quality,round((sum(if(rating < 3, 1, 0)) / count(1))* 100, 2) as poor_query_percentage From Queries Group by query_name
+Select query_name, round(sum(if(rating < 3,1,0)) * 100 / count(rating),2) as poor_query_percentage, round(sum(rating/position)/count(rating),2) as quality from Queries group by query_name
+Select query_name, round(sum(rating/position)/count(*),2) as quality, round(avg(case when rating<3 then 1 else 0 end)*100,2) as poor_query_percentage from queries group by query_name
+Select x.query_name,round(avg(x.rating/x.position),2) as quality,round(sum(x.flag)/count(*)*100,2) as poor_query_percentage from (Select query_name,position,rating, case when rating<3 THEN 1 else 0 END as flag from queries) as x group by 1
+Select x.query_name,round(sum(x.rating/x.position)/count(x.rating),2) as quality, round(sum(x.flag)/count(x.rating)*100,2) as poor_query_percentage from (Select query_name,position,rating, case when rating<3 THEN 1 else 0 end as flag from queries) as x group by 1
+WITH q AS( SELECT query_name, ROUND(IFNULL(SUM(rating/position)/COUNT(*), 0), 2) 'quality', COUNT(*) 'n_queries' FROM queries GROUP BY query_name ), p AS( SELECT query_name, COUNT(*) 'poor_queries' FROM queries WHERE rating < 3 GROUP BY query_name ) SELECT n.query_name, quality, ROUND(IFNULL(poor_queries/n_queries*100, 0), 2) 'poor_query_percentage' FROM (SELECT DISTINCT query_name FROM queries) n LEFT JOIN p USING(query_name) LEFT JOIN q USING(query_name)
+WITH q_cte AS (SELECT distinct query_name,result,position,rating FROM queries) SELECT query_name, round((sum((rating)/(position)))/count(*),2) quality, round((SUM(CASE WHEN rating <3 THEN 1 ELSE 0 END) / count(*))*100,2) poor_query_percentage FROM q_cte GROUP BY query_name
+WITH queries AS( SELECT query_name, rating / position AS quality, CASE WHEN rating < 3 THEN 1 ELSE 0 END AS poor_flag from Queries ) SELECT query_name, ROUND(AVG(quality), 2) AS quality, ROUND( SUM(poor_flag) / COUNT(*) * 100 , 2) AS poor_query_percentage FROM queries GROUP BY query_name
+WITH query_quality AS (SELECT query_name, ROUND(SUM(rating / position) / COUNT(*),2) AS quality FROM Queries GROUP BY 1), query_poor_percet AS (SELECT query_name, ROUND(100 * SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(*),2) as poor_query_percentage FROM Queries GROUP BY 1) SELECT t1.*, t2.poor_query_percentage FROM query_quality t1 INNER JOIN query_poor_percet t2 ON t1.query_name = t2.query_name
+WITH t1 AS (SELECT DISTINCT query_name, result, position, rating FROM Queries) SELECT h1 AS "query_name", ROUND(AVG(s1/s4),2) as quality, ROUND(COUNT(s2)/COUNT(s1)*100,2) as poor_query_percentage FROM( SELECT t1.query_name as h1,q.query_name as h2,t1.rating as s1,q.rating as s2,t1.position as s4 FROM t1 LEFT JOIN (SELECT * FROM t1 WHERE rating<3 ) as q ON t1.query_name=q.query_name AND q.rating=t1.rating AND t1.result=q.result) as gamma GROUP BY h1
+WITH t1 AS (SELECT query_name, ROUND(AVG(rating / position),2) AS quality, ROUND(AVG(rating < 3)*100,2) AS poor_query_percentage FROM Queries GROUP BY 1) SELECT * FROM t1
+round(sum(case when rating < 3 then 1 else 0 end)/count(q.query_name)*100,2) as poor_query_percentage from Queries q group by q.query_name
+select a.query_name, a.qua as quality, round(poor*100,2) as poor_query_percentage from (select query_name, round(sum(rating/position)/count(rating),2) as qua from queries group by query_name) a join (select query_name, (sum(case when rating<3 then 1 else 0 end)/count(rating)) as poor from queries group by query_name) b on a.query_name = b.query_name
+select a.query_name, round(avg(a.rating / a.position), 2) quality, round(100*( select count(*) from Queries b where b.query_name=a.query_name and b.rating < 3) / count(*), 2) poor_query_percentage from Queries a group by a.query_name
+select a.query_name, round(avg(a.rating/a.position),2) as quality,IFNULL(round(b.coun/count(*)*100,2),0.00) as poor_query_percentage from Queries as a left join ( select query_name,count(*) as coun from Queries where rating<3 group by query_name) as b on a.query_name = b.query_name group by a.query_name
+select distinct query_name, round(avg(rating/position),2) as quality, round( sum(case when rating<3 then 1 else 0 end)/count(rating)*100,2) as poor_query_percentage from Queries group by query_name
+select distinct(Q.query_name), round(AVG(Q.quality),2) quality, round((sum(Q.quality_index)/count(*))*100,2) poor_query_percentage from (select query_name,rating,rating/position as quality, if(rating <3,1,0) as quality_index from Queries) Q group by query_name
+select distinct(query_name), round(avg(rating/position),2) as quality, round(100*sum(if(rating<3,1,0))/count(rating),2) as poor_query_percentage from queries group by query_name
+select queries.query_name, round(avg(rating/position),2) as quality, ifnull(round((sum(if(rating<3,1,0)*100))/count(*),2),0) as poor_query_percentage from queries group by query_name
+select query_name , round(avg((rating/position)),2) as quality , round(count(case when rating < 3 then result end)/count(distinct result)*100,2) as poor_query_percentage from queries group by 1
+select query_name , round(avg(r),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(rating)*100,2) as poor_query_percentage from( select * , rating/position as r from Queries )a group by query_name
+select query_name , round(avg(rating/position), 2) as quality , round(count(case when rating < 3 then result else null end)/count(result)*100 , 2) as poor_query_percentage from Queries group by 1
+select query_name , round(avg(rating/position),2) as quality , round((avg(case when rating<3 then 1 else 0 end))*100,2) poor_query_percentage from Queries group by query_name
+select query_name , round(avg(rating/position),2) as quality , round(sum(rating < 3) /count(*)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name , round(sum(rating/position)/count(*),2) as quality , coalesce(round((sum(case when rating<3 then 1 else 0 end)*100/count(*)),2),0) as poor_query_percentage from Queries group by 1
+select query_name , round(sum(rating/position)/count(*),2) as quality , round(avg(rating<3)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name , round(sum(rating/position)/count(result),2) as quality, round(sum(if(rating<3,1,0))/count(result)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, ROUND( avg(rating / position), 2) AS quality, round(sum(case when rating <3 then 1 else 0 end)*100/count(*),2) as poor_query_percentage from Queries group by query_name
+select query_name, ROUND(AVG(rating / position), 2) as quality, ROUND(sum(if(rating < 3, 1, 0)) * 100 / COUNT(*), 2) as poor_query_percentage from Queries group by query_name
+select query_name, ROUND(AVG(rating/position), 2) as quality, ROUND(SUM(rating < 3) * 100 / count(*), 2) as poor_query_percentage from Queries group by query_name
+select query_name, Round(AVG(rating/position), 2) as quality, Round(AVG(rating < 3)*100, 2) as poor_query_percentage from Queries Group By query_name
+select query_name, cast(sum(rating/position)/count(query_name) as decimal(32,2)) quality, cast(sum(case when rating<3 then 1 else 0 end)/count(query_name)*100 as decimal(32,2)) poor_query_percentage from Queries group by query_name
+select query_name, coalesce(round(avg(rating/position),2),0) as quality, coalesce(round(sum(case when rating < 3 then 1 else 0 end)*100 / count(*),2),0) as poor_query_percentage from queries group by 1
+select query_name, round( avg(rating/position), 2) as quality, round( avg(rating<3)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round( avg(rating/position), 2) as quality, round( sum(rating<3)/count(rating)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round((avg(rating/position)),2) as quality, round(100*sum(case when rating < 3 then 1 else 0 end)/count(*), 2) as poor_query_percentage from queries group by query_name
+select query_name, round((sum(rating/position) / count(query_name) ),2) as quality , round (avg(rating<3)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round((sum(rating/position)/count(*)), 2) quality, round(count(case when rating < 3 then rating end)/count(*)*100 ,2) poor_query_percentage from queries group by query_name
+select query_name, round((sum(rating/position)/count(*)),2) as quality, ifnull(round((sum(case when rating < 3 then 1 else null end)/count(*))*100,2),0) as poor_query_percentage from Queries group by query_name
+select query_name, round((sum(rating/position)/count(query_name)),2) as quality, round(100*(sum(if(rating<3,1,0))/count(query_name)),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(q.rating/position),2) as 'quality', round((sum(rating < 3) / count(query_name)) * 100,2) as 'poor_query_percentage' from Queries q group by query_name
+select query_name, round(avg(qua), 2) as quality, round(avg(poor_query)*100, 2) as 'poor_query_percentage' from (select query_name, rating, rating/position as 'qua' ,if(rating>=3, 0 ,1) as 'poor_query' from Queries) temp group by query_name
+select query_name, round(avg(qua), 2) quality, round(sum(rr) / count(query_name) * 100, 2) poor_query_percentage from ( select query_name, result, position, rating, rating/position qua, (case when rating < 3 then 1 else 0 end) rr from queries) cte group by 1
+select query_name, round(avg(quality),2) as quality, round((avg(poor_check) * 100),2) as poor_query_percentage from (select query_name, position, rating, (case when rating < 3 then 1 else 0 end ) as poor_check, rating/position as quality from queries )a group by query_name
+select query_name, round(avg(qualityrate),2)as quality, round(avg(rate)*100,2) as poor_query_percentage from( select query_name, result, position, rating, (rating/position) as qualityrate, (case when rating<3 then 1 else 0 end) as rate from Queries ) tem group by query_name
+select query_name, round(avg(rating / position ), 2) as quality, round(100 * sum(case when rating < 3 then 1 else 0 end) / count(1), 2) poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating / position) ,2) as quality, round(avg( case when rating < 3 then 1 else 0 end ) * 100 , 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating / position), 2) as quality, round((sum(case when rating < 3 then 1 else 0 end) / count(*))*100, 2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating / position), 2) as quality, round((sum(if(rating < 3, 1, 0)) / count(1))* 100, 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating / position), 2) as quality, round(100 * avg(rating < 3),2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating / position), 2) as quality, round(100 * sum(case when rating < 3 then 1 else 0 end) / count(*), 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating / position), 2) as quality, round(100 * sum(rating < 3) / count(*), 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating / position), 2) as quality, round(100*sum(if(rating < 3, 1, 0)) / count(rating), 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating / position), 2) as quality, round(avg(if(rating < 3, 1, 0)) * 100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating / position), 2) as quality, round(avg(rating < 3) * 100, 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating / position), 2) as quality, round(avg(rating < 3) * 100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating / position), 2) as quality, round(sum(rating < 3) / count(*) * 100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating / position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end) / count(*) * 100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating / position),2) quality, round((avg(case when rating<3 then 1 else 0 end))*100,2) poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating / position*1.0), 2) as quality, round( sum(case when rating < 3 then 1 else 0 end) * 100.0 / count(*) , 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating*1.00/position),2) as quality, round(avg(rating <3)*100,2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/ position), 2) quality, round((sum(case when rating < 3 then 1 else 0 end)/ count(1)) * 100 , 2) poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position) ,2) as quality, round( sum( case when rating < 3 then 1 else 0 end) /count(rating) * 100 ,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position) ,2) as quality, round(100 * sum(if(rating<3,1,0))/count(*), 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100,2) AS poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round((avg(case when rating < 3 then 1 else 0 end))*100, 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round((avg(rating<3)*100),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round((sum(case when rating < 3 then 1 else 0 end)/count(1))*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round((sum(case when rating < 3 then 1 else 0 end)/count(query_name))* 100, 2)poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round((sum(case when rating < 3 then 1 else 0 end)/count(rating))*100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(100 * sum(case when rating < 3 then 1 else 0 end)/count(*), 2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round(100* sum(case when rating < 3 then 1 else 0 end)/count(*), 2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round(100*avg(rating<3),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(100*sum(case when rating < 3 then 1 else 0 end) / count(rating), 2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round(100*sum(case when rating < 3 then 1 else 0 end)/count(*), 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round(100*sum(if(rating < 3, 1, 0)) / count(*),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(avg(case when rating <3 then 1 else 0 end)*100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(avg(rating < 3) * 100, 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(avg(rating < 3) * 100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(avg(rating < 3)*100, 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round(sum(case when rating < 3 then 1 else 0 end)*100 / count(position), 2) poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(*) * 100, 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position), 2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(rating) * 100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position), 2) as quality, round(sum(case when rating<3 then 1 else 0 end)*100/count(*), 2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position), 2) quality, round((sum(case when rating < 3 then 1 else 0 end)/count(*))*100, 2) poor_query_percentage from queries q group by query_name
+select query_name, round(avg(rating/position),2) AS quality, round((avg(case when rating < 3 then 1 else 0 END))*100, 2) poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) AS quality, round(avg(rating<3)*100,2) AS poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as 'quality', round(sum(case when rating < 3 then 1 else 0 end) * 100/count(*),2) as 'poor_query_percentage' from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality , round(avg(case when rating < 3 then 1 else 0 end)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round( avg(case when rating < 3 then 1 else 0 end)* 100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round((sum(case when rating<3 then 1 else 0 end)/count(1))*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round((sum(case when rating<3 then 1 else 0 end)/count(query_name))*100,2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round((sum(rating < 3)/count(rating))*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round((sum(rating <3)/count(*)) * 100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(100*avg(rating < 3),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(100*avg(rating<3),2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(100*count(case when rating < 3 then 1 end) / count(query_name), 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(100*sum(case when rating<3 then 1 else 0 end)/count(*),2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(100*sum(case when rating<3 then 1 else 0 end)/count(*),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(case when rating < 3 Then 1 Else 0 End)*100,2) as poor_query_percentage From queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(case when rating < 3 then 1 else 0 end)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(case when rating <3 then 1 else 0 end)*100, 2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(case when rating<3 then 1 else 0 end)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(if(rating <3,1,0))*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(rating < 3) * 100,2) as poor_query_percentage from Queries group by query_name order by query_name
+select query_name, round(avg(rating/position),2) as quality, round(avg(rating < 3)*100,2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(avg(rating<3)*100,2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(avg(rating<3)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(count(case when rating < 3 then 1 end)/ count(*) * 100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(count(if(rating<3,result,null))/count(result)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end )*100/count(rating),2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)*100/ count(*),2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)*100/count(*),2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)*100/count(*),2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)*100/count(position),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/ count(rating) * 100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(rating)*100,2) AS poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(rating)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(rating)*100,2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)/count(result)*100,2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating <3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from (select distinct * from queries) q group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating <3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from Queries group by 1 order by 1 desc
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating<3 then 1 else 0 end)*100/count(*),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating<3 then 1 else 0 end)*100/count(query_name),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating<3 then 1 else 0 end)*100/count(rating),2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating<3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating<3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(case when rating<3 then 1 else 0 end)/count(rating)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(if(rating<3, 1, 0))*100/sum(1),2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(if(rating<3, 100, 0))/count(rating),2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(if(rating<3,1,0))/count(*) * 100 ,2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(if(rating<3,1,0))/count(query_name)*100,2) as poor_query_percentage from queries group by 1
+select query_name, round(avg(rating/position),2) as quality, round(sum(if(rating<3,1,0))/count(query_name)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(rating < 3) * 100 / COUNT(*),2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(rating < 3)/count(*)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) as quality, round(sum(rating < 3)/count(*)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) quality, round((avg(case when rating<3 then 1 else 0 end))*100,2) poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) quality, round((sum(if(rating<3,1,0))/count(query_name))*100,2) poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) quality, round(100*sum(rating<3)/count(rating),2) poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2) quality, round(avg(case when rating< 3 then 1 else 0 end)*100,2) poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2) quality, round(avg(rating<3)*100,2) poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rating/position),2) quality, round(count(case when rating<3 then 1 end)/count(query_name)*100,2) poor_query_percentage from queries group by query_name
+select query_name, round(avg(rating/position),2)as quality , round(100*avg(case when rating < 3 then 1 else 0 end),2) as poor_query_percentage from Queries group by 1
+select query_name, round(avg(rating/position),2)as quality, round(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100,2)as poor_query_percentage from Queries group by query_name
+select query_name, round(avg(rp),2) as quality, round(sum(rating_lt_3)/count(rating)*100,2) as poor_query_percentage from (select query_name, rating/position as rp, case when rating < 3 then 1 else 0 end as rating_lt_3, rating from Queries) sub group by query_name
+select query_name, round(coalesce(avg(rating/position), 0),2) quality, round(coalesce(sum(case when rating < 3 then 1 else 0 end)/count(rating),0)*100, 2) as poor_query_percentage from queries group by 1
+select query_name, round(sum(qual)/count(1),2) quality, round(sum(poor)/count(1)*100,2) poor_query_percentage from ( select query_name, (rating / position ) qual, case when rating<3 then 1 else 0 end poor from Queries) as base group by query_name
+select query_name, round(sum(rating / position) / count(*), 2) as quality, round(sum(if(rating < 3, 1, 0)) * 100 / count(*),2) as poor_query_percentage from Queries group by 1
+select query_name, round(sum(rating*1.0/position)/count(1),2) as quality, round(sum(case when rating<3 then 1 else 0 end)*100/count(1),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position) /count(*),2)as quality, round(sum(case when rating<3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from queries group by 1
+select query_name, round(sum(rating/position) /count(query_name),2) as quality, round(100*sum(case when rating < 3 then 1 else 0 end)/count(query_name),2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/ count(query_name), 2) as quality, round(count(case when rating < 3 then 1 end)/ count(query_name)*100, 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/count(*), 2) as quality, round(sum(case when rating<3 then 1 else 0 end)/count(*)*100, 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/count(*),2) as quality, round((sum(case when rating < 3 then 1 else 0 end)/count(*))*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(sum(rating/position)/count(*),2) as quality, round(count(case when rating<3 then rating end)/count(*)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/count(*),2) as quality, round(sum(case when rating < 3 then 1 else 0 end)*100/count(*),2) as poor_query_percentage from queries group by 1
+select query_name, round(sum(rating/position)/count(*),2) as quality, round(sum(case when rating <3 then 1 else 0 end)/count(*) * 100,2) as poor_query_percentage from queries group by 1
+select query_name, round(sum(rating/position)/count(*),2) as quality, round(sum(case when rating <3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from queries group by query_name
+select query_name, round(sum(rating/position)/count(*),2) as quality, round(sum(case when rating<3 then 1 else 0 end)*100/count(*),2) as poor_query_percentage from Queries group by 1
+select query_name, round(sum(rating/position)/count(distinct result),2) as quality, round((count(case when rating<3 then rating else null end)/count(distinct result))*100,2) as poor_query_percentage from Queries group by query_name order by query_name
+select query_name, round(sum(rating/position)/count(query_name), 2) as quality, round(100*sum(if(rating < 3, 1, 0))/count(query_name), 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/count(query_name),2) as quality, ROUND((avg(CASE WHEN rating < 3 THEN 1 ELSE 0 END)*100),2) as poor_query_percentage FROM Queries GROUP BY query_name
+select query_name, round(sum(rating/position)/count(query_name),2) as quality, coalesce(round(sum(case when rating < 3 then 1 end)/count(query_name)*100,2),0.00000) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/count(query_name),2) as quality, round(100 * avg(rating < 3), 2) as poor_query_percentage from Queries group by query_name
+select query_name, round(sum(rating/position)/count(query_name),2) as quality, round(sum(if(rating<3,1,0))*100/count(query_name),2) as poor_query_percentage from Queries group by query_name
+select query_name,round(1.0*avg(rating/position), 2) as quality, round(100.0*sum(case when rating <3 then 1 else 0 end)/count(1),2) as poor_query_percentage from queries group by query_name
+select query_name,round(avg(new_rate),2) as quality,round(sum(rating_1)/count(query_name)*100,2) as poor_query_percentage from (select query_name,rating/position as new_rate,case when rating<3 then 1 else 0 end as rating_1 from Queries)a group by query_name
+select query_name,round(avg(rating/position),2) as quality, round(100*avg(if(rating > 2,0,1)),2) as poor_query_percentage from queries group by query_name
+select query_name,round(avg(rating/position),2) as quality, round(100*sum(case when rating<3 then 1 else 0 end)/count(*), 2) as poor_query_percentage from Queries group by query_name
+select query_name,round(avg(rating/position),2) as quality, round(avg(poorrating)*100,2) as poor_query_percentage from ( select query_name,position,rating, (case when rating <3 then 1 else 0 end) as poorrating from queries)temp group by query_name
+select query_name,round(avg(rating/position),2) as quality,round(avg(rating<3)*100,2) as poor_query_percentage from Queries group by query_name
+select query_name,round(avg(rating/position),2) as quality,round(avg(rating<3)*100,2)as poor_query_percentage from queries group by query_name
+select query_name,round(avg(rating/position),2)as quality,round(sum(case when rating <3 then 1 else 0 end)*100/count(query_name),2) as poor_query_percentage from queries group by 1
+select query_name,round(avg(rating/position),2)quality, round(100 * avg(rating < 3),2)poor_query_percentage from queries group by query_name
+select query_name,round(sum(rating/position)/count(*),2) as quality, round(sum(case when rating<3 then 1 else 0 end)/count(*)*100,2) as poor_query_percentage from queries group by query_name
+select query_name,round(sum(rating/position)/count(position),2) as quality, round((sum(case when rating<3 then 1 else 0 end)/count(rating))*100,2) as poor_query_percentage from Queries group by 1
+select t.query_name,round(avg(quality),2) as quality,round(sum(case when r.rating<3 then 1 else 0 end)/count(r.rating)*100,2) as poor_query_percentage from (select query_name, rating/position as quality from queries ) t, queries r where r.query_name = t.query_name group by t.query_name
+select t1.query_name, round(t1.quality_sum/t2.cnt,2) as quality, round((t1.poor_query/t2.cnt)*100,2) as poor_query_percentage from ( (select query_name, sum(ratio) as quality_sum, sum(poor) as poor_query from ( select query_name, rating/position as ratio, case when rating<3 then 1 else 0 end as poor from Queries ) as a group by query_name) as t1 left join (select query_name,count(*) as cnt from Queries group by query_name) as t2 on t1.query_name = t2.query_name )
+with CTE as ( select query_name, rating, position, result, case when rating < 3 then 1 else 0 end as poor_quality_number from Queries ) select query_name, round(sum(rating / position)/count(result),2) as quality, round(100*sum(poor_quality_number)/count(result),2) as poor_query_percentage from CTE group by query_name
+with a as( select query_name, (count(case when rating<3 then 1 else null end)/count(rating))*100 as poor_query_percentage from queries group by query_name), b as ( select query_name, round(sum(rating/position)/count(rating),2) as quality from queries group by query_name) select b.query_name,b.quality, round(a.poor_query_percentage,2) as poor_query_percentage from a join b on b.query_name = a.query_name
+with cte AS( SELECT query_name, count(*) as total_count, SUM(rating/position) as total_position, SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) as total_rating FROM Queries GROUP BY query_name ) SELECT query_name, ROUND((total_position/total_count), 2) as quality, ROUND((total_rating/total_count)*100.00, 2) as poor_query_percentage FROM cte
+with cte as ( select * , round(AVG(rating/position) over (partition by query_name),2) as quality, count(result) over (partition by query_name) as total, count(case when rating<3 then 1 end) over (partition by query_name) as good from Queries ) select distinct query_name, quality, round(good*100/total,2) as poor_query_percentage from cte
+with cte as ( select query_name, rating/position as ratio, rating, position from queries ) select query_name, Round(avg(ratio),2) as quality, Round((sum(case when rating < 3 then 1 else 0 end) / count(*)) * 100,2) as poor_query_percentage from cte group by query_name
+with cte as ( select query_name,result,position,rating, case when rating<3 then 1 else 0 end as status from queries ) select query_name,round(sum(rating/position)/count(*),2) as quality, round((sum(status)/count(*))*100,2) as poor_query_percentage from cte group by query_name
+with cte_quality as ( select query_name, round( avg(rating / position), 2 ) as quality, round( 100 * avg(rating < 3), 2 ) as poor_query_percentage from Queries group by 1 ) select * from cte_quality
+with metrics as ( select *, rating *1.0 / position as quality, if(rating < 3,1,0) as is_poor_query from Queries ) select query_name, round(avg(quality),2) as quality, round(avg(is_poor_query)*100,2) as poor_query_percentage from metrics group by 1
+with quality as ( select distinct query_name, round(avg(rating/position) over (partition by query_name),2) as quality from queries) select a.query_name, quality, round((sum(a.poor_query)/count(a.query_name))*100,2) as poor_query_percentage from ( select query_name, case when rating<3 then 1 else 0 end as poor_query from queries ) a left join quality on quality.query_name=a.query_name group by a.query_name, quality
+with temp as ( select query_name, rating/position as quality, case when rating<3 then 1 else 0 end as poor from queries ) select query_name, round(avg(quality),2) as quality, round(avg(poor)*100,2) as poor_query_percentage from temp group by query_name
+with tmp as (select query_name, round(ifnull(avg(rating/position), 0.00), 2) as quality from Queries group by query_name), tb1 as( select query_name, count(rating) as numer1 from Queries where rating < 3 group by query_name), tb2 as ( select query_name, count(rating) as denom from Queries group by query_name), tb3 as( select query_name, 0 as numer2 from Queries where rating >= 3 group by query_name), tb4 as ( select query_name, numer1 as numer3 from tb1 union all select query_name, numer2 from tb3), tb5 as ( select query_name, sum(numer3) as numer from tb4 group by query_name) select tmp.query_name, quality, round(ifnull(numer / denom * 100, 0.00), 2) as poor_query_percentage from tmp left join tb5 on tb5.query_name = tmp.query_name left join tb2 on tmp.query_name = tb2.query_name
+with x as ( select query_name, round(sum(rating/position)/count(*),2) as quality from queries group by 1 ), y as ( select q.query_name, round((count(rating)/(select count(*) from queries where q.query_name = query_name group by query_name))*100,2) as poor_query_percentage from queries as q where rating < 3 group by 1 ) select x.query_name,x.quality, case when y.poor_query_percentage is null then 0 else y.poor_query_percentage end as poor_query_percentage from x left join y on x.query_name = y.query_name

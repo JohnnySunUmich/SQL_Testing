@@ -1,0 +1,244 @@
+SELECT A.SALE_DATE, A.SOLD_NUM-B.SOLD_NUM AS DIFF FROM SALES A INNER JOIN SALES B ON A.SALE_DATE=B.SALE_DATE AND A.FRUIT='apples' AND B.FRUIT='oranges' ORDER BY A.SALE_DATE
+SELECT A.SALE_DATE, A.SOLD_NUM-B.SOLD_NUM AS DIFF FROM SALES A INNER JOIN SALES B ON A.SALE_DATE=B.SALE_DATE WHERE A.FRUIT='apples' AND B.FRUIT='oranges' ORDER BY A.SALE_DATE
+SELECT A.sale_date ,(A.total_sale - B.total_sale) as diff FROM (SELECT sale_date ,sold_num as total_sale FROM Sales WHERE fruit ='apples')A, (SELECT sale_date ,sold_num as total_sale FROM Sales WHERE fruit ='oranges')B WHERE A.sale_date =B.sale_date
+SELECT A.sale_date AS SALE_DATE, A.sold_num-B.sold_num AS DIFF FROM Sales A, Sales B WHERE A.sale_date=B.sale_date AND A.fruit <> B.fruit AND A.fruit = 'apples' ORDER BY A.sale_date
+SELECT A.sale_date AS sale_date, (A.sold_num - O.sold_num) AS diff FROM Sales A JOIN Sales O ON A.sale_date = O.sale_date WHERE A.fruit = "apples" AND O.fruit = 'oranges' ORDER BY A.sale_date
+SELECT AppleSales.sale_date AS SALE_DATE, (apples_sold - oranges_sold) AS DIFF FROM (( SELECT sale_date, sold_num AS apples_sold FROM Sales WHERE fruit = 'apples' ) AS AppleSales JOIN ( SELECT sale_date, sold_num AS oranges_sold FROM Sales WHERE fruit = 'oranges' ) AS OrangeSales) WHERE AppleSales.sale_date = OrangeSales.sale_date GROUP BY AppleSales.sale_date
+SELECT DISTINCT s1.sale_date AS sale_date, s1.sold_num - s2.sold_num AS diff FROM Sales s1 JOIN Sales s2 ON s1.sale_date = s2.sale_date AND s1.fruit = 'apples' AND s2.fruit = 'oranges' GROUP BY s1.sale_date
+SELECT DISTINCT sale_date, SUM((case when fruit = 'apples' THEN 1 ELSE -1 END)*sold_num) AS diff FROM Sales GROUP BY sale_date
+SELECT N_1.sale_date, N_1.sold_num-N_2.sold_num as diff FROM (SELECT * From Sales Group by sale_date, fruit Order by sale_date, fruit) as N_1 Inner Join (SELECT * From Sales Group by sale_date, fruit Order by sale_date,fruit DESC) as N_2 ON N_1.sale_date=N_2.sale_date where N_1.fruit='apples' AND N_2.fruit="oranges"
+SELECT S1.sale_date, (S1.sold_num - S2.sold_num) diff FROM Sales S1, Sales S2 WHERE S1.sale_date = S2.sale_date AND S1.fruit = 'apples' AND S2.fruit = 'oranges' GROUP BY sale_date
+SELECT S1.sale_date, (S1.sold_num-S2.sold_num) AS diff FROM Sales S1 JOIN Sales S2 ON S1.sale_date=S2.sale_date AND S1.fruit='apples' AND S2.fruit='oranges' ORDER BY S1.sale_date
+SELECT S1.sale_date, s1.sold_num-s2.sold_num as diff FROM sales s1 LEFT JOIN sales s2 ON s1.sale_date = s2.sale_date AND s1.fruit <> s2.fruit WHERE s1.fruit = 'apples'
+SELECT SALE_DATE, SUM(CASE WHEN FRUIT = 'APPLES' THEN sold_num WHEN FRUIT = 'ORANGES' THEN -sold_num END ) AS DIFF FROM SALES GROUP BY SALE_DATE
+SELECT a.sale_date as sale_date, (a.sold_num - o.sold_num) as diff FROM (SELECT * FROM Sales WHERE fruit = 'apples') a LEFT JOIN (SELECT * FROM Sales WHERE fruit = 'oranges') o ON a.sale_date = o.sale_date
+SELECT a.sale_date, (a.sold_num - b.sold_num) AS diff FROM Sales a, Sales b WHERE a.sale_date = b.sale_date AND a.fruit='apples' AND b.fruit='oranges'
+SELECT a.sale_date, (a.sold_num - b.sold_num) as diff FROM (SELECT * FROM Sales WHERE fruit="apples") AS a JOIN (SELECT * FROM Sales WHERE fruit="oranges") AS b ON a.sale_date = b.sale_date ORDER BY a.sale_date ASC
+SELECT a.sale_date, (a.sold_num - b.sold_num) as diff FROM sales a JOIN sales b ON a.sale_date = b.sale_date and b.fruit = 'oranges' WHERE a.fruit = 'apples'
+SELECT a.sale_date, a.sold_num-b.noranges AS diff FROM Sales AS a JOIN (SELECT sale_date, sold_num AS noranges FROM Sales WHERE fruit = 'oranges') AS b USING(sale_date) WHERE a.fruit = 'apples' ORDER BY a.sale_date
+SELECT a.sale_date, a.sold_num-b.sold_num AS diff FROM Sales AS a, Sales AS b WHERE a.sale_date = b.sale_date AND a.fruit = 'apples' AND b.fruit = 'oranges'
+SELECT a.sale_date, apples_sales - orange_sales as diff FROM ( select sale_date, sold_num as apples_sales from Sales where fruit='apples' ) a left join ( select sale_date, sold_num as orange_sales from Sales where fruit='oranges' ) b on a.sale_date=b.sale_date
+SELECT apple.sale_date ,apple.sold_num - orange.sold_num as diff FROM sales apple INNER JOIN sales orange ON apple.sale_date = orange.sale_date WHERE apple.fruit = 'apples' AND orange.fruit ='oranges'
+SELECT b.sale_date, (a.sold_num-b.sold_num) AS diff FROM sales a JOIN sales b ON a.fruit = 'apples' AND b.fruit = 'oranges' AND a.sale_date = b.sale_date ORDER BY b.sale_date
+SELECT s.sale_date, SUM(CASE WHEN s.fruit="apples" THEN s.sold_num ELSE -s.sold_num END) AS diff FROM sales s GROUP BY s.sale_date ORDER BY s.sale_date
+SELECT s.sale_date, SUM(IF(s.fruit = 'apples', s.sold_num, -s.sold_num)) AS diff FROM Sales s GROUP BY 1
+SELECT s1.sale_date, s1.sold_num - s2.sold_num AS diff FROM Sales AS s1, Sales AS s2 WHERE s1.sale_date = s2.sale_date AND s1.fruit = 'apples' AND s2.fruit = 'oranges' ORDER BY s1.sale_date
+SELECT s1.sale_date, s1.sold_num - s2.sold_num AS diff FROM Sales s1 INNER JOIN Sales s2 on s2.sale_date = s1.sale_date AND s2.fruit != s1.fruit WHERE s1.fruit = 'apples'
+SELECT s1.sale_date, s1.sold_num -s2.sold_num diff FROM sales s1 LEFT JOIN sales s2 ON s1.sale_date = s2.sale_date AND s1.fruit != s2.fruit GROUP BY s1.sale_date ORDER BY s1.sale_date
+SELECT sale_date ,(SELECT sold_num FROM sales x WHERE s.sale_date = x.sale_date AND fruit = 'apples') - (SELECT sold_num FROM sales x WHERE s.sale_date = x.sale_date AND fruit = 'oranges') AS 'diff' FROM sales s GROUP BY s.sale_date
+SELECT sale_date ,SUM(IF(fruit = 'apples',sold_num,0)) - SUM(IF(fruit = 'oranges',sold_num,0)) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date ,sum(CASE WHEN fruit ='apples' then sold_num WHEN fruit = 'oranges' then -sold_num end) as diff FROM Sales group by sale_date
+SELECT sale_date, ( SUM( CASE WHEN fruit = 'apples' THEN sold_num ELSE 0 END ) - SUM( CASE WHEN fruit = 'oranges' THEN sold_num ELSE 0 END ) ) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, (Apples-Oranges) AS diff FROM ( SELECT a.sale_date, a.sold_num AS Apples, b.sold_num AS Oranges FROM ( SELECT * FROM Sales WHERE fruit = 'apples' GROUP BY sale_date )a INNER JOIN ( SELECT * fROM Sales WHERE fruit = 'oranges' GROUP BY sale_date )b ON A.sale_date = B.sale_date ORDER BY A.sale_date )t ORDER BY sale_date
+SELECT sale_date, (SUM(IF(fruit = 'apples', sold_num, 0)) - SUM(IF(fruit = 'oranges', sold_num, 0))) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, (SUM(IF(fruit = 'apples', sold_num,0)) - SUM(IF(fruit = 'oranges', sold_num,0))) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date, (apple_count-orange_count) diff FROM (SELECT sale_date, SUM(CASE WHEN fruit='apples' THEN sold_num ELSE 0 END ) apple_count, SUM(CASE WHEN fruit='oranges' THEN sold_num ELSE 0 END ) orange_count FROM sales GROUP BY sale_date) a ORDER BY 1
+SELECT sale_date, (t1.applect - t1.orangect) AS diff FROM (SELECT sale_date, sold_num AS orangect, LAG(sold_num, 1) OVER (PARTITION BY sale_date ORDER BY fruit) AS applect, RANK() OVER (PARTITION BY sale_date ORDER BY fruit) AS rk FROM sales) t1 WHERE t1.rk = 2
+SELECT sale_date, SUM( CASE WHEN fruit = 'apples' THEN sold_num ELSE -1*sold_num END) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM( CASE WHEN fruit = 'oranges' THEN -sold_num ELSE sold_num END ) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit = "apples" THEN sold_num END) - SUM(CASE WHEN fruit = "oranges" THEN sold_num END) as diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE -sold_num END) AS 'diff' FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE -sold_num END) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE -sold_num END) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE -sold_num END) AS diff FROM sales GROUP BY sale_date ORDER BY 1
+SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE -sold_num END) AS diff FROM sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE 0 END) - SUM(CASE WHEN fruit = 'oranges' THEN sold_num ELSE 0 END) AS diff FROM sales GROUP BY sale_date ORDER BY 1
+SELECT sale_date, SUM(CASE WHEN fruit = 'oranges' THEN -sold_num ELSE sold_num END ) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit= 'apples' THEN sold_num ELSE 0 END) - SUM(CASE WHEN fruit='oranges' THEN sold_num ELSE 0 END) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit='apples' THEN sold_num ELSE 0 END) - SUM(CASE WHEN fruit='oranges' THEN sold_num ELSE 0 END) Diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit='apples' THEN sold_num ELSE sold_num*(-1) END) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(CASE WHEN fruit='apples' THEN sold_num WHEN fruit='oranges' THEN -sold_num END) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_Date
+SELECT sale_date, SUM(CASE WHEN fruit='oranges' THEN -1*sold_num ELSE sold_num END) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(IF(fruit = "apples", sold_num, - sold_num)) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(IF(fruit = 'apples', sold_num, -sold_num)) diff FROM Sales GROUP BY sale_date
+SELECT sale_date, SUM(IF(fruit='apples', sold_num, 0)) - SUM(IF(fruit='oranges', sold_num, 0)) AS diff FROM Sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(case when fruit="apples" then sold_num else - sold_num END) AS diff FROM Sales group by sale_date
+SELECT sale_date, SUM(case when fruit='apples' then sold_num end)- SUM(case when fruit='oranges' then sold_num end) as diff FROM sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, SUM(sold_num) AS 'diff' FROM (SELECT sale_date, fruit, CASE WHEN fruit = 'apples' THEN SUM(sold_num) ELSE SUM(sold_num)*(-1) END AS 'sold_num' FROM Sales GROUP BY sale_date, fruit) r GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, apples_sold - oranges_sold AS diff FROM( SELECT a.sale_date, a.fruit AS apple, a.sold_num AS apples_sold, b.fruit AS orange, b.sold_num AS oranges_sold FROM Sales a JOIN Sales b ON a.sale_date = b.sale_date AND a.fruit < b.fruit ) a ORDER BY sale_date
+SELECT sale_date, s1.sold_num-s2.sold_num AS diff FROM Sales s1 LEFT JOIN Sales s2 USING (sale_date) GROUP BY sale_date
+SELECT sale_date, sold_lagged-sold_num as diff FROM ( SELECT sale_date, fruit, sold_num, LAG(sold_num) OVER(PARTITION BY sale_date ORDER BY fruit) as sold_lagged FROM Sales) sub WHERE fruit = 'oranges'
+SELECT sale_date, sum(CASE WHEN fruit = "apples" THEN sold_num ELSE 0 END) - sum(CASE WHEN fruit = "oranges" THEN sold_num ELSE 0 END) AS diff FROM sales GROUP BY sale_date
+SELECT sale_date, sum(CASE WHEN fruit = "apples" THEN sold_num ELSE 0 END) - sum(CASE WHEN fruit = "oranges" THEN sold_num ELSE 0 END) AS diff FROM sales GROUP BY sale_date ORDER BY sale_date
+SELECT sale_date, sum(CASE WHEN fruit = 'apples' THEN sold_num ELSE -sold_num END) as diff FROM Sales GROUP BY sale_date ORDER BY 1
+SELECT sale_date, sum(if(fruit='apples', sold_num, -sold_num)) AS diff FROM Sales GROUP BY 1 ORDER BY 1
+SELECT sale_date,SUM( CASE WHEN fruit='apples' THEN sold_num ELSE sold_num*-1 END) AS diff FROM Sales GROUP BY sale_date
+SELECT sale_date,sold_num-nxt DIFF from ( SELECT sale_date,fruit,sold_num,lead(sold_num)over(partition by sale_date order by fruit) nxt from Sales )a where nxt is not null
+SELECT sale_date,sum(case when fruit="apples" then sold_num else -sold_num end) as diff from sales group by sale_date
+SELECT t1.sale_date as SALE_DATE, (t1.sold_num - t2.sold_num) as DIFF from SALES t1 join sales t2 on t1.sale_date = t2.sale_date WHERE t1.fruit like 'apples' and t2.fruit like 'oranges' group by sale_date
+SELECT t1.sale_date, t1.sold_num - t2.sold_num AS diff FROM (SELECT sale_date, sold_num FROM Sales WHERE fruit = "apples") AS t1 JOIN (SELECT sale_date, sold_num FROM Sales WHERE fruit = "oranges") AS t2 ON t1.sale_date = t2.sale_date ORDER BY t1.sale_date ASC
+SELECT t1.sale_date, t1.sold_num - t2.sold_num AS diff FROM Sales t1, Sales t2 WHERE t1.fruit='apples' AND t2.fruit='oranges' AND t1.sale_date=t2.sale_date
+SELECT t1.sale_date, t1.sold_num - t2.sold_num diff FROM Sales t1, Sales t2 WHERE t1.fruit = 'apples' AND t2.fruit = 'oranges' AND t1.sale_date = t2.sale_date GROUP BY t1.sale_date ORDER BY t1.sale_date
+Select sale_date, sold_num - s2 as diff from( Select s1.sale_date, s1.fruit, s1.sold_num, s2.sold_num as s2 from Sales s1 join Sales s2 on s1.sale_date = s2.sale_date and s1.fruit != s2.fruit Where s1.fruit = 'apples' ) a
+Select sale_date, sum(case when fruit="apples" then sold_num else -sold_num end) as diff from sales group by sale_date
+Select sale_date,sum(case when fruit='apples' then sold_num else -sold_num end) as diff from Sales group by sale_date
+Select sale_date,sum(case when fruit='oranges' then -sold_num else sold_num end) as diff from Sales group by sale_date
+WITH A AS( SELECT * FROM Sales WHERE fruit = 'apples' ), O as ( SELECT * FROM Sales WHERE fruit = 'oranges' ) SELECT A.sale_date, (A.sold_num - O.sold_num) as diff FROM A INNER JOIN O ON A.sale_date = O.sale_date
+WITH A AS( SELECT SALE_DATE, SOLD_NUM FROM SALES WHERE FRUIT='apples'), O AS( SELECT SALE_DATE, SOLD_NUM FROM SALES WHERE FRUIT='oranges') SELECT A.SALE_DATE,( A.SOLD_NUM-O.SOLD_NUM) AS DIFF FROM A INNER JOIN O ON A.SALE_DATE=O.SALE_DATE ORDER BY SALE_DATE
+WITH CTE AS (SELECT sale_date, sold_num FROM Sales WHERE fruit='apples'), CTE2 AS (SELECT sale_date, sold_num FROM Sales WHERE fruit='oranges') SELECT cte.sale_date, cte.sold_num - cte2.sold_num as diff FROM CTE JOIN CTE2 ON CTE.sale_date=CTE2.sale_date GROUP BY 1
+WITH CTE1 AS ( SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE 0 END) AS ap, SUM(CASE WHEN fruit = 'oranges' THEN sold_num ELSE 0 END) AS org FROM Sales GROUP BY sale_date) SELECT sale_date, ap-org AS diff FROM CTE1 ORDER BY sale_date
+WITH a AS ( SELECT sale_date, SUM(sold_num) AS apple_total FROM Sales WHERE fruit = "apples" GROUP BY sale_date ), o AS ( SELECT sale_date, SUM(sold_num) AS orange_total FROM Sales WHERE fruit = "oranges" GROUP BY sale_date ) SELECT a.sale_date, IFNULL(apple_total, 0) - IFNULL(orange_total, 0) AS diff FROM a JOIN o ON a.sale_date = o.sale_date ORDER BY a.sale_date
+WITH aa as ( SELECT sale_date, fruit, sold_num - LEAD(sold_num) OVER(PARTITION BY sale_date ORDER BY fruit) diff FROM Sales ) SELECT sale_date, diff FROM aa WHERE fruit = 'apples'
+WITH apple AS ( SELECT * FROM sales WHERE fruit = 'apples' ), orange AS ( SELECT * FROM sales WHERE fruit = 'oranges' ) SELECT a.sale_date, a.sold_num - o.sold_num 'diff' FROM apple AS a JOIN orange AS o USING (sale_date) ORDER BY a.sale_date
+WITH apple AS (SELECT * FROM Sales WHERE fruit='apples'), orange AS (SELECT * FROM Sales WHERE fruit='oranges') SELECT apple.sale_date, (apple.sold_num - orange.sold_num) AS diff FROM apple INNER JOIN orange ON apple.sale_date=orange.sale_date
+WITH apple AS( SELECT * FROM Sales WHERE fruit= 'apples' ), orange AS( SELECT * FROM Sales WHERE fruit='oranges' ) SELECT apple.sale_date, (apple.sold_num - orange.sold_num) AS diff FROM apple JOIN orange ON apple.sale_date = orange.sale_date
+WITH apple AS( SELECT * FROM Sales WHERE fruit='apples' ), orange AS( SELECT * FROM Sales WHERE fruit='oranges' ) SELECT apple.sale_date, (apple.sold_num - orange.sold_num) AS diff FROM apple JOIN orange ON apple.sale_date=orange.sale_date
+WITH apple_table AS ( SELECT sale_date, sold_num FROM sales WHERE fruit = 'apples' ORDER BY sale_date ), orange_table AS ( SELECT sale_date, sold_num FROM sales WHERE fruit = 'oranges' ORDER BY sale_date ) SELECT apple_table.sale_date, apple_table.sold_num - orange_table.sold_num AS diff FROM apple_table JOIN orange_table USING(sale_date) ORDER BY sale_date
+WITH apples AS ( SELECT sale_date, sold_num FROM Sales WHERE fruit = 'apples' ), oranges AS ( SELECT sale_date, sold_num FROM Sales WHERE fruit = 'oranges' ) SELECT apples.sale_date, apples.sold_num-oranges.sold_num AS diff FROM apples JOIN oranges ON apples.sale_date = oranges.sale_date
+WITH cte AS ( select *, FIRST_VALUE(sold_num) OVER(partition by sale_date order by fruit) as apples_count, LAST_VALUE(sold_num) OVER(partition by sale_date order by fruit) as oranges_count from Sales ) SELECT sale_date, apples_count - oranges_count as diff from cte WHERE fruit = 'oranges'
+WITH cte AS(SELECT sale_date, sold_num, lead(sold_num) OVER (PARTITION BY sale_date) AS org_num FROM Sales ORDER BY sale_date) SELECT sale_date, sold_num - org_num AS diff FROM cte WHERE org_num IS NOT NULL
+WITH dailyapple AS( SELECT sale_date as date, sum(sold_num) as num1 FROM Sales WHERE fruit = 'apples' GROUP BY sale_date ), dailyoranges AS( SELECT sale_date as date, sum(sold_num) as num2 FROM Sales WHERE fruit = 'oranges' GROUP BY sale_date ) SELECT dailyapple.date as SALE_DATE, Coalesce(dailyapple.num1,0) - Coalesce(dailyoranges.num2,0) as DIFF FROM dailyapple JOIN dailyoranges on dailyapple.date = dailyoranges.date
+WITH difference AS ( SELECT sale_date, CASE WHEN fruit= 'apples' THEN sold_num END AS apple_purchases, CASE WHEN fruit = 'oranges' THEN sold_num END AS oranges_purchases FROM Sales ) SELECT sale_date, (SUM(apple_purchases) - SUM(oranges_purchases)) AS diff FROM difference GROUP BY sale_date ORDER BY sale_date
+WITH differences AS ( SELECT sale_date, sold_num - LEAD(sold_num) OVER (PARTITION BY sale_date ORDER BY fruit) as diff FROM sales) SELECT sale_date, diff FROM differences WHERE diff IS NOT NULL ORDER BY sale_date
+WITH sales_breakout AS ( SELECT sale_date, SUM(CASE WHEN fruit = 'apples' THEN sold_num ELSE 0 END) apples, SUM(CASE WHEN fruit = 'oranges' THEN sold_num ELSE 0 END) oranges FROM Sales GROUP BY sale_date ) SELECT sale_date, apples-oranges AS diff FROM sales_breakout ORDER BY sale_date ASC
+WITH t as ( SELECT *, LEAD(sold_num,1) OVER (PARTITION BY sale_date) as oj_sold FROM Sales ) SELECT t.sale_date, t.sold_num-t.oj_sold as diff FROM t GROUP BY 1
+With apple as ( select sale_date, fruit, sold_num from sales where fruit = "apples" group by 1,2,3), orange as ( select sale_date, fruit, sold_num from sales where fruit = "oranges" group by 1,2,3) select a.sale_date, a.sold_num-b.sold_num AS diff from apple as a join orange as b on a.sale_date=b.sale_date order by a.sale_date
+With apple as(Select * FROM sales where fruit='apples'), orange as(Select * FROM sales where fruit='oranges') Select apple.sale_date, (apple.sold_num - orange.sold_num) diff From apple join orange on apple.sale_date=orange.sale_date
+select A.sale_date,A.sold_num-O.sold_num as diff from (select * from sales where fruit='apples') as A join (select * from sales where fruit='oranges') as O on A.sale_date = O.sale_date
+select DATE_FORMAT(s1.sale_date,'%Y-%m-%d') as SALE_DATE, (s1.sold_num - s2.sold_num) as DIFF FROM sales s1 LEFT JOIN sales s2 ON s1.fruit = 'apples' AND s2.fruit='oranges' AND s1.sale_date = s2.sale_date GROUP BY s1.sale_date
+select S.sale_date as 'SALE_DATE', sum(case when S.fruit = 'apples' then S.sold_num else -S.sold_num end) as 'DIFF' from Sales S group by S.sale_date order by S.sale_date
+select S.sale_date,sum(case when S.fruit='apples' then S.sold_num else 0 end)-sum(case when S.fruit='oranges' then S.sold_num else 0 end) as diff from Sales S group by S.sale_date
+select S1.sale_date , S1.sold_num - S2.sold_num as diff from sales S1 join Sales S2 on S1.sale_date = S2.Sale_date where S1.fruit = 'apples' and S2.fruit = 'oranges' group by 1 order by 1
+select SALE_DATE, sum(if(fruit = 'apples', sold_num, 0) - if(fruit='oranges', sold_num, 0)) as DIFF from sales group by sale_date
+select SALE_DATE,sum(case when fruit='apples' then sold_num else -sold_num end) as DIFF from Sales group by sale_date
+select a.sale_date as sale_date, a.sold_num - b.sold_num as diff from (select * from sales where fruit <> 'apples')b join (select * from sales where fruit = 'apples')a on a.sale_date = b.sale_date order by a.sale_date
+select a.sale_date, (a.sold_num - b.sold_num) as diff from sales a join sales b on a.sale_date = b.sale_date where a.fruit like 'apples' and b.fruit like 'oranges' group by a.sale_date
+select a.sale_date, (a.sold_num-b.sold_num) as diff from sales as a join sales as b on a.sale_date=b.sale_date where a.fruit="apples" and b.fruit="oranges"
+select a.sale_date, (a.sold_num-b.sold_num) as diff from sales as a join sales as b on a.sale_date=b.sale_date where a.fruit="apples" and b.fruit="oranges" order by a.sale_date
+select a.sale_date, (a.sold_num-b.sold_num) as diff from sales as a join sales as b using(sale_date) where a.fruit="apples" and b.fruit="oranges"
+select a.sale_date, (a.sold_num-o.sold_num) as diff from ((select sale_date, fruit, sold_num from Sales where fruit = 'apples') a inner join (select sale_date, fruit, sold_num from Sales where fruit = 'oranges') o on a.sale_date = o.sale_date) order by a.sale_date
+select a.sale_date, (ifnull(a.sold_num,0) - ifnull(o.sold_num,0)) as diff from (select sale_date, sold_num from Sales where fruit = 'apples') as a join (select sale_date, sold_num from Sales where fruit = 'oranges') as o on a.sale_date = o.sale_date group by a.sale_date order by a.sale_date
+select a.sale_date, a.daily_apple-coalesce(b.daily_orange,0) as diff from ( select sale_date, sum(sold_num) as daily_apple from Sales where fruit='apples' group by sale_date order by sale_date)a left join (select sale_date, sum(sold_num) as daily_orange from Sales where fruit='oranges' group by sale_date order by sale_date )b on a.sale_date=b.sale_date
+select a.sale_date, a.sold_num - b.sold_num as diff from Sales a left join Sales b on a.sale_date = b.sale_date where a.fruit = 'apples' and b.fruit = 'oranges'
+select a.sale_date, a.sold_num - b.sold_num diff from Sales a, Sales b where a.sale_date = b.sale_date and a.fruit = 'apples' and b.fruit = 'oranges' order by a.sale_date
+select a.sale_date, a.sold_num - o.sold_num diff from Sales a, Sales o where a.sale_date = o.sale_date and a.fruit = 'apples' and o.fruit = 'oranges'
+select a.sale_date, a.sold_num- ifnull(b.sold_num,0) 'diff' from sales a left join sales b on a.sale_date=b.sale_date and a.fruit <> b.fruit where a.fruit = 'apples' order by a.sale_date
+select a.sale_date, a.sold_num-b.sold_num as diff from Sales a inner join Sales b on a.sale_date = b.sale_date where a.fruit = 'apples' and b.fruit = 'oranges' order by a.sale_date
+select ap.sale_date, (ap.sold_num - org.sold_num) as DIFF from Sales ap, Sales org where ap.fruit = "apples" and org.fruit = "oranges" and org.sale_date = ap.sale_date order by ap.sale_date
+select c1.sale_date, c1.app_num - c2.ora_num as diff from (select sale_date, fruit as apple, sold_num as app_num from sales where fruit = 'apples') c1, (select sale_date, fruit as orange, sold_num as ora_num from sales where fruit = 'oranges') c2 where c1.sale_date = c2.sale_date
+select date_format(sale_date, '%Y-%m-%d') as sale_date, sum(if(fruit='apples', sold_num, 0)) - sum(if(fruit='oranges', sold_num, 0)) as diff from Sales group by 1 order by 1
+select distinct s1.sale_date as SALE_DATE, (case when s1.fruit = 'apples' and s2.fruit = 'oranges' then (s1.sold_num - s2.sold_num) else (s2.sold_num - s1.sold_num) end) as DIFF from sales s1 join sales s2 on s1.sale_date = s2.sale_date where s1.fruit != s2.fruit
+select distinct s1.sale_date, (s1.sold_num - s2.sold_num)as diff from sales s1 ,sales s2 where s1.sale_date = s2.sale_date and s1.fruit = "apples" and s2.fruit = "oranges"
+select n.sale_date, sum(fruit_num) as diff from (select sale_date, fruit, case when fruit = 'apples' then sold_num else -(sold_num) end as fruit_num from Sales) n group by 1 order by 1
+select p1.sale_date, p1.sold_num-p2.sold_num as diff from sales as p1 join sales as p2 using (sale_date) where p1.fruit='apples' and p2.fruit ='oranges'
+select r.sale_date, (max(apples) - max(oranges)) as diff from ( select sale_date, case when fruit = "apples" then sold_num else NULL end as apples, case when fruit = "oranges" then sold_num else NULL end as oranges from Sales ) r group by sale_date order by sale_date
+select s.sale_date, (sum(s.apples_sold) - sum(s.oranges_sold)) as diff from (select sale_date , (case when fruit = "apples" then sold_num else 0 end) apples_sold , (case when fruit = "oranges" then sold_num else 0 end) oranges_sold from sales) s group by s.sale_date order by s.sale_date
+select s.sale_date, s.sold_num - t.sold_num as 'diff' from Sales s left join Sales t on s.sale_date = t.sale_date where s.fruit = 'apples' and t.fruit = 'oranges'
+select s1.sale_date , (s1.sold_num - s2.sold_num) as diff from sales s1 left join sales s2 on s1.sale_date = s2.sale_date where 1=1 and s1.fruit = 'apples' and s2.fruit = 'oranges'
+select s1.sale_date sale_date, s1.sold_num - s2.sold_num diff from sales s1 join sales s2 on s1.sale_date = s2.sale_date where s1.fruit='apples' and s2.fruit='oranges'
+select s1.sale_date, (s1.sold_num - s2.sold_num) as DIFF from sales as s1 inner join sales as s2 on s1.sale_date = s2.sale_date where s1.fruit = 'apples' and s2.fruit = 'oranges' group by s1.sale_Date order by s1.sale_date
+select s1.sale_date, (s1.sold_num - s2.sold_num) as diff from sales s1 inner join sales s2 on s1.fruit = 'apples' and s2.fruit = 'oranges' and s1.sale_date = s2.sale_date order by s1.sale_date
+select s1.sale_date, (s1.sold_num - s2.sold_num) as diff from sales s1 join sales s2 on s1.sale_date = s2.sale_date and s1.fruit = 'apples' and s2.fruit = 'oranges'
+select s1.sale_date, (s1.sold_num-s2.sold_num) diff from Sales s1, Sales s2 where s1.Fruit='apples' and s2.Fruit='oranges' and s1.sale_date=s2.sale_date group by s1.sale_date order by s1.sale_date
+select s1.sale_date, (s1.sold_num-s2.sold_num) diff from sales s1 join sales s2 on s1.sale_date=s2.sale_date and s1.fruit != s2.fruit and s1.fruit='apples' order by s1.sale_date asc
+select s1.sale_date, s1.sold_num - s2.sold_num as diff from sales s1 left join sales s2 on s1.sale_date = s2.sale_date where s1.fruit = 'apples' and s2.fruit = 'oranges' group by 1 order by 1
+select s1.sale_date, s1.sold_num-s2.sold_num as diff from Sales s1 inner join Sales s2 on s1.sale_date=s2.sale_date where s1.fruit ="apples" and s2.fruit="oranges"
+select s1.sale_date, s1.sold_num-s2.sold_num as diff from sales as s1 left join sales as s2 on s1.sale_date=s2.sale_date and s1.fruit <> s2.fruit group by sale_date
+select s1.sale_date,(s2.sold_num-s1.sold_num) as diff from sales s1,sales s2 where s1.sale_date=s2.sale_date group by s1.sale_date
+select s1.sale_date,s1.sold_num - s2.sold_num as diff from (select * from sales where fruit ='apples') as s1 join (select * from sales where fruit ='oranges') as s2 on s1.sale_date = s2.sale_date
+select sale_date , (case when fruit = 'apples' then sold_num else 0 end) - sum(case when fruit = 'oranges' then sold_num else 0 end) as diff from sales group by sale_date order by sale_date
+select sale_date , apples_num- oranges_num as diff from ( select sale_date , Sum(Case when fruit = 'apples' then sold_num else 0 end) as apples_num , Sum(Case when fruit = 'oranges' then sold_num else 0 end) as oranges_num from sales group by 1 ) agg order by 1
+select sale_date , sum(case when fruit = 'apples' then sold_num else 0 end) - sum(case when fruit = 'oranges' then sold_num else 0 end) as diff from sales group by sale_date order by sale_date
+select sale_date , sum(case when fruit ='apples' then sold_num else -sold_num end) as diff from sales group by sale_date
+select sale_date , sum(if(fruit = 'apples', sold_num,0)) - sum(if(fruit='oranges',sold_num,0)) as diff from sales group by 1 order by 1
+select sale_date ,sum(case when fruit='apples' then sold_num else -sold_num end) as diff from sales group by sale_date order by sale_date
+select sale_date as SALE_DATE, sum(case when fruit = 'apples' then sold_num else 0 end) - sum(case when fruit = 'oranges' then sold_num else 0 end) as DIFF from Sales group by sale_date order by 1
+select sale_date, (max(case when fruit = 'apples' then sold_num else 0 end) - max(case when fruit = 'oranges' then sold_num else 0 end)) as diff from Sales group by sale_date order by sale_date
+select sale_date, (sum(apples)-sum(oranges)) as diff from (select sale_date, case when fruit = 'apples' then sold_num end as apples, case when fruit = 'oranges' then sold_num end as oranges from sales) as a group by sale_date order by sale_date
+select sale_date, (sum(case fruit when 'apples' then sold_num else null end)- sum(case fruit when 'oranges' then sold_num else null end)) as diff from Sales group by sale_date
+select sale_date, (sum(case when fruit = 'apples' then sold_num else 0 end) - sum(case when fruit = 'oranges' then sold_num else 0 end)) as diff from Sales group by sale_date order by 1
+select sale_date, (sum(case when fruit = 'apples' then sold_num end) - sum(case when fruit = 'oranges' then sold_num end)) as diff from sales group by sale_date order by sale_date
+select sale_date, SUM(case when fruit = 'apples' then sold_num else -sold_num end) as diff from Sales group by sale_date
+select sale_date, SUM(if(fruit='apples', sold_num, 1)) - SUM(if(fruit='oranges', sold_num, 1)) as diff from sales group by 1 order by 1
+select sale_date, aapl_sold - oran_sold as diff from(select a.sale_date, a.sold_num as aapl_sold, b.sold_num as oran_sold from Sales a join Sales b on a.sale_date = b.sale_date and a.fruit = 'apples' and b.fruit <> 'apples')x order by 1
+select sale_date, app-org as diff from ( select sale_date, sum(case when fruit = 'apples' then sold_num else 0 end) as app, sum(case when fruit = 'oranges' then sold_num else 0 end) as org from sales group by sale_date order by 1) t
+select sale_date, apple_count - orange_count "diff" from (select sale_date, sum(case when fruit = 'apples' then sold_num end) "apple_count", sum(case when fruit = 'oranges' then sold_num end) "orange_count" from sales group by sale_date) sales_table
+select sale_date, apples - oranges diff from ( select sale_date , sum(case when fruit = 'apples' then sold_num else 0 end) apples , sum(case when fruit = 'oranges' then sold_num else 0 end ) oranges from Sales group by sale_date ) a
+select sale_date, diff from (select sale_date, (sold_num - lead(sold_num,1) over (partition by sale_date order by fruit)) as diff from sales) a where diff is not null
+select sale_date, sold_num - diff as diff FROM ( select sale_date, sold_num, lead(sold_num,1) over (partition by sale_date) as diff FROM sales ) asd where diff is not null
+select sale_date, sum( case when fruit = 'apples' then sold_num else -1*sold_num end ) as diff from Sales group by sale_date order by sale_date
+select sale_date, sum( case when fruit = 'apples' then sold_num else -sold_num end ) as diff from sales group by sale_date order by sale_date
+select sale_date, sum( case when fruit="apples" then sold_num else -sold_num end ) as diff from Sales group by sale_date order by sale_date
+select sale_date, sum(CASE fruit when 'apples' then sold_num else -sold_num end) as diff from Sales group by sale_date
+select sale_date, sum(apple_num) - sum(orange_num) as diff from (select sale_date, case when fruit = 'apples' then sold_num else 0 end as apple_num, case when fruit = 'oranges' then sold_num else 0 end as orange_num from sales) a group by 1 order by 1
+select sale_date, sum(case fruit when 'apples' then sold_num else 0 end - case fruit when 'oranges' then sold_num else 0 end) as diff from Sales group by 1 order by 1
+select sale_date, sum(case when fruit = "apples" then sold_num else -sold_num end) as diff from sales group by 1
+select sale_date, sum(case when fruit = "apples" then sold_num end) - sum(case when fruit = "oranges" then sold_num end) as diff from Sales group by 1 order by 1 asc
+select sale_date, sum(case when fruit = "apples" then sold_num when fruit = "oranges" then -1 * sold_num else 0 end) as diff from Sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then 1*sold_num when fruit ='oranges' then -1*sold_num else null end) as diff from sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else (-sold_num) end) as diff from Sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else -1*sold_num end) diff from Sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) AS diff FROM Sales GROUP BY sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) as diff from Sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) as diff from sales group by 1
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) as diff from sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) as diff from sales group by sale_date order by sale_date asc
+select sale_date, sum(case when fruit = 'apples' then sold_num else -sold_num end) diff from Sales group by 1 order by 1
+select sale_date, sum(case when fruit = 'apples' then sold_num else 0 end) - sum(case when fruit = 'oranges' then sold_num else 0 end) as diff from sales group by 1 order by 1
+select sale_date, sum(case when fruit = 'apples' then sold_num else 0 end) - sum(case when fruit = 'oranges' then sold_num else 0 end) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else null end) - sum(case when fruit = 'oranges' then sold_num else null end) as diff from Sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else sold_num * -1 end) as diff from Sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num else sold_num*(-1) end) as diff from sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num end) - sum(case when fruit = 'oranges' then sold_num end) diff from sales group by sale_date
+select sale_date, sum(case when fruit = 'apples' then sold_num end) -sum(case when fruit = 'oranges' then sold_num end) diff from Sales group by 1 order by 1
+select sale_date, sum(case when fruit = 'apples' then sold_num end)- sum(case when fruit = 'oranges' then sold_num end) as diff from Sales group by 1 order by 1
+select sale_date, sum(case when fruit = 'oranges' then -1*sold_num else 1*sold_num end) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit = 'oranges' then -sold_num else sold_num end ) diff from sales group by 1
+select sale_date, sum(case when fruit = 'oranges' then sold_num * -1 else sold_num end) as 'diff' from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit ='apples' then sold_num else -sold_num end) as diff from sales group by 1
+select sale_date, sum(case when fruit ='apples' then sold_num else -sold_num end) diff from sales group by 1
+select sale_date, sum(case when fruit="apples" then sold_num else -sold_num end) as diff from sales group by sale_date
+select sale_date, sum(case when fruit="apples" then sold_num else 0 END) - sum(case when fruit="oranges" then sold_num else 0 END) as diff from sales group by 1
+select sale_date, sum(case when fruit='apples' then sold_num else -sold_num end) as diff from Sales group by sale_date
+select sale_date, sum(case when fruit='apples' then sold_num else -sold_num end) as diff from sales group by sale_date
+select sale_date, sum(case when fruit='apples' then sold_num else -sold_num end) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit='apples' then sold_num else 0 end) - sum(case when fruit='oranges' then sold_num else 0 end) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit='apples' then sold_num else 0 end)- sum(case when fruit = 'oranges' then sold_num else 0 end) as diff from Sales group by 1
+select sale_date, sum(case when fruit='apples' then sold_num else sold_num*(-1) end) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(case when fruit='apples' then sold_num end) - sum(case when fruit='oranges' then sold_num end) as diff from sales group by 1
+select sale_date, sum(case when fruit='apples' then sold_num when fruit='oranges' then -1*sold_num end) as diff from sales group by 1 order by 1
+select sale_date, sum(case when fruit='apples' then sold_num when fruit='oranges' then -sold_num end) as diff from sales group by 1 order by 1
+select sale_date, sum(diff) as diff from ( select sale_date, (case when fruit = 'apples' then sold_num else 0 end) - (case when fruit = 'oranges' then sold_num else 0 end) AS diff from sales ) s group by sale_date order by sale_date
+select sale_date, sum(diff) diff from ( select sale_date, case when fruit = 'apples' then sold_num else -sold_num end diff from sales) temp group by sale_date order by sale_date
+select sale_date, sum(if(fruit = "apples", sold_num, -sold_num)) as diff from sales group by sale_date
+select sale_date, sum(if(fruit = 'apples', sold_num, -1*sold_num)) as diff from Sales group by 1
+select sale_date, sum(if(fruit = 'apples', sold_num, -sold_num)) as diff from Sales group by sale_date
+select sale_date, sum(if(fruit = 'apples',sold_num, 0)) - sum(if(fruit = 'oranges',sold_num,0)) as 'diff' from Sales group by sale_date
+select sale_date, sum(if(fruit='apples', 1, -1)*sold_num) as diff from sales group by sale_date order by sale_date
+select sale_date, sum(if(fruit='apples',sold_num,0)) - sum(if(fruit='oranges',sold_num,0)) as diff from sales group by sale_date
+select sale_date, sum(if(fruit='apples',sold_num,0))-sum(if(fruit='oranges',sold_num,0)) as diff from Sales group by sale_date order by sale_date
+select sale_date,sum(case when fruit='apples' then sold_num else -sold_num end)diff from sales group by 1 order by 1
+select sale_date,sum(case when fruit='oranges' then (-1)*sold_num else sold_num end) as diff from Sales group by sale_date
+select t1.sale_date "SALE_DATE", (t1.sold_num - t2.sold_num) as "DIFF" from (select sale_date, sum(sold_num) as sold_num from Sales where fruit = 'apples' group by sale_date) as t1 join (select sale_date, sum(sold_num) as sold_num from Sales where fruit = 'oranges' group by sale_date) as t2 ON t2.sale_date = t1.sale_date order by 1
+select t1.sale_date, (t1.sold_num - t2.sold_num) as DIFF from (select * from Sales where fruit = 'apples') t1 inner join (select * from Sales where fruit = 'oranges') t2 on t1.sale_date = t2.sale_date order by t1.sale_date
+select t1.sale_date, (t1.sold_num-t2.sold_num) as diff from (select sale_date,sold_num from Sales where fruit='apples') t1 join (select sale_date,sold_num from Sales where fruit='oranges') t2 on t1.sale_date=t2.sale_date
+select t1.sale_date, (t1.sold_num-t2.sold_num) as diff from sales t1 inner join sales t2 on t1.sale_date=t2.sale_date where t1.fruit like 'apples' and t2.fruit like 'oranges' group by t1.sale_date
+select t1.sale_date, t1.sold_num-t2.sold_num as diff from sales t1, sales t2 where t1.sale_date = t2.sale_date and t1.fruit = "apples" and t2.fruit = "oranges"
+select table2.sale_date,table2.sale_apple-table2.sale_orange as diff from( select table1.sale_date,sum(sale_apple) as sale_apple,sum(sale_orange) as sale_orange from( select sale_date,fruit, CASE when fruit = "apples" then sold_num else 0 END as sale_apple, CASE when fruit = "oranges" then sold_num else 0 END as sale_orange from Sales )as table1 group by table1.sale_date ) as table2 order by table2.sale_date
+with A1 as ( select sale_date, sold_num from Sales where fruit='apples' ), O1 as ( select sale_date, sold_num from Sales where fruit='oranges' ) select A1.sale_date, A1.sold_num-O1.sold_num as diff from A1, O1 where A1.sale_date=O1.sale_date
+with CTE_a as ( select a.* from sales a where fruit = "apples"), CTE_o as ( select o.* from sales o where fruit = "oranges") Select a.sale_date AS SALE_DATE,(a.sold_num-o.sold_num) as DIFF from CTE_a a join CTE_o o on a.sale_date = o.sale_date
+with apple as ( select * from sales where fruit = 'apples' ) , orange as ( select * from sales where fruit = 'oranges' ) select aa.sale_date , aa.sold_num - oo.sold_num as diff from apple aa join orange oo on aa.sale_date = oo.sale_date
+with apple as ( select sale_date, fruit, sold_num from Sales where fruit = 'apples' ), oranges as ( select sale_date, fruit, sold_num from Sales where fruit = 'oranges' ), sales_dt as ( select distinct sale_date from Sales ) select s.sale_date, apple.sold_num - oranges.sold_num as diff from sales_dt s left join apple using (sale_date) left join oranges using (sale_date)
+with apple as ( select sale_date,sold_num from Sales where fruit ='apples' ), orange as ( select sale_date,sold_num from Sales where fruit ='oranges' ) select apple.sale_date,(apple.sold_num - orange.sold_num) as diff from apple join orange on apple.sale_date = orange.sale_date order by apple.sale_date ASC
+with apple as (select sale_date, fruit, sold_num from sales where fruit = 'apples'), orange as (select sale_date, fruit,sold_num from sales where fruit = 'oranges') select a.sale_date, a.sold_num - o.sold_num as diff from apple a left join orange o on a.sale_date = o.sale_date order by sale_date
+with apples as ( select * from sales where fruit = 'apples' ) , orange as ( select * from sales where fruit = 'oranges' ) , apple_orange as ( select a.sale_date, a.sold_num as apple_sold, coalesce(o.sold_num, 0) as orange_sold from apples a left join orange o on a.sale_date = o.sale_date union distinct select o.sale_date, coalesce(a.sold_num,0) as apple_sold, o.sold_num as orange_sold from apples a right join orange o on a.sale_date = o.sale_date ) select sale_date, apple_sold-orange_sold as diff from apple_orange order by 1
+with apples as (select sale_date,sold_num from Sales where fruit= 'apples'), oranges as (select sale_date,sold_num from Sales where fruit= 'oranges') select apples.sale_date, apples.sold_num - oranges.sold_num as diff from apples join oranges where apples.sale_date = oranges.sale_date
+with c1 as( select sale_date as sale_date, fruit, sold_num from Sales where fruit ='apples'), c2 as (select sale_date as sale_date, fruit, sold_num from Sales where fruit ='oranges') select c1.sale_date, (c1.sold_num-c2.sold_num) as diff from c1, c2 where c1.sale_date=c2.sale_date group by c1.sale_date order by 1
+with cte AS( SELECT sale_date, sold_num AS 'apple_num', LEAD(sold_num) OVER (PARTITION BY sale_date) AS 'orange_num' FROM Sales ) SELECT sale_date, (apple_num - orange_num) AS 'diff' FROM cte WHERE apple_num - orange_num IS NOT NULL ORDER BY sale_date
+with cte as ( select * from Sales where fruit = 'apples' ) ,cte1 as ( select * from Sales where fruit = 'oranges') select cte.Sale_date, cte.sold_num-cte1.sold_num as diff from cte inner join cte1 on cte.Sale_date=cte1.Sale_date
+with cte as ( select sale_date, case when fruit = 'apples' then sold_num else 0 end as apples_sold, case when fruit = 'oranges' then sold_num else 0 end as oranges_sold from Sales) select sale_date, sum(apples_sold) - sum(oranges_sold) as diff from cte group by 1 order by 1
+with cte as ( select sale_date, case when fruit = 'apples' then sold_num when fruit = 'oranges' then sold_num * -1 end as normed from Sales ) select sale_date as SALE_DATE, sum(normed) as DIFF from cte group by 1
+with cte as ( select sale_date, fruit as apple, sold_num as apple_num from Sales where fruit = "apples" ), cte2 as ( select sale_date, fruit as orange, sold_num as orange_num from Sales where fruit = "oranges" ) select distinct Sales.sale_date, apple_num - orange_num as diff from Sales left join cte on Sales.sale_date = cte.sale_date left join cte2 on Sales.sale_date = cte2.sale_date order by Sales.sale_date
+with cte as ( select sale_date, sold_num from sales where fruit='apples' ), cte1 as ( select sale_date, sold_num from sales where fruit='oranges' ) select cte.sale_date, (cte.sold_num-cte1.sold_num) as diff from cte inner join cte1 on cte.sale_date=cte1.sale_date
+with cte as ( select sale_date, sold_num from sales where fruit='apples' ), cte1 as ( select sale_date, sold_num from sales where fruit='oranges' ) select cte.sale_date, (cte.sold_num-cte1.sold_num) as diff from cte join cte1 using (sale_date)
+with cte as ( select sale_date, sum(case when fruit='apples' then sold_num else 0 end) as apple, sum(case when fruit='oranges' then sold_num else 0 end) as orange from sales group by 1 ) select c.sale_date,c.apple-c.orange as DIFF from cte c group by 1
+with cte as(select sale_date, sum(case when fruit='apples' then sold_num else 0 end) apples, sum(case when fruit='oranges' then sold_num else 0 end) oranges from Sales s group by sale_date) select sale_date, (apples-oranges) diff from cte order by sale_date
+with cte1 as( select sale_date, fruit as app, sold_num from Sales where fruit = 'apples'), cte2 as( select sale_date, fruit as org, sold_num from Sales where fruit = 'oranges') select cte1.sale_date, (cte1.sold_num - cte2.sold_num) as diff from cte1 join cte2 on cte2.sale_date = cte1.sale_date
+with orange_sold as ( select sale_date, sum(sold_num) as oranges_sold from Sales where fruit = 'oranges' group by sale_date ) select s.sale_date, sum(s.sold_num)-o.oranges_sold as diff from Sales as s join orange_sold as o using (sale_date) where s.fruit = 'apples' group by s.sale_date, o.oranges_sold
+with refined as ( select sale_date, sum(case when fruit = 'apples' then sold_num else 0 end) as apples, sum(case when fruit = 'oranges' then sold_num else 0 end) as oranges from Sales group by 1) select sale_date, apples - oranges as diff from refined order by sale_date
+with subq as ( select sale_date, (case when fruit = 'apples' then sold_num else 0 end) - (case when fruit = 'oranges' then sold_num else 0 end) AS diff from sales ) select sale_date, sum(diff) as diff from subq group by sale_date order by sale_date
+with t1 as (Select * from Sales where fruit = 'apples'), t2 as (Select * from Sales where fruit = 'oranges') Select t1.sale_date , (t1.sold_num-t2.sold_num) as diff from t1 join t2 on t1.sale_date = t2.sale_date group by t1.sale_date order by t1.sale_date
+with tem_a as ( select sale_date, sold_num as num_apples from sales where fruit = 'apples'), tem_o as ( select sale_date, sold_num as num_oranges from sales where fruit = 'oranges') select sale_date, diff from ( select a.sale_date, a.num_apples, b.num_oranges, (a.num_apples - b.num_oranges) as diff from tem_a a left join tem_o b on a.sale_date = b.sale_date )a
+with temp as( select sale_date, (case when fruit = 'apples' then sold_num end)as apples, (case when fruit = 'oranges' then sold_num end)as oranges from sales) select distinct sale_date, (sum(apples)-sum(oranges)) as diff from temp group by sale_date order by sale_date
+with x as (select sale_date, sold_num-lead(sold_num,1) over(partition by sale_date order by sale_date) as diff from Sales ) select * from x where diff is not null

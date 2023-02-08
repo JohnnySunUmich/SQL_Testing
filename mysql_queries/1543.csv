@@ -1,0 +1,198 @@
+SELECT *, count(product_name) as total FROM ( SELECT LTRIM(RTRIM(LOWER(product_name))) product_name, DATE_FORMAT(sale_date, "%Y-%m") sale_date FROM SALES ) a GROUP BY 1,2 Order by 1
+SELECT LOWER(TRIM(PRODUCT_NAME)) AS PRODUCT_NAME, DATE_FORMAT(sale_date, '%Y-%m') AS SALE_DATE, COUNT(SALE_ID) AS TOTAL FROM SALES GROUP BY 1,2 ORDER BY 1,2
+SELECT LOWER(TRIM(product_name)) AS 'product_name', SUBSTR(sale_date, 1, 7) AS 'sale_date', COUNT(*) AS 'total' FROM Sales GROUP BY SUBSTR(sale_date, 1, 7), LOWER(TRIM(product_name)) ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS PRODUCT_NAME ,DATE_FORMAT(sale_date, "%Y-%m") AS SALE_DATE ,COUNT(sale_id) AS TOTAL FROM Sales GROUP BY 1, 2 ORDER BY 1 ASC, 2 ASC
+SELECT LOWER(TRIM(product_name)) AS PRODUCT_NAME, DATE_FORMAT(sale_date, "%Y-%m") AS SALE_DATE, COUNT(sale_id) AS TOTAL FROM Sales GROUP BY 1,2 ORDER BY 1 ASC, 2 ASC
+SELECT LOWER(TRIM(product_name)) AS PRODUCT_NAME, LEFT(sale_date, 7) AS SALE_DATE, COUNT(product_name) AS TOTAL FROM Sales GROUP BY LOWER(TRIM(product_name)), LEFT(sale_date, 7) ORDER BY LOWER(TRIM(product_name)), LEFT(sale_date, 7)
+SELECT LOWER(TRIM(product_name)) AS PRODUCT_NAME, LEFT(sale_date,7) AS SALE_DATE, COUNT(*) AS TOTAL FROM Sales GROUP BY TRIM(product_name), LEFT(sale_date,7) ORDER BY TRIM(product_name) ASC, LEFT(sale_date,7) ASC
+SELECT LOWER(TRIM(product_name)) AS PRODUCT_NAME, LEFT(sale_date,7) AS SALE_DATE, COUNT(sale_id) AS TOTAL FROM Sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS PRODUCT_NAME, LEFT(sale_date,7) AS SALE_DATE, COUNT(sale_id) AS TOTAL FROM Sales GROUP BY LOWER(TRIM(product_name)), LEFT(sale_date,7) ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS product_name ,LEFT(sale_date, 7) AS sale_date ,COUNT(*) AS total FROM Sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, "%Y-%m") AS sale_date, COUNT(sale_id) AS total FROM sales GROUP BY 1, 2 ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, COUNT(*) AS total FROM Sales GROUP BY 1, 2 ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, COUNT(*) AS total FROM sales GROUP BY 1,2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, COUNT(DISTINCT sale_id) AS total FROM Sales GROUP BY 1,2 ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, COUNT(LOWER(TRIM(product_name))) AS total FROM Sales GROUP BY DATE_FORMAT(sale_date, '%Y-%m'), LOWER(TRIM(product_name)) ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, COUNT(sale_id) AS total FROM sales GROUP BY 1,2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date,'%Y-%m') AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY 1,2 ORDER BY 1,2
+SELECT LOWER(TRIM(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY LOWER(TRIM(product_name)), LEFT(sale_date, 7) ORDER BY LOWER(TRIM(product_name)) ASC, sale_date ASC
+SELECT LOWER(TRIM(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY LOWER(TRIM(product_name)), LEFT(sale_date, 7) ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(sale_id) TOTAL FROM SALES GROUP BY 1,2 ORDER BY 1,2
+SELECT LOWER(TRIM(product_name)) AS product_name, LEFT(sale_date,7) AS sale_date, COUNT(sale_id) AS TOTAL FROM SALES GROUP BY LOWER(TRIM(product_name)),LEFT(sale_date,7) ORDER BY product_name
+SELECT LOWER(TRIM(product_name)) AS product_name, LEFT(sale_date,7) AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY LEFT(sale_date,7), LOWER(TRIM(product_name)) ORDER BY product_name ASC, sale_date ASC
+SELECT LOWER(TRIM(product_name)) AS product_name, SUBSTR(sale_date, 1, 7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) AS product_name, SUBSTR(sale_date, 1, 7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY LOWER(TRIM(product_name)), SUBSTR(sale_date, 1, 7) ORDER BY product_name, sale_date
+SELECT LOWER(TRIM(product_name)) AS product_name, SUBSTRING(sale_date,1,7) AS sale_date, COUNT(sale_id) AS total FROM sales GROUP BY LOWER(TRIM(product_name)), SUBSTRING(sale_date,1,7) ORDER BY product_name ASC, sale_date ASC
+SELECT LOWER(TRIM(product_name)) as PRODUCT_NAME, DATE_FORMAT(sale_date, "%Y-%m") as SALE_DATE, COUNT(*) as TOTAL FROM Sales GROUP BY 1,2 ORDER BY PRODUCT_NAME ASC, SALE_DATE ASC
+SELECT LOWER(TRIM(product_name)) as product_name, DATE_FORMAT(sale_date, "%Y-%m") as sale_date, count(sale_id) as total FROM sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date, COUNT(sale_id) as total FROM Sales GROUP BY LOWER(TRIM(product_name)), DATE_FORMAT(sale_date, '%Y-%m') ORDER BY LOWER(TRIM(product_name)), DATE_FORMAT(sale_date, '%Y-%m')
+SELECT LOWER(TRIM(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date, count(product_name) AS total FROM Sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) as product_name, LEFT(sale_date, 7) as sale_date, count(sale_id) as total FROM sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) product_name, DATE_FORMAT(sale_date, "%Y-%m") sale_date, count(sale_id) total FROM sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) product_name, DATE_FORMAT(sale_date, '%Y-%m') sale_date, COUNT(sale_id) total FROM Sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) product_name, DATE_FORMAT(sale_date, '%Y-%m') sale_date, count(sale_id) total FROM sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT LOWER(TRIM(product_name)) product_name, left(sale_date, 7) sale_date, COUNT(sale_id) total FROM Sales GROUP BY 1,2 ORDER BY 1,2
+SELECT LOWER(TRIM(product_name)) product_name, left(sale_date,7) as sale_date, count(sale_id) total FROM sales GROUP BY 1, 2 ORDER BY 1, 2
+SELECT TRIM(LOWER(S.product_name)) as product_name, DATE_FORMAT(S.sale_date, '%Y-%m') as sale_date, COUNT(S.sale_id) as total FROM Sales S GROUP BY 1,2 ORDER by 1,2
+SELECT TRIM(LOWER(product_name)) AS PRODUCT_NAME , date_format(sale_date, '%Y-%m') AS SALE_DATE , COUNT(*) AS TOTAL FROM Sales GROUP BY 1,2 ORDER BY product_name ASC, sale_date ASC
+SELECT TRIM(LOWER(product_name)) AS PRODUCT_NAME, DATE_FORMAT(sale_date, '%Y-%m') AS SALE_DATE, COUNT(*) AS TOTAL FROM Sales GROUP BY 1,2 ORDER BY 1,2
+SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m' ) AS sale_date, COUNT(product_name) AS total FROM Sales GROUP BY 1, 2 ORDER BY 1 ASC, 2 ASC
+SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date,"%Y-%m") AS sale_date, COUNT(sale_id) AS TOTAL FROM Sales GROUP BY DATE_FORMAT(sale_date,"%Y-%m"), TRIM(LOWER(product_name)) ORDER BY product_name, sale_date
+SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date,'%Y-%m') AS sale_date, COUNT(*) AS total FROM Sales GROUP BY 1, 2 ORDER BY 1 ASC, 2 ASC
+SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date,'%Y-%m') AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY 1,2 ORDER BY 1,2
+SELECT TRIM(LOWER(product_name)) AS product_name, Date_Format(sale_date, '%Y-%m') AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), Date_Format(sale_date, '%Y-%m') ORDER BY product_name, sale_date
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_Date,7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), LEFT(sale_Date,7) ORDER BY TRIM(LOWER(product_name)), LEFT(sale_Date,7)
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_Date,7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), LEFT(sale_Date,7) ORDER BY product_name, sale_Date
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_DATE, COUNT(sale_id) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), LEFT(sale_date, 7) ORDER BY TRIM(LOWER(product_name)), LEFT(sale_date, 7)
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_DATE, COUNT(sale_id) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), LEFT(sale_date, 7) ORDER BY product_name, sale_date
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(*) AS total FROM Sales WHERE 1=1 GROUP BY TRIM(product_name), LEFT(sale_date, 7) ORDER BY product_name, sale_date
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(sale_id) AS TOTAL FROM Sales GROUP BY TRIM(LOWER(product_name)), LEFT(sale_date, 7) ORDER BY TRIM(LOWER(product_name)), LEFT(sale_date, 7)
+SELECT TRIM(LOWER(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), LEFT(sale_date, 7) ORDER BY product_name, sale_date
+SELECT TRIM(LOWER(product_name)) AS product_name, SUBSTRING( sale_date FROM 1 FOR 7) AS sale_date, COUNT(*) AS total FROM Sales GROUP BY TRIM(LOWER(product_name)), SUBSTRING( sale_date FROM 1 FOR 7) ORDER BY TRIM(LOWER(product_name)), SUBSTRING( sale_date FROM 1 FOR 7)
+SELECT TRIM(LOWER(product_name)) AS product_name,date_format(sale_date, '%Y-%m') as SALE_DATE, COUNT(*) AS total FROM Sales GROUP BY 1,2 ORDER BY 1,2
+SELECT TRIM(LOWER(product_name)) as "PRODUCT_NAME" ,date_format(sale_date,"%Y-%m") as SALE_DATE, COUNT(date_format(sale_date,"%Y-%m")) as total FROM Sales GROUP BY 1,2 ORDER BY 1,2
+SELECT TRIM(LOWER(product_name)) product_name, LEFT(sale_date,7) sale_date, COUNT(sale_id) total FROM Sales GROUP BY TRIM(LOWER(product_name)),LEFT(sale_date,7) ORDER BY product_name ASC, sale_date ASC
+SELECT lcase(trim(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date, count(sale_id) as total FROM Sales GROUP BY lcase(trim(product_name)),date_format(sale_date,'%Y-%m') ORDER BY product_name ,sale_date
+SELECT lower(TRIM(product_name)) as product_name, left(sale_date,7) as sale_date, count(*) as total FROM Sales group by 1,2 order by 1, 2
+SELECT lower(trim(product_name)) AS product_name, LEFT(sale_date, 7) AS sale_date, COUNT(sale_id) AS total FROM Sales GROUP BY lower(trim(product_name)), LEFT(sale_date, 7) ORDER BY product_name, sale_date
+SELECT lower(trim(s.product_name))AS product_name, LEFT(s.sale_date,7) AS sale_date, COUNT(s.sale_id) AS total FROM Sales s GROUP BY 1,2 ORDER BY 1,2
+SELECT product_name AS PRODUCT_NAME, sale_date AS SALE_DATE, COUNT(product_name) AS TOTAL FROM (SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date FROM sales) tmp GROUP BY sale_date , product_name ORDER BY product_name ASC , sale_date ASC
+SELECT product_name, sale_date, COUNT(*) AS total FROM ( SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date, "%Y-%m") AS sale_date FROM Sales) temp GROUP BY product_name, sale_date ORDER BY product_name ASC, sale_date ASC
+SELECT product_name, sale_date, COUNT(sale_id) AS total FROM ( SELECT LOWER(TRIM(product_name)) AS product_name, DATE_FORMAT(sale_date, "%Y-%m") AS sale_date, sale_id FROM sales ) sub GROUP BY 1,2 ORDER BY 1,2
+SELECT product_name, sale_date, COUNT(sale_id) AS total FROM( SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date,'%Y-%m') AS sale_date, sale_id FROM Sales ) A GROUP BY product_name, sale_date ORDER BY product_name , sale_date
+SELECT product_name, sale_date, COUNT(sale_id) AS total FROM( SELECT TRIM(LOWER(product_name)) AS product_name, DATE_FORMAT(sale_date,'%Y-%m') AS sale_date, sale_id FROM Sales) A GROUP BY product_name, sale_date ORDER BY product_name , sale_date
+SELECT replace(lower(product_name), ' ','') as product_name, left(sale_date, 7) as sale_date, count(distinct sale_id) as total FROM Sales GROUP BY 1, 2 ORDER BY product_name, sale_date
+SELECT trim(lower(product_name)) as product_name ,substring(sale_date, 1, 7) as sale_date ,count(sale_id) as total FROM Sales group by 1, 2 order by product_name, sale_date
+SELECT trim(lower(product_name)) as product_name, date_format(sale_date, '%Y-%m') as sale_date, count(sale_id) as total FROM Sales GROUP BY trim(lower(product_name)),date_format(sale_date, '%Y-%m') ORDER BY trim(lower(product_name)) ASC, date_format(sale_date, '%Y-%m') ASC
+Select (Lower(Ltrim(Rtrim(product_name))))as product_name , Left(sale_date,7) as sale_date,count(*) as total from Sales group by (Lower(Ltrim(Rtrim(product_name)))) , left(sale_date,7) order by product_name asc,sale_date asc
+Select PRODUCT_NAME, SALE_DATE, Count(SALE_DATE) as TOTAL from (Select TRIM(LOWER(product_name)) as PRODUCT_NAME, left(sale_date, 7) as SALE_DATE from Sales) as hhx group by product_name, SALE_DATE order by product_name
+Select lower(trim(product_name)) as product_name , substr(sale_date, 1,7) as sale_date, count(sale_id) as total From Sales group by lower(trim(product_name)), substr(sale_date, 6, 2) order by product_name asc, 2 asc
+Select lower(trim(product_name)) product_name, left(sale_date,7) sale_date, count(sale_id) total from sales group by 1,2 order by 1,2
+Select trim(lower(product_name)) as product_name , date_format(sale_date, '%Y-%m') as sale_date , count(*) as total from Sales group by 1,2 order by 1,2
+Select trim(lower(product_name)) product_name, date_format(sale_date, '%Y-%m') sale_date, count(sale_id) Total from Sales group by 1,2 order by product_name, sale_date
+WITH cte AS (SELECT LOWER(TRIM(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date FROM Sales) SELECT product_name, sale_date, count(*) as total FROM cte GROUP BY product_name, sale_date ORDER By product_name ASC, sale_date ASC
+WITH t AS ( SELECT LOWER(TRIM(product_name)) product_name, REGEXP_SUBSTR(sale_date, '[0-9][0-9][0-9][0-9]-[0-9][0-9]') sale_date FROM Sales ) SELECT product_name, sale_date, COUNT(product_name) total FROM t GROUP BY product_name, sale_date ORDER BY product_name, sale_date
+WITH tbl AS ( SELECT LOWER(TRIM(product_name)) AS product_name , DATE_FORMAT(sale_date,'%Y-%m') AS sale_date , sale_id FROM sales) SELECT product_name , sale_date , COUNT(DISTINCT sale_id) AS total FROM tbl GROUP BY 1,2
+select (product_name),sale_date,total from ( select trim(lower(product_name)) product_name, DATE_FORMAT(sale_date, "%Y-%m") sale_date, MONTH(sale_date) mn, count(product_name) total from sales group by 1,2 ) e order by 1,2
+select LOWER(REPLACE(product_name, ' ',''))AS PRODUCT_NAME, LEFT(SALE_DATE,7)AS SALE_DATE, count(sale_id) AS TOTAL FROM SALES GROUP BY 1,2 order by 1,2
+select LOWER(TRIM(BOTH ' ' from product_name)) as product_name, left(sale_date,7) as sale_date, count(sale_id) as total from Sales group by 1,2 order by 1,2
+select LOWER(TRIM(product_name)) as product_name, left(sale_date, 7) as sale_date, count(*) as Total from Sales group by LOWER(TRIM(product_name)),left(sale_date, 7) order by PRODUCT_NAME, SALE_DATE
+select TRIM(LOWER(product_name)) AS product_name, date_format(sale_date, '%Y-%m') as sale_date, count(sale_id) as total from Sales group by TRIM(LOWER(product_name)),date_format(sale_date, '%Y-%m') order by TRIM(LOWER(product_name)), date_format(sale_date, '%Y-%m')
+select TRIM(LOWER(product_name)) as PRODUCT_NAME, LEFT(sale_date,7) as SALE_DATE, count(sale_id) as TOTAL from Sales group by 1 , 2 order by 1, 2
+select TRIM(LOWER(product_name)) as Product_name, date_format(sale_date,"%Y-%m") as Sale_date, count(sale_id) as total from Sales S group by TRIM(LOWER(product_name)),date_format(sale_date,"%Y-%m") order by TRIM(LOWER(product_name)),date_format(sale_date,"%Y-%m")
+select TRIM(LOWER(product_name)) as product_name,left(sale_date,7) as sale_date,count(sale_id) as total from sales group by left(sale_date,7),TRIM(LOWER(product_name)) order by TRIM(LOWER(product_name)),left(sale_date,7)
+select TRIM(lower(product_name)) as product_name, DATE_FORMAT(sale_date,'%Y-%m') as sale_date, COUNT(product_name) AS total from sales group by 1,2 order by 1 asc,2 asc
+select TRIM(lower(product_name)) as product_name, left(sale_date,7) as sale_date, count(product_name) as total from Sales group by 1,2 order by 1
+select a.product_name, a.sale_date, count(distinct a.sale_id) as total from ( select lower(trim(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date, sale_id from Sales ) a group by a.product_name,a.sale_date order by a.product_name,a.sale_date
+select a.product_name,a.sale_date,count(a.product_name) as total from( select lower(trim(product_name)) as product_name,date_format(sale_date,'%Y-%m') as sale_date from sales) a group by a.sale_date,a.product_name order by a.product_name,a.sale_date
+select distinct trim(lower(s.product_name)) as PRODUCT_NAME, DATE_FORMAT(sale_date, '%Y-%m' ) AS sale_date, count(s.sale_date) as TOTAL from Sales s group by 1,2 order by 1,2
+select lower(TRIM(BOTH ' ' FROM product_name)) as product_name, left(sale_date,7) as sale_date, count(sale_id) as total from Sales group by 1,2 order by 1 ,2
+select lower(TRIM(product_name)) as PRODUCT_NAME, SUBSTRING(sale_date , 1 , 7) as SALE_DATE , count(sale_id) as TOTAL from sales group by 1,2 order by 1,2
+select lower(TRIM(product_name)) as product_name , date_format(sale_date, "%Y-%m") as sale_date , count(sale_date) as total from sales group by 1,2 order by 1,2
+select lower(replace(product_name," ","")) as "PRODUCT_NAME", left(sale_date,7) as "SALE_DATE", count(*) as "TOTAL" from sales group by 1,2 order by 1,2
+select lower(trim((product_name))) product_name, DATE_FORMAT(sale_date, '%Y-%m') sale_date, count(sale_id) total from Sales group by lower(trim((product_name))),DATE_FORMAT(sale_date, '%Y-%m') order by lower(trim((product_name))) asc, DATE_FORMAT(sale_date, '%Y-%m') asc
+select lower(trim(both ' ' from product_name)) as product_name, left(sale_date, 7) as sale_date, count(*) as total from sales group by 1,2 order by 1,2
+select lower(trim(both from product_name)) as product_name, left(sale_date, 7) as sale_date, count(sale_id) as total from sales group by lower(trim(both from product_name)), left(sale_date, 7) order by lower(trim(both from product_name)), left(sale_date, 7)
+select lower(trim(product_name)) 'product_name', date_format(sale_date, '%Y-%m') 'sale_date', count(sale_id) 'total' from sales group by 1, 2 order by 1 asc, 2 asc
+select lower(trim(product_name)) as 'product_name', substring(sale_date,1,7) as 'sale_date', count(*) as 'total' from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as PRODUCT_NAME, date_format(sale_date, "%Y-%m") as SALE_DATE , count(sale_id) as TOTAL from Sales group by 1, 2 order by 1,2
+select lower(trim(product_name)) as PRODUCT_NAME, date_format(sale_date, "%Y-%m") as SALE_DATE, count(*) as TOTAL from Sales where date_format(sale_date, "%Y") = "2000" group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as PRODUCT_NAME, date_format(sale_date,'%Y-%m') as SALE_DATE, count(*) as TOTAL from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as PRODUCT_NAME, left(sale_date, 7) as SALE_DATE, count(lower(trim(product_name))) as TOTAL from Sales group by LEFT(sale_date, 7), lower(trim(product_name)) order by lower(trim(product_name)) asc, left(sale_date, 7) asc
+select lower(trim(product_name)) as PRODUCT_NAME, left(sale_date,7) as SALE_DATE, count(sale_id) TOTAL from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as PRODUCT_NAME, substring(sale_date, 1 , 7) as SALE_DATE, count(*) as TOTAL from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as PRODUCT_NAME,concat(EXTRACT(YEAR FROM sale_date),'-',LPAD(EXTRACT(MONTH FROM sale_date),2,'0')) as SALE_DATE, COUNT(lower(trim(product_name))) as TOTAL from Sales group by lower(trim(product_name)),concat(EXTRACT(YEAR FROM sale_date),'-',EXTRACT(MONTH FROM sale_date)) order by PRODUCT_NAME,SALE_DATE
+select lower(trim(product_name)) as product_name , date_format(sale_date,'%Y-%m') as sale_date, count(product_name)as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name ,date_format(sale_date,'%Y-%m') as sale_date ,count(sale_id) as total from Sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, DATE_FORMAT(sale_date, "%Y-%m") as sale_date, count(sale_id) as total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as product_name, DATE_FORMAT(sale_date, "%Y-%m") as sale_date, ifnull(count(*),0) as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date, count(sale_id) as total from Sales group by 1, 2 order by 1,2
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(*) as total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(*) as total from Sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(distinct sale_id) as total from sales group by trim(product_name), date_format(sale_date, "%Y-%m") order by lower(trim(product_name)), date_format(sale_date, "%Y-%m")
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(product_name) as total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(sale_id) as total from sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(sale_id) as total from sales group by 1,2 order by product_name asc, sale_date asc
+select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") sale_date, count(lower(trim(product_name))) as total from Sales group by lower(trim(product_name)), date_format(sale_date, "%Y-%m") order by lower(trim(product_name)) asc, date_format(sale_date, "%Y-%m")
+select lower(trim(product_name)) as product_name, date_format(sale_date, '%Y-%m') as sale_date, count(*) as total from Sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date, count(*) as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date, count(sale_id) as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, left(sale_date, 7) as sale_date, count(*) as total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) as product_name, left(sale_date, 7) as sale_date, count(*) as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, left(sale_date,7) as 'sale_date', count(sale_id) as total from Sales group by lower(trim(product_name)),left(sale_date,7) order by product_name, sale_Date
+select lower(trim(product_name)) as product_name, left(sale_date,7) as sale_date, count(*) as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, left(sale_date,7) as sale_date, count(distinct sale_id) as total from sales group by lower(trim(product_name)), left(sale_date,7) order by lower(trim(product_name)), left(sale_date,7)
+select lower(trim(product_name)) as product_name, left(sale_date,7) as sale_date, count(sale_id) as total from Sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, left(sale_date,7) as sale_date, count(sale_id) as total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) as product_name, substr(sale_date,1,7) as sale_date, count(product_name) as total from Sales group by lower(trim(product_name)),substr(sale_date,1,7) order by 1,2
+select lower(trim(product_name)) as product_name,substring(sale_date,1,7) as sale_date,count(*) as total from Sales group by 1,2 order by 1,2
+select lower(trim(product_name)) product_name ,DATE_FORMAT(sale_date, "%Y-%m") sale_date ,count(sale_id) total from sales group by 1,2 order by 1,2
+select lower(trim(product_name)) product_name ,date_format(sale_date,"%Y-%m") sale_date , count(*) total from sales group by 1,2 order by 1 ,2
+select lower(trim(product_name)) product_name, date_format(sale_date, "%Y-%m") sale_date, count(sale_id) total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) product_name, date_format(sale_date, '%Y-%m') sale_date, count(product_name) total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) product_name, date_format(sale_date, '%Y-%m') sale_date, count(sale_date) total from Sales group by 1,2 order by 1,2
+select lower(trim(product_name)) product_name, date_format(sale_date,"%Y-%m") as sale_date, count(sale_id) total from Sales group by lower(trim(product_name)),date_format(sale_date,"%Y-%m") order by 1 asc,sale_date asc
+select lower(trim(product_name)) product_name, left(sale_date, 7) sale_date, count(sale_id) as total from Sales group by 1, 2 order by 1, 2
+select lower(trim(product_name)) product_name, left(sale_date,7) as sale_date, count(*) total from sales group by 1, 2 order by 1, 2
+select lower(trim(product_name))as product_name, left(sale_date,7) as sale_date, count(*) as total from sales group by 1,2 order by 1,2 asc
+select lower(trim(s.product_name)) product_name, left(sale_date, 7) sale_date, count(*) total from Sales s group by lower(trim(s.product_name)), left(sale_date, 7) order by product_name asc, sale_date asc
+select lower(trim(s.product_name))as product_name,left(s.sale_date,7)as sale_date,count(*)as total from Sales as s group by lower(trim(s.product_name)),left(s.sale_date,7) order by product_name asc,sale_date asc
+select new_table.*, count(new_table.product_name) as total from (select trim(lower(product_name)) as product_name,left(sale_date,7) as sale_date from sales) as new_table group by new_table.product_name,new_table.sale_date order by new_table.product_name asc, new_table.sale_date asc
+select product_name, sale_date, count(*) as total from (select lower(trim(product_name)) as product_name, date_format(sale_date, '%Y-%m' ) as sale_date from sales)T group by product_name, sale_date order by product_name, sale_date
+select product_name, sale_date, count(distinct sale_id ) as total from (select lower(trim(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, sale_id from Sales) a group by 1, 2
+select product_name, sale_date, count(product_name) total from ( select lower(trim(product_name)) product_name, date_format(sale_date, "%Y-%m") sale_date from sales )tmp group by sale_date, product_name order by product_name asc, sale_date asc
+select product_name,sale_date,count(*) as total from (select trim(lcase(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date from sales) x group by product_name,sale_date order by product_name,sale_date
+select replace(lower(product_name),' ','') as 'PRODUCT_NAME', left(sale_date, 7) as 'SALE_DATE', count(sale_date) as 'TOTAL' from Sales group by replace(lower(product_name),' ',''), left(sale_date, 7) order by replace(lower(product_name),' ',''), SALE_DATE asc
+select rtrim(ltrim(lower(product_name))) as product_name, substr(sale_date,1,7) as sale_date, count(sale_id) as total from sales group by 1,2 order by product_name, sale_date
+select trim((lcase(product_name))) as product_name, date_format(sale_date,"%Y-%m") as sale_date, count(*) as total from sales group by 1,2 order by 1,2
+select trim(LOWER(product_name)) as product_name, DATE_FORMAT(sale_date,'%Y-%m') as sale_date ,count(product_name) as total from Sales group by trim(lower(product_name)),DATE_FORMAT(sale_date,'%m') order by trim(lower(product_name)) , DATE_FORMAT(sale_date,'%m')
+select trim(both from lower(product_name)) as product_name, date_format(sale_date, '%Y-%m') as sale_date, count(product_name) as total from Sales group by trim(both from lower(product_name)), date_format(sale_date, '%Y-%m') order by trim(both from lower(product_name)) asc, date_format(sale_date, '%Y-%m') asc
+select trim(lower((product_name))) as product_name, left(sale_date,7) as sale_date, count(product_name) as total from sales group by trim(lower((product_name))), left(sale_date,7) order by trim(lower((product_name))), left(sale_date,7)
+select trim(lower(product_name)) PRODUCT_NAME, DATE_FORMAT(sale_date, '%Y-%m') as SALE_DATE, count(*) as TOTAL from Sales group by 1,2 order by 1, 2
+select trim(lower(product_name)) as 'PRODUCT_NAME', substring_index(sale_date,'-',2) as 'SALE_DATE', count(*) as TOTAL from Sales group by trim(lower(product_name)), extract(YEAR_MONTH from sale_date) order by trim(lower(product_name)), extract(YEAR_MONTH from sale_date)
+select trim(lower(product_name)) as 'product_name', date_format(sale_date, '%Y-%m') as 'sale_date', count(sale_date) as 'total' from Sales group by 1,2 order by 1 asc, 2 asc
+select trim(lower(product_name)) as PRODUCT_NAME, date_format(sale_date, "%Y-%m") as SALE_DATE, count(sale_id) as TOTAL from Sales group by 1, 2 order by 1, 2
+select trim(lower(product_name)) as PRODUCT_NAME, date_format(sale_date, "%Y-%m") as SALE_DATE, count(sale_id) as TOTAL from Sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as PRODUCT_NAME, date_format(sale_date,'%Y-%m') as SALE_DATE, count(sale_id) as TOTAL from Sales group by 1,2 order by product_name asc, sale_date asc
+select trim(lower(product_name)) as PRODUCT_NAME,trim(left(sale_date,7)) as SALE_DATE,count(sale_id) as TOTAL from sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name , date_format(sale_date, '%Y-%m') as sale_date , count(distinct sale_id) as total from Sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name ,left(sale_date,7) as sale_date ,count(sale_id) as total from Sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date, count(lower(product_name)) as total from sales group by trim(lower(product_name)),DATE_FORMAT(sale_date, '%Y-%m') order by trim(lower(product_name)),DATE_FORMAT(sale_date, '%Y-%m')
+select trim(lower(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date, count(sale_id) as total FROM sales GROUP BY 1,2 ORDER BY 1 asc, 2 asc
+select trim(lower(product_name)) as product_name, DATE_FORMAT(sale_date, '%Y-%m') as sale_date, count(sale_id) as total from Sales group by trim(lower(product_name)), DATE_FORMAT(sale_date, '%Y-%m') order by trim(lower(product_name)), DATE_FORMAT(sale_date, '%Y-%m')
+select trim(lower(product_name)) as product_name, DATE_FORMAT(sale_date,'%Y-%m') as sale_date, count(*) as total from Sales group by trim(lower(product_name)), DATE_FORMAT(sale_date,'%Y-%m') order by trim(lower(product_name)), sale_date
+select trim(lower(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_Date, count(product_name) as total from sales group by 1,2 order by 1, 2
+select trim(lower(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(*) as total from Sales group by trim(lower(product_name)), date_format(sale_date, "%Y-%m") Order by trim(lower(product_name)), sale_date
+select trim(lower(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(product_name) as total from Sales group by 1, 2 order by 1, 2
+select trim(lower(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(product_name) as total from sales group by trim(lower(product_name)), date_format(sale_date, "%Y-%m") order by trim(lower(product_name)), date_format(sale_date, "%Y-%m")
+select trim(lower(product_name)) as product_name, date_format(sale_date, "%Y-%m") as sale_date, count(trim(lower(product_name))) as total from sales group by trim(lower(product_name)), date_format(sale_date, "%Y-%m") order by 1,2
+select trim(lower(product_name)) as product_name, date_format(sale_date, '%Y-%m') as sale_date, count(sale_id) as total from sales group by trim(lower(product_name)), date_format(sale_date, '%Y-%m') order by product_name asc, sale_date asc
+select trim(lower(product_name)) as product_name, date_format(sale_date,"%Y-%m") as sale_date, count(1) as total from sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name, date_format(sale_date,"%Y-%m") as sale_date,count(sale_id) as total from sales group by trim(lower(product_name)), date_format(sale_date,"%Y-%m") order by product_name, sale_date
+select trim(lower(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date, count(product_name) as total from sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name, date_format(sale_date,'%Y-%m') as sale_date, count(sale_id) as total from sales group by date_format(sale_date,'%Y-%m'), trim(lower(product_name)) order by product_name, date_format(sale_date,'%Y-%m')
+select trim(lower(product_name)) as product_name, left(sale_date, 7) as sale_date, count(product_name) as total from sales group by 1, 2 order by 1,2
+select trim(lower(product_name)) as product_name, left(sale_date, 7) as sale_date, count(sale_id) as total from sales group by trim(lower(product_name)), left(sale_date, 7) order by product_name, sale_date
+select trim(lower(product_name)) as product_name, left(sale_date, 7) as sale_date, count(sale_id) as total from sales group by trim(lower(product_name)), left(sale_date, 7) order by product_name, sale_date asc
+select trim(lower(product_name)) as product_name, left(sale_date,7) as sale_date, count(*) as total from sales group by 1, 2 order by 1, 2
+select trim(lower(product_name)) as product_name, left(sale_date,7) as sale_date, count(*) as total from sales group by trim(lower(product_name)), left(sale_date,7) order by trim(lower(product_name)), left(sale_date,7) asc
+select trim(lower(product_name)) as product_name, left(sale_date,7) as sale_date, count(product_name) as total from sales group by trim(lower(product_name)), left(sale_date,7) order by product_name, sale_date
+select trim(lower(product_name)) as product_name, left(sale_date,7) as sale_date, count(product_name) total from sales group by trim(lower(product_name)), left(sale_date,7) order by 1,2
+select trim(lower(product_name)) as product_name, left(sale_date,7) as sale_date, count(sale_id) as total from Sales group by 1, 2 order by 1, 2
+select trim(lower(product_name)) as product_name, substr(sale_date, 1, 7) as sale_date, count(*) as total from Sales group by 1,2 order by product_name ASC, sale_date ASC
+select trim(lower(product_name)) as product_name, substring(sale_date, 1, 7) as sale_date, count(*) as total from Sales group by 1, 2 order by 1, 2
+select trim(lower(product_name)) as product_name, substring(sale_date, 1, 7) as sale_date, count(*) as total from Sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name, substring(sale_date, 1, 7) as sale_date, count(sale_id) as total from Sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name, substring(sale_date,1,7) as sale_date, count(*) as total from Sales group by 1,2 order by 1,2
+select trim(lower(product_name)) as product_name,date_format(sale_date, '%Y-%m') as Sale_date, count(sale_id) as total from sales group by 1,2 order by 1,2
+select trim(lower(product_name)) product_name, DATE_FORMAT(sale_date, "%Y-%m") sale_date, count(product_name) total from sales group by 1,2 order by 1,2
+select trim(lower(product_name)) product_name, date_format(sale_date,'%Y-%m') sale_date, count(product_name) total from Sales group by 1,2 order by product_name, sale_date
+select trim(lower(product_name)) product_name, date_format(sale_date,'%Y-%m') sale_date,count(*) total from sales group by trim(lower(product_name)) ,date_format(sale_date,'%Y-%m') order by trim(lower(product_name)) ,date_format(sale_date,'%Y-%m')
+select trim(lower(product_name))as PRODUCT_NAME, date_format(sale_date, '%Y-%m')as SALE_DATE, count(sale_id)as TOTAL from Sales group by 2,1 order by 1, sale_date
+select trim(lower(product_name))product_name ,date_format(sale_date,'%Y-%m')AS sale_date , count(*)total from sales group by trim(lower(product_name)),date_format(sale_date,'%Y-%m') order by product_name ,sale_date
+select trim(lower(s.product_name)) as product_name , substring(s.sale_date,1,7) as sale_date , count(*) as total from Sales s group by 1,2 order by 1 asc , 2 asc
+with cleaned_sales as ( select sale_id, lower(trim(product_name)) as product_name, date_format(sale_date, '%Y-%m') sale_date from sales ) select PRODUCT_NAME, SALE_DATE, count(distinct sale_id) as TOTAL from cleaned_sales c group by 1,2 order by 1,2
+with cte as ( Select lower(ltrim(rtrim(product_name))) as product_name, left(sale_date,7) as sale_Date from sales ) Select distinct product_name, sale_Date, count(product_name) over(partition by sale_Date,product_name) as total from cte order by product_name,sale_Date
+with cte_fix as ( select lower(trim(product_name)) as PRODUCT_NAME, date_format(sale_date, '%Y-%m') as SALE_DATE, count(*) as TOTAL from Sales group by 1, 2 order by 1, 2 ) select * from cte_fix
+with sales_fixed as ( select sale_id, trim(lower(product_name)) as product_name, cast(year(sale_date) * 100 + month(sale_date) as char) as ym from sales ), sales_date as ( select *, concat(left(ym, 4), '-', right(ym, 2)) as sale_date from sales_fixed ) select product_name, sale_date, count(*) as total from sales_date group by product_name, sale_date order by product_name, sale_date

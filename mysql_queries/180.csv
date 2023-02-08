@@ -1,0 +1,401 @@
+SELECT DISTINCT A.Num as ConsecutiveNums FROM Logs A LEFT JOIN Logs B on A.id = B.id-1 LEFT JOIN Logs C on A.id = C.id-2 WHERE A.Num = B.num And A.num = C.num
+SELECT DISTINCT ConsecutiveNums FROM ( SELECT num AS ConsecutiveNums, MAX(num) OVER (ORDER BY id ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) AS check1, MIN(num) OVER (ORDER BY id ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) AS check2, MAX(id) OVER (ORDER BY id ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) AS check3, MIN(id) OVER (ORDER BY id ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) AS check4 FROM logs ) t WHERE check1 = check2 AND check3 - 2 = check4
+SELECT DISTINCT L1.Num AS ConsecutiveNums FROM Logs AS L1, Logs AS L2, Logs AS L3 WHERE L1.Id = L2.Id - 1 AND L2.Id = L3.Id - 1 AND L1.Num = L2.Num AND L2.Num = L3.Num
+SELECT DISTINCT L1.Num AS ConsecutiveNums FROM Logs L1, Logs L2, Logs L3 WHERE L1.Id = L2.Id - 1 AND L2.Id = L3.Id - 1 AND L1.Num = L2. Num AND L2.Num = L3.Num
+SELECT DISTINCT L1.Num AS ConsecutiveNums From Logs L1, Logs L2, Logs L3 WHERE L1.ID = L2.Id - 1 AND L2.Id = L3.Id - 1 AND L1.Num = L2.Num AND L2.Num = L3.Num
+SELECT DISTINCT L1.Num ConsecutiveNums FROM Logs L1 LEFT JOIN Logs L2 ON L2.Id = L1.Id + 1 LEFT JOIN Logs L3 ON L3.Id = L1.Id + 2 WHERE L1.Num = L2.Num and L1.Num = L3.Num
+SELECT DISTINCT L1.Num as 'ConsecutiveNums' FROM Logs as L1, Logs AS L2, Logs AS L3 WHERE (L1.Id + 1 = L2.Id) AND L2.Id + 1 = L3.Id AND L1.Num = L2.Num AND L2.Num = L3.Num
+SELECT DISTINCT L1.num AS 'ConsecutiveNums' FROM Logs L1, Logs L2, Logs L3 WHERE L1.id = L2.id-1 AND L2.id = L3.id -1 AND L1.num = L2.num AND L2.num = L3.num
+SELECT DISTINCT L1.num As "ConsecutiveNums" FROM Logs L1, Logs L2, Logs L3 WHERE L1.id = L2.id-1 AND L1.id = L3.id-2 AND L1.num = L3.num AND L1.num = L2.num
+SELECT DISTINCT L1.num as ConsecutiveNums FROM Logs L1, Logs L2, Logs L3 WHERE L1.id = L2.id-1 AND L2.id = L3.id-1 and L1.num = L2.num and L2.num = L3.num
+SELECT DISTINCT M.Num AS 'ConsecutiveNums' FROM ( SELECT l.Num, LEAD(l.Num,1) OVER() as N, LEAD(l.Num,2) OVER() as P FROM Logs l ) M WHERE M.Num = M.N AND M.N = M.P
+SELECT DISTINCT N1 AS ConsecutiveNums FROM (SELECT L1.Id, L1.Num AS N1, L2.Num AS N2, L3.Num AS N3 FROM Logs L1 JOIN Logs L2 ON L1.Id + 1 = L2.Id JOIN Logs L3 ON L1.Id + 2 = L3.Id) temp WHERE N1 = N2 AND N2 = N3
+SELECT DISTINCT N1.NUM as ConsecutiveNums FROM LOGS AS N1 INNER JOIN LOGS AS N2 ON (N1.ID+1) = N2.ID INNER JOIN LOGS AS N3 ON (N2.ID+1) = N3.ID WHERE N1.NUM = N2.NUM AND N2.NUM = N3.NUM
+SELECT DISTINCT Num AS 'ConsecutiveNums' FROM ( SELECT *, LEAD(Num,1) OVER() AS lag1, LEAD(Num,2) OVER() AS lag2 FROM Logs ) AS three_log WHERE (Num = lag1) AND (lag1 = lag2)
+SELECT DISTINCT Num AS ConsecutiveNums FROM ( SELECT ID, Num, LAG(Num, 1) OVER (ORDER BY Id) AS previousNum, LEAD(Num, 1) OVER (ORDER BY Id ) AS nextNum FROM Logs ) temp WHERE previousNum = nextNum AND num = nextNum
+SELECT DISTINCT Num AS ConsecutiveNums FROM ( SELECT L1.Num, SUM(CASE WHEN L2.Num IS NULL THEN 1 ELSE 0 END) OVER(ORDER BY L1.Id) AS RN FROM Logs L1 LEFT JOIN Logs L2 ON L1.Num = L2.Num AND L1.Id = L2.Id + 1 ) T GROUP BY Num,RN HAVING COUNT(*) >= 3
+SELECT DISTINCT Num AS ConsecutiveNums FROM (SELECT Num, @count := IF(@prev = Num, @count + 1, 1) AS Counting, @prev := Num FROM Logs L, (SELECT @count := 1, @prev := NULL) AS INITIAL) Seq WHERE Counting >=3
+SELECT DISTINCT Num AS ConsecutiveNums FROM (SELECT Num, @counter := IF(@prev = Num, @counter + 1, 1) AS row_counter, @prev := Num FROM Logs AS l1, (SELECT @counter:=1, @prev:=NULL) AS vars ) AS l2 WHERE row_counter >= 3
+SELECT DISTINCT Num AS ConsecutiveNums FROM (SELECT Num, IF(Num = LEAD(Num) OVER(ORDER BY id) AND Num = LEAD(Num,2) OVER(ORDER BY id) ,1,0) as is3Consecutive FROM Logs) L1 WHERE L1.is3Consecutive = 1
+SELECT DISTINCT Num AS ConsecutiveNums FROM (SELECT Num, LEAD(Num) OVER () AS Lead_Num, LAG(Num) OVER () AS Lag_Num FROM Logs) num_lead_lag_num WHERE Num = Lead_Num AND Num = Lag_Num
+SELECT DISTINCT Num AS ConsecutiveNums FROM Logs WHERE (Id + 1, Num) IN (SELECT * FROM Logs) AND (Id + 2, Num) IN (SELECT * FROM Logs)
+SELECT DISTINCT Num AS ConsecutiveNums FROM Logs WHERE (Id+1, Num) in (SELECT * FROM Logs) AND (Id+2, Num) in (SELECT * FROM Logs)
+SELECT DISTINCT Num AS ConsecutiveNums FROM( SELECT Num, LAG(Num, 1) OVER() lag1, LAG(Num, 2) OVER() lag2 FROM Logs) T WHERE Num = lag1 and lag1 = lag2
+SELECT DISTINCT Num AS ConsecutiveNums FROM( SELECT Num, LEAD(NUM,1) OVER() as num1, LEAD(NUM,2) OVER() as num2 FROM Logs )as t1 WHERE Num = num1 and num1 = num2
+SELECT DISTINCT Num AS ConsecutiveNums FROM(SELECT Num, LEAD(Num,1)over()as Num1, LEAD(Num,2)over()as Num2 FROM Logs) T WHERE T.Num=T.Num1 AND T.Num=T.Num2
+SELECT DISTINCT Num AS ConsecutiveNums From ( SELECT Num , LEAD(Num) OVER (ORDER BY id) as pro, LAG(Num) OVER (ORDER BY id) as pre From Logs ) as t WHERE Num = pro and Num = pre
+SELECT DISTINCT Num as ConsecutiveNums FROM ( SELECT id, num, Lag(num, 1) OVER () as prev1, Lag(num, 2) OVER () as prev2 FROM Logs ) l WHERE num = prev1 AND num = prev2
+SELECT DISTINCT Num as ConsecutiveNums FROM (SELECT Id, Num, Lead(Num, 1) OVER(ORDER BY Id) as NextNum, Lead(Num, 2) OVER(ORDER BY Id) as NextNum2 FROM Logs)A WHERE Num= NextNum and Num= NextNum2
+SELECT DISTINCT Num as ConsecutiveNums FROM (SELECT Id, Num, lag(Num) over (order by id) as prev, lead(Num) over (order by id) as after FROM logs) tmp WHERE Num = prev and prev = after
+SELECT DISTINCT Num as ConsecutiveNums FROM(SELECT Num,LAG(Num) OVER(ORDER BY id) as next_num,LEAD(Num) OVER(ORDER BY id) as prev_num FROM logs) t WHERE Num=next_num and Num=prev_num
+SELECT DISTINCT Result.num ConsecutiveNums FROM( SELECT Sub.num,count(1) FROM (SELECT id,num, row_number() over(order by id) - ROW_NUMBER() over(partition by num order by id) as SerialNumberSubGroup FROM Logs) as Sub GROUP BY Sub.num, Sub.SerialNumberSubGroup HAVING count(1) >= 3) as Result
+SELECT DISTINCT T.Num as ConsecutiveNums FROM (SELECT Num, LAG(Num) OVER() as prev, LEAD(Num) OVER() as next FROM Logs) as T WHERE T.Num=T.prev &amp;&amp; T.Num=T.next
+SELECT DISTINCT a.Num AS ConsecutiveNums FROM Logs AS a, Logs AS b, Logs AS c WHERE (a.Id + 1 = b.Id AND b.Id + 1 = c.Id) AND (a.Num = b.Num AND b.Num = c.Num)
+SELECT DISTINCT a.Num AS ConsecutiveNums FROM Logs a JOIN Logs b ON a.Id = b.Id - 1 JOIN Logs c ON b.Id = c.Id -1 WHERE a.Num = b.Num AND b.Num = c.Num
+SELECT DISTINCT a.Num AS ConsecutiveNums FROM Logs a JOIN Logs b ON a.Id-1 = b.Id JOIN Logs c ON b.Id-1 = c.Id WHERE a.Num = b.Num AND b.Num = c.Num
+SELECT DISTINCT a.Num AS ConsecutiveNums FROM Logs a JOIN Logs b ON b.Id = a.Id + 1 JOIN Logs c ON c.Id = b.Id + 1 WHERE a.Num = b.Num AND b.Num = c.Num
+SELECT DISTINCT a.Num AS ConsecutiveNums FROM Logs a, Logs b, Logs c WHERE a.ID = b.ID+1 AND a.ID = c.ID+2 AND a.Num = b.Num AND a.Num = c.Num
+SELECT DISTINCT a.Num AS ConsecutiveNums from Logs a JOIN Logs b ON a.Id=b.Id +1 AND a.Num=b.Num JOIN Logs c ON a.Id=c.Id+2 AND a.Num=c.Num
+SELECT DISTINCT a.Num as ConsecutiveNums FROM Logs a LEFT JOIN Logs b ON a.Id + 1 =b.Id LEFT JOIN Logs c On b.Id + 1 = c.Id WHERE a.Num=b.Num AND b.Num =c.Num
+SELECT DISTINCT a.Num as ConsecutiveNums from (select Num, Lead(Num,1) over (order by Id) as lead1,LAG(Num,1)OVER(ORDER BY Id) as last1 from Logs) a where Num=lead1 and Num=last1
+SELECT DISTINCT c1.num AS ConsecutiveNums FROM Logs AS c1 JOIN Logs AS c2 ON c1.ID + 1 = c2.ID AND c1.Num = c2.Num JOIN Logs AS c3 ON c2.ID + 1 = c3.ID AND c2.Num = c3.Num
+SELECT DISTINCT l.num1 AS ConsecutiveNums FROM (SELECT l1.id as id, l1.num as num1, l2.num as num2, l3.num as num3 FROM Logs l1 INNER JOIN Logs l2 INNER JOIN Logs l3 ON l1.id = l2.id - 1 AND l2.id = l3.id - 1) as l WHERE l.num1 = l.num2 AND l.num2 = l.num3
+SELECT DISTINCT l1.Num AS 'ConsecutiveNums' FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id -1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l3.Num = l2.Num
+SELECT DISTINCT l1.Num AS 'ConsecutiveNums' FROM Logs l1, Logs l2, Logs l3 WHERE l1.id+1=l2.id AND l2.id+1=l3.id AND l1.Num=l2.Num and l2.Num=l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs AS l1, Logs AS l2, Logs AS l3 WHERE l1.Id = l2.Id - 1 AND l2.ID = l3.ID - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs AS l1, Logs AS l2, Logs AS l3 WHERE l1.Num = l2.Num AND l2.Num = l3.Num AND l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1 JOIN Logs l2 USING (Num) JOIN Logs l3 USING (Num) WHERE l1.Id + 1 = l2.Id AND l2.Id + 1 = l3.Id
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id + 1 = l2.Id AND l2.Id + 1 = l3.Id AND l1.Num = l2.Num And l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id + 1 AND l2.Id = l3.Id + 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num and l1.num=l3.num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num And l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id -1 AND l2.Id = l3.Id -1 AND l1.Num = l2.Num AND l1.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id-1 AND l2.Id = l3.Id-1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Num = l2.Num AND l2.Num = l3.Num AND l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.id = l2.id-1 AND l1.id = l3.id-2 AND l1.Num = l2.Num AND l1.Num = l3.Num
+SELECT DISTINCT l1.Num AS ConsecutiveNums FROM logs l1, logs l2, logs l3 WHERE l1.Id = l2.Id -1 AND l2.Id = l3.Id -1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num AS consecutiveNums FROM logs l1, logs l2, logs l3 WHERE (l1.Num = l2.Num AND l1.Num = l3.Num) AND (l1.id = l2.id - 1 AND l2.id = l3.id-1)
+SELECT DISTINCT l1.Num As ConsecutiveNums FROM Logs l1 JOIN Logs l2 ON l1.Id = (l2.Id-1) AND l1.Num = l2.Num JOIN Logs l3 ON l1.Id = (l3.Id-2) AND l1.NUM = l3.Num
+SELECT DISTINCT l1.Num As ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id -1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num As ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Num = l2.Num AND l2.Num = l3.Num AND l1.Id = l2.Id + 1 AND l2.Id = l3.Id + 1
+SELECT DISTINCT l1.Num ConsecutiveNums FROM Logs l1 JOIN Logs l2 ON l1.id -1 = l2.id JOIN Logs l3 ON l2.id -1 = l3.id WHERE l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs as l1, Logs as l2, Logs as l3 WHERE l1.Id = l2.Id-1 AND l2.Id = l3.Id-1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1 INNER JOIN Logs l2 ON l2.Id = l1.Id+1 AND l1.Num = l2.Num INNER JOIN Logs l3 ON l3.Id = l1.Id+2 AND l1.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1 JOIN Logs l2 ON l1.Id = l2.Id - 1 JOIN Logs l3 ON l2.Id = l3.Id -1 WHERE l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = (l2.Id - 1) AND l2.Id = (l3.Id - 1) AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id -1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id-1 AND l2.Id = l3.Id-1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id-1 AND l2.Id = l3.Id-1 AND l1.Num = l2.Num AND l2.Num=l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.id = l2.id -1 AND l2.id = l3.id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM logs l1, logs l2, logs l3 WHERE l1.id = l2.id -1 AND l2.id = l3.id-1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM (SELECT id, num, ROW_NUMBER() OVER() AS row_num FROM Logs) l1 JOIN (SELECT id, num, ROW_NUMBER() OVER() AS row_num FROM Logs) l2 JOIN (SELECT id, num, ROW_NUMBER() OVER() AS row_num FROM Logs) l3 ON l1.num = l2.num AND l2.num = l3.num AND l1.row_num + 1 = l2.row_num AND l2.row_num + 1 = l3.row_num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM Logs l1 JOIN logs l2 ON l1.id = l2.id + 1 JOIN logs l3 ON l1.id = l3.id +2 WHERE l1.Num = l2.Num AND l1.Num = l3.Num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l2.num = l1.num AND l3.num = l2.num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id -1 AND l2.Id = l3.Id -1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM logs l1 JOIN logs l2 JOIN logs l3 WHERE l1.id-l2.id=1 and l2.id-l3.id=1 and l1.id-l3.id=2 and l1.num=l2.num and l2.num=l3.num
+SELECT DISTINCT l1.num AS ConsecutiveNums FROM logs l1, logs l2, logs l3 WHERE l1.id + 1 = l2.id AND l2.id + 1 = l3.id AND l1.num = l2.num AND l2.num = l3.num AND l1.num = l3.num
+SELECT DISTINCT l1.num ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.id = l2.id - 1 AND l1.id = l3.id + 1 AND l1.num = l2.num AND l1.num = l3.num
+SELECT DISTINCT l1.num as ConsecutiveNums FROM logs l1, logs l2, logs l3 WHERE l2.id = l1.id-1 AND l3.id = l2.id-1 AND l1.num = l2.num AND l2.num = l3.num
+SELECT DISTINCT l1.num as ConsecutiveNumsFROM Logs l1 JOIN Logs l2 ON l1.Id = l2.Id-1 JOIN Logs l3 ON l3.Id-1 = l2.Id WHERE l1.num=l2.num AND l2.num=l3.num
+SELECT DISTINCT l2.Num AS 'ConsecutiveNums' FROM Logs l1 INNER JOIN Logs l2 ON l2.Id = l1.Id + 1 AND l1.Num = l2.Num INNER JOIN Logs l3 ON l2.Id = l3.Id - 1 AND l2.Num = l3.Num ORDER BY 1
+SELECT DISTINCT l2.Num AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l3.Id = l2.Id + 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT l2.Num as ConsecutiveNums from Logs l1 join Logs l2 on l2.Id = l1.Id +1 and l2.num = l1.num join Logs l3 on l2.Id = l3.Id - 1 and l2.num = l3.num
+SELECT DISTINCT l3.Num AS ConsecutiveNums FROM Logs l1 JOIN Logs l2 ON l1.Num=l2.Num AND l1.Id=l2.Id-1 JOIN Logs l3 ON l2.Num=l3.Num AND l3.Id=l2.Id+1
+SELECT DISTINCT num AS ConsecutiveNums FROM ( SELECT num ,LEAD(num, 1) OVER() AS Next_Num ,LEAD(num, 2) OVER() AS Next_Two_Num FROM Logs)T1 WHERE num = Next_Num AND num = Next_Two_Num
+SELECT DISTINCT num AS ConsecutiveNums FROM ( SELECT num, CASE WHEN @lastone = num THEN @count:=@count+1 ELSE @count:=1 END AS c, @lastone:=num AS prior FROM Logs, (SELECT @count:=0, @lastone:=(SELECT num FROM Logs LIMIT 1)) tmp ) tmp1 WHERE c >= 3
+SELECT DISTINCT num AS ConsecutiveNums FROM ( SELECT num, cont, @count := cont * (@count + 1) AS count FROM (SELECT num, CASE WHEN num = (LAG(num, 1) OVER ()) THEN 1 ELSE 0 END AS cont FROM Logs) NewLogs, (SELECT @count := 0) init ) X WHERE count = 2
+SELECT DISTINCT num AS ConsecutiveNums FROM (SELECT num, (LAG(num) OVER (ORDER BY id)) as l1, (LEAD(num) OVER (ORDER BY id)) as l2 FROM Logs)a WHERE num = l1 AND num = l2
+SELECT DISTINCT num AS ConsecutiveNums FROM Logs WHERE (id+1, num) IN (SELECT * FROM Logs) AND (id+2, num) IN (SELECT * FROM Logs)
+SELECT DISTINCT num AS ConsecutiveNums FROM logs WHERE id IN (SELECT parent.id FROM logs parent INNER JOIN logs children ON (children.id = parent.id - 1 AND children.num = parent.num) OR (children.id = parent.id + 1 AND children.num = parent.num) GROUP BY parent.id HAVING COUNT(*) >= 2)
+SELECT DISTINCT num AS ConsecutiveNums FROM( SELECT id, num, LAG(id) OVER (PARTITION BY num ORDER BY id) AS previous_one, LEAD(id) OVER (PARTITION BY num ORDER BY id) AS later_one FROM Logs ) t1 WHERE id = previous_one + 1 AND id = later_one -1
+SELECT DISTINCT num as ConsecutiveNums FROM ( SELECT num, LEAD(num) OVER (ORDER BY id) as 'lead', LAG(num) OVER (ORDER BY id) as 'lag' FROM Logs ) t WHERE t.num = t.lead and t.num = t.lag
+SELECT DISTINCT num as ConsecutiveNums FROM ( SELECT num,LEAD(num) OVER(ORDER BY id) 'lead', LAG(num) OVER (ORDER BY id) 'lag' FROM Logs ) t WHERE t.num=t.lead and t.num=t.lag
+SELECT DISTINCT num as ConsecutiveNums FROM ( SELECT num,LEAD(num) OVER(ORDER BY id) AS next_row, LAG(num) OVER (ORDER BY id) AS prev_row FROM logs )t WHERE num=next_row and num=prev_row
+SELECT DISTINCT num as ConsecutiveNums FROM Logs WHERE (id + 1, num) in (select * from Logs) and (Id + 2, Num) in (select * from Logs)
+SELECT DISTINCT num as ConsecutiveNums from ( select num, lead(num,1)OVER() 'leads', lag(num,1)OVER()'lags' FROM Logs ) a where leads = num and lags = num
+SELECT DISTINCT num1 AS ConsecutiveNums FROM (SELECT num As num1, LAG(num, 1) OVER() AS num2, LAG(num, 2) OVER() AS num3 FROM Logs) a WHERE num1 = num2 AND num2 = num3
+SELECT DISTINCT num1 as ConsecutiveNums from ( (SELECT Logs.Id,Logs.Num as num1 FROM Logs) as id1 INNER JOIN (SELECT Id-1 as Id,Num as num2 FROM Logs) as id2 ON id1.Id=id2.Id INNER JOIN (SELECT Id-2 as Id,Num as num3 FROM Logs) as id3 ON id1.Id=id3.Id ) WHERE num1=num2 and num1=num3
+SELECT DISTINCT t.ConsecutiveNums FROM (SELECT num AS ConsecutiveNums, (ROW_NUMBER() OVER (ORDER BY id) - ROW_NUMBER() OVER (PARTITION BY num ORDER BY id)) AS grp FROM logs) AS t GROUP BY t.grp, t.ConsecutiveNums HAVING COUNT(*)>=3
+SELECT DISTINCT t.Num AS ConsecutiveNums FROM (SELECT Num,Id, Id-LAG(Id,1) OVER(PARTITION BY Num) AS lag_id, LEAD(Id,1) OVER(PARTITION BY Num) - Id AS lead_id FROM Logs) AS t WHERE t.lag_id = 1 AND t.lead_id =1
+SELECT DISTINCT t.num AS ConsecutiveNums FROM ( SELECT Num AS num, LEAD(Num) OVER (ORDER BY Id) AS 'lead', LAG(Num) OVER (ORDER BY Id) AS 'lag' From Logs ) AS t WHERE t.num = t.lead and t.num = t.lag
+SELECT DISTINCT t.num as ConsecutiveNums FROM ( SELECT num, LAG(num, 1) OVER() as lag_1, LAG(num, 2) OVER() as lag_2 FROM Logs ) as t WHERE t.num = t.lag_1 and t.num = t.lag_2
+SELECT DISTINCT t1.Num AS ConsecutiveNums FROM Logs t1, Logs t2, Logs t3 WHERE t1.Id + 1 = t2.Id AND t2.Id + 1 = t3.Id AND t1.Num = t2.Num AND t2.Num = t3.Num
+SELECT DISTINCT tb1.Num as ConsecutiveNums FROM Logs AS tb1, Logs AS tb2, Logs AS tb3 WHERE (tb1.Id+1=tb2.Id) AND (tb2.Id+1=tb3.Id) AND (tb1.Num=tb2.Num) AND (tb2.Num=tb3.Num)
+SELECT DISTINCT tmp.Num as ConsecutiveNums FROM (SELECT Id, Num, LEAD(Num,1) OVER() as nextnum, LEAD(Num,2) OVER() as nextnum2 FROM Logs) tmp WHERE tmp.Num = tmp.nextnum AND tmp.Num = tmp.nextnum2
+SELECT DISTINCT(L1.Num) AS ConsecutiveNums FROM Logs L1, Logs L2, Logs L3 WHERE L1.Id = L2.Id-1 AND L2.Id = L3.Id-1 AND L1.Num=L2.Num AND L2.Num=L3.Num
+SELECT DISTINCT(Num) AS ConsecutiveNums FROM ( SELECT Num, @counter := IF(@prev = Num, @counter + 1, 1) AS how_many_cnt_in_a_row, @prev := Num FROM Logs y, (SELECT @counter:=1, @prev:=NULL) vars ) sq WHERE how_many_cnt_in_a_row >= 3
+SELECT DISTINCT(Num) AS ConsecutiveNums FROM ( SELECT Num, @counter := IF(@prev = Num, @counter + 1, 1) AS totalcount, @prev := Num FROM Logs y, (SELECT @counter:=1, @prev:=NULL) vars ) sq WHERE totalcount >= 3
+SELECT DISTINCT(Num) AS ConsecutiveNums FROM (SELECT Num, LEAD(Num) OVER () AS NextVal, LEAD(Num,2) OVER () AS ThirdVal FROM Logs) temp WHERE Num=NextVal AND NextVal=ThirdVal
+SELECT DISTINCT(l.Num) AS ConsecutiveNums FROM Logs AS l WHERE (l.Id+1, l.Num) IN (SELECT * FROM Logs) AND (l.Id+2, l.Num) IN (SELECT * FROM Logs)
+SELECT DISTINCT(l1.Num) AS ConsecutiveNums FROM Logs l1 INNER JOIN Logs l2 ON l1.Id +1 = l2.Id INNER JOIN logs l3 ON l1.Id +2 = l3.Id WHERE l1.Num = l2.Num AND l1.Num = l3.Num
+SELECT DISTINCT(l1.Num) AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id + 1 = l2.Id AND l2.Id + 1 = l3.Id AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT DISTINCT(l1.Num) as ConsecutiveNums FROM Logs l1 JOIN Logs l2 ON l1.Num = l2.Num and l1.Id = (l2.Id + 1) JOIN Logs l3 ON l2.Num = l3.Num and l2.Id = (l3.Id + 1)
+SELECT DISTINCT(l1.num) AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.id = l2.id - 1 AND l2.id = l3.id - 1 AND l1.num = l2.num AND l2.num = l3.num
+SELECT DISTINCT(l1.num) AS ConsecutiveNums FROM logs l1 LEFT JOIN logs l2 ON l1.id = l2.id + 1 LEFT JOIN logs l3 ON l1.id = l3.id + 2 WHERE l1.num = l2.num AND l1.num = l3.num
+SELECT DISTINCT(l3.Num) AS ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Num = l2.Num AND l1.Num = l3.Num AND l1.Id + 1 = l2.Id AND l2.Id + 1 = l3.Id
+SELECT DISTINCT(log1.Num) AS ConsecutiveNums FROM Logs log1, Logs log2, Logs log3 WHERE log1.id = log2.id-1 AND log2.id = log3.id -1 AND log1.num = log2.num AND log2.num = log3.num
+SELECT DISTINCT(num) as ConsecutiveNums FROM ( select num, count(*) AS ConsecutiveNums FROM (SELECT num, row_number() over (order by id) - row_number() over (partition by num order by id) AS grp from Logs) Logs group by grp, num ) AS temp WHERE temp.ConsecutiveNums >= 3
+SELECT Distinct (a.Num) as ConsecutiveNums FROM Logs as a, Logs as b, Logs as c Where a.Id+1 = b.Id and b.Id+1 =c.Id and a.Num = b.Num and b.Num = c.Num
+SELECT Distinct (l1.Num) AS ConsecutiveNums FROM Logs l1 JOIN Logs l2 on l1.Id = l2.Id - 1 JOIN Logs l3 on l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT Distinct L.Num as ConsecutiveNums FROM Logs L WHERE EXISTS( SELECT 1 FROM Logs L2 WHERE L2.id = L.id + 1 AND L2.Num = L.Num ) AND EXISTS ( SELECT 1 FROM Logs L2 WHERE L2.id = L.id + 2 AND L2.Num = L.Num )
+SELECT Distinct Num AS ConsecutiveNums FROM ( SELECT Num, LEAD(Num, 1)OVER() AS Num1, LEAD(Num, 2)OVER() AS Num2 From logs )a WHERE Num = Num1 and Num1 = Num2
+SELECT Distinct Num AS ConsecutiveNums FROM ( SELECT Num, Lag(Num, 1)OVER() AS Num1, Lag(Num, 2)OVER() AS Num2 From logs )a WHERE Num = Num1 and Num1 = Num2
+SELECT Distinct Num AS ConsecutiveNums FROM ( SELECT Num, Lead(Num, 1)OVER(order by Id) AS Num1, Lead(Num, 2)OVER(order by Id) AS Num2 From logs )a WHERE Num = Num1 and Num1 = Num2
+SELECT Distinct Num AS ConsecutiveNums FROM ( SELECT Num, Lead(Num, 1)OVER(order by Id) AS Num1, Lead(Num, 2)OVER(order by Id) AS Num2 From logs)a WHERE Num = Num1 and Num1 = Num2
+SELECT Distinct Num AS ConsecutiveNums FROM ( SELECT Num, Lead(Num, 1)OVER(order by Id) AS Num1, Lead(Num, 2)OVER(order by Id) AS Num2 From logs)a WHERE Num = a.Num1 and a.Num1 = a.Num2
+SELECT Distinct Num as ConsecutiveNums FROM ( SELECT Id,Num,LEAD(Num) OVER() as le, LAG(Num) OVER() as la From Logs ) as LLTEST WHERE Num = le AND Num = la
+SELECT Distinct l1.Num as ConsecutiveNums FROM Logs as l1 Join Logs as l2 On l1.Id = l2.Id +1 Join Logs as l3 On l1.Id = l3.Id+2 Where l1.Num = l3.Num and l2.Num = l3.Num
+SELECT Distinct l1.Num as ConsecutiveNums FROM Logs l1 LEFT JOIN Logs l2 on l1.Id = l2.Id -1 LEFT JOIN logs l3 on l2.Id = l3.Id -1 WHERE l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT Distinct l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Num = l2.Num AND l2.Num = l3.Num AND l1.Id+1 = l2.Id AND l1.Id+2 = l3.Id
+SELECT Distinct(a.num) as ConsecutiveNums FROM (SELECT num, LAG(num,1,0) OVER(ORDER BY Id) as PreviousNum, LEAD(num,1,0) OVER(ORDER BY Id) as NextNum FROM Logs ) AS a WHERE a.num = a.PreviousNum AND a.num = a.NextNum
+SELECT M.Num AS 'ConsecutiveNums' FROM ( SELECT DISTINCT l.Num, LEAD(l.Num) OVER() as N, LAG(l.Num) OVER() as P FROM Logs l ) M WHERE M.Num = M.N AND M.N = M.P
+SELECT M.Num AS 'ConsecutiveNums' FROM ( SELECT DISTINCT l.Num, LEAD(l.Num,1) OVER() as N, LEAD(l.Num,2) OVER() as P FROM Logs l ) M WHERE M.Num = M.N AND M.N = M.P
+SELECT Num AS ConsecutiveNums FROM (SELECT num, LEAD(num, 1) OVER(ORDER BY id) AS lead1, LEAD(num, 2) OVER(ORDER BY id) AS lead2 FROM Logs) tmp WHERE Num = lead1 and Num = lead2 GROUP BY Num
+SELECT distinct C.num as "ConsecutiveNums" FROM (SELECT num, lead(num,1) over (order by id) as next1, lead(num,2) over (order by id) as next2 FROM logs) AS C where num = next1 and num = next2
+SELECT distinct ConsecutiveNums from ( SELECT CASE WHEN ((lead(num,1) over(order by id)) = num) AND ((lead(num,2) over(order by id)) = num) THEN num END as ConsecutiveNums FROM logs ) a WHERE ConsecutiveNums IS NOT NULL
+SELECT distinct L1.Num as ConsecutiveNums FROM Logs L1 INNER JOIN Logs L2 ON L1.Id + 1 = L2.Id INNER JOIN Logs L3 ON L2.Id + 1 = L3.Id where L1.Num = L2.Num AND L2.Num = L3.Num
+SELECT distinct a.Num AS ConsecutiveNums FROM `Logs` a, `Logs` b, `Logs` c WHERE a.Id=b.Id+1 AND b.Id=c.Id+1 AND a.Num=b.Num AND b.Num=c.Num
+SELECT distinct l1.Num AS ConsecutiveNums FROM Logs l1 JOIN Logs l2 ON l1.Id +1 = l2.Id JOIN Logs l3 ON l2.Id +1 = l3.Id WHERE l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT distinct l1.Num as ConsecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id + 1 AND l2.Id = l3.Id + 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT distinct l1.num as "ConsecutiveNums" FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT distinct l1.num as ConsecutiveNums FROM logs l1, logs l2, logs l3 WHERE l1.id = l2.id-1 AND l2.id = l3.id-1 AND l1.num = l2.num AND l2.num = l3.num
+SELECT distinct l1.num as ConsecutiveNums FROM logs l1,logs l2 , logs l3 WHERE (l1.num = l2.num AND l1.id=l2.id-1) AND (l2.num=l3.num AND l2.id=l3.id-1)
+SELECT distinct l1.num as consecutiveNums FROM Logs l1, Logs l2, Logs l3 WHERE l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+SELECT distinct num AS ConsecutiveNums FROM (SELECT Id, Num, lag(Id) OVER (PARTITION BY num ORDER by Id) as Previous, lead(Id) OVER (partition BY num ORDER by Id) as Next FROM Logs) f WHERE previous + 1 = Id and next-1 = Id
+SELECT distinct s1.Num as ConsecutiveNums FROM Logs s1, Logs s2, Logs s3 WHERE s1.Num=s2.Num and s2.Num=s3.Num and s1.Id+1=s2.Id and s2.Id+1 = s3.Id
+SELECT l1.num as ConsecutiveNumsFROM Logs l1 JOIN Logs l2 ON l1.Id = l2.Id-1 JOIN Logs l3 ON l3.Id-1 = l2.Id WHERE l1.num=l2.num AND l2.num=l3.num GROUP BY l1.num
+Select DISTINCT Num AS ConsecutiveNums from (SELECT Id, Num, Lead(Num, 1) OVER (ORDER BY Id) AS lead_1, Lead(Num, 2) OVER (ORDER BY Id) AS lead_2 FROM Logs) pp WHERE Num = lead_1 and Num = lead_2
+Select DISTINCT l1.Num AS ConsecutiveNums from Logs l1 JOIN Logs l2 ON l1.Id = l2.Id - 1 JOIN Logs l3 ON l2.Id = l3.Id - 1 WHERE l1.Num=l2.Num AND l2.Num=l3.Num
+Select DISTINCT l1.Num as "ConsecutiveNums" from Logs l1, Logs l2, Logs l3 where l1.Id=l2.Id-1 and l2.Id=l3.Id-1 and l1.Num=l2.Num and l2.Num=l3.Num
+Select DISTINCT l1.Num as 'ConsecutiveNums' from Logs l1, Logs l2, Logs l3 where l1.Id=l2.Id-1 and l2.Id=l3.Id-1 and l1.Num=l2.Num and l2.Num=l3.Num
+Select DISTINCT l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id=l2.Id-1 and l2.Id=l3.Id-1 and l1.Num=l2.Num and l2.Num=l3.Num
+Select Distinct Num as ConsecutiveNums from (Select Num, lead(Num,1,null) over(order by Id) X,lag(Num,1,null) over(order by Id) Y from Logs)c where Num=X and Y=Num
+Select Distinct Num as ConsecutiveNums from Logs Where (Id+1,Num) in (select * from Logs) And (Id+2,Num) in (select * from Logs)
+Select Distinct l1.Num As ConsecutiveNums From Logs l1, Logs l2, Logs l3 WHERE (l1.Num = l2.Num AND l1.ID = l2.ID - 1) AND l1.Num = l3.Num AND l1.ID = l3.ID -2
+Select Distinct l1.Num as ConsecutiveNums From Logs l1, Logs l2, Logs l3 Where l1.Num = l2.Num AND l2.Num = l3.Num AND l1.Id = l2.Id - 1 AND l2.Id = l3.Id - 1
+Select Distinct l1.num AS ConsecutiveNums From Logs l1, Logs l2, Logs l3 Where l1.id = l2.id+1 And l2.id = l3.id+1 And l1.num = l2.num And l2.num = l3.num
+Select distinct Num as ConsecutiveNums from ( select Num , LEAD(Num) Over() as SecondValue , LEAD(Num,2) Over () as ThirdValue from Logs ) a where Num = SecondValue and SecondValue=ThirdValue
+Select distinct a.num as ConsecutiveNums from logs a , logs b , logs c where a.id = b.id-1 and b.id = c.id-1 and a.num = b.num and b.num = c.num
+Select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 Where l1.Id = l2.Id -1 and l2.Id = l3.Id - 1 and l1.Num = l2.Num and l2.Num = l3.Num
+Select distinct num ConsecutiveNums from ( Select Id, num, lead(num) over ( order by ID) next , lead(num, 2) over ( order by ID) next2 from Logs ) temp where num = next and next = next2
+Select distinct t.Num as 'ConsecutiveNums' from (Select Num, lead(Num) over (order by id) as le, lag(Num) over (order by id) as la from Logs) t where t.Num = t.le and t.Num = t.la
+Select distinct t1.Num as ConsecutiveNums from logs t1, logs t2, logs t3 where t1.Id = t2.Id - 1 and t2.Id = t3.Id - 1 and t1.Num = t2.Num and t2.Num = t3.Num and t3.Num = t1.Num
+Select distinct(Num) as ConsecutiveNums from ( Select Num, CASE when (Num = num1 and num1 = num_1) then 1 else 0 END as rtes from (Select Num, Lead(Num,1) over(order by Id) as num1, Lag(Num,1) over(order by Id) as num_1 from Logs) as tbl) as tble2 where rtes =1
+Select distinct(Num) as ConsecutiveNums from (select Num, lag(Num) over (order by Id) as pre, lead(Num) over (order by Id) as pro from Logs) as e1 where pre=Num AND pro=Num
+Select distinct(Num) as ConsecutiveNums from (select Num, lag(Num) over (order by Id) as pre, lead(Num) over (order by Id) as pro from Logs) n where pre = num and num = pro
+Select distinct(Num) as ConsecutiveNums from (select Num, lag(Num,1) over (order by Id) as pre, lag(Num,2) over (order by Id) as prepre from Logs ) n where pre = num and num = prepre
+Select distinct(Num) as ConsecutiveNums from (select Num,lag(Num) over (order by Id) as pre, lead(Num) over (order by Id) as pro from Logs) n where pre = num and num = pro
+WITH AUX AS ( SELECT T1.ID AS ID1, T2.ID AS ID2, T3.ID AS ID3, T1.NUM AS N1, T2.NUM AS N2, T3.NUM AS N3 FROM LOGS AS T1 LEFT JOIN LOGS AS T2 ON (T1.ID + 1) = T2.ID LEFT JOIN LOGS AS T3 ON (T1.ID + 2) = T3.ID) SELECT DISTINCT N1 AS CONSECUTIVENUMS FROM AUX WHERE N1 = N2 AND N2 = N3
+WITH CTE AS (SELECT DISTINCT(Num) As ConsecutiveNums, (Id - LAG(Id,2) OVER(PARTITION BY Num ORDER BY Num,Id)) AS cid FROM Logs) Select ConsecutiveNums FROM CTE WHERE cid = 2
+WITH CTE AS (select id, Num, LEAD(Num,1) OVER (ORDER BY id) as af1, LEAD(Num,2) OVER (ORDER BY id) as af2 FROM Logs) SELECT DISTINCT Num as ConsecutiveNums from CTE WHERE Num = af1 and af1 = af2
+WITH CTE1 AS ( SELECT NUM, LEAD(NUM, 1) OVER(ORDER BY ID) NEXT_NUM2, LEAD(NUM, 2) OVER(ORDER BY ID) NEXT_NUM3 FROM LOGS ) SELECT DISTINCT NUM AS ConsecutiveNums FROM CTE1 WHERE NUM = NEXT_NUM2 AND NUM = NEXT_NUM3
+WITH RECURSIVE T AS ( SELECT id , Num , 1 Con FROM Logs UNION ALL SELECT l.id, l.Num, T.Con + 1 FROM T JOIN Logs l ON t.id + 1 = l.id WHERE T.Num = l.Num ) SELECT DISTINCT T.Num as ConsecutiveNums FROM T WHERE T.Con >= 3
+WITH T AS (SELECT LAG(Num) OVER (ORDER BY Id) AS Prev, Num, LEAD(Num) OVER (ORDER BY Id) AS Next FROM Logs) SELECT DISTINCT(Num) AS ConsecutiveNums FROM T WHERE Num = Next AND Num = Prev GROUP BY Num
+WITH bloop AS ( SELECT Num, LAG(Num) OVER() AS p_Num, LEAD(Num) OVER() AS n_Num FROM Logs) SELECT DISTINCT Num AS ConsecutiveNums FROM bloop WHERE Num = p_Num AND Num = n_Num
+WITH cte AS ( SELECT *, id - CAST(ROW_NUMBER() OVER (PARTITION BY Num ORDER BY id) AS SIGNED) AS start_id FROM Logs ) SELECT DISTINCT Num AS ConsecutiveNums FROM cte GROUP BY Num, start_id HAVING COUNT(start_id) >= 3
+WITH cte AS ( SELECT Num, LEAD(Num) OVER(ORDER BY Id) AS Num2, LAG(Num) OVER(ORDER BY Id) AS Num3 FROM logs ) SELECT Distinct NUM as ConsecutiveNums FROM cte WHERE Num = Num2 AND Num2 = Num3
+WITH frames AS ( SELECT Num, LAG(Num) OVER (ORDER BY Id) as `Lag`, LEAD(Num) OVER (ORDER BY Id) as `Lead` FROM Logs ) SELECT DISTINCT(Num) AS ConsecutiveNums FROM frames WHERE `Lag` = Num AND `Lead` = Num
+WITH l2 AS ( SELECT id-1 id, num FROM logs ), l3 AS ( SELECT id-2 id, num FROM logs ) SELECT DISTINCT l1.num ConsecutiveNums FROM logs l1 JOIN l2 ON l1.id=l2.id JOIN l3 ON l1.id=l3.id WHERE l1.num=l2.num AND l1.num=l3.num AND l2.num=l3.num
+WITH machin AS ( SELECT num, LAG (num,1) OVER (ORDER BY id) AS num1, LAG (num,2) OVER (ORDER BY id) AS num2 FROM Logs ) SELECT DISTINCT num AS ConsecutiveNums FROM machin WHERE num = num1 AND num1 = num2
+WITH num_array AS ( SELECT ROW_NUMBER() OVER(ORDER BY Id ASC) as i, Num FROM Logs ) SELECT DISTINCT l1.Num as ConsecutiveNums FROM num_array as l1, num_array as l2, num_array as l3 WHERE l1.i = l2.i - 1 AND l2.i = l3.i - 1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+WITH query1 AS( SELECT Num, lag(Num,1) OVER(Order by Id) as w, lag(Num,2) OVER(Order by Id) as w2 FROM Logs) SELECT Num as ConsecutiveNums FROM query1 WHERE Num = w AND Num = w2 GROUP BY Num
+WITH t1 AS (SELECT *, LAG(Num, 1) OVER (ORDER BY Id) as Lag1, LAG(Num, 2) OVER (ORDER BY Id) as Lag2 FROM Logs), t2 AS (SELECT *, CASE WHEN t1.Num = t1.Lag1 AND t1.Lag1 = t1.Lag2 THEN 1 ELSE NULL END AS Consec FROM t1 ) SELECT DISTINCT Num as ConsecutiveNums FROM t2 WHERE t2.Consec = 1
+WITH temp AS ( SELECT num, LAG(num,1) OVER () as lag1, LAG(num,2) OVER () as lag2 FROM logs ) SELECT distinct num as ConsecutiveNums FROM temp WHERE num = lag1 and num =lag2
+WITH temp AS (SELECT id,num,LAG(num) OVER(ORDER BY id) AS num_before, LEAD(num) OVER(ORDER BY id) AS num_after FROM logs) SELECT DISTINCT num AS ConsecutiveNums FROM temp WHERE num = num_before AND num = num_after
+With t as ( select Num, lag(Num) over (order by Id) as pre, lead(Num) over (order by Id) as after FROM logs) Select Distinct (Num) as ConsecutiveNums FROM t Where pre = num and after = num
+With temp As (select Num, CASE WHEN Num - lag(Num, 1) over (order by Id) = 0 and Num - lag(Num, 2) over (order by Id) = 0 THEN 'consecutive' else 'not' end as consecutive from Logs) Select distinct Num as ConsecutiveNums from temp where consecutive = 'consecutive'
+select A.Num as ConsecutiveNums from Logs A join Logs B on A.ID+1 = B.ID join Logs C on A.ID+2 = C.ID where A.Num = B.Num and B.Num = C.Num group by A.Num
+select DISTINCT l1.Num as ConsecutiveNums from Logs as l1 join Logs as l2 on l1.Num = l2.Num and l1.Id = l2.Id - 1 join Logs as l3 on l1.Num = l3.Num and l1.Id = l3.Id + 1
+select DISTINCT t1.num as ConsecutiveNums from Logs t1,logs t2,logs t3 where t1.Num = t2.Num and t2.num = t3.Num and t1.id=t2.id - 1 and t3.id-t2.id = 1
+select Distinct Num as ConsecutiveNums from (select L.*, (row_number() over (order by id) - row_number() over (partition by Num order by id) ) as grp from Logs as L ) as L group by grp, Num Having count(L.grp)>=3
+select Distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id-1 and l2.Id = l3.Id - 1 and l1.Num = l2.Num and l2.Num = l3.Num
+select Distinct l1.Num as ConsecutiveNums from logs l1, logs l2, logs l3 where l1.Id + 1 = l2.Id And l2.Id + 1 = l3.Id And l1.Num = l2.Num And l2.Num = l3.Num And l1.Num = l3.Num
+select a.Num as ConsecutiveNums from Logs a inner join Logs b inner join Logs c on a.Id=b.Id - 1 and b.Id = c.Id - 1 and a.Num = b.Num and b.Num = c.Num group by 1
+select a.num as ConsecutiveNums from logs a join logs b on a.id+1=b.id and a.num=b.num join logs c on b.id+1=c.id and a.num=c.num group by 1
+select distinct (num ) as ConsecutiveNums from ( select num , lag(num,1) over() as pre , lead(num,1) over() as pos from logs ) a where a.num = a.pre and a.num = a.pos
+select distinct A.Num as ConsecutiveNums from Logs A join Logs B on A.ID+1 = B.ID join Logs C on A.ID+2 = C.ID where A.Num = B.Num and B.Num = C.Num
+select distinct A.Num as ConsecutiveNums from Logs as A join Logs as B on A.Id = B.Id-1 and A.Num = B.Num join Logs as C on B.Id = C.Id-1 and B.Num = C.Num
+select distinct A.Num as ConsecutiveNums from logs A left join logs B on A.id=B.id-1 Left join logs C on A.id=C.id-2 Where A.Num=B.Num and B.Num=C.Num
+select distinct ConsecutiveNums from (select Num as ConsecutiveNums, Lag(num) over (order by id) as a, Lead(num) over (order by id) as b from Logs) a where ConsecutiveNums = a and ConsecutiveNums = b
+select distinct L0.Num as ConsecutiveNums from Logs L0 join (select Id-1 as Id, Num from Logs) L1 on L0.Id=L1.Id join (select Id-2 as Id, Num from Logs) L2 on L0.Id=L2.Id where L0.Num=L1.Num and L0.Num=L2.Num
+select distinct L0.Num as ConsecutiveNums from Logs as L0 join Logs as L1 join Logs as L2 on L0.Num = L1.Num and L0.Num = L2.nUM where L0.Id = L1.Id-1 and L0.Id = L2.Id-2
+select distinct L1.Num as ConsecutiveNums from Logs L1, Logs L2, Logs L3 where L1.Id = L2.Id - 1 and L1.Id = L3.Id - 2 and ( L1.Num = L2.Num and L1.Num = L3.Num )
+select distinct L1.Num as ConsecutiveNums from Logs L1, Logs L2, Logs L3 where L1.Id = L2.Id - 1 and L2.Id = L3.Id - 1 and L1.Num = L2.Num and L2.Num = L3.Num
+select distinct L1.Num as ConsecutiveNums from Logs L1, Logs L2, Logs L3 where L1.Id = L2.Id+1 and L1.Num = L2.Num and L1.Id = L3.Id+2 and L1.Num = L3.Num
+select distinct Num as 'ConsecutiveNums' from ( select Id - LAG(Id,2) Over(partition by Num order by Num,Id) as'cid', Num from Logs )A where cid=2
+select distinct Num as ConsecutiveNums from ( select Id , Num , lag(Num, 1) over () as num_1_before , lag(Num, 2) over () as num_2_before from Logs ) as Tmp where Num = num_1_before and Num = num_2_before
+select distinct Num as ConsecutiveNums from ( select Id, Num, lead (Num) over (order by Id) as SecNum, lead (num,2) over (order by Id) as ThirdNum From Logs) as Temp where Num=SecNum and Num=ThirdNum
+select distinct Num as ConsecutiveNums from ( select Num, ID, rank_num, abs( cast(rank_num as signed) - cast(ID as signed) ) as gap from ( select Num, Id, row_number() over (partition by Num order by Id) as rank_num from test.logs ) A ) B group by Num, gap having count(gap)>= 3
+select distinct Num as ConsecutiveNums from ( select Num, Id, Lead(Id, 2) over (partition by num order by id) as nx from logs) b where nx - id = 2
+select distinct Num as ConsecutiveNums from ( select Num, LEAD(NUM) OVER(ORDER BY ID) LEAD1, LEAD(NUM,2) OVER(ORDER BY ID) LEAD2 from Logs ) nums where Num = LEAD1 and Num = LEAD2
+select distinct Num as ConsecutiveNums from ( select Num, LEAD(Num) over(order by Id) as "lead", LAG(Num) over (order by Id) as "lag" from logs )t where Num = t.lead and Num = t.lag
+select distinct Num as ConsecutiveNums from ( select Num, lag(Num, 1) over (order by Id) as ld1, lead(Num, 1) over (order by Id) as ld2 from Logs )ll where Num = ll.ld1 and Num = ll.ld2
+select distinct Num as ConsecutiveNums from ( select Num, lead(Num, 1) over (order by Id) as ld1, lead(Num, 2) over (order by Id) as ld2 from Logs )ll where Num = ll.ld1 and Num = ll.ld2
+select distinct Num as ConsecutiveNums from (select Num from (select Num, LAG(Num) over (order by id) as Num1, LAG(Num,2) over (order by id) as Num2 from Logs) t where Num=Num1 and Num1=Num2) q
+select distinct Num as ConsecutiveNums from (select Num, lag(Num) over() as lagnum, lag(Num,2) over() as lag_twonum from Logs) as lagtab where Num = lagnum and Num = lag_twonum
+select distinct Num as ConsecutiveNums from (select Num, lag(Num) over(order by id) as lagnum, lag(Num,2) over(order by id) as lag_twonum from Logs) as lagtab where Num = lagnum and Num = lag_twonum
+select distinct Num as ConsecutiveNums from (select Num, lag(Num, 1) over (order by Id) as b, lead(Num, 1) over (order by Id) as c from Logs) d where Num = b and Num = c
+select distinct Num as ConsecutiveNums from (select Num, lead(Num) over() as lead_1, lag(Num) over() as lag_1 from Logs) t where t.Num = t.lead_1 and t.Num = t.lag_1
+select distinct Num as ConsecutiveNums from (select Num, lead(num,1) over(order by id) as next, lag(num,1) over (order by id) as previous from Logs) as l1 where Num=next and Num=previous
+select distinct Num as ConsecutiveNums from (select Num,lead(Num,1,null) over(order by id) as Num_1,lead(Num,2,null) over(order by id) as Num_2 from Logs ) a where Num = Num_1 and Num = Num_2
+select distinct Num as ConsecutiveNums from (select id, Num, lag(Num, 1)over() as l1, lag(Num, 2)over() as l2 from Logs) a where l1 = Num and l2 = Num
+select distinct Num as ConsecutiveNums from Logs l where (l.Id+1, Num) in (select * from Logs) AND (l.Id+2, Num) in (select * from Logs)
+select distinct Num as ConsecutiveNums from Logs where (Id + 1, Num) in (select * from Logs) and (Id + 2, Num) in (select * from Logs)
+select distinct Num as ConsecutiveNums from Logs, (select Id as id2,Num as num2 from Logs, (select Id as id1,Num as num1 from Logs) as table1 where Id = id1 + 1 and Num = num1) as table2 where Id=id2 +1 and Num = num2
+select distinct Num as ConsecutiveNums from logs where (id+1, Num) in (select * from logs) and (id+2, Num) in (select * from logs)
+select distinct Num as ConsecutiveNums from( select * , lead(Num, 1) over (order by Id) as nxtNum , lead(Num, 2) over (order by Id) as nxtnxtNum from Logs) as temp where nxtNum=Num and nxtnxtNum=Num
+select distinct a.Num as ConsecutiveNums from ( select NUM,LEAD(Num) over w as 'lead', LAG (num) over w as 'lag' from Logs WINDOW w as (order by id)) a where a.Num = a.lead and a.num = a.lag
+select distinct a.Num as ConsecutiveNums from ( select id , num , lag(num) over (order by id) as firstPrevNum , lag(num, 2) over (order by id) as secondPrevNum from logs order by id ) a where a.num=a.firstPrevNum and a.num=a.secondPrevNum
+select distinct a.Num as ConsecutiveNums from (select Num, Lead(Num) over(order by ID)as Num1, Lag(Num) over(order by ID) as Num2 from Logs) a where Num = Num1 and Num = Num2
+select distinct a.Num as ConsecutiveNums from Logs a join Logs b on a.Id = (b.Id -1) join Logs c on a.Id= (c.Id -2) where (a.Num = b.Num) and (a.Num = c.Num)
+select distinct a.Num as ConsecutiveNums from Logs a join Logs b on a.id=b.id-1 join Logs c on a.id = c.id -2 where a.Num=b.Num and b.Num = c.Num
+select distinct a.Num as ConsecutiveNums from Logs a, Logs b, Logs c where( a.Num=b.Num and a.Num=c.Num) and (a.Id=b.Id-1 and b.Id=c.Id-1)
+select distinct a.Num as ConsecutiveNums from Logs a,Logs b, Logs c where a.id=b.id-1 and b.id=c.id-1 and a.Num=b.Num and b.Num=c.Num
+select distinct a.Num as ConsecutiveNums from logs a, logs b, logs c where a.Id = b.Id - 1 and b.Id = c.Id - 1 and c.Num = b.Num and b.Num = a.Num
+select distinct a.Num as ConsecutiveNums from logs a, logs b, logs c where a.id=b.id-1 and a.num=b.num and b.id=c.id-1 and b.num=c.num
+select distinct a.num ConsecutiveNums from ( select curr_logs.*,prev_logs.Num prev_num from Logs curr_logs join Logs prev_logs join Logs prev_prev_logs on curr_logs.id=prev_logs.id+1 and curr_logs.id=prev_prev_logs.id+2 where curr_logs.num=prev_logs.num and curr_logs.num=prev_prev_logs.num )a
+select distinct a.num as 'ConsecutiveNums' from Logs a, Logs b, Logs c where (a.num = b.num and (b.id - a.id = 1)) and (a.num = c.num and (c.id - a.id = 2))
+select distinct a.num as ConsecutiveNums from (select *, (lag(num,2) over(order by id) - lag(num,1) over (order by id) = 0) as diff_lag2_lag1, (lag(num,1) over(order by id) - num = 0) as diff_lag1_num from logs)a where a.diff_lag2_lag1=1 and a.diff_lag1_num=1
+select distinct a.num as ConsecutiveNums from (select num, lead(num)over() as next, lead(num,2)over()as nexts from logs) a where a.num=a.next and a.next = a.nexts
+select distinct a.num as ConsecutiveNums from Logs a inner join Logs b on b.id=a.id+1 and b.num=a.num inner join Logs c on c.id=a.id+2 and c.num=a.num
+select distinct a.num as ConsecutiveNums from Logs a join Logs b on b.id=a.id+1 and b.num=a.num join Logs c on c.id=a.id+2 and c.num=a.num
+select distinct a.num as ConsecutiveNums from Logs as a, Logs as b, Logs as c where a.num = b.num and a.num = c.num and a.id = b.id - 1 and a.id = c.id - 2
+select distinct a.num as ConsecutiveNums from logs a , logs b, logs c where a.id+1=b.id and a.num=b.num and a.id+2=c.id and a.num=c.num
+select distinct a.num as ConsecutiveNums from logs a inner join logs b on a.id + 1 = b.id and a.num = b.num inner join logs c on a.id + 2 = c.id and a.num = c.num
+select distinct a.num as ConsecutiveNums from logs a join logs b on a.num = b.num and a.id +1 = b.id join logs c on b.num = c.num and b.id+1 = c.id
+select distinct a.num as ConsecutiveNums from logs a, logs b, logs c where a.id=b.id-1 and a.id=c.id+1 and a.num=b.num and b.num=c.num
+select distinct a.num as ConsecutiveNums from logs as a join logs as b on a.id = b.id-1 join logs as c on b.id = c.id-1 where a.num = b.num and b.num= c.num
+select distinct a.num as consecutiveNums from logs a, logs b, logs c where a.id = b.id+1 and b.id = c.id+1 and a.num = b.num and b.num = c.num
+select distinct a.num as consecutivenums from logs a left join logs b on a.id = b.id - 1 left join logs c on a.id = c.id + 1 where a.num = b.num and a.num = c.num
+select distinct a.num consecutiveNums from (select num, lead(num,1)over(order by id asc)d1, lead(num,2)over(order by id asc)d2 from logs)a where num=d1 and num=d2
+select distinct b as ConsecutiveNums from ( select id, lag(num, 1) over(order by id) a, num b, lead(num, 1) over(order by id) c from logs ) t where b = a and b = c
+select distinct b.Num ConsecutiveNums from Logs a, Logs b, Logs c where b.Id - a.Id = 1 and c.Id - b.Id = 1 and a.Num = b.Num and b.Num = c.Num
+select distinct l.Num as ConsecutiveNums from Logs as l join logs as o on l.id = o.id + 1 and l.num = o.num join logs as g on l.id = g.id + 2 and l.num = g.num
+select distinct l.Num as ConsecutiveNums from Logs l where l.Num in (select l2.Num from Logs l2 where l2.id = l.id+1) and l.Num in (select l3.Num from Logs l3 where l3.id = l.id+2)
+select distinct l1.Num AS "ConsecutiveNums" from Logs l1, Logs l2, Logs l3 where l1.num = l2.num and l2.num = l3.num and l1.id = l2.id + 1 and l2.id = l3.id + 1
+select distinct l1.Num ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id-1 and l1.num = l2.num and l2.Id = l3.Id-1 and l2.num = l3.num
+select distinct l1.Num as 'ConsecutiveNums' from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id -1 and l2.Id = l3.Id -1 and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs as l1, Logs as l2, Logs as l3 where l1.Id = l2.Id-1 and l2.Id = l3.Id-1 and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs as l1, Logs as l2, Logs as l3 where l1.Num = l2.Num and l2.Num = l3.Num and l2.Id = l1.Id + 1 and l3.Id = l2.Id + 1
+select distinct l1.Num as ConsecutiveNums from Logs l1 ,logs l2, logs l3 where l1.id+1 = l2.id and l1.num = l2.num and l2.id+1 = l3.id and l2.num = l3.num and l1.id+2 = l3.id and l1.num = l3.num
+select distinct l1.Num as ConsecutiveNums from Logs l1 JOIN Logs l2 on l1.Id = l2.Id - 1 JOIN Logs l3 on l1.id = l3.Id - 2 where l1.Num = l2.Num and l1.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1 inner join Logs l2 on l1.Id=l2.Id-1 and l1.Num=l2.Num inner join Logs l3 on l1.Id=l3.Id-2 and l1.Num=l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1 inner join logs l2 on l2.id=l1.id+1 inner join logs l3 on l3.id = l2.id+1 where l1.num=l2.num and l2.num = l3.num
+select distinct l1.Num as ConsecutiveNums from Logs l1 join Logs l2 on l1.Num = l2.Num and l2.Id - l1.Id between 1 and 2 group by l1.Id, l1.Num having count(distinct l2.Id) >= 2
+select distinct l1.Num as ConsecutiveNums from Logs l1 join Logs l2 on l2.Id=l1.Id-1 join Logs l3 on l3.Id=l2.Id-1 where l1.Num=l2.Num and l2.Num=l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1 left join Logs l2 on l1.Id=l2.Id-1 left join logs l3 on l2.Id=L3.Id-1 where l1.Num=l2.Num and l1.Num=l2.Num and l2.Num=l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id + 1 = l2.Id and l2.Id+ 1 = l3.Id and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = L2.Id - 1 and L2.Id = L3.Id - 1 and l1.Num = l2.Num and L2.Num = L3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id + 1 and l1.Id = l3.Id + 2 and l1.Num = l2.Num and l1.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id-1 and l2.Id = l3.Id - 1 and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id-1 and l2.Id = l3.Id-1 and l1.Num=l2.Num and l2.Num=l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id=l2.Id-1 and l2.Id=l3.Id-1 and l1.Num=l2.Num and l2.Num=l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Num = l2.Num and l2.Num = l3.Num and l2.Id = l1.Id+1 and l3.Id = l2.Id+1
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id + 1 = l2.id and l2.id + 1 = l3.id and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1, Logs l2,Logs l3 where l1.Id=l2.Id-1 and l3.Id=l2.Id+1 and l1.Num=l2.Num and l2.Num=l3.Num
+select distinct l1.Num as ConsecutiveNums from Logs l1,Logs l2,Logs l3 where l1.Id=l2.Id-1 and l2.Id=l3.Id-1 and l1.num=l2.num and l2.num=l3.num
+select distinct l1.Num as ConsecutiveNums from `logs` l1, `logs` l2 , `logs` l3 where l1.num = l2.num and l2.num = l3.num and l3.id = l2.id+1 and l2.id = l1.id+1
+select distinct l1.Num as ConsecutiveNums from logs l1 join logs l2 on l1.Id = l2.id-1 join logs l3 on l1.Id = l3.id+1 where l1.Num = l2.Num and l1.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from logs l1, logs l2, logs l3 where l1.Id = l2.Id-1 and l2.Id = l3.Id-1 and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.Num as ConsecutiveNums from logs l1, logs l2, logs l3 where l1.id = l2.id+1 and l2.id = l3.id+1 and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct l1.num As ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id = l2.id - 1 and l2.id = l3.id - 1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l2.id-l1.id=1 and l3.id-l2.id=1 and l1.num=l2.num and l2.num=l3.num
+select distinct l1.num ConsecutiveNums from Logs l1,Logs l2,Logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num ConsecutiveNums from logs l1 join logs l2 on l1.id = l2.id - 1 and l1.num = l2.num join logs l3 on l2.id = l3.id - 1 and l2.num = l3.num
+select distinct l1.num as 'ConsecutiveNums' from logs l1, logs l2, logs l3 where l1.id = l2.id + 1 and l2.id = l3.id + 1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as 'ConsecutiveNums' from logs l1, logs l2, logs l3 where l1.num=l2.num AND l2.num=l3.num And l1.id=l2.id+1 AND l2.id=l3.id+1
+select distinct l1.num as ConsecutiveNums from Logs as l1, Logs as l2, Logs as l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l3.num = l2.num
+select distinct l1.num as ConsecutiveNums from Logs as l1, logs as l2, logs as l3 where l1.id = l2.id+1 and l1.id=l3.id+2 and l1.num=l2.num and l1.num=l3.num
+select distinct l1.num as ConsecutiveNums from Logs as l1,logs as l2,logs as l3 where l1.id = l2.id-1 and l1.id = l3.id-2 and (l1.num = l2.num and l1.num = l3.num)
+select distinct l1.num as ConsecutiveNums from Logs l1 join Logs l2 on (l1.Id = l2.Id - 1) join Logs l3 on (l2.Id = l3.Id - 1) where l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id+1 and l1.Id = l3.Id+2 and l1.num = l2. num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id - l2.id = 1 and l2.id-l3.id = 1 and l1.num=l2.num and l2.num=l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id = l2.Id-1 and l2.id = l3.Id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id = l2.id -1 and l2.id = l3.id -1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.num = l2.num and l2.num = l3.num and l1.id != l2.id and l2.id != l3.id and l1.id = l2.id - 1 and l2.id = l3.id - 1
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.num = l2.num and l2.num = l3.num and l1.id = l2.id - 1 and l2.id = l3.id - 1
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.num=l2.num and l2.num=l3.num and l1.id=l2.id-1 and l2.id=l3.id-1
+select distinct l1.num as ConsecutiveNums from Logs l1, Logs l2, logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1, logs l2, logs l3 where l1.id = l2.id+1 and l2.id = l3.id+1 and l1.num = l2.num and l2.num =l3.num
+select distinct l1.num as ConsecutiveNums from Logs l1,Logs l2,Logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num=l3.num
+select distinct l1.num as ConsecutiveNums from logs as l1, logs as l2, logs as l3 where l1.Id = L2.Id - 1 and l2.Id = l3.Id - 1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from logs l1 join logs l2 on l2.id = l1.id+1 join logs l3 on l3.id = l1.id+2 where l1.num = l2.num and l1.num=l3.num
+select distinct l1.num as ConsecutiveNums from logs l1 left join logs l2 on l1.id = l2.id + 1 left join logs l3 on l2.id = l3.id + 1 where l1.num = l2.num and l1.num = l3.num
+select distinct l1.num as ConsecutiveNums from logs l1, logs l2, logs l3 where l1.id + 1 = l2.id and l1.num = l2.num and l2.id + 1 = l3.id and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from logs l1, logs l2, logs l3 where l1.id + 1 = l2.id and l2.id + 1 = l3.id and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as ConsecutiveNums from logs l1, logs l2, logs l3 where l1.id = l2.id-1 and l2.id=l3.id-1 and l1.num=l2.num and l2.num=l3.num
+select distinct l1.num as ConsecutiveNums from logs l1,logs l2,logs l3 where l1.id+1=l2.id and l2.id+1=l3.id and l1.num=l2.num and l2.num=l3.num
+select distinct l1.num as ConsecutiveNums from logs l1,logs l2,logs l3 where l1.id+1=l2.id and l2.id+1=l3.id and l1.num=l2.num and l2.num=l3.num and l1.num=l3.num
+select distinct l1.num as ConsecutiveNums from logs l1,logs l2,logs l3 where l1.num = l2.num and l3.num = l2.num and l1.id = l2.id -1 and l2.id = l3.id -1
+select distinct l1.num as consecutivenums from logs l1 join logs l2 on l1.id=l2.id-1 join logs l3 on l1.id=l3.id-2 where l1.num=l2.num and l2.num=l3.num
+select distinct l1.num as consecutivenums from logs l1 join logs l2 on l1.num=l2.num and l2.id=l1.id+1 join logs l3 on l2.num=l3.num and l3.id=l2.id+1
+select distinct l1.num as consecutivenums from logs l1, logs l2, logs l3 where l1.id = l2.id -1 and l2.id = l3.id - 1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1.num as consecutivenums from logs l1, logs l2, logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct l1num as consecutivenums from( select l1.id, l1.num as l1num,l2.num as l2num,l3.num as l3num from logs l1 left join logs l2 on l2.id = l1.id + 1 left join logs l3 on l3.id = l1.id+2 and l3.id = l2.id + 1 where l1.num = l2.num and l2.num = l3.num) t
+select distinct l3.num as ConsecutiveNums from Logs l1 ,Logs l2 ,Logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct l3.num as ConsecutiveNums from Logs l1, Logs l2, logs l3 where l3.id = l1.id + 2 and l3.id = l2.id + 1 and l1.num = l2.num and l1.num = l3.num
+select distinct log1.Num as ConsecutiveNums from Logs log1, Logs log2 , Logs log3 where log1.Num = log2.Num and log2.Num = log3.Num and log2.Id - log1.Id = 1 and log3.Id - log2.id = 1
+select distinct log1.Num as ConsecutiveNums from Logs log1, Logs log2, Logs log3 where log1.Id = log2.Id-1 and log2.Id = log3.Id-1 and log1.Num = log2.Num and log2.Num = log3.Num
+select distinct log1.Num as ConsecutiveNums from logs as log1, logs as log2, logs as log3 where log1.Num=log2.Num and log1.Num=log3.Num and log1.Id = log2.Id-1 and log2.Id = log3.Id-1
+select distinct log1.num as consecutivenums from logs log1 inner join logs log2 on log1.id + 1 = log2.id and log1.num = log2.num inner join logs log3 on log1.id + 2 = log3.id and log1.num = log3.num
+select distinct logs1.num as ConsecutiveNums from Logs logs1 inner join Logs logs2 on logs1.id = logs2.id - 1 and logs1.num = logs2.num inner join Logs logs3 on logs2.id = logs3.id - 1 and logs2.num = logs3.num
+select distinct num ConsecutiveNums from (select *, lead(num) over() next_n, lead(num,2) over() next_two_n from Logs ) a where num=next_n and num=next_two_n
+select distinct num as "ConsecutiveNums" from (select Id,num, lead(num) over (order by id) as 'next_num', lead(num,2) over (order by id) as 'next_next_num' from Logs) t1 where num = t1.next_num and num = next_next_num
+select distinct num as ConsecutiveNUms from (select num, Lead(Num)over() AS NextVal,Lead(Num,2)over() AS ThirdVal from Logs) temp where Num=NextVal AND NextVal=ThirdVal
+select distinct num as ConsecutiveNums from ( SELECT num,LEAD(num) OVER(ORDER BY id) leadq , LAG(num) OVER (ORDER BY id) lagq FROM logs )q where num = leadq and num= lagq
+select distinct num as ConsecutiveNums from ( select *,lead(num,1) over (order by id asc) as ab, lag(num,1) over (order by id asc) as b from logs ) a where num = ab and num = b
+select distinct num as ConsecutiveNums from ( select a.num, case when a.num=b.num AND b.num=c.num then 1 else 0 end as three_times from logs a, logs b, logs c where a.id+1 = b.id AND b.id+1 = c.id ) as d where three_times = 1
+select distinct num as ConsecutiveNums from ( select id , num, lead(num,1) over(order by id asc) as lead_1, lead(num,2) over(order by id asc) as lead_2 from Logs )z where num=lead_1 and lead_1=lead_2
+select distinct num as ConsecutiveNums from ( select id, num ,lead(num, 1) over (order by id) as lead1 ,lead(num, 2) over (order by id) as lead2 ,lag(num,1) over (order by id) as lag1 ,lag(num,2) over (order by id) as lag2 from logs) a where (num = lead1 and num = lead2) or (num = lead1 and num = lag1) or (num = lag1 and num = lag2)
+select distinct num as ConsecutiveNums from ( select id, num, lag(id,1) over (partition by num order by num) as la, lead(id,1) over (partition by num order by num) as le from Logs )L where id -1 = la and id + 1 = le
+select distinct num as ConsecutiveNums from ( select id, num, lag(num) over (order by id) as prev, lead(num) over (order by id) as after from logs ) as before_after where num = prev and num = after
+select distinct num as ConsecutiveNums from ( select num, @count := if(@prev = num, @count + 1, 1) as c, @prev := num from Logs, (select @count := 1, @prev := null) var ) res where res.c >= 3
+select distinct num as ConsecutiveNums from ( select num, id, lag(id) over(partition by num order by id) as previous, lead(id) over(partition by num order by id) as next from logs ) f where previous + 1 = id and next - 1 = id
+select distinct num as ConsecutiveNums from ( select num, lag(num,1) over (order by id) l1, lag(num,2) over (order by id) l2 from Logs ) t where t.num = t.l1 and t.num = t.l2
+select distinct num as ConsecutiveNums from ( select num, lead(num ,1) over() as l1, lead(num,2) over() as l2 from Logs ) Log where num = l1 and l1 = l2
+select distinct num as ConsecutiveNums from ( select num, lead(num,1) over (order by id) as lead_1, lead(num,2) over (order by id) as lead_2 from Logs) x where x.num=x.lead_1 and x.lead_1=x.lead_2
+select distinct num as ConsecutiveNums from (select id, num, lead(num,1) over (order by id) as second_num, lead(num,2) over (order by id) as third_num from logs) as tmp where num = second_num and num = third_num
+select distinct num as ConsecutiveNums from (select num, lag(num) over(order by id) as lastnum, lead(num) over (order by id) leadnum from Logs ) t where num = lastnum and num = leadnum
+select distinct num as ConsecutiveNums from (select num, lag(num,1) over (order by id) as lag1, lag(num,2) over (order by id) as lag2 from Logs) a where num = lag1 and num = lag2
+select distinct num as ConsecutiveNums from (select num, lead(num) over (order by id) as lea, lag(num) over(order by id) as la from Logs) k where num=lea and num=la
+select distinct num as ConsecutiveNums from (select num, lead(num,1) over (order by id) as l, lag(num,1) over (order by id) as d from Logs) as t where num=l and num=d
+select distinct num as ConsecutiveNums from logs where (id+1, Num) in (select * from logs) and (id+2, Num) in (select * from logs)
+select distinct num as ConsecutiveNums from logs where (id+1,num) in (select * from logs) and (id+2,num) in (select * from logs)
+select distinct num as ConsecutiveNums from( select num, lead(num) over(order by id) as num1, lag(num) over(order by id) as num2 from Logs ) temp_table where num = num1 and num1 = num2
+select distinct num as ConsecutiveNums from(select num, lead(num) over() as next_num, lead(num, 2) over() as third_num from Logs) t1 where num = next_num and next_num = third_num
+select distinct num as consecutivenums from ( select num , lead(num) over(order by id) as `lead` , lag(num) over(order by id) as `lag` from logs ) t where num=`lead` and num=`lag`
+select distinct num as consecutivenums from ( select num, lead(num) over(order by id) as `lead`, lag(num) over(order by id) as `lag` from logs ) t where num=`lead` and num=`lag`
+select distinct num as consecutivenums from (select num, lag(num) over (order by id) as lag1, lead(num) over (order by id) as lead1 from logs) t where num = lag1 and num= lead1
+select distinct num as consecutivenums from (select num, lead(num, 1) over() as nex, lead(num, 2) over() as nex2 from logs)t where t.num=t.nex and t.num=t.nex2
+select distinct t.num as ConsecutiveNums from (select num, lead(num) over(order by Id) as le, lag(num) over(order by Id) as lg from Logs) as t where t.num = le and t.num = lg
+select distinct t.num as ConsecutiveNums from(select num, id, lag(id) over(partition by num order by id) as previous, lead(id) over(partition by num order by id) as next from logs) t where t.previous + 1 = t.id and t.next - 1 = t.id
+select distinct t1.Num ConsecutiveNums From (select row_number() over() rowN, Num from Logs) as t1 left join (select row_number() over() rowN, Num from ( select * from Logs limit 1, 9999999999999999999) a1) as t2 on t1.rowN = t2.rowN left join (select row_number() over() rowN, Num from ( select * from Logs limit 2, 9999999999999999999) a2) as t3 on t1.rowN = t3.rowN where t1.Num = t2.Num and t2.Num = t3.Num
+select distinct t1.Num as ConsecutiveNums from Logs t1 join Logs t2 on t1.Id = t2.Id - 1 join Logs t3 on t1.Id = t3.Id - 2 where t1.num = t2.num and t1.num = t3.num
+select distinct t1.Num as ConsecutiveNums from Logs t1, Logs t2, Logs t3 where t1.Num = t2.Num and t2.Num = t3.Num and (t1.id - t2.id = 1 and t1.id - t3.id = 2 and t2.id - t3.id =1) order by t1.Num
+select distinct t1.num as ConsecutiveNums from logs t1, logs t2, logs t3 where t1.id+1=t2.id and t1.id+2=t3.id and t1.num=t2.num and t1.num=t3.num
+select distinct t1.num as consecutivenums from logs t1, logs t2, logs t3 where t1.id = t2.id - 1 and t2.id = t3.id - 1 and t1.num = t2.num and t2.num = t3.num
+select distinct temp.Num as ConsecutiveNums from (Select Num , (row_number() OVER (ORDER BY Id) - row_number() OVER (PARTITION BY Num ORDER BY Id)) as Rnk from Logs)temp group by temp.Num,temp.Rnk having count(1) >=3
+select distinct(L1.Num) as ConsecutiveNums from Logs L1, Logs L2, Logs L3 where L1.Id = L2.Id-1 and L2.Id = L3.Id-1 AND l1.Num = l2.Num AND l2.Num = l3.Num
+select distinct(Num) as 'ConsecutiveNums' from (select Id, Num, Lead(Num,1,0) over(order by Id) as 'Lead_1', Lead(Num,2,-1) over(order by Id) as 'Lead_2' from Logs) as cte where Num=Lead_1 and Num=Lead_2
+select distinct(Num) as ConsecutiveNums from (select Num, lag(Num) over (order by Id) as pre, lead(Num) over (order by Id) as pro from Logs) as p where Num = pre and Num = pro
+select distinct(a.Num) as ConsecutiveNums from logs a inner join logs b on a.id +1= b.id inner join logs c on b.id +1 = c.id where a.num = b.num and b.num = c.num
+select distinct(l.num) as ConsecutiveNums from ( select num, LAG(num, 1) OVER( Order BY id desc ) as prev_num, LEAD(num, 1) OVER( Order BY id desc ) as next_num from Logs ) as l where l.num = l.prev_num and l.num = l.next_num
+select distinct(l1.Num) as "ConsecutiveNums" from Logs l1 inner join Logs l2 on l2.Num = l1.Num and l2.id - 1 = l1.id inner join Logs l3 on l3.Num = l2.Num and l3.id - 1 = l2.id
+select distinct(l1.Num) as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where (l1.Num=l2.Num and l2.Num = l3.Num and l3.Num=l1.Num and l2.id=l1.id+1 and l3.id = l2.id+1)
+select distinct(l1.Num) as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.Id = l2.Id - 1 and l2.Id = l3.Id - 1 and l1.Num = l2.Num and l2.Num = l3.Num
+select distinct(l1.num) ConsecutiveNums from logs l1, logs l2, logs l3 where l1.id = l2.id-1 and l1.num = l2.num and l2.id = l3.id-1 and l2.num = l3.num
+select distinct(l1.num) as ConsecutiveNums from Logs l1 inner join Logs l2 on l1.id = (l2.id - 1) inner join Logs l3 on l1.id = (l3.id - 2) where l1.num = l2.num and l2.num = l3.num
+select distinct(l1.num) as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.Num=l2.Num and l2.Num=l3.Num
+select distinct(l1.num) as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l1.id = l2.id-1 and l2.id = l3.id-1 and l1.num = l2.num and l2.num = l3.num
+select distinct(l1.num) as ConsecutiveNums from Logs l1, Logs l2, Logs l3 where l2.Id = l1.Id - 1 and l3.Id = l2.Id - 1 and l2.num = l1.num and l3.num = l2.num
+select distinct(l1.num) as ConsecutiveNums from logs l1 inner join logs l2 on l2.id=l1.id + 1 inner join logs l3 on l3.id=l1.id + 2 where l1.num = l2.num and l2.num = l3.num
+select distinct(num) as ConsecutiveNums from (select Num, lead(Num,1) over() as SecVal, lead(Num,2) over() as ThrVal from Logs) t1 where t1.Num=t1.SecVal and t1.SecVal=t1.thrVal
+select distinct(num) as ConsecutiveNums from (select num, lag(num,1) over(order by Id) as previous, lead(num,1) over (order by id) as nexts from Logs) d where num=d.previous and num=d.nexts
+select distinct(num1) as ConsecutiveNums from( select l1.id, l1.num as num1, l2.num as num2, l3.num as num3 from Logs l1 join Logs l2 on l1.id = l2.id-1 join Logs l3 on l2.id = l3.id-1 ) as a where a.num1 = a.num2 and a.num2 = a.num3
+select distinct(r1.num) as ConsecutiveNums from logs r1, logs r2, logs r3 where r1.id = r2.id-1 and r2.id=r3.id-1 and r1.num=r2.num and r2.num=r3.num
+select l.ConsecutiveNums from (select case when l1.num = l2.num and l2.num = l3.num then l1.num end ConsecutiveNums from logs l1, logs l2, logs l3 where l1.Id = l2.Id+1 and l2.Id = l3.id +1) l where l.ConsecutiveNums is not Null group by l.ConsecutiveNums
+select l1.num "ConsecutiveNums" from logs l1 left join logs l2 on l1.id = l2.id-1 left join logs l3 on l2.id = l3.id-1 where l1.num = l2.num and l2.num = l3.num group by 1
+select num as ConsecutiveNums from ( select distinct t1.num from Logs as t1, Logs as t2, Logs as t3 where (t1.id = t2.id -1 and t1.id = t3.id - 2 and t1.num = t2.num and t1.num = t3.num) or (t1.id = t2.id+1 and t1.id = t3.id-1 and t1.num = t2.num and t1.num = t3.num) or (t1.id = t2.id+1 and t1.id = t3.id +2 and t1.num = t2.num and t1.num = t3.num) ) as r
+select num as ConsecutiveNums from ( select id,num ,lead(num,1,NULL) over(order by id) as first_num ,lead(num,2,NULL) over(order by id) as second_num from Logs )as iq1 where num = first_num and num = second_num group by 1
+with A as ( select id , num , lag(num) over() as one from Logs ) , B as ( select * , lag(one) over() as two from A ) select distinct num as ConsecutiveNums from B where num=one and num=two
+with L1 as ( select Id, Num, Id+1-row_number() over(partition by Num order by Id asc) as grp from Logs ), L2 as ( select Num, grp from L1 group by Num, grp having count(*)>=3 ) select distinct Num as ConsecutiveNums from L1 where concat(Num, grp) in (select concat(Num, grp) from L2)
+with a as ( select l1.Id, l1.Num from Logs as l1 inner join Logs as l2 on l1.Id = l2.Id-1 and l1.Num = l2.Num ), b as ( select distinct a.Num as "ConsecutiveNums" from a inner join Logs as l3 on a.Id = l3.Id-2 and a.Num = l3.Num ) select * from b
+with agg as( select num, lag(num, 1) over(rows between 1 preceding and current row) prev_num, lag(num, 2) over(rows between 2 preceding and current row) prev_to_prev_num from Logs ) select distinct num ConsecutiveNums from agg where num = prev_num and prev_num = prev_to_prev_num
+with cte as ( select Num ,lead(num, 1) over(order by id) lag1 ,lead(num, 2) over(order by id) lag2 from Logs ) select distinct Num ConsecutiveNums from cte where Num = lag1 and lag1 = lag2
+with cte as ( select id, Num, lag(Num,1) over(order by id) as lag1, lag(Num,2) over(order by id) as lag2 from `Logs` ) select distinct Num as ConsecutiveNums from cte where Num = lag2 and Num = lag1
+with cte as (select Num , lead(Num, 1) over(order by id) as Num1 , lead(Num, 2) over(order by id) as Num2 from Logs) select distinct Num as ConsecutiveNums from cte where Num=Num1 and Num=Num2
+with cte as (select id,num,rnk, cast(id as signed) - cast(rnk as signed) as jan from (select id,num, row_number() over(partition by Num order by id) as rnk from Logs) as g) select distinct num as ConsecutiveNums from cte group by jan,num having count(*) >= 3
+with cte as( select num, lead(num, 1) over(order by id) lead1, lead(num, 2) over(order by id) lead2 from logs ) select distinct num ConsecutiveNums from cte where num = lead1 and num = lead2 and lead1 = lead2
+with cte as(select Id,Num,Lead(Num,1,0) over(order by Id) as 'Lead_1',Lead(Num,2,-1) over(order by Id) as 'Lead_2' from Logs) select distinct(Num) as 'ConsecutiveNums' from cte where Num=Lead_1 and Num=Lead_2
+with l_table as (select id ,num ,lead(num,1) OVER (ORDER BY Id) as l_1 ,lead(num,2) OVER (ORDER BY Id) as l_2 FROM logs) select distinct num as ConsecutiveNums from l_table where num = l_1 and l_1 = l_2
+with leads as (select *, lead(Num,1) over (order by Id asc) as L1, lead(Num,2) over (order by Id asc) as L2 from Logs), meh as (select *, (case when Num=L1 and L1=L2 then 'yes' else 'no' end) as consecutive from leads) select distinct (Num) as ConsecutiveNums from meh where consecutive = 'yes'
+with r as (select (case when num = (lag(num,1) over (order by id)) and num = (lead(num,1) over (order by id)) then num end) as ConsecutiveNums from logs) select distinct ConsecutiveNums from r where ConsecutiveNums is not null
+with sumary as ( select id, num, lead(num,1) over (order by id)nxt, lead(num,2) over (order by id)nnxt from logs ) select distinct num as ConsecutiveNums from sumary where num = nxt and num = nnxt
+with tt as ( select Id, Num, Lead(Num, 1, 0) over (order by Id) as num1, Lead(Num, 2, -1) over (order by Id) as num2 from Logs ) select distinct(Num) as "ConsecutiveNums" from tt where Num=num1 and Num=num2
+with windowed as ( select Id, Num, lag(Num, 2) over (order by Id) as lag1, lag(Num, 1) over (order by Id) as lag2 from Logs ) select distinct Num as ConsecutiveNums from windowed where Num = lag1 and Num = lag2

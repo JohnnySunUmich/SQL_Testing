@@ -1,0 +1,235 @@
+(select p.id, "Leaf" as Type from tree p left join tree c on p.id = c.p_id where c.id is null and p.p_id is not null) union (select p.id, "Root" as Type from tree p where p.p_id is null) union (select p.id, "Inner" as Type from tree c inner join tree p on c.p_id = p.id where p.p_id is not null )
+SELECT DISTINCT a.id, (CASE WHEN a.p_id IS NULL THEN 'Root' WHEN a.p_id IS NOT NULL AND b.id IS NULL THEN 'Leaf' WHEN a.p_id IS NOT NULL AND b.id IS NOT NULL THEN 'Inner' ELSE NULL END) AS Type FROM tree a LEFT JOIN tree b ON a.id = b.p_id
+SELECT DISTINCT a.id, CASE WHEN a.p_id IS NULL THEN 'Root' WHEN b.id IS NULL THEN 'Leaf' ELSE 'Inner' END AS Type FROM tree a LEFT JOIN tree b ON a.id = b.p_id ORDER BY a.id
+SELECT DISTINCT t.id , CASE WHEN t.p_id IS NULL THEN 'Root' WHEN t1.id IS NULL THEN 'Leaf' ELSE 'Inner' END Type FROM tree t LEFT JOIN tree t1 ON t.id = t1.p_id ORDER BY t.id
+SELECT DISTINCT t1.id, ( CASE WHEN t1.p_id IS NULL THEN 'Root' WHEN t1.p_id IS NOT NULL AND t2.id IS NOT NULL THEN 'Inner' WHEN t1.p_id IS NOT NULL AND t2.id IS NULL THEN 'Leaf' END ) AS Type FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id
+SELECT DISTINCT t1.id, ( CASE WHEN t1.p_id IS NULL THEN 'Root' WHEN t1.p_id IS NOT NULL AND t2.id IS NULL THEN 'Leaf' ELSE 'Inner' END ) AS Type FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id
+SELECT DISTINCT t1.id, IF(t1.p_id IS NULL, 'Root', IF(t2.p_id IS NULL, 'Leaf', 'Inner')) AS Type FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id
+SELECT DISTINCT tree.id, CASE WHEN tree.p_id IS NULL THEN 'Root' WHEN child.id IS NULL THEN 'Leaf' ELSE 'Inner' END As Type FROM tree LEFT JOIN tree AS child ON child.p_id = tree.id
+SELECT ID id , CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT a.id from tree a join tree b on a.id = b.p_id) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT Id, 'Root' as Type FROM tree WHERE p_id is null UNION SELECT id, 'Leaf' as Type FROM tree WHERE id not in ( SELECT distinct p_id FROM tree WHERE p_id is not null) and p_id is not null UNION SELECT Id, 'Inner' as Type FROM tree Where id in (SELECT distinct p_id FROM tree WHERE p_id is not null) and id not in (SELECT Id FROM tree WHERE p_id is null) Order by Id
+SELECT Id, CASE WHEN P_ID IS NULL THEN 'Root' WHEN ID NOT IN (SELECT DISTINCT P_ID FROM TREE WHERE P_ID IS NOT NULL) THEN 'Leaf' ELSE 'Inner' END AS Type FROM TREE ORDER BY ID
+SELECT Id, CASE WHEN p_id IS NULL THEN 'Root' WHEN p_id IS NOT NULL AND id IN (select p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY 1
+SELECT T.ID, CASE WHEN T.P_ID IS NULL THEN 'Root' WHEN (SELECT COUNT(T2.ID) FROM TREE T2 WHERE T2.P_ID = T.ID) THEN 'Inner' ELSE 'Leaf' END TYPE FROM TREE T
+SELECT T3.id, T3.type FROM ( SELECT T1.id, CASE WHEN p_id IS NULL then 'Root' WHEN EXISTS(SELECT T2.p_id FROM tree T2 WHERE T2.p_id = T1.id) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree T1 ) AS T3
+SELECT atree.id, IF(ISNULL(atree.p_id), 'Root', IF(atree.id IN (SELECT p_id FROM tree), 'Inner','Leaf')) Type FROM tree atree ORDER BY atree.id
+SELECT distinct a.id, CASE WHEN a.p_id IS NULL THEN 'Root' WHEN b.p_id IS NULL THEN 'Leaf' ELSE 'Inner' END AS Type FROM tree a LEFT JOIN tree b ON a.id=b.p_id
+SELECT distinct t1.id as id, (CASE WHEN t1.p_id IS NULL THEN 'Root' WHEN t1.p_id IS NOT NULL AND t2.id IS NOT NULL THEN 'Inner' ELSE 'Leaf' END) AS Type FROM tree as t1 LEFT JOIN tree as t2 ON t1.id = t2.p_id
+SELECT id , CASE WHEN p_id is null then 'Root' WHEN id IN (SELECT DISTINCT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS 'Type' FROM tree
+SELECT id , CASE WHEN p_id is null then 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS 'Type' FROM tree
+SELECT id ,CASE WHEN id IN (SELECT id FROM tree WHERE p_id IS NULL) THEN 'Root' WHEN id IN (SELECT p_id FROM tree WHERE p_id IS NOT NULL) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id AS 'Id', CASE WHEN tree.id = (SELECT atree.id FROM tree atree WHERE atree.p_id IS NULL) THEN 'Root' WHEN tree.id IN (SELECT atree.p_id FROM tree atree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY 'Id'
+SELECT id AS 'Id', CASE WHEN tree.id = (SELECT t.id FROM tree AS t WHERE t.p_id IS NULL) THEN 'Root' WHEN tree.id IN (SELECT t.p_id FROM tree AS t) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY id
+SELECT id AS `Id`, CASE WHEN tree.id = (SELECT atree.id FROM tree atree WHERE atree.p_id IS NULL) THEN 'Root' WHEN tree.id IN (SELECT atree.p_id FROM tree atree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY `Id`
+SELECT id, 'Root' AS Type FROM tree WHERE p_id IS NULL UNION SELECT id, 'Inner' AS Type FROM tree WHERE id IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL UNION SELECT id, 'Leaf' AS Type FROM tree WHERE id NOT IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL
+SELECT id, 'Root' AS Type FROM tree WHERE p_id IS NULL UNION SELECT id, 'Leaf' AS Type FROM tree WHERE id NOT IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL UNION SELECT id, 'Inner' AS Type FROM tree WHERE id IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL ORDER BY id
+SELECT id, 'Root' AS Type FROM tree WHERE p_id IS NULL UNION SELECT id, 'Leaf' AS Type FROM tree WHERE id NOT IN (SELECT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL UNION SELECT id, 'Inner' AS Type FROM tree WHERE id IN (SELECT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL GROUP BY id, Type
+SELECT id, 'Root' AS Type FROM tree WHERE p_id IS NULL union SELECT id, 'Leaf' AS Type FROM tree WHERE id NOT IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL union SELECT id, 'Inner' AS Type FROM tree WHERE id IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL
+SELECT id, 'Root' As Type FROM tree WHERE p_id IS NULL UNION SELECT id, 'Leaf' As Type FROM tree WHERE id NOT IN (SELECT IFNULL(p_id,'') FROM tree) AND p_id IS NOT NULL UNION SELECT id, 'Inner' As Type FROM tree WHERE id IN (SELECT p_id FROM tree) AND p_id IS NOT NULL ORDER BY id
+SELECT id, (CASE WHEN n_parent = 0 THEN 'Root' WHEN n_children = 0 THEN 'Leaf' ELSE 'Inner' END) AS Type FROM (SELECT t1.id, COUNT(DISTINCT t1.p_id) AS n_parent, COUNT(DISTINCT t2.id) AS n_children FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id GROUP BY 1) t
+SELECT id, (CASE WHEN p_id IS NULL THEN "Root" WHEN id IN (SELECT DISTINCT p_id FROM tree) THEN "Inner" ELSE "Leaf" END) Type FROM tree
+SELECT id, (CASE WHEN p_id IS NULL THEN "Root" WHEN id IN (SELECT DISTINCT(p_id) FROM tree) THEN "Inner" ELSE "Leaf" END) AS Type FROM Tree
+SELECT id, (CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id AS 'id' FROM tree WHERE id IS NOT NULL) THEN 'Inner' ELSE 'Leaf' END ) AS 'Type' FROM tree
+SELECT id, (CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree WHERE p_id IS NOT NULL) THEN 'Inner' ELSE 'Leaf' END ) AS 'Type' FROM tree
+SELECT id, (CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END) Type FROM tree ORDER BY id
+SELECT id, (CASE WHEN p_id IS NULL THEN 'Root' WHEN p_id IS NOT NULL AND id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END) AS Type FROM tree
+SELECT id, (CASE WHEN p_id is NULL THEN "Root" WHEN id IN (SELECT p_id FROM tree) THEN "Inner" ELSE "Leaf" END) AS Type FROM tree ORDER BY id
+SELECT id, (CASE WHEN p_id is null THEN "Root" WHEN id in (SELECT p_id FROM tree) THEN "Inner" ELSE "Leaf" END) AS Type FROM tree
+SELECT id, (CASE WHEN p_id is null THEN 'Root' WHEN id not in (SELECT coalesce(p_id,0) FROM tree) THEN 'Leaf' ELSE 'Inner' END) Type FROM tree GROUP BY id
+SELECT id, (CASE WHEN p_id is null then 'Root' WHEN id not in (SELECT Distinct a.id FROM tree a INNER JOIN tree b ON a.id = b.p_id) then 'Leaf' ELSE 'Inner' END) as Type FROM tree ORDER BY 1
+SELECT id, CASE WHEN P_id IS NULL THEN "Root" WHEN Id not in (SELECT P_id from tree where p_id is not null) then "Leaf" ELSE "Inner" END AS "Type" FROM tree
+SELECT id, CASE WHEN id = ( SELECT a.id FROM tree a WHERE a.p_id IS NULL ) THEN 'Root' WHEN id IN ( SELECT b.p_id FROM tree b ) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY id
+SELECT id, CASE WHEN id = (SELECT id FROM tree WHERE p_id IS NULL) THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY Id
+SELECT id, CASE WHEN id = (SELECT id FROM tree WHERE p_id IS null) THEN 'Root' WHEN id IN (SELECT p_id AS id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN id = (SELECT id FROM tree Where p_id is null) THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY id
+SELECT id, CASE WHEN id IN (SELECT atree.id FROM tree atree WHERE atree.p_id IS NULL) THEN 'Root' WHEN id IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY id
+SELECT id, CASE WHEN id in (SELECT a.id FROM tree as A Where a.p_id IS NULL) THEN 'Root' WHEN id in (SELECT b.p_id FROM tree as B) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree Order by tree.id
+SELECT id, CASE WHEN p_Id IS NULL THEN 'Root' WHEN id IN (SELECT p_Id FROM tree) THEN 'Inner' ELSE 'Leaf' END as Type FROM tree
+SELECT id, CASE WHEN p_id IS NOT NULL AND id IN (SELECT id FROM tree WHERE id IN (SELECT p_id FROM tree)) THEN 'Inner' WHEN p_id IS NULL THEN 'Root' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN "Root" WHEN id IN (SELECT DISTINCT a.id FROM tree a JOIN tree b ON a.id=b.p_id AND a.p_id IS NOT NULL) THEN "Inner" ELSE "Leaf" END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN "Root" WHEN id IN (SELECT DISTINCT p_id FROM tree) THEN "Inner" ELSE "Leaf" END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN "Root" WHEN id in (SELECT p_id FROM tree) THEN "Inner" ELSE "Leaf" END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN "Root" WHEN id in (SELECT p_id FROM tree) THEN "Inner" ELSE "Leaf" END as Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT DISTINCT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS 'Type' FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT DISTINCT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT DISTINCT(p_id) FROM tree WHERE p_id IS NOT NULL) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT DISTINCT(p_id) FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS 'Type' FROM tree ORDER BY id
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY Id
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ORDER BY id
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree order by id
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id NOT IN (SELECT p_id FROM TREE WHERE p_id IS NOT NULL) THEN 'Leaf' ELSE 'Inner' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id NOT IN (SELECT p_id FROM tree WHERE p_id IS NOT NULL) THEN 'Leaf' ELSE 'Inner' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id NOT IN (SELECT p_id FROM tree WHERE p_id IS NOT NULL) THEN 'Leaf' ELSE 'Inner' END as Type FROM tree
+SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN p_id IS NOT NULL AND id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id IS null THEN 'Root' WHEN p_id IS NOT NULL AND id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS type FROM tree
+SELECT id, CASE WHEN p_id is null THEN 'Root' WHEN id IN (SELECT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN p_id is null THEN 'Root' WHEN id in (select p_id from tree) and P_id is not null THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+SELECT id, CASE WHEN t.p_id IS NULL THEN 'Root' WHEN p.id_p IS NOT NULL THEN 'Inner' ELSE 'Leaf' END AS "Type" FROM tree t LEFT JOIN (SELECT DISTINCT p_id AS id_p FROM tree) p ON p.id_p=t.id
+SELECT id, IF(ISNULL(p_id), 'Root', IF(id IN (SELECT p_id FROM tree), 'Inner', 'Leaf')) AS Type FROM tree ORDER BY id
+SELECT id, Type FROM ( (SELECT id, "Root" AS Type FROM tree WHERE p_id IS NULL) UNION (SELECT id, "Leaf" AS Type FROM tree WHERE id NOT IN ( SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL ) AND p_id IS NOT NULL) UNION (SELECT DISTINCT p_id AS id, "Inner" AS Type FROM tree WHERE p_id IS NOT NULL AND p_id NOT IN ( SELECT id FROM tree WHERE p_id IS NULL )) ) AS t1 ORDER BY id
+SELECT id, if(isnull(p_id), 'Root', if (id in (select p_id from tree), 'Inner', 'Leaf')) as Type from tree
+SELECT id,'Root' AS Type FROM tree WHERE p_id IS NULL UNION SELECT id,'Leaf' AS Type FROM tree WHERE p_id is NOt nuLL and id NOT IN (SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL) UNION SELECT DISTINCT p_id,'Inner' AS Type FROM tree WHERE p_id IS NOT NULL and p_id NOT IN (SELECT id FROM tree WHERE p_id IS NULL) ORDER BY id
+SELECT id,CASE WHEN p_id is null THEN "Root" WHEN id in (SELECT t.p_id from tree t) THEN "Inner" ELSE "Leaf" END Type FROM tree
+SELECT t.id, CASE WHEN t.p_id IS NULL THEN "Root" WHEN t.id IN (SELECT id1 FROM ( SELECT t0.id as id1, t1.id as id2 FROM tree t0 JOIN tree t1 WHERE t0.p_id = t1.id ) sub) AND t.id IN (SELECT id2 FROM ( SELECT t0.id as id1, t1.id as id2 FROM tree t0 JOIN tree t1 WHERE t0.p_id = t1.id ) sub) THEN "Inner" ELSE "Leaf" END AS Type FROM tree t
+SELECT t1.id, ( CASE WHEN t1.p_id IS NULL THEN 'Root' WHEN t1.p_id IS NOT NULL AND t2.id IS NOT NULL THEN 'Inner' WHEN t1.p_id IS NOT NULL AND t2.id IS NULL THEN 'Leaf' END ) AS Type FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id group by t1.id
+SELECT t1.id, (CASE WHEN t1.p_id IS NULL THEN 'Root' WHEN t1.p_id IS NOT NULL AND COUNT(t2.id) > 0 THEN 'Inner' ELSE 'Leaf' END) as Type FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id GROUP BY t1.id ORDER BY t1.id
+SELECT t1.id, CASE WHEN COUNT(t1.p_id) = 0 THEN 'Root' WHEN COUNT(t2.id) = 0 THEN 'Leaf' ELSE 'Inner' END AS type FROM tree t1 LEFT JOIN tree t2 ON t1.id = t2.p_id GROUP BY t1.id ORDER BY t1.id
+SELECT t1.id, CASE WHEN t1.id = (SELECT t2.id FROM tree t2 WHERE t2.p_id IS NULL) THEN 'Root' WHEN t1.id IN (SELECT t2.p_id FROM tree t2) THEN 'Inner' ELSE 'Leaf' END AS 'Type' FROM tree t1 ORDER BY t1.id
+SELECT t1.id, CASE WHEN t1.p_id is null THEN 'Root' WHEN SUM(t2.id is not null )>0 THEN 'Inner' ELSE 'Leaf' END as Type FROM tree as t1 LEFT JOIN tree as t2 ON t1.id=t2.p_id GROUP BY t1.id ORDER BY t1.id
+SELECT tree.id , CASE WHEN tree.id=(select tree.id from tree where tree.p_id IS NULL) THEN 'Root' When tree.id in (select tree.p_id from tree) THEN "Inner" ELSE 'Leaf' end AS type FROM tree ORDER BY `Id`
+SElECT id as Id, (CASE WHEN p_id is null THEN 'Root' WHEN id IN (SELECT DISTINCT p_id FROM tree) THEN 'Inner' ELSE 'Leaf' END) AS Type FROM tree
+Select DISTINCT a.id, (CASE WHEN a.p_id IS NULL THEN "Root" When b.p_id IS NULL THEN "Leaf" Else "Inner" End) as Type From tree as a Left Join tree as b On b.p_id = a.id ORDER BY id ASC
+Select DISTINCT t1.id, CASE WHEN t1.p_id IS NULL then 'Root' WHEN t1.p_id IS NOT NULL and t2.id IS NULL then 'Leaf' ELSE 'Inner' END AS Type from tree t1 left join tree t2 on t1.id = t2.p_id order by t1.id
+Select id, (CASE WHEN p_id is NULL THEN 'Root' WHEN id in (Select t.p_id from tree t) THEN 'Inner' ELSE 'Leaf' END ) as Type From tree
+Select id, (case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end) as Type from tree
+Select id, case when id = (select id from tree where p_id is null) then "Root" when id in (select p_id from tree ) then "Inner" else "Leaf" END as Type from tree Order by id
+Select id, case when p_id is null then 'Root' when id in (Select distinct p_id from tree) then 'Inner' else 'Leaf' end as Type from tree
+Select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as type from tree
+WITH Parents AS ( SELECT DISTINCT p_id as parent FROM tree WHERE p_id IS NOT NULL ), res AS ( SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT * FROM Parents) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree ) SELECT * FROM res
+WITH agg AS ( SELECT MAX(l.p_id) AS par, l.id AS chi, MAX(r.id) AS gra FROM tree AS l LEFT JOIN tree AS r ON l.id = r.p_id GROUP BY 2 ) SELECT chi AS id, CASE WHEN par IS NULL THEN 'Root' WHEN par IS NOT NULL AND gra IS NOT NULL THEN 'Inner' WHEN par IS NOT NULL AND gra IS NULL THEN 'Leaf' END AS Type FROM agg
+WITH parent AS ( SELECT DISTINCT(p_id) FROM tree ) SELECT id, CASE WHEN tree.p_id IS NULL THEN 'Root' WHEN parent.p_id IS NULL THEN 'Leaf' ELSE 'Inner' END AS `Type` FROM tree LEFT JOIN parent ON parent.p_id = tree.id
+WITH parents AS ( SELECT DISTINCT p_id FROM tree ) SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM parents) THEN 'Inner' ELSE 'Leaf' END AS Type FROM tree
+WITH root AS ( SELECT id FROM tree WHERE p_id IS NULL ), parents AS ( SELECT DISTINCT p_id FROM tree ) SELECT id, (CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT * FROM parents) THEN 'Inner' ELSE 'Leaf' END) AS Type FROM tree
+WITH t AS ( SELECT DISTINCT p_id FROM tree ) SELECT id, CASE WHEN tree.p_id is NULL THEN 'Root' WHEN tree.p_id is NOT NULL AND t.p_id IS NULL THEN 'Leaf' ELSE 'Inner' END Type FROM tree LEFT JOIN t ON tree.id = t.p_id
+WITH t AS (SELECT IFNULL(p_id, 0) FROM tree) SELECT id Id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT * FROM t) THEN 'Inner' WHEN id NOT IN (SELECT * FROM t) THEN 'Leaf' END AS Type FROM tree
+WITH temp AS ( SELECT DISTINCT p_id FROM tree WHERE p_id IS NOT NULL ) SELECT id, 'Root' AS Type FROM tree WHERE p_id IS NULL UNION SELECT id, 'Leaf' AS Type FROM tree WHERE id NOT IN (SELECT * FROM temp) AND p_id IS NOT NULL UNION SELECT id, 'Inner' AS Type FROM tree WHERE id IN (SELECT * FROM temp) AND p_id IS NOT NULL ORDER BY id
+WITH treetable as ( SELECT id, count(*) AS C FROM (SELECT id FROM tree UNION ALL SELECT p_id as id FROM tree WHERE p_id != (SELECT id FROM tree where p_id IS NULL) ) AS T GROUP BY id ) SELECT T1.id, CASE WHEN T1.p_id IS NULL THEN 'Root' WHEN T1.p_id IS NOT NULL AND T2.C = 1 THEN 'Leaf' ELSE 'Inner' END AS Type FROM tree AS T1 LEFT JOIN treetable AS T2 ON T1.ID=T2.ID
+select * from ((select id as Id, "Root" as Type from tree where p_id is null union select id as Id, "Inner" as Type from tree where p_id is not null and id in (select p_id from tree where p_id is not null) ) union ( select id as Id, "Leaf" as Type from tree where p_id is not null and id not in (select p_id from tree where p_id is not null) )) as temp
+select DISTINCT t1.id, case when t1.p_id is NULL then 'Root' when t2.id IS NOT NULL and t3.p_id IS NOT NULL then 'Inner' else 'Leaf' END as Type from tree t1 left join tree t2 on t1.p_id = t2.id left join tree t3 on t1.id = t3.p_id
+select T.id, IF(isnull(T.p_id), 'Root', IF(T.id in (select p_id from tree), 'Inner', 'Leaf')) Type from tree T
+select T.id, if (isnull(T.p_id),'Root', if(T.id in (select p_id from tree),'Inner','Leaf')) Type from tree T
+select a.id, case when a.p_id is null then 'Root' when a.id in (select p_id from tree where p_id is not null group by p_id) then 'Inner' else 'Leaf' end as Type from tree a
+select a.id, case when a.p_id is null then 'Root' when count(b.p_id) = 0 then 'Leaf' else 'Inner' end type from tree a left join tree b on a.id = b.p_id group by a.id order by a.id
+select distinct X.id, case when X.p_id is null then 'Root' when X.c_id is null then 'Leaf' else 'Inner' END as Type from ( select a.id, a.p_id, b.id as c_id from tree a left join tree b on a.id = b.p_id ) X order by X.id asc
+select distinct a.id as id, ( case when a.p_id is null then 'Root' when a.p_id is not null and b.id is not null then 'Inner' when a.p_id is not null and b.id is null then 'Leaf' end) as Type from tree a left join tree b on a.id=b.p_id order by 1
+select distinct a.id, case when a.p_id is null then 'Root' when b.id is null then 'Leaf' else 'Inner' end as Type from tree as a left join tree as b on a.id= b.p_id
+select distinct a.id, case when a.p_id is null then 'Root' when b.id is null then 'Leaf' else 'Inner' end as type from tree a left join tree b on a.id = b.p_id order by 1
+select distinct base.id, case when base.p_id is null then 'Root' when t1.p_id is null then 'Leaf' else 'Inner' end as Type from tree base left join tree t1 on base.id = t1.p_id order by base.id
+select distinct c.id as id, case when c.p_id is null then 'Root' when p.id is not null and p.p_id is not null then 'Inner' when c.p_id is not null and p.id is null then 'Leaf' end as Type from tree c left join tree p on(c.id = p.p_id)
+select distinct id , case when p_id is null then 'Root' when p_id is not NULL and child_id is not NULL then 'Inner' when p_id is not NULL and child_id is nULL then 'Leaf' end as Type from ( select t1.*, t2.id as child_id from tree t1 left join tree t2 on t1.id = t2.p_id) temp order by 1
+select distinct id, case when p_id is null then "Root" when p_id is not null and id in (select distinct p_id from tree) then "Inner" else "Leaf" end as Type from tree order by id
+select distinct id, case when p_id is null then 'Root' when l is null then 'Leaf' else 'Inner' end as type from (select a.id,a.p_id,b.id as l from tree as a left join tree as b on b.p_id=a.id) as s
+select distinct t.id, case when p.id is null then 'Root' when c.id is null then 'Leaf' else 'Inner' end as Type from Tree t left join Tree p on p.id = t.p_id left join Tree c on c.p_id = t.id
+select distinct t.id, case when t.p_id is null then 'Root' when c.id is null then 'Leaf' else 'Inner' end as Type from Tree t left join Tree c on c.p_id = t.id
+select distinct t.id, case when t.p_id is null then 'Root' when t.p_id is not NULL and u.id is not NULL then 'Inner' else 'Leaf' end as Type from tree as t left join tree as u on t.id = u.p_id
+select distinct t1.id as id, case when t1.p_id is null then 'Root' when t2.p_id is null then 'Leaf' else 'Inner' end as Type from tree t1 left join tree t2 on t1.id = t2.p_id
+select distinct t1.id, (case when t1.p_id is null then 'Root' when t1.p_id is not null and t2.id is not null then 'Inner' when t1.p_id is not null and t2.id is null then 'Leaf' end) type from tree t1 left join tree t2 on t1.id = t2.p_id
+select distinct t1.id, (case when t1.p_id is null then 'Root' when t2.p_id is null then 'Leaf' else 'Inner' end ) as Type from tree t1 left join tree t2 on t1.id = t2.p_id
+select distinct t1.id, case when isnull(t1.p_id) then "Root" when isnull(t2.p_id) then "Leaf" else "Inner" end as Type from tree t1 left join tree t2 on t1.id = t2.p_id
+select distinct t1.id, case when t1.p_id is null then 'Root' when t2.id is null then 'Leaf' else 'Inner' end as Type from tree t1 left join tree t2 on t1.id = t2.p_id
+select distinct t1.id,( case when t1.p_id is null then 'Root' when t1.p_id is not null and t2.id is not null then 'Inner' when t1.p_id is not null and t2.id is null then 'Leaf' end) as Type from tree t1 left join tree t2 on t1.id = t2.p_id
+select id , case when p_id is null then 'Root' when id in (select a.p_id from tree a) then 'Inner' else 'Leaf' end as Type from tree order by id
+select id , case when p_id is null then 'Root' when id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end as Type from tree order by id
+select id , case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as type from tree
+select id , case when p_id is null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' else 'Leaf' end as type from tree
+select id Id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end Type from tree
+select id as 'ID', case when tree.id = (select a.id from tree a where a.p_id is null) then 'Root' when tree.id in (select a.p_id from tree a) then 'Inner' else 'Leaf' end as Type from tree order by 'ID'
+select id as 'Id', (case when tree.id = (select atree.id from tree atree where atree.p_id is null)then 'Root' when tree.id in (select atree.p_id from tree atree) then 'Inner' else 'Leaf' end) as type from tree order by 'Id'
+select id as 'Id', case when p_id is null then 'Root' when t2.id in (select t1.p_id from tree t1) then 'Inner' else 'Leaf' end as Type from tree t2
+select id as 'Id', case when tree.Id = (select a.id from tree a where a.p_id is null) then 'Root' when tree.id in (select a.p_id from tree a) then 'Inner' else 'Leaf' end as Type from tree order by 'Id'
+select id as Id, 'Leaf' as Type from tree where id not in ( select id from ( select id,'Root' as type from tree where p_id is null union select id, 'Inner' as type from tree where id in (select p_id from tree)) a) union select id,'Root' as type from tree where p_id is null union select id, 'Inner' as type from tree where id in (select p_id from tree) and p_id is not null order by id
+select id as Id, case when id = (select id from tree where p_id is null) then "Root" when id in (select p_id from tree where p_id is not null) then 'Inner' else "Leaf" end AS Type from tree order by id
+select id as Id, case when p_id is null then 'Root' when (id in (select p_id from tree group by 1)) then 'Inner' else 'Leaf' end as Type from tree group by 1 order by 1
+select id as Id, case when parent_count = 0 then 'Root' when children_count = 0 then 'Leaf' else 'Inner' end as Type from (select a.id, count(a.p_id) as parent_count, count(b.id) as children_count from tree a left join tree b on a.id = b.p_id group by a.id) temp
+select id, "Root" as "Type" from tree where p_id is null union select id, "Inner" as "Type" from tree where p_id is not null and id in (select distinct p_id from tree) union select t1.id, "Leaf" as "Type" from tree t1 left join tree t2 on t1.id = t2.p_id where t1.p_id is not null and t2.p_id is null order by id
+select id, "Root" as Type from tree where p_id is null union select id, "Inner" as Type from tree where id in (select distinct p_id from tree where p_id is not null) and p_id is not null union select id, "Leaf" as Type from tree where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
+select id, 'Root' as "Type" from tree where p_id is null union select distinct a.id, 'Inner' as "Type" from tree a where a.p_id is not null and a.id in (select distinct b.p_id from tree b) union select distinct a.id, 'Leaf' as "Type" from tree a where a.id not in (select distinct b.p_id from tree b where b.p_id is not null) and a.p_id is not null
+select id, 'Root' as Type from tree where p_id is null union select id, 'Inner' as Type from tree where id in (select p_id from tree where p_id is not null) and p_id is not null union select id, 'Leaf' as Type from tree where id not in (select p_id from tree where p_id is not null) and p_id is not null
+select id, 'Root' as Type from tree where p_id is null union select id, 'Inner' as Type from tree where id in (select p_id from tree where p_id is not null) and p_id is not null union select id, 'Leaf' as Type from tree where id not in (select p_id from tree where p_id is not null) and p_id is not null order by id
+select id, 'Root' as Type from tree where p_id is null union select id, 'Inner' as Type from tree where p_id is not null and id in (select p_id from tree) union select id, 'Leaf' as Type from tree where p_id is not null and id not in (select p_id from tree where p_id is not null)
+select id, 'Root' as Type from tree where p_id is null union select id, 'Leaf' as Type from tree where id not in (select p_id from tree where p_id is not null) and p_id is not null union select id, 'Inner' as Type from tree where id in (select p_id from tree where p_id is not null) and p_id is not null
+select id, 'Root' as Type from tree where p_id is null union select p_id id, 'Inner' as Type from tree where p_id not in (select id from tree where p_id is null) union select id, 'Leaf' as Type from tree where id not in (select distinct p_id from tree where p_id is not null) and p_id is not null
+select id, 'Root' as type from tree where p_id is null union select id, 'Inner' as type from tree where id in (select distinct p_id from tree) and p_id is not null union select id, 'Leaf' as type from tree where id not in (select distinct ifnull (p_id,0) from tree )and p_id is not null
+select id, 'Root' as type from tree where p_id is null union select id, 'Inner' as type from tree where p_id is not null and id in (select p_id from tree where p_id is not null) union select id, 'Leaf' as type from tree where p_id is not null and id not in (select p_id from tree where p_id is not null)
+select id, 'Root' as type from tree where p_id is null union select id, 'Leaf' as type from tree where p_id is not null and id not in (select p_id from tree where p_id is not null) union select id, 'Inner' as type from tree where p_id is not null and id in (select p_id from tree) order by 1
+select id, 'Root' as type from tree where p_id is null union select t1.id, 'Inner' from tree t1 join tree t2 on t1.id=t2.p_id where t1.p_id is not null union select id, 'Leaf' from tree where id not in (select p_id from tree where p_id is not null) and p_id is not null
+select id, 'Root' type from tree where p_id is null union all select id, 'Leaf' type from tree where id not in (select p_id from tree where p_id is not null) and p_id is not null union all select id, 'Inner' type from tree where p_id is not null and id in (select p_id from tree)
+select id, ( case when p_id is null then 'Root' when id not in (select p_id from tree where p_id is not null) then 'Leaf' else 'Inner' end ) as Type from tree order by id
+select id, ( case when p_id is null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' else 'Leaf' end ) Type from tree
+select id, (case when P_id is Null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' else 'Leaf' end) as Type from tree
+select id, (case when p_id is null then 'Root' else case when id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end end) as Type from tree
+select id, (case when p_id is null then 'Root' when id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end) Type from tree order by id
+select id, (case when p_id is null then 'Root' when id in (select p_id from tree where p_id is not null) then 'Inner' else 'Leaf' end ) as Type from tree
+select id, (case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end) as Type from tree
+select id, (case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end) as type from tree order by id
+select id, (case when p_id is null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' else 'Leaf' end) as Type from tree
+select id, Type from ( select id, 'Root' as Type from tree where p_id is null union all select id, 'Inner' as Type from tree where id in (select distinct p_id from tree ) and p_id is not null union all select id, 'Leaf' as Type from tree where id not in (select p_id from tree where p_id is not null ) and p_id is not null ) aaa where type is not null order by id
+select id, case when id = (select id from tree where p_id is null) then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as 'Type' from tree order by id
+select id, case when id not in (select ifnull(p_id,0) from tree) and p_id is not null then "Leaf" when p_id is null then "Root" else "Inner" end as Type from tree order by id
+select id, case when isnull(p_id) = 1 then 'Root' when id = any(select p_id from tree) then 'Inner' else 'Leaf' end as 'type' from tree
+select id, case when p_id IS NULL then 'Root' when p_id is Not NULL then (case when id in (select p_id from tree) then 'Inner' else 'Leaf' end) end as type from tree
+select id, case when p_id is NULL then "Root" when id in (select distinct p_id from tree) then "Inner" else "Leaf" end as Type from tree order by id
+select id, case when p_id is NULL then 'Root' when id in (select p_id as pid from tree) then 'Inner' else 'Leaf' end as type from tree
+select id, case when p_id is null Then "Root" when id not in (select distinct p_id from tree where p_id is not null) then 'Leaf' else "Inner" end as "Type" from tree
+select id, case when p_id is null then "Root" else "Leaf" end as Type from tree where id not in (select distinct p_id from tree where p_id is not null) union select id, case when p_id is null then "Root" else "Inner" end as Type from tree where id in (select distinct p_id from tree) order by id
+select id, case when p_id is null then "Root" when id in (select distinct p_id from tree) then "Inner" else "Leaf" end as "Type" from tree
+select id, case when p_id is null then "Root" when id in (select distinct p_id from tree) then "Inner" else 'Leaf' end as Type from tree
+select id, case when p_id is null then "Root" when id in (select distinct(p_id) from tree) and p_id is not null then "Inner" else "Leaf" end as Type from tree
+select id, case when p_id is null then "Root" when id in (select p_id from Tree) then "Inner" else "Leaf" end as Type from tree
+select id, case when p_id is null then "Root" when id in (select p_id from tree) then "Inner" else "Leaf" end as Type from tree order by 1
+select id, case when p_id is null then "Root" when id not in (select ifnull(p_id,0) from tree) then "Leaf" when id not in (select id from tree where p_id is null) and id not in (select id from tree where id not in (select p_id from tree)) then "Inner" end as Type from tree
+select id, case when p_id is null then "Root" when id not in (select p_id from tree where p_id is not null) then "Leaf" else "Inner" end as Type from tree
+select id, case when p_id is null then 'Root' when (select count(p_id) from tree where p_id = a.id) = 0 then 'Leaf' else 'Inner' end as Type from tree a
+select id, case when p_id is null then 'Root' when c_id is null then 'Leaf' else 'Inner' end as Type from (select distinct a.id,a.p_id,b.p_id as c_id from tree a left join tree b on a.id = b.p_id) aaa
+select id, case when p_id is null then 'Root' when id in ( select p_id from tree ) and p_id is not null then 'Inner' else 'Leaf' end as 'Type' from tree
+select id, case when p_id is null then 'Root' when id in ( select p_id from tree) then 'Inner' else 'Leaf' end as Type from tree
+select id, case when p_id is null then 'Root' when id in (select b.id from tree a join tree b on a.p_id =b.id where a.p_id is not null) then 'Inner' else 'Leaf' end as type from tree
+select id, case when p_id is null then 'Root' when id in (select distinct p_id from tree where p_id is not null) then 'Inner' else 'Leaf' end as Type from tree order by 1
+select id, case when p_id is null then 'Root' when id in (select distinct p_id from tree) and p_id is not null then 'Inner' else 'Leaf' end as Type from tree
+select id, case when p_id is null then 'Root' when id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end as 'Type' from tree
+select id, case when p_id is null then 'Root' when id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end as Type from tree
+select id, case when p_id is null then 'Root' when id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end as Type from tree t order by 1
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) is null then 'Leaf' else 'Inner' end as Type from tree order by 1
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as 'Type' from tree
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as Type from Tree order by id
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as Type from tree
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as Type from tree order by id
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as type from tree order by 1
+select id, case when p_id is null then 'Root' when id in (select p_id from tree) then 'Inner' else 'Leaf' end as type from tree order by id
+select id, case when p_id is null then 'Root' when id in(select p_id from tree) then 'Inner' else 'Leaf' end as Type from tree
+select id, case when p_id is null then 'Root' when id in(select p_id from tree) then 'Inner' else 'Leaf' end as type from tree order by id
+select id, case when p_id is null then 'Root' when id not in (select distinct p_id from tree where p_id is not null) then 'Leaf' else 'Inner' end as "Type" from tree
+select id, case when p_id is null then 'Root' when id not in (select distinct p_id from tree where p_id is not null) then 'Leaf' else 'Inner' end as 'Type' from tree
+select id, case when p_id is null then 'Root' when id not in (select distinct p_id from tree where p_id is not null) then 'Leaf' else 'Inner' end as Type from tree order by id
+select id, case when p_id is null then 'Root' when id not in (select p_id from tree where p_id is not null) then 'Leaf' else 'Inner' end as type from tree
+select id, case when p_id is null then 'Root' when p_id is not null and id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end Type from tree
+select id, case when p_id is null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' ELSE 'Leaf' end as Type from tree
+select id, case when p_id is null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' else 'Leaf' end as Type from tree order by id
+select id, case when p_id is null then 'Root' when p_id is not null and id in (select p_id from tree) then 'Inner' else 'Leaf' end as type from tree
+select id, case when p_id is null then 'Root' when p_id is not null and idd is not null then 'Inner' when p_id is not null and idd is null then 'Leaf' else 'unkonwn' end Type from( select t1.p_id p_id, t1.id id, t2.id idd from tree t1 left join tree t2 on t1.id = t2.p_id) temp group by id order by id
+select id, case when t.id =(select id from tree where p_id IS NULL) then 'Root' when t.id in(select p_id from tree) then 'Inner' else 'Leaf' end as Type from tree t order by id
+select id,"Root" as Type from tree where p_id is Null union all select id,"Inner" as Type from tree where id in ( select p_id from tree where p_id is not null) and p_id is not null union all select id,"Leaf" as Type from tree where id not in ( select p_id from tree where p_id is not null) and p_id is not null
+select id,(CASE WHEN p_id is NULL then 'Root' WHEN id not in (select distinct p_id from tree where p_id is not Null) then 'Leaf' else 'Inner' end ) as Type from tree
+select id,case when p_id is null then "Root" when id in (select distinct(p_id) from tree) then "Inner" else "Leaf" end as Type from tree
+select id,case when p_id is null then "Root" when id in (select p_id from tree) then "Inner" else "Leaf" end as Type from tree
+select id,case when p_id is null then 'Root' when id in ( select distinct(p_id) from tree) and p_id is not Null then 'Inner' else 'Leaf' end as Type from tree
+select id,case when p_id is null then 'Root' when id in (select p_id from tree where p_id ) then 'Inner' else 'Leaf' end as Type from tree
+select id,case when p_id is null then 'Root' when id in (select p_id from tree where p_id is not null) then 'Inner' else 'Leaf' end as Type from tree
+select id,case when p_id is null then 'Root' when id not in (select distinct p_id from tree where p_id is not null) then 'Leaf' else 'Inner' end Type from tree order by id
+select t.id, (case when isnull(p_id) then "Root" when t.id in (select p_id from tree where p_id = t.id) then "Inner" else "Leaf" end) Type from tree t order by t.id asc
+select t.id, CASE WHEN t.p_id is null Then 'Root' WHEN t.id in (select p_id from tree) Then 'Inner' ELSE 'Leaf' END as type from tree as t
+select t.id, if(isnull(t.p_id), 'Root', if(t.id in (select p_id from tree), 'Inner', 'Leaf')) as Type from tree t
+select t1.id, case when t1.p_id is null then "Root" when t1.p_id is not null and t2.id is not null then "Inner" when t2.p_id is null and t2.id is null then "Leaf" else null end as Type from tree t1 left join tree t2 on (t1.id = t2.p_id) group by 1,2 order by 1
+select t1.id, case when t1.p_id is null then 'Root' when t1.id in (select distinct p_id from tree) then 'Inner' else 'Leaf' end as Type from tree as t1 left join tree as t2 on t1.p_id = t2.id
+select t1.id, case when t1.p_id is null then 'Root' when t2.id is null then 'Leaf' else 'Inner' end as Type from tree t1 left join tree t2 on t1.id = t2.p_id group by 1
+select t1.id,(case when t1.p_id is null then 'Root' when t2.p_id is null then 'Leaf' else 'Inner' end) as Type from tree t1 left join (select distinct p_id from tree) t2 on t1.id=t2.p_id
+t_1.id, (CASE WHEN t_1.p_id IS Null THEN 'Root' WHEN t_1.p_id IS NOT Null AND t_2.id IS Null THEN 'Leaf' WHEN t_1.p_id IS NOT Null AND t_2.id IS Not Null THEN 'Inner' END) AS Type FROM tree t_1 LEFT JOIN tree t_2 ON t_1.id = t_2.p_id
+with cte as ( Select id , case when p_id is null then id else p_id end as parent, id as child from tree ) Select cte.id , 'Leaf' as Type from cte where cte.id not in ( Select parent from cte) union Select id , 'Root' as Type from cte where id = parent and parent = child union Select tree.id id , 'Inner' as Type from tree join cte where tree.id = cte.parent and tree.p_id is not null
+with cte as ( select A.id as node, A.p_id as parent, sum(case when B.id is null then 0 else 1 end) as child from tree A left join tree B on A.id = B.p_id group by node ) select node as id, case when parent is null then 'Root' when child = 0 then 'Leaf' else 'Inner' end as Type from cte
+with cte as ( select distinct p_id from tree ) select id as Id, case when p_id is NULL then 'Root' when id in (select * from cte) then 'Inner' else 'Leaf' end as Type from tree order by Id
+with cte as (select p_id from tree where p_id is not null group by p_id having count(p_id) >= 1) select id as Id, case when p_id is null then 'Root' when (id in (select p_id from cte)) then 'Inner' else 'Leaf' end as Type from tree
+with cte as( select id, "Root" as Type from tree where p_id is null union all select id , "Leaf" as Type from tree where id not in ( select p_id from tree where p_id is not null) and p_id is not null union all select distinct a.id, 'Inner' as Type from tree a, tree b where a.id=b.p_id and a.p_id is not null) select distinct id, type from cte order by 1
+with cte as( select t1.id, t1.p_id, t2.id as c_id from tree t1 left join tree t2 on t1.id = t2.p_id) select distinct id, case when p_id is NULL then 'Root' when c_id is Null then 'Leaf' else 'Inner' end as Type from cte
+with cte_non_leaves as ( select id, if(t1.p_id is null, 'Root', 'Inner') as Type from tree as t1 where exists ( select * from tree as t2 where t1.id = t2.p_id ) ), cte_join as ( select t.id, case when t.p_id is null then 'Root' else coalesce(nl.Type, 'Leaf') end as Type from tree as t left join cte_non_leaves as nl on t.id = nl.id ) select * from cte_join
+with ctei as ( select distinct t1.id from tree t1 join tree t2 on t1.id = t2.p_id where t1.p_id is not null) select id, (case when p_id is null then 'Root' when id in (select id from ctei) then 'Inner' else 'Leaf' end) as Type from tree
+with parents as (select distinct p_id from tree where p_id is not null), root as (select id from tree where p_id is null) select id , case when id in (select id from root) then 'Root' when id not in (select p_id from parents) then 'Leaf' else 'Inner' end as Type from tree
+with pc as ( Select t1.id as parent, t2.id as child from tree t1 join tree t2 on t1.id=t2.p_id) Select id, case when p_id is null then 'Root' when p_id is not null and id in (Select parent from pc) then 'Inner' when p_id is not null and id not in (Select parent from pc) then 'Leaf' end as Type from tree
+with t1 as (select p_id from tree where p_id!='null') SELECT id as Id, case when p_id is null then 'Root' when id in (select * from t1) then 'Inner' when id not in (select * from t1) then 'Leaf' end as Type FROM Tree
+with temp as ( select t.id, case when t.p_id is NULL then 0 else 1 end as p_cnt, case when u.id is NULL then 0 else 1 end as c_cnt from tree as t left join tree as u on t.id = u.p_id ) select id, case when sum(p_cnt) = 0 then 'Root' when sum(p_cnt) > 0 and sum(c_cnt) > 0 then 'Inner' else 'Leaf' end as Type from temp group by id order by id
+with temp as ( select t1.id, max(t1.p_id) as p_id, max(t2.id) as c_id from tree t1 left join tree t2 on t1.id = t2.p_id group by t1.id ) select id, case when (p_id is null) then 'Root' when (p_id is not null) and (c_id is not null) then 'Inner' when (p_id is not null) and (c_id is null) then 'Leaf' end as Type from temp group by id
+with temp as (select distinct a.id, a.p_id, case when b.id is not null then 'yes' else 'no' end as has_kid from tree a left join tree b on a.id = b.p_id) select id, case when p_id is null then 'Root' when p_id is not null and has_kid = 'yes' then 'Inner' else 'Leaf' end as Type from temp order by id
+with temp as (select distinct p_id from tree) select id, CASE when tree.p_id is NULL then 'Root' when tree.p_id is not NULL and temp.p_id is NULL then 'Leaf' else 'Inner' end Type from tree left outer join temp on tree.id=temp.p_id
+with tmp as ( select o.id ,o.p_id ,c.id as c_id from tree o left join tree c on o.id=c.p_id ) select id as Id ,max(case when p_id is null then 'Root' when c_id is null then 'Leaf' else 'Inner' end) as Type from tmp group by id order by id
+with tmp as ( select p.id, p.p_id, count(c.id) as number_of_children from tree p left join tree c on p.id = c.p_id group by p.id, p.p_id ) select id, case when p_id is null then 'Root' when number_of_children > 0 then 'Inner' else 'Leaf' end as Type from tmp order by id

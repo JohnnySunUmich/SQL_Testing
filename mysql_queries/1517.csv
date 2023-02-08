@@ -1,0 +1,234 @@
+FROM Users WHERE (mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+SELECT * FROM USERS WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users U WHERE U.mail regexp '^[A-Za-z]{1}[A-Za-z0-9.-_]*@leetcode.com$'
+SELECT * FROM Users WHERE REGEXP_LIKE(mail, '^[A-Za-z]+[0-9A-Za-z_.-]*@leetcode.com')
+SELECT * FROM Users WHERE REGEXP_LIKE(mail, '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com')
+SELECT * FROM Users WHERE REGEXP_LIKE(mail, '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com')
+SELECT * FROM Users WHERE REGEXP_LIKE(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com')
+SELECT * FROM Users WHERE REGEXP_LIKE(mail,'^[A-Za-z]+[A-Za-z0-9-._]*@leetcode.com')
+SELECT * FROM Users WHERE REGEXP_LIKE(mail,'^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+SELECT * FROM Users WHERE SUBSTRING(mail,LOCATE('@',mail,1),length(mail)) = '@leetcode.com' and lower(SUBSTRING(mail,1,LOCATE('@',mail,1)-1)) REGEXP '^[A-Za-z][A-Za-z0-9_.-]*$'
+SELECT * FROM Users WHERE Users.mail REGEXP '^[a-z]+[a-z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9._/-]*@leetcode.com"
+SELECT * FROM Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9_.-]*@leetcode.com$"
+SELECT * FROM Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9_./-]*@leetcode"
+SELECT * FROM Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com"
+SELECT * FROM Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com$"
+SELECT * FROM Users WHERE mail REGEXP "^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com"
+SELECT * FROM Users WHERE mail REGEXP "^[a-z][a-z0-9_.-]*@leetcode.com"
+SELECT * FROM Users WHERE mail REGEXP "^[a-z][a-z|0-9|_|.|-]*@leetcode.com"
+SELECT * FROM Users WHERE mail REGEXP '^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Z][a-z0-9._-]*@leetcode.com'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Za-z]+[A-Za-z0-9._-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_-.]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com'
+SELECT * FROM Users WHERE mail REGEXP '^[A-Za-z]{1}[A-Za-z0-9.-_]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z](w|[.-]){0,}@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z]+[a-zA-Z0-9_.-]{0,}@leetcode.com$' ORDER BY user_id
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z][A-Z0-9._-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com'
+SELECT * FROM Users WHERE mail REGEXP '^[a-zA-Z]{1}[a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-z][a-z0-9._-]*@leetcode.com'
+SELECT * FROM Users WHERE mail REGEXP '^[a-z][a-z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP '^[a-z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail REGEXP ('^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$')
+SELECT * FROM Users WHERE mail REGEXP("^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$")
+SELECT * FROM Users WHERE mail RLIKE '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE mail regexp '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com'
+SELECT * FROM Users WHERE mail rlike '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com'
+SELECT * FROM Users WHERE mail rlike '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM Users WHERE regexp_like (mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com$')
+SELECT * FROM Users WHERE regexp_like (mail,'^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com')
+SELECT * FROM Users WHERE regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+SELECT * FROM Users where mail regexp '^([a-zA-Z]{1})[a-zA-Z0-9_.-]*@leetcode.com'
+SELECT * FROM users AS u WHERE u.mail REGEXP '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com$'
+SELECT * FROM users WHERE mail REGEXP '@leetcode.com$' and mail REGEXP '^[a-zA-Z][/.0-9a-zA-Z_-]*@leetcode.com$'
+SELECT * FROM users WHERE mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com'
+SELECT * FROM users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+SELECT * FROM users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com'
+SELECT * FROM users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_./-]*@leetcode.com$'
+SELECT * FROM users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * FROM users WHERE mail REGEXP ('^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+SELECT * FROM users WHERE mail regexp '^[A-Za-z]{1}[A-Za-z0-9_.-]*@leetcode.com$'
+SELECT * FROM users WHERE regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+SELECT * from Users WHERE mail REGEXP "^[a-z][a-z0-9_.-]*@leetcode.com"
+SELECT * from Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+SELECT * from Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT * from Users WHERE regexp_like(mail, '^[a-zA-Z][a-zA-Z0-9-_.]*@leetcode.com')
+SELECT u.user_id, u.name, u.mail FROM Users u WHERE u.mail REGEXP '^[a-zA-Z][[:alnum:]_.-]*@leetcode.com$'
+SELECT user_id , name, mail FROM Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com$"
+SELECT user_id, name, mail FROM Users WHERE REGEXP_LIKE(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+SELECT user_id, name, mail FROM Users WHERE REGEXP_LIKE(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com')
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP "^[a-zA-Z]+[a-zAZ0-9_.-]*@leetcode.com"
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$' order by user_id
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-zA-Z]+[0-9a-zA-Z-._]*@leetcode.com$'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-zA-Z]+[0-9a-zA-Z-._]*@leetcode.com'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-zA-Z][-a-zA-Z0-9._]*@leetcode.com'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9-._]*@leetcode.com'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com'
+SELECT user_id, name, mail FROM Users WHERE mail REGEXP '^[a-z]+[A-Z0-9_.-]*@leetcode.com$' = 1
+SELECT user_id, name, mail FROM Users WHERE mail RLIKE '^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com'
+SELECT user_id, name, mail FROM Users WHERE mail RLIKE '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT user_id, name, mail FROM Users WHERE mail regexp "^[a-zA-Z]+[0-9a-zA-Z_./-]*@leetcode.com$"
+SELECT user_id, name, mail FROM Users WHERE mail regexp '^([a-zA-Z]{1})[a-zA-Z0-9_.-]*@leetcode.com'
+SELECT user_id, name, mail FROM Users WHERE mail regexp '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com$'
+SELECT user_id, name, mail FROM Users WHERE regexp_like(MAIL, "^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com")
+SELECT user_id, name, mail FROM Users where regexp_like(mail,'^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+SELECT user_id, name, mail FROM users WHERE mail REGEXP "^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com"
+SELECT user_id, name, mail FROM users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT user_id, name, mail FROM users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com'
+SELECT user_id,name,mail FROM Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+SELECT user_id,name,mail FROM Users WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+SELECT user_id,name,mail FROM Users WHERE mail regexp '^[A-Za-z]{1}[A-Za-z0-9.-_]*@leetcode.com$'
+SELECT* FROM Users WHERE mail REGEXP('^[a-zA-Z]+[a-zA-Z0-9_./-]*@leetcode.com$')
+SELECT* FROM Users WHERE mail REGEXP('^[a-zA-Z]+[a-zA-Z0-9_./-]{0,}@leetcode.com$')
+Select * From Users Where mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com'
+Select * From Users Where mail regexp '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+Select * from Users where `mail` REGEXP '^[a-zA-Z][a-zA-Z0-9-_.]*@leetcode.com'
+Select * from Users where mail REGEXP '^[a-zA-Z][A-Z0-9._-]*@leetcode.com$'
+Select user_id , name , mail From Users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com'
+select * FROM Users WHERE mail REGEXP '^[a-zA-Z][A-Za-z0-9._-]*@leetcode.com$'
+select * From users where mail regexp '^([a-zA-Z]{1})[a-zA-Z0-9_.-]*@leetcode.com'
+select * from Users WHERE mail REGEXP "^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com$"
+select * from Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from Users as u WHERE u.mail REGEXP '^[a-zA-Z]' AND u.mail REGEXP '^[a-zA-Z0-9_.-]+@leetcode.com$'
+select * from Users where REGEXP_LIKE (mail, '^[a-zA-Z][0-9a-zA-Z_.-]*@leetcode.com$')
+select * from Users where REGEXP_LIKE(mail,'^[a-zA-Z][a-zA-Z0-9_./-]*@leetcode.com$')
+select * from Users where mail REGEXP "^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$"
+select * from Users where mail REGEXP '^[:alpha:][a-zA-Z-0-9_.]*@leetcode.com$'
+select * from Users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com$'
+select * from Users where mail REGEXP '^[A-Za-z][A-Za-z0-9-._]*@leetcode.com$'
+select * from Users where mail REGEXP '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$'
+select * from Users where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from Users where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com'
+select * from Users where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com' order by user_id
+select * from Users where mail REGEXP '^[a-zA-Z]+[0-9-_.a-zA-Z]*@leetcode.com$'
+select * from Users where mail REGEXP '^[a-zA-Z]+[a-zA-Z0-9._-]*@leetcode.com'
+select * from Users where mail REGEXP '^[a-zA-Z][a-zA-Z0-9._/-]*@leetcode.com'
+select * from Users where mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+select * from Users where mail REGEXP('^[A-Za-z]+[A-Za-z0-9._-]*@leetcode.com$')
+select * from Users where mail Rlike '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com'
+select * from Users where mail regexp "^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com"
+select * from Users where mail regexp "^[a-zA-Z]+[a-zA-Z0-9_./-]{0,}@leetcode.com$" order by user_id
+select * from Users where mail regexp '^([a-zA-Z]{1})[a-zA-Z0-9_.-]*@leetcode.com'
+select * from Users where mail regexp '^[:alpha:][[:alnum:]_.-]*@leetcode.com$'
+select * from Users where mail regexp '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com'
+select * from Users where mail regexp '^[A-Za-z]+[A-Za-z0-9_./-]{0,}@leetcode.com$'
+select * from Users where mail regexp '^[A-Za-z][A-Za-z0-9.-_]*@leetcode.com$'
+select * from Users where mail regexp '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$'
+select * from Users where mail regexp '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from Users where mail regexp '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com'
+select * from Users where mail regexp '^[A-Za-z]{1}[A-Za-z0-9.-_]*@leetcode.com$'
+select * from Users where mail regexp '^[A-Za-z]{1}[A-Za-z0-9_.-]*@leetcode.com$'
+select * from Users where mail regexp '^[a-zA-Z]+[A-Za-z0-9_.-]*@leetcode.com'
+select * from Users where mail regexp '^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com$'
+select * from Users where mail regexp '^[a-zA-Z]+[a-zA-Z0-9_./-]{0,}@leetcode.com$' order by user_id
+select * from Users where mail regexp '^[a-zA-Z][a-z//A-Z//0-9//_//.//-]*@leetcode.com$'
+select * from Users where mail regexp '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+select * from Users where mail regexp '^[a-z][a-z0-9._-]*@leetcode.com'
+select * from Users where mail regexp'^[a-z]+[a-z0-9_.-]*@leetcode.com'
+select * from Users where mail rlike '^([A-Za-z]+)([A-Za-z0-9|_|.|-]*)@leetcode.com'
+select * from Users where mail rlike '^[A-Za-z][A-Za-z0-9-_.]*@leetcode.com$'
+select * from Users where mail rlike '^[A-Za-z]{1}[A-Za-z0-9.-_]*@leetcode.com$'
+select * from Users where mail rlike '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+select * from Users where regexp_like( mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$' )
+select * from Users where regexp_like( mail,'^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+select * from Users where regexp_like(mail, "^[A-Za-z]+[A-Za-z0-9._-]*@leetcode.com")
+select * from Users where regexp_like(mail, "^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com")
+select * from Users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9-._]*@leetcode.com')
+select * from Users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9._-]*@leetcode.com')
+select * from Users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+select * from Users where regexp_like(mail, '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com')
+select * from Users where regexp_like(mail, '^[a-zA-Z]+[a-zA-Z0-9._-]*@leetcode.com')
+select * from Users where regexp_like(mail, '^[a-zA-Z][A-Za-z0-9_.-]*@leetcode.com$')
+select * from Users where regexp_like(mail,"^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$")
+select * from Users where regexp_like(mail,'^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+select * from Users where regexp_like(mail,'^[a-zA-Z]+[A-Za-z0-9_.-]*@leetcode.com' )
+select * from Users where regexp_like(mail,'^[a-zA-Z]+[a-zA-Z0-9/_/./-]*@leetcode.com')
+select * from Users where regexp_like(mail,'^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+select * from users a where a.mail REGEXP '^[a-zA-Z][A-Z0-9._-]*@leetcode.com$'
+select * from users t where regexp_like(t.mail, '^[a-zA-Z][a-zA-Z0-9_-./]*@leetcode.com')
+select * from users t where regexp_like(t.mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com')
+select * from users u where mail regexp '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from users where REGEXP_LIKE(lower(mail), '^[a-z][a-z0-9_.-]*@leetcode.com') = 1
+select * from users where mail REGEXP "^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com$"
+select * from users where mail REGEXP "^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com"
+select * from users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com$' order by user_id
+select * from users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com' order by user_id
+select * from users where mail REGEXP '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$'
+select * from users where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from users where mail REGEXP '^[a-zA-Z][a-zA-Z0-9._-]*@leetcode.com$'
+select * from users where mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+select * from users where mail like '%@leetcode.com' and lower(left(mail,1)) between 'a' and 'z' and REGEXP_LIKE(lower(mail), '^[a-z][a-z0-9_.-]*@leetcode.com') = 1
+select * from users where mail regexp '^([a-zA-Z])+[a-zA-Z0-9_.-]*@leetcode.com'
+select * from users where mail regexp '^([a-zA-Z]{1})[a-zA-Z0-9_.-]*@leetcode.com'
+select * from users where mail regexp '^[:alpha:][a-zA-Z0-9_./-]*@leetcode.com$'
+select * from users where mail regexp '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com'
+select * from users where mail regexp '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from users where mail regexp '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+select * from users where mail rlike '^[:alpha:]([:alnum:]|_|-|.)*@leetcode.com$'
+select * from users where mail rlike '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select * from users where mail rlike '^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com'
+select * from users where regexp_like (mail ,'^[a-zA-Z]+[a-zA-Z0-9._-]*@leetcode.com')
+select * from users where regexp_like (mail, '^[A-Za-z]+[A-Za-z0-9-_.]*@leetcode.com$')
+select * from users where regexp_like (mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+select * from users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9-_.]*@leetcode.com')
+select * from users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9._-]*@leetcode.com')
+select * from users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode')
+select * from users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+select * from users where regexp_like(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com')
+select * from users where regexp_like(mail,'^[A-Za-z]+[A-Za-z0-9.-_]*@leetcode.com')
+select u.user_id, u.name, u.mail from Users as u where u.mail regexp '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+select user.user_id, user.name, user.mail from Users as user where REGEXP_LIKE(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com')
+select user_id ,name ,mail from users where mail REGEXP('^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+select user_id, name, mail from Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from Users WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com'
+select user_id, name, mail from Users Where mail regexp '^[A-Za-z]{1}[A-Za-z0-9.-_]*@leetcode.com$'
+select user_id, name, mail from Users Where mail regexp '^[A-Za-z]{1}[A-Za-z0-9_./-]*@leetcode.com$'
+select user_id, name, mail from Users where REGEXP_LIKE(lower(mail), '^[a-z]+[-._a-z0-9]*@leetcode.com')
+select user_id, name, mail from Users where mail REGEXP "^[A-Za-z][a-zA-Z0-9_.-]*@leetcode.com"
+select user_id, name, mail from Users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from Users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com$' order by user_id
+select user_id, name, mail from Users where mail REGEXP '^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com$' order by user_id
+select user_id, name, mail from Users where mail REGEXP '^[a-zA-Z][A-Z0-9_.-]*@leetcode.com'
+select user_id, name, mail from Users where mail REGEXP '^[a-zA-Z]{1}[a-zA-Z0-9//./_-]*@leetcode.com$'
+select user_id, name, mail from Users where mail REGEXP '^[a-z][a-z0-9._-]*@leetcode.com'
+select user_id, name, mail from Users where mail Rlike '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from Users where mail regexp "^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com"
+select user_id, name, mail from Users where mail regexp '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from Users where mail regexp '^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from Users where mail rlike '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from Users where regexp_like (mail,'^[a-zA-Z]+[a-zA-Z0-9_.-]*@leetcode.com$')
+select user_id, name, mail from Users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9_.-]*@leetcode.com')
+select user_id, name, mail from Users where regexp_like(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+select user_id, name, mail from Users where right(mail,13) = '@leetcode.com' and left(mail,1) regexp '^[A-Za-z]$' and substring_index(mail,'@leetcode.com',1) regexp '^[A-Za-z0-9_.-]*$'
+select user_id, name, mail from users where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from users where mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com'
+select user_id, name, mail from users where mail REGEXP'^[A-Z][A-Za-z0-9._/-]*@leetcode.com'
+select user_id, name, mail from users where mail regexp "^[a-zA-Z]+[0-9a-zA-Z_./-]*@leetcode.com$"
+select user_id, name, mail from users where mail regexp '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$'
+select user_id, name, mail from users where mail regexp '^[[:alpha:]][[:alpha:][:digit:]._-]*@leetcode.com$'
+select user_id, name, mail from users where mail regexp '^[a-zA-Z][a-zA-Z0-9_./-]*@leetcode.com'
+select user_id, name, mail from users where mail regexp '^[a-z][a-z0-9_.-]*@leetcode.com'
+select user_id, name, mail from users where mail regexp '^[a-z][a-zA-Z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from users where mail regexp('^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+select user_id, name, mail from users where mail rlike '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id, name, mail from users where regexp_like (mail, '^[a-z][A-Z0-9_.-]*@leetcode.com*$')
+select user_id, name, mail from users where regexp_like(mail, '^[A-Za-z]+[A-Za-z0-9._-]*@leetcode.com')
+select user_id, name, mail from users where regexp_like(mail, '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$')
+select user_id, name, mail from users where regexp_like(mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$')
+select user_id, name,mail from Users where mail regexp '^[A-Za-z][A-Za-z0-9._-]*@leetcode.com$'
+select user_id,name , mail from users where mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode.com$'
+select user_id,name,mail from users where mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$'
+with cte_regex as ( select * from Users where regexp_like( mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$' ) ) select * from cte_regex
+with cte_regex as ( select * from users where regexp_like( mail, '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode.com$' ) ) select * from cte_regex
+with t as ( select 'abc@xy.com' as mail ) select * from users where mail rlike '^[a-zA-Z][a-zA-Z0-9_.-]*[@]leetcode[.]com'

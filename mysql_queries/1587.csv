@@ -1,0 +1,399 @@
+SELECT A.name , SUM(amount) AS balance FROM Users AS A JOIN Transactions AS B ON A.account = B.account GROUP BY A.account HAVING SUM(amount) >= 10000
+SELECT NAME, SUM(AMOUNT) BALANCE FROM Users U RIGHT JOIN Transactions T ON T.account=U.account GROUP BY T.ACCOUNT HAVING SUM(AMOUNT)>10000
+SELECT NAME, SUM(amount) as BALANCE FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY t.account HAVING SUM(amount) > 10000
+SELECT Name, BALANCE FROM Users u JOIN (SELECT account, SUM(amount) as BALANCE FROM Transactions GROUP BY 1 HAVING BALANCE > 10000) tmp ON u.account = tmp.account
+SELECT U.NAME, COALESCE(T.BALANCE,0) AS BALANCE FROM USERS U LEFT JOIN (SELECT ACCOUNT, SUM(AMOUNT) AS BALANCE FROM TRANSACTIONS GROUP BY ACCOUNT) AS T ON U.ACCOUNT = T.ACCOUNT WHERE BALANCE>10000
+SELECT U.name AS NAME, SUM(amount) AS BALANCE FROM Users U LEFT JOIN Transactions T ON U.account = T.account GROUP BY name HAVING SUM(T.amount) >= 10000
+SELECT U.name AS NAME,SUM(T.Amount) AS BALANCE FROM Users U JOIN Transactions T ON U.account=T.account GROUP BY U.account HAVING SUM(T.amount)>10000
+SELECT U.name NAME, T2.balance BALANCE FROM( SELECT account, SUM(amount) AS balance FROM Transactions AS T GROUP BY account HAVING balance > 10000) AS T2 JOIN Users AS U ON T2.account = U.account
+SELECT U.name, A.bal as balance FROM Users U JOIN( SELECT account, sum(amount) as bal FROM Transactions T GROUP BY account HAVING sum(amount) > 10000 ) A ON U.account = A.account
+SELECT U.name, SUM(T.amount) AS 'balance' FROM Transactions T INNER JOIN Users U ON T.account = U.account GROUP BY U.name HAVING SUM(T.amount) > 10000
+SELECT U.name, SUM(T.amount) AS 'balance' FROM Transactions T INNER JOIN Users U ON T.account = U.account GROUP BY U.name HAVING SUM(T.amount) >= 10000
+SELECT U.name, SUM(T.amount) AS balance FROM Users U INNER JOIN Transactions T ON U.account = T.account GROUP BY 1 HAVING balance > 10000
+SELECT U.name, SUM(T.amount) AS balance FROM Users U JOIN Transactions T ON T.account = U.account GROUP BY U.name HAVING SUM(T.amount) >= 10000
+SELECT U.name, T2.amount AS 'balance' FROM Users U RIGHT JOIN (SELECT SUM(amount) AS amount, account FROM Transactions GROUP BY account HAVING SUM(amount) > 10000 ) AS T2 ON U.account = T2.account
+SELECT U.name, sum(T.amount) as balance FROM Transactions T LEFT JOIN Users U ON T.account = U.account GROUP BY T.account HAVING balance >10000
+SELECT Users.NAME as name, sum(Transactions.amount) as BALANCE FROM Users,Transactions WHERE Users.account=Transactions.account GROUP BY Users.name HAVING SUM(Transactions.amount) > 10000
+SELECT Users.name AS NAME, SUM(Transactions.amount) AS BALANCE FROM Users JOIN Transactions ON Users.account = Transactions.account GROUP BY 1 HAVING BALANCE > 10000
+SELECT Users.name AS NAME, SUM(Transactions.amount) AS BALANCE FROM Users LEFT JOIN Transactions ON Users.account = Transactions.account GROUP BY Transactions.account HAVING BALANCE > 10000
+SELECT Users.name AS NAME, SUM(amount) AS BALANCE FROM Transactions LEFT JOIN Users ON Transactions.account=Users.account GROUP BY Transactions.account HAVING SUM(amount)>10000
+SELECT Users.name as name, P.balance as balance FROM Users INNER JOIN (SELECT account, SUM(amount) as balance FROM Transactions GROUP BY account ) P ON Users.account=P.account AND P.balance>10000
+SELECT Users.name, SUM(Transactions.amount) AS balance FROM Transactions INNER JOIN Users ON Users.account = Transactions.account GROUP BY Users.name HAVING SUM(Transactions.amount) > 10000
+SELECT Users.name, SUM(Transactions.amount) AS balance FROM Transactions LEFT JOIN Users ON Transactions.account = Users.account GROUP BY Transactions.account HAVING balance > 10000
+SELECT Users.name, SUM(Transactions.amount) AS balance FROM Transactions LEFT JOIN Users on Transactions.account = Users.account GROUP BY Transactions.account HAVING balance > 10000
+SELECT Users.name, SUM(Transactions.amount) AS balance FROM Users LEFT JOIN Transactions ON Users.account = Transactions.account GROUP BY Users.account HAVING balance > 10000
+SELECT Users.name, SUM(amount) AS balance FROM Transactions JOIN Users ON Transactions.account = Users.account GROUP BY Users.name HAVING SUM(amount) > 10000
+SELECT Users.name, SUM(amount) AS balance FROM Users INNER JOIN Transactions ON Transactions.account = Users.account GROUP BY Transactions.account HAVING balance > 10000
+SELECT Users.name, sum(Transactions.amount) AS balance FROM Transactions LEFT JOIN Users ON Transactions.account = Users.account GROUP BY Transactions.account HAVING sum(Transactions.amount) > 10000
+SELECT Users.name, total.balance FROM Users JOIN (SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account) AS total ON Users.account = total.account WHERE total.balance > 10000
+SELECT a.name AS "NAME",b.balance AS "BALANCE" FROM Users as a JOIN (SELECT account, SUM(amount) as balance FROM Transactions GROUP BY account HAVING balance > 10000 ) as b on a.account = b.account
+SELECT a.name as name, sum(b.amount) as balance FROM Users a,Transactions b where a.account=b.account group by a.name having balance>10000
+SELECT a.name, SUM(b.amount) AS 'balance' FROM Users AS a JOIN Transactions AS b ON a.account = b.account GROUP BY b.account HAVING SUM(b.amount) > 10000
+SELECT a.name, SUM(b.amount) AS balance FROM Users a JOIN Transactions b ON a.account = b.account GROUP BY a.account HAVING balance > 10000
+SELECT a.name, SUM(b.amount) as balance FROM Users a INNER JOIN Transactions b on a.account = b.account GROUP BY a.name HAVING SUM(b.amount) > 10000
+SELECT a.name, SUM(b.amount) as balance FROM Users a JOIN Transactions b ON a.account = b.account GROUP BY a.account HAVING balance > 10000
+SELECT a.name, sum(b.amount) as balance FROM Users a INNER JOIN Transactions b on a.account=b.account GROUP BY 1 HAVING sum(b.amount)>10000
+SELECT b.name, SUM(amount) as balance FROM Transactions as a LEFT JOIN Users as b ON a.account = b.account GROUP BY a.account HAVING balance > 10000
+SELECT name AS NAME, SUM(amount) AS Balance FROM Users AS U JOIN Transactions AS T ON(U.account = T.account) GROUP BY t.account HAVING SUM(amount) > 10000
+SELECT name as NAME, SUM(amount) AS BALANCE FROM Transactions LEFT JOIN Users ON Transactions.account = Users.account GROUP BY Transactions.account HAVING SUM(amount) > 10000
+SELECT name as NAME, SUM(amount) as BALANCE FROM users join transactions on Users.account = Transactions.account Group by Users.account Having balance >10000
+SELECT name, (SUM(amount)) AS balance FROM Users LEFT JOIN Transactions ON Users.account = Transactions.account GROUP BY Users.account HAVING balance > 10000
+SELECT name, SUM(T.amount) as balance FROM Users U JOIN Transactions T ON U.account = T.account GROUP BY T.account HAVING SUM(T.amount) > 10000
+SELECT name, SUM(Transactions.amount) AS balance FROM Users INNER JOIN Transactions USING(account) GROUP BY Users.Account HAVING balance > 10000
+SELECT name, SUM(Transactions.amount) as "balance" FROM Users JOIN Transactions ON Users.account = Transactions.account GROUP BY Users.account HAVING SUM(Transactions.amount) > 10000
+SELECT name, SUM(amount) AS balance FROM ( SELECT Users.name, Transactions.amount FROM Transactions INNER JOIN Users ON Transactions.account = Users.account ) AS a GROUP BY name HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM Transactions JOIN Users ON Transactions.account = Users.account GROUP BY Transactions.account HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM Transactions JOIN Users ON Transactions.account=Users.account GROUP BY Transactions.account HAVING balance>10000
+SELECT name, SUM(amount) AS balance FROM Transactions T INNER JOIN Users U USING(account) GROUP BY account HAVING balance> 10000
+SELECT name, SUM(amount) AS balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY t.account HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM Transactions t JOIN Users u ON u.account=t.account GROUP BY 1 HAVING SUM(amount)>10000
+SELECT name, SUM(amount) AS balance FROM Transactions t LEFT JOIN Users u ON t.account = u.account GROUP BY t.account HAVING balance > 10000
+SELECT name, SUM(amount) AS balance FROM Users AS u JOIN Transactions AS t ON t.account = u.account GROUP BY name HAVING SUM(amount) >= 10000
+SELECT name, SUM(amount) AS balance FROM Users AS u JOIN Transactions AS t ON u.account = t.account GROUP BY name HAVING balance > 10000
+SELECT name, SUM(amount) AS balance FROM Users INNER JOIN Transactions ON Users.account = Transactions.account GROUP BY Users.account HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM Users JOIN Transactions USING (account) GROUP BY account HAVING balance > 10000
+SELECT name, SUM(amount) AS balance FROM Users LEFT JOIN Transactions USING (account) GROUP BY 1 HAVING balance > 10000
+SELECT name, SUM(amount) AS balance FROM Users LEFT JOIN Transactions USING(account) GROUP BY account HAVING balance > 10000
+SELECT name, SUM(amount) AS balance FROM Users LEFT JOIN Transactions USING(account) GROUP BY account HAVING balance>10000
+SELECT name, SUM(amount) AS balance FROM Users a INNER JOIN Transactions b ON a.account=b.account GROUP BY b.account having SUM(amount) >10000
+SELECT name, SUM(amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY name HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY t.account HAVING balance >= 10000
+SELECT name, SUM(amount) AS balance FROM Users u JOIN Transactions t USING(account) GROUP BY 1 HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM users JOIN transactions USING(account) GROUP BY account HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) AS balance FROM users U JOIN transactions T ON U.account=T.account GROUP BY U.account HAVING SUM(amount)>10000 ORDER BY name
+SELECT name, SUM(amount) AS balance FROM users u JOIN transactions t ON u.account = t.account GROUP BY name HAVING balance > 10000
+SELECT name, SUM(amount) AS balance FROM users u JOIN transactions t ON u.account = t.account GROUP BY u.account HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) as balance FROM Transactions JOIN Users ON Transactions.account = Users.account GROUP BY name HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Transactions JOIN Users ON Users.account = Transactions.account GROUP BY Users.account HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Users AS u Join Transactions AS t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Users INNER JOIN Transactions ON Users.account = Transactions.account GROUP BY Transactions.account HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) as balance FROM Users INNER JOIN Transactions ON Users.account=Transactions.account GROUP BY Users.account HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Users INNER JOIN Transactions T USING (account) GROUP BY T.account HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Users JOIN Transactions ON Users.account = Transactions.account GROUP BY Users.account HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Users LEFT JOIN Transactions ON Users.account = Transactions.account GROUP BY name HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) as balance FROM Users as U INNER JOIN Transactions as t ON U.account = t.account GROUP BY t.account HAVING balance > 10000
+SELECT name, SUM(amount) as balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY t.account HAVING SUM(amount)>10000
+SELECT name, SUM(amount) balance FROM Users JOIN Transactions ON Users.account = Transactions.account GROUP BY name HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY 1 HAVING SUM(amount) > 10000
+SELECT name, SUM(amount) balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY name HAVING SUM(amount)>10000
+SELECT name, SUM(amount) balance FROM transactions JOIN users USING(account) GROUP BY 1, account HAVING balance > 10000
+SELECT name, SUM(t.amount) AS balance FROM Users AS u JOIN Transactions AS t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY t.account HAVING balance > 10000
+SELECT name, SUM(t.amount) AS balance FROM Users u LEFT JOIN Transactions t ON t.account = u.account GROUP BY u.account HAVING balance > 10000
+SELECT name, SUM(t.amount) as balance FROM Users u LEFT JOIN Transactions t on t.account = u.account GROUP BY t.account HAVING balance > 10000
+SELECT name, SUM(t.amount) balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY name HAVING SUM(t.amount) > 10000
+SELECT name, balance FROM ( SELECT t.account, name, SUM(amount) AS balance FROM transactions t JOIN users u ON t.account = u.account GROUP BY 1,2 ) a WHERE balance > 10000
+SELECT name, balance FROM (SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account HAVING SUM(amount) > 10000) trans JOIN Users ON Users.account = trans.account
+SELECT name, balance FROM (SELECT account, SUM(amount) as balance FROM transactions GROUP BY account HAVING SUM(amount) > 10000) trans JOIN Users usr ON usr.account = trans.account
+SELECT name, balance FROM Users JOIN (SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account) AS bal ON Users.account = bal.account WHERE balance > 10000
+SELECT name, balance FROM Users u JOIN (SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account HAVING SUM(amount) > 10000) b ON u.account = b.account
+SELECT name, balance FROM Users u RIGHT JOIN( SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account HAVING SUM(amount) > 10000 ) b ON u.account = b.account
+SELECT name, sum(amount) as balance FROM Transactions INNER JOIN Users ON Transactions.account = Users.account GROUP BY name HAVING sum(amount) > 10000
+SELECT name, sum(amount) balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT name,balance FROM Users AS U JOIN ( SELECT account,SUM(amount) As balance FROM Transactions GROUP BY account HAVING balance>10000) AS new ON U.account=new.account
+SELECT name,balance FROM Users u JOIN (SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY 1) t ON u.account=t.account WHERE balance>10000
+SELECT name,balance FROM Users u LEFT JOIN (SELECT SUM(amount) as 'balance', account FROM Transactions t GROUP BY t.account) r ON u.account= r.account WHERE balance > 10000
+SELECT name,sum(amount) AS balance From Users a Join Transactions b ON a.account = b.account GROUP BY name HAVING balance > 10000
+SELECT t1.name, SUM(t2.amount) as balance FROM Users t1 LEFT JOIN Transactions t2 ON t1.account = t2.account GROUP BY 1 HAVING SUM(t2.amount) > 10000
+SELECT t1.name, t2.balance FROM Users t1 LEFT JOIN ( SELECT account, SUM(amount) as balance FROM Transactions GROUP BY 1) t2 ON t1.account = t2.account WHERE t2.balance > 10000
+SELECT u.name AS NAME, SUM(t.amount) AS BALANCE FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY t.account HAVING BALANCE > 10000
+SELECT u.name AS NAME, SUM(t.amount) AS BALANCE FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.name HAVING BALANCE > 10000
+SELECT u.name AS name, SUM(t.amount) AS balance FROM Users u LEFT JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name as NAME, SUM(t.amount) as BALANCE FROM Users u INNER JOIN Transactions t ON u.account = t.account GROUP BY u.account Having balance > 10000
+SELECT u.name as NAME, SUM(t.amount) as BALANCE FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY NAME HAVING BALANCE > 10000
+SELECT u.name as name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name, SUM(amount) AS balance FROM Users u INNER JOIN Transactions t ON t.account = u.account GROUP BY u.name HAVING SUM(amount) > 10000
+SELECT u.name, SUM(amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING SUM(amount) > 10000
+SELECT u.name, SUM(amount) AS balance FROM users u JOIN transactions t ON u.account=t.account GROUP BY u.name HAVING sum(amount)>10000
+SELECT u.name, SUM(amount) AS balance FROm Users AS U JOIN Transactions AS t ON u.account = t.account GROUP BY u.name HAVING balance > 10000
+SELECT u.name, SUM(amount) as balance FROM Transactions JOIN Users u USING (account) GROUP BY account HAVING balance>10000
+SELECT u.name, SUM(amount) as balance FROM transactions t JOIN users u on t.account = u.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name, SUM(amount) balance FROM users u JOIN transactions ts ON ts.account = u.account GROUP BY 1 HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY t.account HAVING SUM(t.amount) > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY t.account HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY u.name HAVING SUM(t.amount) > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY u.name HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY u.name HAVING sum(t.amount) > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users AS u JOIN Transactions AS t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON t.account = u.account GROUP BY name HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING SUM(t.amount)>10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account=t.account GROUP BY name HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t USING(account) GROUP BY 1 HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u LEFT JOIN Transactions t ON u.account = t.account GROUP BY name HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u LEFT JOIN Transactions t ON u.account = t.account GROUP BY u.name HAVING SUM(t.amount) > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM Users u, Transactions t WHERE u.account = t.account GROUP BY u.name HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM users u JOIN transactions t ON t.account = u.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name, SUM(t.amount) AS balance FROM users u JOIN transactions t ON u.account = t.account GROUP BY u.name HAVING balance > 10000
+SELECT u.name, SUM(t.amount) as 'balance' FROM Users as u JOIN Transactions as t ON u.account=t.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name, SUM(t.amount) as balance FROM Transactions t JOIN Users u ON t.account = u.account GROUP BY t.account HAVING balance> 10000
+SELECT u.name, SUM(t.amount) as balance FROM Transactions t LEFT JOIN Users u ON t.account = u.account GROUP BY t.account HAVING balance> 10000
+SELECT u.name, SUM(t.amount) as balance FROM Users as u LEFT JOIN Transactions as t ON u.account = t.account GROUP BY u.account HAVING balance >10000
+SELECT u.name, SUM(t.amount) as balance FROM Users u INNER JOIN Transactions t ON t.account = u.account GROUP BY t.account HAVING SUM(t.amount) > 10000
+SELECT u.name, SUM(t.amount) as balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING balance >10000
+SELECT u.name, SUM(t.amount) balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account HAVING balance > 10000
+SELECT u.name, SUM(t.amount) balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.name HAVING SUM(t.amount) > 10000
+SELECT u.name, sum(t.amount) AS balance FROM Users AS u JOIN Transactions AS t ON u.account=t.account GROUP BY u.account HAVING balance>10000
+SELECT u.name, sum(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY t.account HAVING balance > 10000
+SELECT u.name, sum(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.name HAVING balance > 10000
+SELECT u.name, t.balance FROM USERS u JOIN ( SELECT account, sum(amount) as balance FROM Transactions GROUP BY account) AS t ON u.account = t.account WHERE t.balance > 10000
+SELECT u.name, t.balance FROM Users u JOIN (SELECT account, sum(amount) as balance FROM Transactions GROUP BY account HAVING balance > 10000) as t on u.account = t.account
+SELECT u.name,SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY 1 HAVING balance > 10000
+SELECT u.name,sum(t.amount) as balance FROM Transactions as t JOIN Users as u ON t.account = u.account Group by u.name Having balance>=10000
+Select A.name , SUM(B.amount) as Balance from Users A Left Join Transactions B on A.account = B.account group by A.name Having SUM(B.amount) > 10000
+Select A.name, SUM(B.amount) as balance from Users A Join Transactions B ON A.account = B.account GROUP BY A.name HAVING SUM(B.amount) > 10000 Order By A.name
+Select Users.name, sum(Transactions.amount) as balance from Users inner Join Transactions On Users.account = Transactions.account group by Transactions.account having balance > 10000
+Select Users.name, sum(amount) as 'balance' From Users, Transactions Where Users.account = Transactions.account Group By Users.account HAVING sum(amount) > 10000
+Select a.name, SUM(b.amount) AS balance from Users a left join Transactions b on a.account = b.account GROUP BY a.account HAVING balance > 10000
+Select name as NAME, sum(amount) as BALANCE from Transactions left join Users using (account) group by account having BALANCE > 10000
+Select name, balance From ( Select name, t.account, sum(amount) as balance From transactions as t left join users as u on t.account = u.account group by t.account ) b where balance > 10000 order by name
+Select name, sum(amount) as Balance from Users u left join Transactions t on u.account=t.account group by name having sum(amount)>10000
+Select u.name , SUM(t.amount) as balance from Users u join Transactions t ON u.account = t.account GROUP BY t.account HAVING balance > 10000
+Select u.name as Name,sum(amount) as Balance From Transactions t join users u on u.account=t.account group by u.account having sum(amount)>10000
+Select u.name, SUM(t.amount) as balance from Users u right join Transactions t on u.account = t.account Group by u.account Having balance > 10000
+Select u1.name, SUM(t1.amount) as "BALANCE" from Transactions t1 LEFT OUTER JOIN Users u1 on u1.account = t1.account group by t1.account having SUM(t1.amount) > 10000
+WITH AccountEndingBalance AS (SELECT account ,SUM(amount) AS balance FROM Transactions GROUP BY account HAVING SUM(amount) > 10000) SELECT U.name ,AEB.balance FROM Users U INNER JOIN AccountEndingBalance AEB ON AEB.account = U.account
+WITH CTE AS ( SELECT Transactions.*, Users.name FROM Transactions LEFT JOIN Users ON Transactions.account = Users.account ) SELECT name, SUM(AMOUNT) as balance FROM CTE GROUP BY name HAVING(balance > 10000)
+WITH CTE1 AS ( SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account HAVING balance>10000) SELECT name, balance FROM Users JOIN CTE1 ON Users.account = CTE1.account
+WITH Summary AS (SELECT account, SUM(amount) AS balance FROM Transactions GROUP BY account HAVING balance > 10000) SELECT u.name, s.balance FROM Users AS u JOIN Summary AS s ON u.account = s.account
+WITH Summed_Accounts AS ( SELECT account, SUM(amount) as "balance" FROM Transactions GROUP BY account ) SELECT A.name, B.balance FROM Users A INNER JOIN Summed_Accounts B ON A.account=B.account WHERE B.balance > 10000
+WITH answer AS( SELECT u.account,name, SUM(t.amount) as balance FROM Users u JOIN Transactions t ON u.account=t.account GROUP BY u.account ) SELECT name, balance FROM answer WHERE balance > 10000
+WITH balances_above_10000 AS ( SELECT account, SUM(amount) balance FROM Transactions GROUP BY account HAVING balance > 10000 ) SELECT u.name, b.balance FROM Users u INNER JOIN balances_above_10000 b ON u.account = b.account
+WITH prep AS ( SELECT account, SUM(amount) as balance FROM Transactions GROUP BY account ) SELECT name, balance FROM prep JOIN users ON prep.account = users.account WHERE balance > 10000
+WITH temp_table AS ( SELECT u.name, t.amount FROM Users u LEFT JOIN Transactions t ON u.account = t.account ) SELECT name, SUM(amount) AS balance FROM temp_table GROUP BY name HAVING balance > 10000
+select (select name from users where account = a.account) as name, sum(a.amount) as balance from transactions a group by 1 having balance > 10000
+select (select name from users where account = t.account) as name, sum(t.amount) as balance from transactions as t group by name having balance > 10000
+select * from ( select name, sum(amount) as balance from Transactions JOIN Users using(account) group by account) as t where balance>10000
+select * from (select name, SUM(amount) as balance from Users as u JOIN Transactions as t on u.account = t.account group by t.account) as m where balance > 10000
+select U.name, SUM(T.amount) as balance from Users U LEFT JOIN Transactions T ON U.account = T.account group by U.account having sum(T.amount)>10000
+select U.name, SUM(T.amount) as balance from Users U LEFT JOIN Transactions T on U.account = T.account group by U.account having SUM(T.amount) >10000
+select U.name, sum(T.amount) as balance from Transactions as T inner join users as U ON U.account = T.account group by T.account HAVING sum(T.amount)>10000
+select U.name, sum(T.amount) as balance from Users U Join Transactions T on U.account = T.account group by U.name having balance >10000
+select U.name, sum(T.amount) as balance from Users U join Transactions T on U.account = T.account group by U.account having balance > 10000
+select U.name, sum(amount) as balance from Users U join Transactions T on U.account=T.account group by U.account having balance>10000
+select U.name,sum(T.amount) as balance from Transactions T, Users U where U.account = T.account group by T.account having sum(T.amount)>10000
+select U.name,sum(T.amount) as balance from Users U inner join Transactions T on U.account = T.account group by T.account having sum(T.amount)>10000
+select Users.name NAME, sum(amount) BALANCE from Users, Transactions where Users.account = Transactions.account group by Users.name having sum(amount) > 10000
+select Users.name as name, sum(Transactions.amount) as balance from Users join Transactions on Users.account = Transactions.account group by Users.name having balance > 10000
+select Users.name, sum(Transactions.amount) as balance from Transactions inner join Users on Transactions.account = Users.account group by Transactions.account having sum(Transactions.amount) > 10000
+select Users.name,a.balance from (select account,sum(amount) as balance from Transactions group by account having balance >10000) as a Inner join Users on a.account = Users.account
+select a.name , sum(b.amount) as balance from users a inner join transactions b on a.account=b.account group by a.account having(balance >10000)
+select a.name as name, sum(b.amount) as balance from users a join transactions b using(account) group by a.account having sum(b.amount)>10000
+select a.name, SUM(t.amount) AS balance FROM Users a LEFT JOIN Transactions t ON a.account=t.account GROUP BY 1 HAVING sum(t.amount)>10000
+select a.name, a.balance from (select name, sum(amount) balance from Transactions t left join Users u on u.account = t.account group by t.account) a where a.balance > 10000
+select a.name, sum(amount) as balance from users a join transactions b on a.account = b.account group by a.name having sum(amount) > 10000
+select a.name, sum(b.amount) as balance from Users a inner join Transactions b on a.account = b.account group by a.name having sum(b.amount) > 10000
+select a.name, sum(b.amount) as balance from Users a right join Transactions b on a.account=b.account group by name having sum(amount)>10000
+select a.name, sum(b.amount) as balance from users a join transactions b on a.account = b.account group by a.name having sum(b.amount) > 10000
+select a.name, sum(b.amount) as balance from users a left join transactions b on a.account = b.account group by a.account having sum(b.amount) > 10000
+select a.name, sum(b.amount) balance from Users a join Transactions b on a.account = b.account group by a.account having balance > 10000
+select a.name,b.balance as balance from users a, (select account, sum(amount)as balance from transactions group by account)b where a.account=b.account and b.balance>10000
+select b.name, sum(a.amount) as balance from Transactions as a left join Users as b on a.account = b.account group by a.account having balance>10000
+select b.name, sum(amount) as balance from Transactions a left join Users b on a.account = b.account group by a.account, b.name having balance >10000
+select distinct name, balance from ( select Users.name, sum(amount) as balance from Users left join Transactions on Users.account = Transactions.account group by name ) a where balance > 10000
+select distinct name, balance from (select Users.name, sum(Transactions.amount) over (partition by Transactions.account)as balance from Transactions inner join Users on Transactions.account = Users.account) A where balance > 10000
+select e1.name, sum(e2.amount) as balance from users as e1 join transactions e2 on e1.account = e2.account group by e1.account having balance > 10000
+select e1.name, sum(e2.amount) as balance from users e1 left join Transactions e2 on e1.account = e2.account group by e1.account having balance > 10000
+select name , sum(amount) as balance from transactions t inner join users u on u.account = t.account group by 1 having sum(amount) > 10000
+select name , sum(amount) balance from Users u join Transactions t on u.account=t.account group by name having sum(amount)>10000
+select name ,balance from Users join (select account,sum(amount)as balance from Transactions group by account having balance > 10000)t on Users.account = t.account
+select name ,sum(amount) balance from Transactions T join Users U on T.account = U.account group by name having balance > 10000
+select name ,sum(amount)balance from users u inner join transactions t on u.account = t.account group by u.account having balance>10000
+select name as NAME, sum(amount) AS BALANCE from users join transactions using(account) group by name having balance>10000
+select name as NAME, sum(amount) as BALANCE from Transactions t inner join Users u on u.account = t.account group by t.account having balance > 10000
+select name as NAME, sum(amount) as BALANCE from Transactions t inner join Users u on u.account = t.account group by u.account having balance > 10000
+select name as NAME, sum(amount) as BALANCE from Users u inner join Transactions t on u.account = t.account group by u.account having balance > 10000
+select name as NAME,sum(amount) as BALANCE from users as u join transactions as t on u.account=t.account group by t.account having sum(amount)>10000
+select name, IFNULL(SUM(t.amount), 0) as balance from Users u join Transactions t on u.account = t.account group by u.account having balance > 10000
+select name, SUM(amount) AS balance from users u Join transactions t on u.account=t.account GROUP BY 1 HAVING SUM(amount)>10000
+select name, SUM(amount) as balance from Transactions t join Users u on t.account=u.account group by 1 having SUM(amount)> 10000
+select name, amount as balance from Users as u join (select account, sum(amount) as amount from Transactions group by account having amount > 10000) as t on u.account = t.account
+select name, balance from ( select account, name, sum(amount) as balance from transactions left join users using (account) group by account, name having sum(amount)> 10000 ) as a
+select name, balance from ( select account, sum(amount) as balance from Transactions group by account having balance > 10000) A join Users B on A.account=B.account
+select name, balance from ( select account, sum(amount) as balance from transactions group by 1) a left join users on users.account= a.account where a.balance > 10000
+select name, balance from ( select name, sum(amount) as balance from Users u INNER JOIN Transactions t ON u.account = t.account group by t.account ) t where balance > 10000
+select name, balance from (select account, sum(amount) as balance from Transactions group by account having balance > 10000) as t join Users on t.account = Users.account
+select name, balance from (select account, sum(amount) balance from Transactions group by account having balance > 10000) A join Users U on A.account = U.account
+select name, balance from (select name,account,sum(amount) as balance from (select a.name,a.account,b.amount from Users a left join Transactions b on a.account=b.account) c group by name,account) d where balance>10000
+select name, balance from (select u.name, sum(amount) as balance from Transactions t inner join Users u on t.account = u.account group by t.account) as i where balance>10000
+select name, balance from Users U JOIN ( SELECT Account, sum(amount) as balance FROM Transactions group by account having sum(amount) >10000 ) T on U.account = T.account
+select name, balance from Users left join (SELECT account, sum(amount) as balance from Transactions group by account) as t on Users.account = t.account where balance > 10000
+select name, balance from users u join ( select account, sum(amount) as balance from transactions t group by account having balance > 10000 ) temp on u.account = temp.account
+select name, balance from users u join (select account, sum(amount) 'balance' from transactions group by account having sum(amount) > 10000) as tmp on u.account = tmp.account
+select name, balance from users u join (select account, sum(amount) as balance from transactions group by account having sum(amount) > 10000) as t on t.account = u.account
+select name, balance from( select account, sum(amount) balance from transactions group by account ) temp join users u using(account) where balance >10000
+select name, balance from( select distinct Users.account, name, sum(amount) as balance from Users inner join Transactions on Users.account = Transactions.account group by Users.account, name ) a where balance>10000
+select name, sum(Transactions.amount) as balance from Users inner join Transactions on Users.account = Transactions.account group by name having balance > 10000
+select name, sum(amount) as balance from (select Transactions.account as account,Transactions.amount as amount, Users.name as name from Transactions LEFT JOIN Users ON Transactions.account=Users.account) AS a GROUP BY(account) HAVING balance>10000
+select name, sum(amount) as balance from Transactions as T left join Users as U on T.account=U.account group by T.account having sum(amount) >10000
+select name, sum(amount) as balance from Transactions as T left join Users as u using (account) group by account having balance > 10000
+select name, sum(amount) as balance from Transactions left join Users on Transactions.account = Users.account group by Transactions.account having balance > 10000
+select name, sum(amount) as balance from Transactions t join Users u on u.account = t.account group by t.account having sum(amount)>10000
+select name, sum(amount) as balance from Users as u join Transactions as t on u.account = t.account group by name having balance > 10000
+select name, sum(amount) as balance from Users inner join Transactions on Users.account = Transactions.account group by Transactions.account having sum(amount) > 10000
+select name, sum(amount) as balance from Users inner join Transactions on Users.account=Transactions.account group by Users.account having sum(amount)>10000
+select name, sum(amount) as balance from Users join Transactions using (account) group by name having balance > 10000
+select name, sum(amount) as balance from Users join Transactions using (account) group by name having balance>10000
+select name, sum(amount) as balance from Users join Transactions using (account) group by name having sum(amount)>10000
+select name, sum(amount) as balance from Users join Transactions using(account) group by account having sum(amount) > 10000
+select name, sum(amount) as balance from Users join transactions on users.account = transactions.account group by users.account having balance>10000
+select name, sum(amount) as balance from Users left join Transactions on Transactions.account = Users.account group by name having balance > 10000
+select name, sum(amount) as balance from Users left join Transactions on Transactions.account = Users.account group by name having sum(amount) > 10000
+select name, sum(amount) as balance from Users left join Transactions on Users.account = Transactions.account group by Users.account having sum(amount) > 10000
+select name, sum(amount) as balance from Users left join Transactions using(account) group by account having sum(amount) > 10000
+select name, sum(amount) as balance from Users s join Transactions t on s.account = t.account group by 1 having sum(amount) > 10000
+select name, sum(amount) as balance from Users u inner join Transactions t on u.account=t.account group by t.account having sum(amount)>10000
+select name, sum(amount) as balance from Users u join Transactions t ON u.account = t.account group by t.account having sum(amount) > 10000
+select name, sum(amount) as balance from Users u join Transactions t on u.account = t.account group by name having sum(amount) > 10000
+select name, sum(amount) as balance from Users u join Transactions t on u.account = t.account group by u.account having balance > 10000
+select name, sum(amount) as balance from Users u join Transactions t on u.account = t.account group by u.account having sum(amount) > 10000
+select name, sum(amount) as balance from Users u join Transactions t using (account) group by name having sum(amount) > 10000
+select name, sum(amount) as balance from Users u left join Transactions t on u.account = t.account group by u.account having sum(amount)> 10000 order by name
+select name, sum(amount) as balance from transactions join users on transactions.account=users.account group by transactions.account having balance>10000
+select name, sum(amount) as balance from transactions t inner join users u on u.account = t.account group by t.account having balance > 10000
+select name, sum(amount) as balance from users a join transactions b on a.account = b.account group by 1 having balance > 10000
+select name, sum(amount) as balance from users a left join transactions b on a.account=b.account group by name having balance>10000
+select name, sum(amount) as balance from users join transactions on users.account = transactions.account group by users.name having balance > 10000
+select name, sum(amount) as balance from users join transactions using(account) group by account having balance>10000
+select name, sum(amount) as balance from users u inner join Transactions t on u.account = t.account group by u.account having balance > 10000
+select name, sum(amount) as balance from users u inner join transactions t on u.account=t.account group by name having sum(amount) > 10000
+select name, sum(amount) as balance from users u join Transactions t on u.account = t.account group by name having sum(amount)>10000
+select name, sum(amount) as balance from users u join transactions t on t.account = u.account group by 1 having sum(amount) > 10000
+select name, sum(amount) as balance from users u join transactions t on t.account = u.account group by name having sum(amount) > 10000
+select name, sum(amount) as balance from users u join transactions t on u.account = t.account group by 1 having sum(amount) > 10000
+select name, sum(amount) as balance from users u join transactions t on u.account = t.account group by name having sum(amount) > 10000
+select name, sum(amount) as balance from users u join transactions t on u.account = t.account group by t.account having balance > 10000
+select name, sum(amount) balance from Transactions T join Users U on T.account=U.account group by T.account having balance>10000
+select name, sum(amount) balance from Transactions t join Users u on t.account = u.account group by t.account having sum(amount) > 10000
+select name, sum(amount) balance from Users inner join Transactions using(account) group by name having balance >= 10000
+select name, sum(amount) balance from Users u join Transactions t on u.account = t.account group by u.account having sum(amount) > 10000
+select name, sum(amount) balance from users u inner join transactions t on u.account = t.account group by u.account having balance > 10000
+select name, total as balance from Users b left join ( select account, sum(amount) as total from Transactions group by account) a on a.account = b.account where total > 10000
+select name,balance from (select account, sum(amount) as balance from transactions group by account ) as t left join users on t.account = users.account where t.balance > 10000
+select name,balance from (select account,sum(amount) as balance from Transactions group by account)as k join users where users.account=k.account and k.balance>10000
+select name,balance from Users left join (select account,sum(amount) as balance from Transactions group by account) as temp on Users.account = temp.account where temp.balance > 10000
+select name,balance from users right join (select account,sum(amount) as balance from transactions group by account having balance>10000) a on users.account=a.account
+select name,balance from users u join (select account,sum(amount) as balance from transactions group by account having sum(amount) > 10000) as t on t.account = u.account
+select name,sum(amount) as balance from Transactions left join Users using(account) group by account having balance>10000
+select name,sum(amount) as balance from Users , Transactions where Users.account = Transactions.account group by name having sum(amount) > 10000
+select name,sum(amount) as balance from Users U JOIN Transactions T on U.account = T.account GROUP BY name having sum(amount) > 10000
+select name,sum(amount) as balance from Users u inner join Transactions t using(account) group by 1 having sum(amount)>10000
+select name,sum(amount) as balance from transactions t inner join users u on u.account=t.account group by 1 having sum(amount)>10000
+select name,sum(amount) as balance from users join transactions on users.account = transactions.account group by name having sum(amount)>10000
+select name,sum(amount) balance from users join transactions using (account) group by 1 having sum(amount) > 10000
+select name,sum(amount)balance from Users join Transactions using(account) group by account having sum(amount) > 10000
+select name,sum(case when amount >0 then amount end)+coalesce(sum(case when amount <0 then amount end),0) balance from transactions t inner join users u on t.account = u.account group by name having sum(case when amount >0 then amount end) +coalesce(sum(case when amount <0 then amount end),0) > 10000
+select sum(t.amount) as balance, u.name from Transactions t, Users u where t.account = u.account group by t.account having sum(t.amount) > 10000
+select t1.name as NAME, t2.balance as BALANCE from Users t1 left join (select account, sum(amount) as balance from Transactions group by account)t2 on t1.account =t2.account where t2.balance>=10000
+select u.name , sum(amount) as balance from transactions t join users u on u.account=t.account group by 1 having balance > 10000
+select u.name , sum(t.amount) as balance from Transactions as t , Users as u where t.account = u.account group by t.account having balance > 10000
+select u.name as 'name', sum(t.amount) as 'balance' from Users u left join Transactions t on u.account = t.account group by t.account having sum(t.amount) > 10000
+select u.name as NAME, sum(t.amount) as BALANCE from Transactions t LEFT JOIN Users u ON t.account = u.account group by u.name having sum(t.amount) >10000
+select u.name as NAME, sum(t.amount) as BALANCE from Users u join Transactions t on u.account=t.account group by u.account having BALANCE>10000
+select u.name as NAME, wk.balance as BALANCE from Users u join (select account, sum(amount) as balance from Transactions group by account) wk on u.account = wk.account where wk.balance > 10000
+select u.name as NAME,sum(amount) as BALANCE from users u left join transactions t on u.account=t.account group by u.account, u.name having sum(amount) > 10000
+select u.name as NAME,sum(t.amount) as BALANCE from users u join transactions t on u.account=t.account group by u.account having BALANCE>10000
+select u.name as name, sum(t.amount) as balance from Users u join Transactions T on u.account = T.account group by 1 having sum(t.amount) > 10000 order by 1
+select u.name as name, sum(t.amount) as balance from transactions t join users u on t.account = u.account group by name having balance > 10000
+select u.name as name, sum(t.amount) as balance from users u join transactions t on u.account = t.account group by u.name having sum(t.amount)> 10000
+select u.name, SUM(t.amount) as balance from users u INNER JOIN transactions t ON u.account = t.account group by u.name having SUM(t.amount) > 10000
+select u.name, a.balance from (select account, sum(amount) as balance from Transactions group by account having sum(amount) > 10000 ) a left join Users u on a.account = u.account
+select u.name, balance from (select account, sum(amount) as balance from transactions group by 1 having sum(amount) > 10000) a join users u on a.account = u.account
+select u.name, balance from Users u inner join (select account, sum(amount) as balance from Transactions group by account) t on u.account = t.account where balance > 10000
+select u.name, balance from users u left join ( select account, sum(amount) as balance from transactions group by account ) a on u.account=a.account where balance >10000
+select u.name, ifnull(sum(amount),0) as balance from users u left join transactions t on u.account = t.account group by 1 having balance > 10000
+select u.name, inter.paisa as balance from Users u join (select account, sum(amount) as paisa from Transactions group by account having sum(amount)>10000) as inter on u.account = inter.account
+select u.name, sum( t.amount ) balance from Users u inner join transactions t on u.account = t.account group by u.account having balance > 10000
+select u.name, sum(amount) as balance from Transactions a join Users u on a.account = u.account group by a.account having sum(amount) > 10000
+select u.name, sum(amount) as balance from Transactions t inner join Users u on t.account = u.account group by t.account having balance>10000
+select u.name, sum(amount) as balance from Transactions t left join Users u on u.account = t.account group by t.account having sum(amount)>10000
+select u.name, sum(amount) as balance from Users as u join Transactions as t on u.account = t.account group by t.account having balance > 10000
+select u.name, sum(amount) as balance from Users as u join Transactions as t on u.account = t.account group by u.account having sum(t.amount) > 10000
+select u.name, sum(amount) as balance from Users u inner join Transactions t on u.account = t.account group by 1 having balance > 10000
+select u.name, sum(amount) as balance from Users u join Transactions t on t.account = u.account group by t.account having sum(amount) >10000
+select u.name, sum(amount) as balance from Users u join Transactions t on u.account = t.account group by u.account having sum(amount) > 10000
+select u.name, sum(amount) as balance from Users u, Transactions t where u.account = t.account group by t.account having sum(amount) > 10000
+select u.name, sum(amount) as balance from users u inner join transactions t on u.account = t.account group by u.name having sum(amount) > 10000
+select u.name, sum(amount) as balance from users u join transactions t on u.account = t.account group by t.account having balance > 10000
+select u.name, sum(amount) as balance from users u join transactions t on u.account = t.account group by u.account, u.name having balance > 10000
+select u.name, sum(amount) as balance from users u join transactions t on u.account=t.account group by u.name having balance > 10000 order by u.name
+select u.name, sum(amount) balance from Transactions t join users u using(account) group by 1 having sum(amount) > 10000
+select u.name, sum(amount) balance from Users u inner join Transactions t on u.account = t.account group by u.name having sum(amount) > 10000
+select u.name, sum(amount) balance from Users u inner join Transactions t on u.account=t.account group by t.account having sum(amount)>10000
+select u.name, sum(if(t.account=t.account,amount,0)) as balance from users u join transactions t on u.account=t.account group by u.name having balance>10000
+select u.name, sum(t.amount) AS BALANCE from Users u join Transactions t on u.account = t.account group by u.account HAVING sum(t.amount) > 10000
+select u.name, sum(t.amount) as 'balance' from users u join transactions t on u.account = t.account group by u.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Transactions t Left Join Users u on t.account = u.account group by t.account having balance>10000
+select u.name, sum(t.amount) as balance from Transactions t join Users u on u.account=t.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Transactions t join users u on t.account = u.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Transactions t left join Users u on t.account = u.account group by 1 having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Transactions t left join Users u on t.account = u.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Users as u join Transactions as t on t.account=u.account group by t.account having sum(t.amount)>10000
+select u.name, sum(t.amount) as balance from Users as u join Transactions as t on u.account = t.account group by u.account having balance > 10000
+select u.name, sum(t.amount) as balance from Users as u, Transactions as t where u.account = t.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Users u inner join Transactions t on t.account = u.account group by t.account having balance > 10000
+select u.name, sum(t.amount) as balance from Users u inner join Transactions t on u.account = t.account group by u.name having sum(amount) > 10000
+select u.name, sum(t.amount) as balance from Users u inner join Transactions t on u.account=t.account group by t.account having balance>10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account = t.account group by t.account having sum(t.amount)>10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account = t.account group by t.account, u.name having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account = t.account group by u.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account = t.account group by u.account, u.name having balance > 10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account = t.account group by u.name having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account = t.account group by u.name having sum(t.amount) >= 10000
+select u.name, sum(t.amount) as balance from Users u join Transactions t on u.account=t.account group by u.name having sum(t.amount) >= 10000
+select u.name, sum(t.amount) as balance from Users u left join Transactions t ON u.account = t.account group by u.account having balance > 10000
+select u.name, sum(t.amount) as balance from Users u left join Transactions t on t.account = u.account group by u.name having balance > 10000
+select u.name, sum(t.amount) as balance from Users u left join Transactions t on u.account = t.account group by u.account having balance > 10000
+select u.name, sum(t.amount) as balance from Users u left join Transactions t on u.account=t.account group by u.account having balance>10000
+select u.name, sum(t.amount) as balance from Users u, Transactions t where u.account = t.account group by t.account having balance > 10000
+select u.name, sum(t.amount) as balance from transactions t inner join users u using(account) group by u.name having balance > 10000
+select u.name, sum(t.amount) as balance from transactions t join users u on t.account = u.account group by t.account, u.name having balance > 10000
+select u.name, sum(t.amount) as balance from transactions t join users u on t.account = u.account group by u.name having sum(t.amount)>10000
+select u.name, sum(t.amount) as balance from transactions t, Users u where t.account=u.account group by t.account having balance>10000
+select u.name, sum(t.amount) as balance from transactions t, users u where t.account = u.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from users as u inner join transactions as t on u.account = t.account group by name having balance > 10000
+select u.name, sum(t.amount) as balance from users as u left join transactions as t on u.account = t.account group by t.account having balance > 10000
+select u.name, sum(t.amount) as balance from users as u left join transactions as t on u.account = t.account group by u.name having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from users as u left join transactions as t using (account) group by u.name having sum(t.amount)>10000
+select u.name, sum(t.amount) as balance from users u join transactions t on u.account = t.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from users u join transactions t on u.account = t.account group by u.account having balance > 10000
+select u.name, sum(t.amount) as balance from users u join transactions t on u.account = t.account group by u.name having balance>10000
+select u.name, sum(t.amount) as balance from users u join transactions t on u.account=t.account group by 1 having sum(t.amount) >10000
+select u.name, sum(t.amount) as balance from users u join transactions t on u.account=t.account group by t.account having sum(t.amount) > 10000
+select u.name, sum(t.amount) as balance from users u join transactions t on u.account=t.account group by u.account having sum(t.amount)>10000
+select u.name, sum(t.amount) as balance from users u left join transactions t on u.account=t.account group by u.name having balance>10000
+select u.name, sum(t.amount) as balance from users u left join transactions t using(account) group by account having balance > 10000
+select u.name, sum(t.amount) balance from users u inner join Transactions t on (u.account=t.account) group by name having balance>10000
+select u.name, sum(t.amount) balance from users u inner join transactions t on u.account = t.account group by t.account having balance > 10000
+select u.name, sum(t.amount) balance from users u inner join transactions t on u.account=t.account group by t.account having balance>10000
+select u.name, sum(t.amount) balance from users u join transactions t on u.account = t.account group by u.name having balance > 10000
+select u.name, sum(t.amount) balance from users u join transactions t using(account) group by account having balance > 10000
+select u.name, sum(trans.amount) as balance from Users as u join Transactions as trans on u.account = trans.account group by u.account having balance > 10000
+select u.name, t.balance FROM Users u JOIN (SELECT account, sum(amount) as balance FROM Transactions GROUP BY account) as t on u.account = t.account where t.balance > 10000
+select u.name, t.balance from Users u join (select account, sum(amount) as balance from Transactions group by account) t on u.account = t.account where t.balance > 10000
+select u.name, t.balance from Users u left join ( select account, sum(amount) as balance from Transactions group by account ) t on u.account = t.account where t.balance > 10000
+select u.name, t.balance from Users u left join (select account, sum(amount) as "balance" from Transactions group by account) as t on u.account = t.account where t.balance > 10000
+select u.name, t.balance from Users u, (select account, sum(amount) as balance from Transactions group by account ) as t where u.account = t.account and t.balance > 10000
+select u.name,sum(t.amount) as 'balance' from Users u join Transactions t on u.account = t.account group by t.account having balance>10000
+select u.name,t.balance from ( select account,sum(amount) balance from transactions group by account having sum(amount) > 10000)t join users u on t.account = u.account
+select users.name, sum(transactions.amount) as balance from users right join transactions on users.account = transactions.account group by users.name having sum(transactions.amount) > 10000
+select users.name,SUM(Transactions.amount) as balance from Users JOIN Transactions on Users.account=Transactions.account group by Users.account Having balance>10000
+select users.name,sum(transactions.amount) as balance from users left outer join transactions on users.account = transactions.account group by users.account having balance > 10000
+select x.name, sum(y.amount) as balance from users x join transactions y using(account) group by 1 having sum(y.amount)>10000
+select y.name, x.balance from (select account, sum(amount) as balance from Transactions group by account) as x inner join (select account, name from Users) as y on y.account = x.account where x.balance > 10000
+with a as( select account, sum(amount) as balance from transactions group by account) select name, balance from users join a on users.account=a.account where balance>10000
+with balance as ( select account, sum(amount) as balance from Transactions group by account having balance > 10000 ) select a.name, b.balance from Users as a inner join balance as b on a.account = b.account
+with cte as ( select u.name, sum( t.amount ) balance from Users u inner join transactions t on u.account = t.account group by u.account ) select name, balance from cte where balance > 10000
+with cte as (Select name ,T.account , SUM(amount)over (partition by account ) as balance from Transactions T JOIN Users ON T.account = Users.account ) Select name , balance from cte where balance > 10000 Group by 1
+with cte as (select account, sum(amount) balance from Transactions group by account) select u.name NAME, c.balance BALANCE from cte c, Users u where c.account = u.account and c.balance>10000
+with cte as( SELECT account, sum(amount) as balance FROM Transactions GROUP BY account ) SELECT u.Name, c.balance from Users u JOIN cte c ON u.account = c.account HAVING c.balance > 10000
+with filtered as ( select sum(amount) total, account from Transactions group by account having total > 10000 ) select u.name, f.total as balance from filtered f join users u on f.account = u.account
+with step1 as( select a.amount, b.name from Transactions a left join Users b on a.account=b.account) select name, sum(amount) as balance from step1 group by name having sum(amount) >10000
+with temp as ( select name, sum(amount) balance from Transactions t left join Users u on u.account = t.account group by t.account ) select name,balance from temp where balance>10000
+with temp as ( select t.account, sum(t.amount) balance from Transactions t group by t.account having balance > 10000 ) select name NAME, balance BALANCE from temp t, Users u where t.account = u.account
+with temp as (select account , sum(amount) as balance from transactions group by account having balance > 10000) select name , balance from users join temp on users.account = temp.account
+with temp as (select account , sum(amount) as balance from transactions group by account) select name , balance from users join temp on users.account = temp.account where balance > 10000
+with temp as (select account, sum(amount) as balance from Transactions group by 1 having balance > 10000) select name, balance from Users join temp using (account)
+with temp as(select account, sum(amount) balance from transactions group by account) select name, balance from temp inner join users on temp.account = users.account where balance > 10000
+with tmp as( select account, sum(amount) as 'balance' from Transactions group by account ) select u.name, tmp.balance from Users u join tmp on u.account = tmp.account where tmp.balance >10000
+with tmp as( select account, sum(amount) as balance from transactions group by 1 having sum(amount)>10000) select name, balance from users inner join tmp on users.account=tmp.account
+with tmp as( select t.account, u.name, sum(amount) as balance from Transactions t left join Users u on t.account = u.account group by account ) select name, balance from tmp where balance > 10000

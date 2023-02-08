@@ -1,0 +1,200 @@
+GROUP BY viewer_id, view_date HAVING count(DISTINCT article_id) > 1 ORDER BY viewer_id
+SELECT DISTINCT VIEWER_ID AS ID FROM VIEWS GROUP BY VIEWER_ID, VIEW_DATE HAVING COUNT(DISTINCT ARTICLE_ID)>1 ORDER BY ID
+SELECT DISTINCT v.viewer_id AS id FROM views v GROUP BY v.view_date, v.viewer_id HAVING COUNT(DISTINCT v.article_id)>1 ORDER BY v.viewer_id
+SELECT DISTINCT v1.viewer_id AS id FROM Views v1 INNER JOIN Views v2 ON v1.viewer_id = v2.viewer_id AND v1.view_date = v2.view_date AND v1.article_id != v2.article_id ORDER BY 1
+SELECT DISTINCT v1.viewer_id AS id FROM Views v1 JOIN Views v2 ON v1.view_date = v2.view_date AND v1.viewer_id = v2.viewer_id AND v1.article_id <> v2.article_id ORDER BY id
+SELECT DISTINCT v1.viewer_id as id FROM Views v1 JOIN Views v2 WHERE v1.viewer_id = v2.viewer_id AND v1.view_date = v2.view_date AND v1.article_id != v2.article_id ORDER BY v1.viewer_id
+SELECT DISTINCT viewer_id AS 'id' FROM ( SELECT viewer_id , view_date , COUNT(DISTINCT article_id) AS 'count' FROM Views GROUP BY viewer_id , view_date HAVING COUNT(DISTINCT article_id) > 1 ) a ORDER BY viewer_id ASC
+SELECT DISTINCT viewer_id AS 'id' FROM Views GROUP BY view_date, viewer_id HAVING COUNT(DISTINCT(article_id)) > 1 ORDER BY viewer_id ASC
+SELECT DISTINCT viewer_id AS id FROM ( SELECT viewer_id, view_date FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ) s ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM ( SELECT viewer_id, view_date FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ) sub ORDER BY id
+SELECT DISTINCT viewer_id AS id FROM ( SELECT viewer_id, view_date, COUNT(DISTINCT article_id) AS art_num FROM Views GROUP BY viewer_id, view_date ) AS t1 WHERE art_num > 1 ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM ( SELECT viewer_id,view_date FROM Views GROUP BY 1,2 HAVING COUNT(DISTINCT article_id) > 1 )t ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM ( SELECT viewer_id,view_date FROM Views GROUP BY viewer_id,view_date HAVING COUNT(DISTINCT article_id) > 1) AS sub ORDER BY id
+SELECT DISTINCT viewer_id AS id FROM (SELECT DISTINCT * FROM VIEWS) a group by view_date, viewer_id having count(article_id) >1 order by id
+SELECT DISTINCT viewer_id AS id FROM (SELECT view_date, viewer_id, COUNT(DISTINCT article_id) AS cnt_article FROM views GROUP BY 1,2 ) m WHERE cnt_article > 1 ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM (SELECT viewer_id ,view_date ,COUNT(DISTINCT article_id) AS ct FROM Views GROUP BY 1,2) a WHERE ct > 1 ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM (SELECT viewer_id, COUNT(DISTINCT article_id) AS num_articles FROM Views GROUP BY viewer_id, view_date) x WHERE num_articles > 1 ORDER BY id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY view_date, viewer_id HAVING COUNT(DISTINCT article_id) > 1 ORDER BY id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY view_date, viewer_id HAVING COUNT(DISTINCT article_id)>1 ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY 1 ASC
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY id ASC
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY viewer_id ASC
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id)>1 ORDER BY id ASC
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id)>1 ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id, view_date HAVING count(DIStinct article_id)>1 ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM Views GROUP BY viewer_id,view_date HAVING COUNT(DISTINCT article_id)>1 ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM Views v GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY viewer_id
+SELECT DISTINCT viewer_id AS id FROM( SELECT viewer_id , view_date , COUNT(DISTINCT article_id) AS num_article FROM Views GROUP BY 1, 2 ) v WHERE num_article > 1 ORDER BY 1
+SELECT DISTINCT viewer_id AS id FROM( SELECT viewer_id, view_date, COUNT(DISTINCT article_id) AS cnt FROM views GROUP BY 1,2)a WHERE cnt > 1
+SELECT DISTINCT viewer_id as id FROM ( SELECT a.viewer_id, a.view_date FROM Views a GROUP BY 1,2 HAVING COUNT(DISTINCT article_id) >= 2 ) tmp
+SELECT DISTINCT viewer_id as id FROM ( SELECT view_date, viewer_id, COUNT(DISTINCT article_id) FROM Views GROUP BY 1,2 HAVING COUNT(DISTINCT article_id) > 1 ) t ORDER BY 1
+SELECT DISTINCT viewer_id as id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY 1 ASC
+SELECT DISTINCT viewer_id as id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id)>1 ORDER BY id
+SELECT DISTINCT viewer_id id FROM (SELECT viewer_id, view_date, COUNT(DISTINCT article_id) CNT FROM Views GROUP BY viewer_id, view_date) TEMP WHERE CNT > 1
+SELECT DISTINCT viewer_id id FROM Views GROUP BY view_date, viewer_id HAVING COUNT(DISTINCT article_id)>1 ORDER BY 1
+SELECT DISTINCT viewer_id id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1
+SELECT DISTINCT viewer_id id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1 ORDER BY id ASC
+SELECT DISTINCT viewer_id id FROM `Views` WHERE viewer_id IN (SELECT viewer_id FROM `Views` GROUP BY viewer_id, view_date HAVING COUNT(distinct article_id) >1 ) ORDER BY id ASC
+SELECT DISTINCT x.viewer_id as id FROM ( SELECT v.viewer_id, v.view_date, COUNT(DISTINCT v.article_id) as distinct_views FROM views v GROUP BY 1,2 HAVING COUNT(DISTINCT v.article_id) >1 ) AS x ORDER BY 1
+SELECT DISTINCT(viewer_id) AS id FROM Views GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) >= 2 ORDER BY id
+SELECT Sub.id FROM ( SELECT DISTINCT viewer_id AS id, COUNT(DISTINCT article_id) AS num_article FROM Views GROUP BY id, view_date ) Sub WHERE Sub.num_article > 1 ORDER BY id
+SELECT d.viewer_id AS id FROM ( SELECT viewer_id, view_date, count(distinct article_id) AS cnt FROM Views GROUP BY viewer_id, view_date ) d WHERE d.cnt >= 2 GROUP BY d.viewer_id ORDER BY d.viewer_id
+SELECT d.viewer_id AS id FROM ( SELECT viewer_id, view_date, count(distinct article_id) AS cnt FROM Views GROUP BY viewer_id, view_date HAVING cnt >= 2 ) d GROUP BY d.viewer_id ORDER BY d.viewer_id
+SELECT distinct viewer_id AS id FROM Views GROUP BY viewer_id,view_date HAVING COUNT( distinct article_id) > 1 ORDER BY 1
+SELECT distinct viewer_id as id FROM ( SELECT view_date, viewer_id, count(distinct article_id) as num FROM Views GROUP BY view_date, viewer_id HAVING num >= 2 ) A ORDER BY viewer_id
+SELECT distinct viewer_id as id FROM (SELECT viewer_id, count(*) over(partition by viewer_id, view_date) as cnt FROM (SELECT distinct * FROM Views) a) t WHERE t.cnt > 1
+SELECT distinct viewer_id as id FROM Views GROUP BY view_date, viewer_id HAVING COUNT(distinct article_id)>=2 order by 1
+SELECT distinct viewer_id as id FROM Views GROUP BY viewer_id, view_date HAVING count(distinct article_id) > 1 order by id
+SELECT distinct viewer_id as id FROM Views GROUP BY viewer_id, view_date HAVING count(distinct article_id) >=2
+SELECT distinct viewer_id as id FROM Views V1 GROUP BY viewer_id, view_date HAVING COUNT(DISTINCT article_id) > 1
+SELECT distinct viewer_id as id FROM views GROUP BY view_date, viewer_id HAVING Count(distinct article_id) > 1 ORDER BY viewer_id
+SELECT distinct viewer_id as id FROM views GROUP BY viewer_id, view_date HAVING count(distinct article_id) > 1 ORDER BY 1
+SELECT t1.viewer_id AS id FROM (SELECT DISTINCT * FROM Views) AS t1 GROUP BY t1.viewer_id HAVING COUNT(DISTINCT t1.view_date)!= COUNT(t1.view_date) ORDER BY t1.viewer_id
+SELECT viewer_id AS id FROM (SELECT viewer_id FROM (SELECT viewer_id, view_date, article_id FROM Views GROUP BY viewer_id, view_date, article_id) AS np GROUP BY viewer_id, view_date HAVING COUNT(*) > 1) As np2 GROUP BY id ORDER BY id
+Select distinct viewer_id as Id from Views group by viewer_id, view_date having count(distinct article_id) >= 2 order by id
+Select distinct viewer_id as id From Views Group by viewer_id, view_date Having Count(distinct article_id)>1 Order by viewer_id
+Select distinct viewer_id as id from Views group by viewer_id , view_date having count(distinct article_id) > 1 order by 1
+Select distinct viewer_id as id from( Select view_date, viewer_id, count(distinct article_id) as num from Views group by 1,2)t where num >1 order by id
+Select distinct viewer_id id from Views group by viewer_id, view_date having count(distinct article_id) > 1 order by viewer_id
+Select distinct(viewer_id) as id from Views where (viewer_id,view_date) in (Select viewer_id,view_date from Views group by viewer_id,view_date having count(distinct(article_id))>=2) order by id
+WITH CTE_1 AS ( SELECT VIEWER_ID, VIEW_DATE, COUNT(*) VIEW_COUNT, COUNT(DISTINCT ARTICLE_ID) AUTHOR_COUNT FROM VIEWS GROUP BY VIEWER_ID, VIEW_DATE ) SELECT DISTINCT VIEWER_ID ID FROM CTE_1 WHERE VIEW_COUNT > 1 AND AUTHOR_COUNT > 1 ORDER BY VIEWER_ID ASC
+WITH TEMP AS (SELECT DISTINCT author_id, viewer_id, view_date, RANK() OVER (PARTITION BY Viewer_Id, View_date ORDER BY author_id, article_id) rnk FROM views) SELECT distinct viewer_id as id FROM TEMP WHERE rnk>=2
+WITH articles_per_day AS ( SELECT viewer_id, view_date FROM views GROUP BY 1, 2 HAVING COUNT(DISTINCT article_id) > 1 ) SELECT viewer_id AS id FROM articles_per_day GROUP BY 1 ORDER BY 1
+WITH distincts AS ( SELECT article_id, viewer_id, view_date FROM views GROUP BY article_id, viewer_id, view_date), cnts AS (SELECT viewer_id, view_date FROM distincts GROUP BY viewer_id, view_date HAVING COUNT(article_id) > 1 ) SELECT viewer_id as id FROM cnts GROUP BY viewer_id ORDER BY id
+WITH t AS (SELECT viewer_id, view_date,COUNT(article_id) OVER (PARTITION BY viewer_id, view_date) n_art FROM (SELECT DISTINCT * FROM views ) sub) SELECT DISTINCT viewer_id id FROM t WHERE n_art >= 2 ORDER BY 1
+WITH t1 AS ( SELECT view_date, viewer_id, COUNT(DISTINCT(article_id)) AS article_count FROM Views GROUP BY view_date, viewer_id) SELECT DISTINCT viewer_id as id FROM t1 WHERE article_count>1 ORDER BY id
+WITH t1 AS ( SELECT view_date, viewer_id, COUNT(DISTINCT(article_id)) AS article_count FROM Views GROUP BY view_date, viewer_id) SELECT DISTINCT viewer_id as id FROM t1 WHERE article_count>1 ORDER BY id ASC
+With view_per_day as ( select viewer_id,view_date, count(distinct article_id) as article_cnt from Views group by 1,2) select distinct viewer_id as id from view_per_day where article_cnt>1
+select distinct (viewer_id) as id from (select viewer_id, count(distinct (article_id)), view_date from Views group by view_date, viewer_id having count(distinct (article_id))>1) tb order by viewer_id asc
+select distinct Viewer_id as id from views group by 1, view_date having count(distinct article_id )>1 order by 1
+select distinct a.id from (select viewer_id as id, view_date, count(distinct article_id) as cnt from views group by id, view_date) a where cnt>1 order by id asc
+select distinct a.viewer_id as id from (select view_date,viewer_id from views group by viewer_id,view_date having count(distinct article_id) > 1)a order by 1
+select distinct a.viewer_id as id from (select viewer_id, view_date, article_id, count(*) as ct from views group by 1,2,3) a group by a.viewer_id, a.view_date having count(*)>=2
+select distinct a.viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as article_count from views group by viewer_id, view_date) a where a.article_count>1 order by a.viewer_id
+select distinct a.viewer_id as id from Views a, Views b where a.view_date = b.view_date and a.viewer_id = b.viewer_id group by a.viewer_id, a.view_date having count(distinct a.article_id) > 1 order by a.viewer_id
+select distinct g.viewer_id as id from (select distinct v.viewer_id, v.article_id, v.view_date from Views v) g, (select distinct v.viewer_id, v.article_id, v.view_date from Views v) p where p.article_id != g.article_id and p.view_date = g.view_date and p.viewer_id = g.viewer_id order by g.viewer_id asc
+select distinct id from ( select view_date, viewer_id as id from views group by 1,2 having count(distinct article_id) > 1 ) f order by 1
+select distinct id from ( select view_date, viewer_id as id from views group by view_date, viewer_id having count(distinct article_id) > 1 ) as cte order by id
+select distinct id from ( select viewer_id as id, view_date, count(distinct article_id) as y from views group by 1, 2 having y > 1 ) x order by 1
+select distinct id from (select viewer_id as id, view_date, count(distinct article_id) from views group by viewer_id, view_date having count(distinct article_id) >1) x order by 1
+select distinct id from( select view_date, viewer_id as id from views group by 1,2 having count(distinct article_id) > 1) sub order by id
+select distinct t.viewer_id id from (select distinct article_id, viewer_id, view_date from Views) t group by t.viewer_id, t.view_date having count(*) > 1 order by t.viewer_id asc
+select distinct t1.viewer_id as id from (select view_date , viewer_id ,count(distinct article_id) as counts from Views group by 1,2) t1 where t1.counts > 1 order by 1
+select distinct temp.viewer_id as id from (select viewer_id, view_date, count(distinct article_id ) as total_article from Views group by viewer_id, view_date having count(distinct article_id ) >1)temp order by temp.viewer_id
+select distinct v1.viewer_id as id from views v1 join views v2 on v1.viewer_id = v2.viewer_id and v1.view_date = v2.view_date and v1.article_id != v2.article_id order by 1
+select distinct viewer_id "id" from (select viewer_id, view_date from views group by 1, 2 having count(distinct article_id) > 1 ) result_table order by 1
+select distinct viewer_id as 'id' from Views group by viewer_id,view_date having count(distinct article_id )>1
+select distinct viewer_id as id From Views Group by viewer_id,view_date Having count(distinct article_id) > 1 Order by viewer_id
+select distinct viewer_id as id from ( Select viewer_id, count(distinct article_id) as num, view_date from views group by viewer_id,view_date having num>1 ) as temp
+select distinct viewer_id as id from ( select distinct viewer_id, view_date, count(distinct article_id) as view_cnts_per_day from Views v2 group by 1, 2 ) as x where view_cnts_per_day > 1 order by viewer_id
+select distinct viewer_id as id from ( select view_date, viewer_id, count(distinct article_id) as ct from views group by view_date, viewer_id having ct > 1 ) a order by 1
+select distinct viewer_id as id from ( select viewer_id , view_date , count(distinct article_id) from views group by 1, 2 having count(distinct article_id) > 1 ) a order by 1
+select distinct viewer_id as id from ( select viewer_id , view_date ,count(distinct article_id) as c from views group by view_date, viewer_id having c >=2 )t order by viewer_id
+select distinct viewer_id as id from ( select viewer_id, view_date as article_cnt from Views group by 1, 2 having count(distinct article_id) > 1 )t order by 1
+select distinct viewer_id as id from ( select viewer_id, view_date from views group by 1,2 having count(distinct article_id) > 1) tmp order by 1
+select distinct viewer_id as id from ( select viewer_id, view_date, count(distinct article_id) as cnt from views group by 1, 2 ) tmp where cnt > 1 order by viewer_id
+select distinct viewer_id as id from ( select viewer_id, view_date, count(distinct article_id) as cnt from views group by 1,2 ) x where cnt > 1 order by 1 asc
+select distinct viewer_id as id from ( select viewer_id, view_date, count(distinct article_id) as views from views group by viewer_id, view_date ) t where views > 1 order by viewer_id asc
+select distinct viewer_id as id from (select distinct * from views) as t group by viewer_id, view_date having count(article_id)>1 order by viewer_id
+select distinct viewer_id as id from (select distinct viewer_id, row_number() over(partition by viewer_id,view_date order by article_id) rn from (select distinct * from Views) a)b where rn > 1 order by 1
+select distinct viewer_id as id from (select viewer_id, count(article_id) over(partition by view_date,viewer_id) as tcount from (select * from Views group by article_id,author_id,viewer_id,view_date)t)t1 where tcount >1 order by id
+select distinct viewer_id as id from (select viewer_id, view_date from views group by 1,2 having count(distinct article_id) >1) a
+select distinct viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as cnt from Views group by viewer_id, view_date) t where cnt > 1 order by id
+select distinct viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as cnt from views group by 1,2) as t where cnt>1 order by 1
+select distinct viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as cnt from views group by viewer_id, view_date) v where cnt>1 order by id
+select distinct viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as num from Views group by viewer_id,view_date having num>1) temp order by id
+select distinct viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as num_article from Views group by viewer_id, view_date having count(distinct article_id) > 1) temp1 order by 1
+select distinct viewer_id as id from (select viewer_id, view_date, count(distinct article_id) as num_articles from Views group by viewer_id, view_date) as a where num_articles>1 group by viewer_id
+select distinct viewer_id as id from (select viewer_id, view_date, ifnull(count(distinct article_id),0) as cnt from views group by 1,2) a where cnt >1
+select distinct viewer_id as id from (select viewer_id, view_date,count(distinct article_id) cnt from views group by viewer_id, view_date) a where cnt > 1 order by id
+select distinct viewer_id as id from (select viewer_id,count(viewer_id) as views from (select distinct * from Views) as t group by viewer_id,view_date having views>1) as t where views>1 order by id
+select distinct viewer_id as id from Views group by 1, view_date having count(distinct article_id) > 1 order by 1
+select distinct viewer_id as id from Views group by view_date, viewer_id having count(distinct article_id) > 1 order by id
+select distinct viewer_id as id from Views group by view_date, viewer_id having count(distinct article_id) > 1 order by viewer_id asc
+select distinct viewer_id as id from Views group by view_date, viewer_id having count(distinct article_id)>1 order by viewer_id
+select distinct viewer_id as id from Views group by view_date,viewer_id having count(distinct article_id)>1 order by 1
+select distinct viewer_id as id from Views group by viewer_id, view_date Having count(distinct article_id) > 1
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id ) >1
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) > 1
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) > 1 order by 1
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) > 1 order by id
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) > 1 order by id asc
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) > 1 order by viewer_id
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) >1 order by 1 asc
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id) >= 2
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id)>1
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct article_id)>1 order by id
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(distinct concat(article_id,'&amp;',viewer_id))>1 order by viewer_id
+select distinct viewer_id as id from Views group by viewer_id, view_date having count(viewer_id) > 1 and count(distinct article_id) > 1
+select distinct viewer_id as id from Views group by viewer_id,view_date having count(distinct article_id) > 1 order by id
+select distinct viewer_id as id from Views group by viewer_id,view_date having count(distinct article_id)>1
+select distinct viewer_id as id from Views group by viewer_id,view_date having count(distinct article_id)>1 order by id
+select distinct viewer_id as id from Views group by viewer_id,view_date having count(distinct(article_id))>1
+select distinct viewer_id as id from Views v group by view_date, viewer_id having count(distinct article_id) > 1 order by viewer_id
+select distinct viewer_id as id from views group by 1,view_date having count(distinct article_id)>1 order by id
+select distinct viewer_id as id from views group by view_date, viewer_id having count(distinct article_id) > 1 order by 1 asc
+select distinct viewer_id as id from views group by view_date, viewer_id having count(distinct article_id) > 1 order by id
+select distinct viewer_id as id from views group by view_date, viewer_id having count(distinct article_id) > 1 order by viewer_id
+select distinct viewer_id as id from views group by view_date, viewer_id having count(distinct article_id) >1 order by viewer_id asc
+select distinct viewer_id as id from views group by view_date, viewer_id having count(distinct article_id)>1 order by viewer_id
+select distinct viewer_id as id from views group by viewer_id , view_date having count( distinct article_id) >1 order by id
+select distinct viewer_id as id from views group by viewer_id , view_date having count(distinct(article_id)) > 1 order by viewer_id asc
+select distinct viewer_id as id from views group by viewer_id ,view_date having count(distinct article_id) > 1 order by viewer_id
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id) > 1
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id) > 1 order by 1
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id) > 1 order by id
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id) > 1 order by viewer_id
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id) > 1 order by viewer_id asc
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id)>1
+select distinct viewer_id as id from views group by viewer_id, view_date having count(distinct article_id)>1 order by 1
+select distinct viewer_id as id from views group by viewer_id,view_date having count(distinct article_id) >1 order by id asc
+select distinct viewer_id as id from views group by viewer_id,view_date having count(distinct article_id)>1
+select distinct viewer_id as id from( select view_date, viewer_id from Views group by 1,2 having count(distinct article_id) >1) as temp order by 1
+select distinct viewer_id as id from( select view_date, viewer_id, count(distinct article_id) as cnt from views group by 1,2) t where cnt>1 order by 1
+select distinct viewer_id as id from( select viewer_id, view_date from Views group by viewer_id, view_date having count(distinct article_id) > 1) t order by viewer_id
+select distinct viewer_id as id from( select viewer_id, view_date from views group by viewer_id, view_date having count(distinct article_id)>1 ) t order by viewer_id
+select distinct viewer_id as id from(select viewer_id, view_date from Views group by 1,2 having count(distinct article_id) > 1)x
+select distinct viewer_id id from ( select view_date, viewer_id, count(distinct article_id) articles from views group by view_date, viewer_id ) t where articles > 1 order by viewer_id
+select distinct viewer_id id from ( select viewer_id ,row_number() over(partition by viewer_id, view_date order by author_id) rn from (select distinct * from views) a ) b where rn > 1
+select distinct viewer_id id from Views group by view_date, 1 having count(distinct article_id) > 1 order by 1
+select distinct viewer_id id from Views group by view_date, viewer_id having count(distinct article_id) > 1 order by viewer_id asc
+select distinct viewer_id id from views group by viewer_id, view_date having count(distinct article_id) > 1
+select distinct x.viewer_id as id from Views x group by x.viewer_id,x.view_date having count(distinct x.article_id) > 1 order by 1
+select distinct(v.viewer_id) as id from Views v group by viewer_id, view_date having count(distinct article_id) > 1
+select distinct(viewer_id) as id from (select viewer_id,view_date, count(distinct(article_id)) as cnt from Views group by view_date,viewer_id having cnt>1 order by viewer_id) abc
+select distinct(viewer_id) as id from Views group by view_date, viewer_id having count(distinct(article_id)) > 1 order by 1
+select distinct(viewer_id) as id from `Views` group by viewer_id, view_date having count(distinct(article_id)) > 1 order by viewer_id asc
+select distinct(viewer_id) as id from views group by view_date, viewer_id having count(distinct(article_id))>1 order by viewer_id
+select distinct(viewer_id) as id from views group by viewer_id, view_date having count(distinct(article_id)) > 1 order by viewer_id
+select distinct(viewer_id) as id from views group by viewer_id,view_date having count(distinct(article_id))>1
+select v2.viewer_id as id from views v1 join views v2 on v1.viewer_id = v2.viewer_id and v1.view_date = v2.view_date and v1.article_id != v2.article_id group by 1 order by 1
+with base as ( select distinct viewer_id, view_date, count(distinct article_id) as cnt from Views group by 1,2) select distinct viewer_id as id from base where cnt >=2 order by 1 asc
+with cte as ( Select view_date, viewer_id, count(distinct article_id) holder from Views group by view_date, viewer_id ) Select distinct viewer_id as id from cte where holder > 1 order by viewer_id
+with cte as ( select distinct article_id, author_id, viewer_id, view_date from Views ) select distinct viewer_id as id from ( select viewer_id, view_date, count(*) as cnt from cte group by 1,2 having count(*) > 1 ) tmp order by id
+with cte as ( select distinct viewer_id, view_date, article_id from views ) select distinct viewer_id as id from cte group by viewer_id, view_date having count(article_id) > 1 order by viewer_id
+with cte as ( select view_date , viewer_id , count(distinct article_id) as no_of_art from views group by 1,2 ) select distinct viewer_id as id from cte where no_of_art > 1 order by 1
+with cte as ( select viewer_id, view_date, count(distinct article_id) from Views group by 1, 2 having count(distinct article_id)>1) select distinct viewer_id as id from cte order by 1
+with cte as ( select viewer_id,count(distinct article_id) as c from Views group by viewer_id,view_date ) select distinct viewer_id as id from cte where c > 1 order by viewer_id
+with cte as (select count( distinct article_id) as v,viewer_id,view_date from views group by view_date,viewer_id) select distinct viewer_id as id from cte where v>1 order by viewer_id
+with cte as (select viewer_id, view_date, count(distinct article_id) from Views group by 1,2 having count(distinct article_id) > 1) select distinct viewer_id as id from cte order by 1
+with cte as(select view_date, viewer_id, count(distinct article_id) as cnt from Views group by view_date,viewer_id) select distinct viewer_id as id from cte where cnt>1 order by 1
+with cte_group as ( select viewer_id, view_date, count(distinct article_id) as articles_viewed from Views group by 1, 2 ), cte_final as ( select distinct viewer_id as id from cte_group where articles_viewed > 1 order by 1 ) select * from cte_final
+with final as ( Select viewer_id as id from Views group by viewer_id,view_date having count(distinct article_id) > 1 order by viewer_id asc ) Select id from final group by id
+with t as ( select view_date, viewer_id id,count(distinct(article_id)) c from views group by view_date,viewer_id ) select distinct(id) from t where c>1 order by id
+with t as ( select viewer_id, count(distinct article_id) as ct from views group by viewer_id, view_date ) select distinct viewer_id as id from t where ct > 1 order by viewer_id
+with t as (select article_id, viewer_id, view_date from views group by 2,3 having count(distinct article_id) > 1) select distinct viewer_id as id from t order by id
+with t1 as (Select distinct article_id, author_id,viewer_id,view_date FROM Views), t2 as (Select t1.view_date, t1.viewer_id vd, count(t1.viewer_id) cvid FROM t1 Group by 1,2) select distinct t2.vd as id FROM t2 where cvid>1 order by 1
+with t1 as (select distinct viewer_id as id, view_date, count(distinct article_id) as total from views group by 1,2) select distinct id from t1 where total>1
+with temp as ( Select view_date , viewer_id , count(distinct article_id) as num_views from views group by view_date , viewer_id ) select DISTINCT(viewer_id) as id from temp where num_views > 1 order by id ASC
+with view_data as ( select viewer_id, view_date, count(distinct article_id) as view_count from Views group by view_date, viewer_id ) select distinct viewer_id as id from view_data where view_count>1 order by viewer_id
+with viewers as ( select viewer_id, count(distinct article_id) as article_count from Views group by view_date, viewer_id ) select distinct viewer_id as id from viewers where article_count > 1 order by id asc
+with vr as(select viewer_id, view_Date, count(distinct article_id) from Views group by 1,2 having count(distinct article_id)>1) select distinct viewer_id as id from vr
+with x as (SELECT viewer_id, view_date, count(distinct(article_id)) as views FROM Views GROUP BY viewer_id, view_date) SELECT distinct viewer_id as id FROM x WHERE views > 1 ORDER BY viewer_id
+with x as (select distinct * from Views) select distinct viewer_id as id from x group by view_date, viewer_id having count(viewer_id ) >1 order by id asc
+with x as (select distinct * from Views) select distinct viewer_id as id from x group by view_date, viewer_id having count(viewer_id ) >1 order by viewer_id asc

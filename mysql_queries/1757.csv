@@ -1,0 +1,140 @@
+SELECT DISTINCT product_id FROM Products WHERE low_fats = 'Y' AND recyclable = 'Y'
+SELECT DISTINCT product_id FROM products WHERE low_fats = 'Y' AND recyclable = 'Y'
+SELECT DISTINCT(PRODUCT_ID) FROM Products WHERE LOW_FATS = 'Y' AND recyclable = 'Y'
+SELECT PRODUCT_ID FROM PRODUCTS WHERE LOW_FATS = 'Y' AND RECYCLABLE = 'Y'
+SELECT Product_Id from PRoducts where low_fats = 'Y' and recyclable='Y'
+SELECT Product_id FROM `Products` WHERE low_fats = 'Y' and recyclable ="Y" GROUP BY product_id
+SELECT p.product_id FROM Products p WHERE p.low_fats = 'Y' AND p.recyclable = 'Y'
+SELECT p.product_id FROM Products p WHERE p.low_fats = true AND p.recyclable = true
+SELECT product_id FROM PRODUCTS WHERE low_fats = "Y" AND recyclable = "Y"
+SELECT product_id FROM PRODUCTS WHERE low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id FROM PRODUCTS WHERE low_fats = 'Y' and recyclable = 'Y'
+SELECT product_id FROM Products AS p WHERE p.low_fats = 'Y' AND p.recyclable = 'Y'
+SELECT product_id FROM Products AS prod WHERE prod.low_fats='Y'AND prod.recyclable='Y'
+SELECT product_id FROM Products WHERE (low_fats = 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM Products WHERE (low_fats = 'Y'AND recyclable = 'Y')
+SELECT product_id FROM Products WHERE 1=1 AND low_fats = "Y" AND recyclable = "Y"
+SELECT product_id FROM Products WHERE low_fats = "Y" AND recyclable = "Y"
+SELECT product_id FROM Products WHERE low_fats = "Y" AND recyclable = 'Y'
+SELECT product_id FROM Products WHERE low_fats = "Y" and recyclable = "Y"
+SELECT product_id FROM Products WHERE low_fats = "Y" and recyclable = "Y" ORDER BY product_id
+SELECT product_id FROM Products WHERE low_fats = 'Y' &amp;&amp; recyclable = 'Y'
+SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable = 'Y' ORDER BY 1 ASC
+SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable = 'Y' ORDER BY product_id
+SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable ='Y'
+SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable='Y'
+SELECT product_id FROM Products WHERE low_fats = 'Y' and recyclable = 'Y'
+SELECT product_id FROM Products WHERE low_fats = 'Y' and recyclable='Y'
+SELECT product_id FROM Products WHERE low_fats ='Y' &amp;&amp; recyclable = "Y"
+SELECT product_id FROM Products WHERE low_fats IN ('Y') and recyclable IN('Y')
+SELECT product_id FROM Products WHERE low_fats LIKE "Y" AND recyclable LIKE "Y"
+SELECT product_id FROM Products WHERE low_fats="Y" AND recyclable="Y"
+SELECT product_id FROM Products WHERE low_fats='Y' AND recyclable = 'Y'
+SELECT product_id FROM Products WHERE low_fats='Y' AND recyclable='Y'
+SELECT product_id FROM Products WHERE low_fats='Y' and recyclable='Y'
+SELECT product_id FROM Products WHERE low_fats='Y'AND recyclable='Y'
+SELECT product_id FROM Products WHERE recyclable = 'Y' and low_fats = 'Y'
+SELECT product_id FROM Products WHERE recyclable='Y' AND low_fats='Y'
+SELECT product_id FROM Products Where low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id FROM Products p WHERE p.low_fats = 'Y' AND p.recyclable = 'Y'
+SELECT product_id FROM Products where low_fats = "Y" and recyclable = "Y"
+SELECT product_id FROM Products where low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id FROM Products where low_fats = 'Y' AND recyclable='Y'
+SELECT product_id FROM Products where low_fats = 'Y' and recyclable ='Y'
+SELECT product_id FROM Products where low_fats ='Y' AND recyclable ='Y'
+SELECT product_id FROM Products where low_fats='Y' and recyclable='Y'
+SELECT product_id FROM products WHERE low_fats = "Y" AND recyclable = "Y"
+SELECT product_id FROM products WHERE low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id FROM products WHERE low_fats = 'Y' AND recyclable = 'Y' ORDER BY product_id
+SELECT product_id FROM products WHERE low_fats = 'Y' and recyclable = 'Y'
+SELECT product_id FROM products WHERE low_fats='Y' AND recyclable='Y'
+SELECT product_id FROM products where low_fats = 'Y' and recyclable = 'Y'
+SELECT product_id From Products Where low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id from Products WHERE low_fats = 'Y' AND recyclable = 'Y'
+SELECT product_id from Products WHERE low_fats = 'Y' and recyclable = 'Y'
+SELECT product_id from Products WHERE low_fats='Y' and recyclable='Y'
+SELECT product_id from Products where Products.low_fats="Y" AND Products.recyclable="Y"
+SELECT product_id from Products where low_Fats = 'Y' and recyclable = 'Y'
+SELECT product_id from Products where low_fats = "Y" and recyclable = "Y"
+SELECT product_id from Products where low_fats = 'Y' and recyclable = 'Y'
+SELECT product_id from products where low_fats= 'Y' and recyclable='Y'
+Select product_id FROM Products WHERE (low_fats='Y') AND (recyclable='Y')
+Select product_id FROM Products WHERE low_fats = "Y" and recyclable = "Y"
+Select product_id From Products Where (low_fats = 'Y' and recyclable = 'Y')
+Select product_id From Products Where low_fats = 'Y' AND recyclable = 'Y'
+Select product_id From Products Where low_fats = 'Y' and recyclable = 'Y'
+Select product_id From Products Where low_fats='Y' AND recyclable='Y'
+Select product_id From Products where low_fats = 'Y' AND recyclable = 'Y'
+Select product_id From products where low_fats = 'Y' and recyclable = 'Y'
+Select product_id from Products WHERE low_fats = "Y" AND recyclable = "Y"
+Select product_id from Products Where low_fats like 'Y%' and recyclable like 'Y%'
+Select product_id from Products p where low_fats='Y' and recyclable='Y'
+Select product_id from Products p where p.low_fats = 'Y' AND p.recyclable = 'Y'
+Select product_id from Products where low_fats = 'Y' and recyclable = 'Y'
+Select product_id from Products where low_fats = 'Y' and recyclable ='Y'
+Select product_id from Products where low_fats= 'Y' and recyclable= 'Y'
+Select product_id from Products where low_fats='Y' &amp;&amp; recyclable='Y'
+Select product_id from Products where low_fats='Y' and recyclable='Y'
+Select product_id from Products where low_fats='Y' and recyclable='Y' order by product_id DESC
+Select product_id from products where low_fats = 'Y' AND recyclable = 'Y'
+Select product_id from products where low_fats = 'Y' and recyclable = 'Y'
+select Product_Id from Products where low_fats = 'Y' and recyclable = 'Y'
+select distinct product_id from Products where low_fats = "Y" and recyclable = "Y"
+select distinct product_id from Products where low_fats = 'Y' and recyclable = 'Y'
+select distinct product_id from Products where low_fats ="Y" and recyclable = "Y"
+select distinct product_id from Products where low_fats='Y' and recyclable='Y'
+select distinct product_id from Products where product_id in (select product_id from Products where low_fats='Y') and recyclable='Y'
+select distinct product_id from products where low_fats = 'Y' and recyclable = 'Y'
+select distinct product_id from products where low_fats ='Y' and recyclable='Y'
+select distinct product_id from products where low_fats='Y' and recyclable='Y'
+select p.product_id from Products as p where p.recyclable='Y' and p.low_fats='Y'
+select p.product_id from Products p where p.low_fats = 'Y' and p.recyclable = 'Y'
+select product_id From Products where low_fats = 'Y' AND recyclable = 'Y'
+select product_id from Products where (low_fats,recyclable) = ('Y','Y')
+select product_id from Products where Products.low_fats='Y' and Products.recyclable = 'Y'
+select product_id from Products where low_fats = "Y" and recyclable = "Y"
+select product_id from Products where low_fats = 'Y' AND recyclable = 'Y'
+select product_id from Products where low_fats = 'Y' AND recyclable = 'Y' group by product_id
+select product_id from Products where low_fats = 'Y' and recyclable = "Y"
+select product_id from Products where low_fats = 'Y' and recyclable = 'Y'
+select product_id from Products where low_fats = 'Y' and recyclable = 'Y' ORDER BY 1 ASC
+select product_id from Products where low_fats = 'Y' and recyclable = 'Y' order by product_id asc
+select product_id from Products where low_fats = 'Y' and recyclable ='Y'
+select product_id from Products where low_fats = 'Y' and recyclable='Y'
+select product_id from Products where low_fats = 1 and recyclable = 1
+select product_id from Products where low_fats ='Y' AND recyclable='Y'
+select product_id from Products where low_fats ='Y' and recyclable = 'Y'
+select product_id from Products where low_fats ='Y' and recyclable ='Y'
+select product_id from Products where low_fats ='Y' and recyclable='Y'
+select product_id from Products where low_fats in ('Y') and recyclable in ('Y')
+select product_id from Products where low_fats like 'Y' and recyclable like 'Y'
+select product_id from Products where low_fats="Y" and recyclable ="Y"
+select product_id from Products where low_fats="Y" and recyclable="Y"
+select product_id from Products where low_fats='Y' AND recyclable ='Y'
+select product_id from Products where low_fats='Y' AND recyclable='y'
+select product_id from Products where low_fats='Y' and recyclable = 'Y'
+select product_id from Products where low_fats='Y' and recyclable ='Y'
+select product_id from Products where low_fats='Y' and recyclable='Y'
+select product_id from Products where low_fats='Y' and recyclable='Y' order by product_id asc
+select product_id from Products where low_fats='y'and recyclable='y'
+select product_id from Products where low_fats=('Y') and recyclable=('Y')
+select product_id from Products where recyclable = 'Y' AND low_fats = 'Y'
+select product_id from Products where recyclable = 'Y' and low_fats = 'Y'
+select product_id from Products where recyclable ='Y' AND low_fats = 'Y'
+select product_id from Products where recyclable='Y'and low_fats='Y'
+select product_id from products as item where item.low_fats = 'Y' AND item.recyclable = 'Y'
+select product_id from products p where low_fats='Y' and recyclable='Y'
+select product_id from products where (low_fats='Y' and recyclable='Y')
+select product_id from products where 1=1 and low_fats = 'Y' and recyclable = 'Y'
+select product_id from products where low_fats = "Y" and recyclable = "Y"
+select product_id from products where low_fats = "Y" and recyclable = 'Y'
+select product_id from products where low_fats = 'Y' and recyclable = 'Y'
+select product_id from products where low_fats = 'Y' and recyclable = 'Y' order by 1
+select product_id from products where low_fats = True and recyclable = True order by product_id
+select product_id from products where low_fats ='Y' and recyclable = 'Y'
+select product_id from products where low_fats ='Y' and recyclable='Y'
+select product_id from products where low_fats='Y' and recyclable = 'Y'
+select product_id from products where low_fats='Y' and recyclable="Y"
+select product_id from products where low_fats='Y' and recyclable='Y'
+select r.product_id from (select product_id, low_fats from Products p1 where recyclable = 'Y' ) r where r.low_fats = 'Y'

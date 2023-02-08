@@ -1,0 +1,150 @@
+(Select class from courses group by class having count(distinct student) >= 5)
+SELECT A.class FROM (SELECT DISTINCT * FROM COURSES) A GROUP BY class HAVING COUNT(STUDENT)>=5
+SELECT CLASS FROM COURSES GROUP BY CLASS HAVING COUNT(DISTINCT STUDENT) >=5
+SELECT CLASS FROM COURSES GROUP BY CLASS HAVING COUNT(DISTINCT(STUDENT)) >=5
+SELECT DISTINCT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student) >=5
+SELECT DISTINCT(class) FROM courses GROUP BY class HAVING COUNT(DISTINCT student) >= 5
+SELECT a.class FROM (SELECT class, count(DISTINCT student) AS 'MyCount' FROM Courses group by class) a WHERE a.MyCount >= 5
+SELECT a.class FROM courses a GROUP BY a.class HAVING COUNT(DISTINCT(a.student)) >= 5
+SELECT b.class FROM (SELECT class,count(*) AS c FROM (SELECT DISTINCT * FROM courses) d GROUP BY class) b WHERE b.c > 4
+SELECT class FROM ( SELECT DISTINCT class, student FROM courses ) AS class GROUP BY class HAVING COUNT(*) > 4
+SELECT class FROM ( SELECT DISTINCT class, student FROM courses ) t GROUP BY class HAVING COUNT(class) >= 5
+SELECT class FROM ( SELECT DISTINCT student , class FROM courses ) AS t1 GROUP BY class HAVING COUNT(class) >= 5
+SELECT class FROM ( SELECT class, COUNT(DISTINCT student) AS count FROM courses GROUP BY class ) AS foo WHERE count >= 5
+SELECT class FROM ( SELECT class, COUNT(DISTINCT student) AS num FROM courses GROUP BY class ) AS temp_table WHERE num >= 5
+SELECT class FROM ( SELECT class, COUNT(DISTINCT student) AS num FROM courses GROUP BY(class) ) AS tmp WHERE num >= 5
+SELECT class FROM ( SELECT class, COUNT(DISTINCT student) as count_n FROM courses GROUP BY 1 ) tmp WHERE count_n >= 5
+SELECT class FROM ( SELECT class, COUNT(DISTINCT student) as number FROM courses GROUP BY class ) as Count_table WHERE number >= 5
+SELECT class FROM ( SELECT class, COUNT(DISTINCT(student)) AS class_count FROM courses GROUP BY class ) AS s WHERE class_count >= 5
+SELECT class FROM (SELECT DISTINCT * FROM courses) c GROUP BY class HAVING COUNT(class) >= 5
+SELECT class FROM (SELECT DISTINCT class, student FROM courses) AS class GROUP BY class HAVING COUNT(*) > 4
+SELECT class FROM (SELECT DISTINCT student, class FROM courses) AS DistinctTable group by class HAVING count(*) >= 5
+SELECT class FROM (SELECT DISTINCT student, class FROM courses) AS s GROUP BY class HAVING COUNT(class) >= 5
+SELECT class FROM (SELECT class, COUNT(*) as counter FROM (SELECT DISTINCT CONCAT(student, '_', class) as dis, class FROM courses) sub GROUP BY class) result WHERE counter >= 5
+SELECT class FROM (SELECT class, COUNT(DISTINCT student) AS inner_number_of_values FROM courses GROUP BY class) AS inner_query WHERE inner_number_of_values >= 5
+SELECT class FROM (SELECT class, COUNT(DISTINCT student) AS num FROM courses GROUP BY class) AS temp WHERE num >= 5
+SELECT class FROM (SELECT class, COUNT(DISTINCT student) AS num FROM courses GROUP BY class) AS temp_table WHERE num >= 5
+SELECT class FROM (SELECT class, count(distinct student) as students FROM courses GROUP BY 1 )a WHERE students>=5
+SELECT class FROM Courses GROUP BY class HAVING COUNT(DISTINCT student) >= 5
+SELECT class FROM Courses GROUP BY class HAVING COUNT(DISTINCT student)>=5
+SELECT class FROM Courses GROUP BY class Having Count(distinct student)>=5
+SELECT class FROM courses GROUP BY (class) HAVING COUNT(distinct student) >= 5
+SELECT class FROM courses GROUP BY 1 HAVING COUNT(DISTINCT student) >= 5
+SELECT class FROM courses GROUP BY class HAVING COUNT( DISTINCT student) >= 5
+SELECT class FROM courses GROUP BY class HAVING COUNT( DISTINCT student) >=5
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student) > 4
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student) >= 5
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student) >= 5 ORDER BY 1
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student) >=5
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student)>4
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT student)>=5
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT(student)) >= 5
+SELECT class FROM courses GROUP BY class HAVING COUNT(DISTINCT(student)) >=5
+SELECT class FROM courses GROUP BY class HAVING COUNt(DISTINCT student) >= 5
+SELECT class FROM courses GROUP BY class HAVING count( DISTINCT student ) >= 5
+SELECT class FROM courses GROUP BY class HAVING count(DISTINCT student) >= 5
+SELECT class FROM courses GROUP BY class HAVING count(DISTINCT student)>=5
+SELECT class FROM courses GROUP BY class HAVING count(DISTINCT(student)) >=5
+SELECT class FROM courses GROUP BY class HAVING count(distinct student) >= 5
+SELECT class FROM courses GROUP BY class HAVINg COUNT(DISTINCT student) >= 5
+SELECT class FROM courses GROUP BY class Having COUNT(DISTINCT(student))>=5
+SELECT class FROM courses GROUP BY class having count(DISTINCT student) >= 5
+SELECT class FROM courses Group By class Having COUNT(Distinct student) >= 5
+SELECT class FROM( SELECT class, COUNT(DISTINCT student) AS num FROM courses GROUP BY class ) AS a WHERE num >=5
+SELECT class FROM( SELECT class, COUNT(DISTINCT student) AS value FROM courses GROUP BY class) AS t_table WHERE value >= 5
+SELECT class from courses GROUP BY class HAVING COUNT(distinct student) >= 5
+SELECT class from courses GROUP BY class HAVING count(distinct student) >= 5
+SELECT class from courses GROUP BY class having COUNT(DISTINCT student)>=5
+SELECT class from courses group by class having count(DISTINCT student)>=5
+SELECT class from courses group by class having count(distinct student) >= 5
+SELECT class from courses group by class having count(distinct student)>=5
+SELECT courses.class FROM courses GROUP BY courses.class HAVING COUNT(DISTINCT courses.student) >= 5
+SELECT courses_b.class FROM (SELECT class, COUNT(DISTINCT student) AS num FROM courses GROUP BY class) AS courses_b WHERE num >=5
+SELECT sub.class FROM( SELECT COUNT(DISTINCT student) AS counts , class FROM courses GROUP BY class) as sub WHERE sub.counts >= 5
+SELECT t1.class FROM ( SELECT student, class FROM courses GROUP BY student, class ) t1 GROUP BY t1.class HAVING COUNT(class) >= 5
+SELECT x.class FROM (SELECT DISTINCT(class) AS class, COUNT(DISTINCT(student)) FROM courses GROUP BY class HAVING COUNT(DISTINCT(student))>4) AS x
+Select Class from Courses Group by Class having count(distinct student)>=5
+Select class FROM courses GROUP BY class HAVING COUNT(DISTINCT student) >= 5
+Select class From courses GROUP BY class Having Count(Distinct student) >= 5
+Select class From courses Group By class Having count(distinct(student)) >= 5
+Select class From courses Group by class Having count(distinct student)>=5
+Select class from (Select distinct student , class from courses)T1 group by class having count(class)>= 5
+Select class from (select class ,count(DISTINCT student ) as num from courses group by class) as temp where num>=5
+Select class from courses group by class having count(distinct student)>=5
+Select distinct Class from Courses Group by Class having count(distinct student)>=5
+WITH a AS (SELECT *, count(DISTINCT student) as ct FROM courses GROUP BY class) SELECT class FROM a WHERE ct >= 5
+WITH db as ( SELECT class, count(DISTINCT student) as count FROM courses GROUP BY class) SELECT class FROM db WHERE count >= 5
+WITH t as( SELECT DISTINCT * FROM courses) SELECT class FROM t GROUP BY CLASS HAVING COUNT(class) >= 5
+select a.class from (select distinct student, class from courses) a group by a.class having count(a.class) >= 5
+select a.class from (select student, class from courses group by student, class)a group by class having count(class) >= 5
+select c.class from (select distinct student, class from courses ) as c Group by c.class Having count(*) >= 5
+select class from ( select class, count(distinct student) as cclass from courses group by class )c where c.cclass >=5
+select class from ( select class, count(distinct student) as cnt from courses group by class ) a where cnt > 4
+select class from ( select class, count(distinct student) as cnt from courses group by class having cnt > 4 ) a
+select class from ( select class, count(distinct student) as num from courses group by class ) a where num >=5
+select class from ( select class, count(distinct student) as num from courses group by class ) as tmp_table where num >=5
+select class from ( select class, count(distinct student) from courses group by class having count(distinct student) >= 5 ) a
+select class from ( select class, count(distinct student) num from courses group by class ) as temp_table where num > 4
+select class from ( select class, count(distinct student) num from courses group by class having num >= 5 ) as a
+select class from ( select class,count(DISTINCT student) num from courses group by class having num >=5 ) a
+select class from ( select distinct student, class from courses ) t group by class having count(class) >= 5
+select class from (SELECT class , COUNT(DISTINCT student) as numStudents FROM courses GROUP BY class ) as counter where numStudents >= 5
+select class from (Select class, count(distinct student) as num from courses group by class) as tempTable where num >=5
+select class from (select class , count(distinct student) as a from courses group by class) as t where a>=5
+select class from (select class , count(distinct student) as abc from courses group by class) as q where q.abc >= 5
+select class from (select class, count(DISTINCT student) as num from courses group by class) as temp_table where num >= 5
+select class from (select class, count(distinct student) as cnt from courses group by class) as temp where cnt >= 5
+select class from (select class, count(distinct student) as n from courses group by class) as a where n >=5
+select class from (select class, count(distinct student) as np from courses group by class having np>=5) a
+select class from (select class, count(distinct student) as num from courses group by class) as a where num >= 5
+select class from (select class, count(distinct student) as num from courses group by class) as tempT where num >=5
+select class from (select class, count(distinct student) as num from courses group by class) as temp_table where num >= 5
+select class from (select class, count(distinct student) as num from courses group by class) as temp_table where num>=5
+select class from (select class, count(distinct student) as numstu from courses group by class) as A where numstu >= 5
+select class from (select class, count(distinct student) as sc from courses group by 1) a where sc >= 5
+select class from (select class, count(distinct student) as tot_count from courses group by class) a where tot_count >= 5
+select class from (select class, count(distinct(student)) AS num from courses group by class) AS temp where num >= 5
+select class from (select class,count(distinct student) as num from courses group by class ) a where num >=5
+select class from (select class,count(distinct(student)) as mycount from courses group by class) as a where mycount>=5
+select class from (select count(distinct student) as cnt, class from courses group by class) a where cnt > 4
+select class from (select count(distinct student) as student_count , class from courses group by class ) a where student_count >= 5
+select class from (select distinct * from courses) c group by class having count(*) >= 5
+select class from (select distinct * from courses) sub group by class having count(*) >= 5
+select class from (select distinct student, class from courses) c group by class having count(*) >= 5
+select class from (select distinct student, class from courses) courses group by class having count(*) >= 5
+select class from (select distinct student, class from courses) courses group by class having count(*)>=5
+select class from (select distinct student, class from courses)a group by class having count(class) >=5
+select class from Courses group by class having count(distinct student) >= 5
+select class from `courses` group by class having count(distinct student) >= 5
+select class from courses GROUP BY class HAVING COUNT(DISTINCT student) > 4
+select class from courses GROUP BY class HAVING COUNT(distinct student) >= 5
+select class from courses as cs group by class having (select count(distinct student) from courses cp where cp.class= cs.class) >=5
+select class from courses group by 1 having count(distinct student) >= 5
+select class from courses group by 1 having count(distinct student)>=5
+select class from courses group by class Having count(distinct student) >=5
+select class from courses group by class having COUNT(distinct student) >= 5
+select class from courses group by class having count( distinct student) >= 5
+select class from courses group by class having count( distinct student)>4
+select class from courses group by class having count( distinct student)>=5
+select class from courses group by class having count(DISTINCT student) >= 5
+select class from courses group by class having count(DISTINCT student)>=5
+select class from courses group by class having count(Distinct student) >= 5
+select class from courses group by class having count(distinct student) > 4
+select class from courses group by class having count(distinct student) >= 5
+select class from courses group by class having count(distinct student) >=5
+select class from courses group by class having count(distinct student)>4
+select class from courses group by class having count(distinct student)>= 5
+select class from courses group by class having count(distinct student)>=5
+select class from courses group by class having count(distinct(Student))>=5
+select class from courses group by class having count(distinct(student)) > 4
+select class from courses group by class having count(distinct(student)) >= 5
+select class from courses group by class having count(distinct(student))>4
+select class from courses group by class having count(distinct(student))>=5
+select class from( select student, class from courses group by 1,2 ) t group by 1 having count(*) >= 5
+select courses.class as class from (select distinct * from courses) as courses group by courses.class having count(courses.class) >= 5
+select main.class from (select extra.class, count(DISTINCT extra.student) as student_count From courses extra group by class having (student_count >= 5) ) as main
+select t.class from (select class, COUNT(DISTINCT student) as count from courses group by class) as t where count>=5
+with a as (select class, count(distinct(student)) as stud_count from courses group by class having stud_count>4) select class from a
+with c as (select distinct * from courses) select class from c group by class having count(*)>=5
+with c as (select distinct * from courses) select class from c group by class having count(student) >= 5
+with dt as ( select class , count(distinct student) as num_students from courses group by 1 ) select class from dt where num_students>=5

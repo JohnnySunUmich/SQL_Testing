@@ -1,0 +1,182 @@
+SELECT DISTINCT player_id , FIRST_VALUE(event_date) OVER(PARTITION BY player_id ORDER BY event_date) AS first_login FROM Activity
+SELECT DISTINCT player_id, FIRST_VALUE(event_date) OVER ( PARTITION BY player_id ORDER BY event_date ) first_login FROM Activity
+SELECT DISTINCT player_id, FIRST_VALUE(event_date) OVER(PARTITION BY player_id ORDER BY event_date) AS first_login FROM Activity
+SELECT DISTINCT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id
+SELECT DISTINCT player_id, MIN(event_date) AS first_login FROM Activity a2 GROUP BY 1
+SELECT DISTINCT player_id, MIN(event_date) first_login FROM Activity GROUP BY player_id
+SELECT DISTINCT player_id, MIN(event_date) over(partition by player_id) AS first_login FROM Activity
+SELECT DISTINCT(player_id), MIN(event_date) as first_login FROM Activity GROUP BY player_id
+SELECT PLAYER_ID, MIN(EVENT_DATE) AS FIRST_LOGIN FROM ACTIVITY GROUP BY PLAYER_ID ORDER BY PLAYER_ID ASC, EVENT_DATE ASC
+SELECT PLAYER_ID, MIN(EVENT_DATE) FIRST_LOGIN FROM ACTIVITY GROUP BY 1 ORDER BY 1
+SELECT a.player_id, MIN(a.event_date) AS first_login FROM activity a GROUP BY a.player_id
+SELECT a.player_id, MIN(a.event_date) as first_login FROM activity a GROUP BY 1
+SELECT a.player_id, MIN(a.event_date) first_login FROM Activity a GROUP BY 1
+SELECT a.player_id, a.event_date AS first_login FROM (SELECT player_id, event_date, RANK() OVER (PARTITION BY player_id ORDER BY event_date) event_rank FROM activity ) a WHERE a.event_rank = 1
+SELECT distinct player_id, first_value(event_date) OVER(PARTITION BY player_id ORDER BY event_date) as first_login FROM Activity
+SELECT distinct player_id, min(event_date) AS first_login FROM activity group by 1
+SELECT distinct(player_id), first_value(event_date) OVER(PARTITION BY player_id order by event_date ASC) AS first_login FROM ACTIVITY
+SELECT player_id , MIN(event_date) AS first_login FROM Activity GROUP BY player_id ORDER BY player_id
+SELECT player_id , MIN(event_date) as first_login FROM Activity GROUP BY player_id
+SELECT player_id ,MIN(event_date) AS first_login FROM Activity GROUP BY player_id
+SELECT player_id ,MIN(event_date) AS first_login FROM Activity GROUP BY player_id ORDER BY 1 ASC
+SELECT player_id, MIN(DATE(event_date)) AS first_login FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) AS "first_login" FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) AS 'first_login' FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) AS 'first_login' FROM Activity GROUP By 1
+SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY 1
+SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY 1 ORDER BY 1
+SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id ORDER BY player_id
+SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id ORDER BY player_id ASC
+SELECT player_id, MIN(event_date) AS first_login FROM activity GROUP BY 1
+SELECT player_id, MIN(event_date) AS first_login FROM activity GROUP BY Player_id
+SELECT player_id, MIN(event_date) AS first_login FROM activity GROUP BY player_id
+SELECT player_id, MIN(event_date) As first_login FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) as 'first_login' FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) as first_login FROM Activity GROUP BY Player_id
+SELECT player_id, MIN(event_date) as first_login FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) as first_login FROM Activity GROUP BY player_id HAVING Count(*) > 0
+SELECT player_id, MIN(event_date) as first_login FROM Activity GROUP BY player_id ORDER BY player_id
+SELECT player_id, MIN(event_date) first_login FROM Activity GROUP BY 1
+SELECT player_id, MIN(event_date) first_login FROM Activity GROUP BY player_id
+SELECT player_id, MIN(event_date) first_login FROM Activity GROUP BY player_id ORDER BY player_id
+SELECT player_id, MIN(event_date) first_login FROM activity GROUP BY player_id
+SELECT player_id, Min(event_date) AS first_login FROM activity GROUP BY player_id
+SELECT player_id, event_date AS first_login FROM ( SELECT *, RANK() OVER (PARTITION BY player_id ORDER BY event_date) login_order FROM Activity ) a WHERE login_order = 1
+SELECT player_id, event_date AS first_login FROM (SELECT player_id,event_date, dense_rank() OVER (PARTITION BY player_id ORDER BY event_date) position FROM Activity ) temp WHERE position = 1
+SELECT player_id, event_date as first_login FROM ( SELECT *, ROW_NUMBER() OVER (PARTITION BY player_id ORDER BY event_date) AS login_num FROM Activity) sub WHERE login_num = 1
+SELECT player_id, event_date as first_login FROM (SELECT player_id, event_date, ROW_NUMBER() OVER(partition by player_id ORDER BY event_date) AS rnk FROM activity) a WHERE a.rnk = 1
+SELECT player_id, event_date first_login from ( SELECT player_id, event_date, DENSE_RANK() OVER(PARTITION BY player_id ORDER By event_date) as rnk FROM Activity) a where rnk = 1 order by 1
+SELECT player_id, min(event_date) AS first_login FROM Activity GROUP BY player_id
+SELECT player_id, min(event_date) AS first_login FROM activity GROUP BY player_id
+SELECT player_id, min(event_date) AS first_login from Activity group by player_id
+SELECT player_id, min(event_date) as first_login FROM ACTIVITY GROUP BY player_id ORDER BY 1 ASC
+SELECT player_id, min(event_date) as first_login FROM Activity GROUP BY 1
+SELECT player_id, min(event_date) as first_login FROM Activity GROUP BY player_id
+SELECT player_id, min(event_date) as first_login FROM Activity group by player_id
+SELECT player_id, min(event_date) as first_login FROM activity GROUP BY player_id
+SELECT player_id, min(event_date) as first_login From Activity group by player_id
+SELECT player_id, min(event_date) as first_login from Activity group by player_id
+SELECT player_id, min(event_date) first_login FROM Activity GROUP BY player_id
+SELECT player_id,first_login FROM ( Select player_id, MIN(event_date) OVER(partition BY player_id ORDER BY event_date) AS "first_login" FROM Activity ) AS T1 GROUP BY 1
+Select a.player_id, MIN(a.event_date) as first_login from Activity a group by player_id
+Select a.player_id, a.first_login from (select t.player_id, t.event_date as first_login,rank()over(partition by player_id order by event_date asc)playrnk from activity t )a where a.playrnk=1
+Select distinct player_id, min(event_date) first_login from Activity group by player_id
+Select player_id , min( event_date ) as first_login from Activity group by player_id
+Select player_id , min(event_date) as first_login from Activity group by player_id
+Select player_id, MIN(event_date) As first_login From Activity Group by player_id
+Select player_id, MIN(event_date) as first_login FROM Activity GROUP BY player_id
+Select player_id, min(event_date) as first_login From Activity Group by player_id
+Select player_id, min(event_date) as first_login from Activity group by player_id
+Select player_id, min(event_date) as first_login from activity group by player_id
+Select player_id, min(event_date) first_login from Activity group by player_id
+Select player_id,MIN(event_date) as first_login FROM Activity GROUP BY player_id ORDER BY event_date
+Select player_id,event_date as 'first_login' From ( Select player_id,event_date, Dense_rank() over (partition by player_id order by event_date) as Num From Activity ) as Alias Where Num =1
+Select player_id,min(event_date) as first_login from activity group by player_id
+WITH C AS (SELECT player_id, event_date, RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS NUM FROM Activity ) SELECT player_id, event_date AS first_login FROM c WHERE NUM = 1
+WITH C AS (SELECT player_id, event_date, ROW_NUMBER() OVER(PARTITION BY player_id ORDER BY event_date) AS NUM FROM Activity ) SELECT player_id, event_date AS first_login FROM c WHERE NUM = 1
+WITH T AS (SELECT *, RANK() OVER(PARTITION BY Player_id ORDER BY Event_date ASC) AS R FROM Activity) SELECT player_id, event_date AS first_login FROM T WHERE R = 1
+select DISTINCT(player_id), min(event_date) first_login from Activity group by player_id
+select a.player_id, a.event_date as first_login from ( select player_id, event_date, rank() over (partition by player_id order by event_date) as rnk from activity) a where a.rnk =1
+select a.player_id, a.event_date as first_login from (select *, dense_rank() over(partition by player_id order by event_date asc) as tem from Activity) as a where tem =1
+select a.player_id, min(a.event_date) as "first_login" from Activity a group by a.player_id
+select a.player_id, min(a.event_date) as first_login from activity a group by 1
+select a.player_id,a.event_date as first_login from (select player_id,event_date,row_number() over(partition by Player_id order by event_date) as rnk from activity) a where a.rnk=1
+select a1.player_id, a1.event_date as first_login from Activity as a1 where (a1.player_id,a1.event_date) IN (select player_id,MIN(event_date) from Activity group by player_id)
+select a1.player_id, first_login from Activity a1 left join (select player_id, min(event_date) as first_login from Activity group by player_id) as a2 on a1.player_id = a2.player_id group by a1.player_id
+select a1.player_id, min(a1.event_date) as first_login from Activity a1 group by a1.player_id
+select a1.player_id, min(a1.event_date) as first_login from activity a1 group by a1.player_id
+select activity.player_id, min(activity.event_date) as first_login from activity group by activity.player_id
+select distinct (player_id), min(event_date) as first_login from Activity group by player_id
+select distinct a.player_id, min(a.event_date) as first_login from Activity as a group by a.player_id
+select distinct player_id, event_date as 'first_login' from( select *, row_number() over(partition by player_id order by event_date asc) as login_time from Activity )temp where login_time = 1
+select distinct player_id, event_date as first_login from Activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select distinct player_id, min(event_date ) over (partition by player_id) first_login from Activity
+select distinct player_id, min(event_date) as first_login from Activity group by player_id
+select distinct player_id, min(event_date) as first_login from activity group by player_id
+select distinct player_id, min(event_date) as first_login from activity group by player_id order by player_id asc
+select distinct player_id, min(event_date) over (partition by player_id order by event_date asc) as first_login from Activity
+select distinct player_id, min(event_date)as first_login from activity group by player_id
+select distinct player_id,first_login from (select player_id,event_date as first_login, rank()over(partition by player_id order by event_date asc ) as ranks from (select player_id,event_date from activity) v) u where ranks=1
+select distinct player_id,min(event_date) as first_login from activity group by player_id
+select distinct(t.player_id), r.first_login from ( select player_id, min(event_date) as first_login from Activity group by player_id) r join Activity as t on t.player_id = r.player_id
+select player_id , MIN(event_date) as first_login from Activity group by player_id
+select player_id , first_login from( select player_id , event_date as first_login , rank() over(partition by player_id order by event_date) as player_log_date_rank from activity ) a where player_log_date_rank = 1
+select player_id , min(event_date ) as first_login from activity group by player_id
+select player_id , min(event_date) as 'first_login' from activity group by player_id
+select player_id , min(event_date) as first_login from Activity group by player_id order by event_date
+select player_id , min(event_date) as first_login from activity group by player_id
+select player_id ,min(event_date) as first_login from Activity group by player_id
+select player_id, MIN(event_date) As first_login from Activity group by player_id
+select player_id, MIN(event_date) as first_login from Activity group by 1
+select player_id, MIN(event_date) as first_login from Activity group by player_id
+select player_id, MIN(event_date) as first_login from Activity group by player_id order by player_id
+select player_id, MIN(event_date) as first_login from Activity group by player_id order by player_id asc
+select player_id, Min(Date(event_date)) as first_login from activity group by player_id
+select player_id, Min(event_date) as first_login from Activity group by player_id
+select player_id, cast(min(event_date) as date) as first_login from activity group by player_id
+select player_id, event_date as first_login from ( select player_id, event_date , dense_rank() over(partition by player_id order by event_date) as r from activity) as K where r=1
+select player_id, event_date as first_login from ( select player_id, event_date, rank() over (partition by player_id order by event_date asc) as `rank` from activity ) t where `rank` = 1
+select player_id, event_date as first_login from ( select player_id, event_date, rank() over (partition by player_id order by event_date) as rnk from Activity ) a where rnk = 1 order by 1
+select player_id, event_date as first_login from ( select player_id,event_date, dense_rank()over(partition by player_id order by event_date ) as rnk from activity) t where rnk =1
+select player_id, event_date as first_login from (SELECT player_id, event_date, DENSE_RANK() OVER(partition by player_id ORDER BY event_date) as rnk from Activity) a where rnk = 1
+select player_id, event_date as first_login from (select *, rank() over (partition by player_id order by event_date) as rn from activity ) a where a.rn = 1 order by player_id
+select player_id, event_date as first_login from (select player_id, event_date, dense_rank() over (partition by player_id order by event_date) as rank1 from activity ) e where e.rank1=1
+select player_id, event_date as first_login from (select player_id, event_date, rank() over (partition by player_id order by event_date asc) as `rank` from activity) a where a.rank = 1
+select player_id, event_date as first_login from (select player_id, event_date, rank() over (partition by player_id order by event_date asc) as ranks from Activity) as a where ranks = 1
+select player_id, event_date as first_login from (select player_id, event_date, row_number() over(partition by player_id order by event_date) as rank_num from Activity) t where rank_num = 1 order by player_id
+select player_id, event_date as first_login from Activity where (player_id, event_date) IN (select player_id, min(event_date) from Activity group by player_id)
+select player_id, event_date as first_login from activity where (player_id, event_date) in (select player_id, min(event_date) as event_date from activity group by player_id)
+select player_id, event_date as first_login from activity where (player_id,event_date) in ( select player_id,min(event_date) from activity group by player_id)
+select player_id, event_date as first_login from( select player_id, device_id, event_date, games_played, row_number()over(partition by player_id order by event_date ASC)as rk from Activity) t1 where t1.rk=1
+select player_id, event_date first_login from(select player_id, event_date, row_number() over(partition by player_id order by event_date) rnk from Activity ) a where rnk = 1
+select player_id, first_login from( select player_id, event_date as first_login, rank()over(partition by player_id order by event_date asc) as rnk from activity)t1 where rnk = 1
+select player_id, first_login from( select player_id,event_date as first_login, rank()over(partition by player_id order by event_date) as rank1 from Activity) as a where rank1 = 1
+select player_id, min(event_date) as "first_login" from Activity group by player_id
+select player_id, min(event_date) as 'first_login' from Activity group by player_id
+select player_id, min(event_date) as 'first_login' from activity group by player_id
+select player_id, min(event_date) as first_login FROM Activity GROUP BY player_id
+select player_id, min(event_date) as first_login from Activity group by 1
+select player_id, min(event_date) as first_login from Activity group by 1 order by 1
+select player_id, min(event_date) as first_login from Activity group by Player_id order by Player_id
+select player_id, min(event_date) as first_login from Activity group by player_id
+select player_id, min(event_date) as first_login from Activity group by player_id order by event_date
+select player_id, min(event_date) as first_login from Activity group by player_id order by player_id
+select player_id, min(event_date) as first_login from Activity group by player_id order by player_id asc
+select player_id, min(event_date) as first_login from Activity group by player_id order by player_id, event_date
+select player_id, min(event_date) as first_login from activity a group by player_id
+select player_id, min(event_date) as first_login from activity group by 1
+select player_id, min(event_date) as first_login from activity group by 1 order by 1
+select player_id, min(event_date) as first_login from activity group by player_id
+select player_id, min(event_date) as first_login from activity group by player_id order by player_id
+select player_id, min(event_date) as first_login from activity group by player_id order by player_id asc
+select player_id, min(event_date) first_login from Activity group by player_id
+select player_id, min(event_date) first_login from activity a group by player_id
+select player_id, min(event_date) first_login from activity group by player_id
+select player_id,event_date as first_login from ( select a.*, row_number() over(partition by player_id order by event_date asc) as rw_num from Activity a ) A where rw_num=1
+select player_id,event_date as first_login from (select player_id, event_date, rank() over(partition by player_id order by event_date) as ranking from Activity) T where ranking=1
+select player_id,event_date as first_login from (select player_id,event_date,row_number() over(partition by player_id order by event_date asc) as ra from Activity) as temp where ra=1
+select player_id,event_date as first_login from( select player_id,event_date,dense_rank() over (partition by player_id order by event_date) dr from activity) a where dr=1
+select player_id,event_date as first_login from(select player_id,event_date,rank() over(partition by player_id order by event_date) as r from Activity)as t1 where r=1
+select player_id,first_login from ( select player_id, event_date as first_login, rank() over(partition by player_id order by event_date asc) rk from activity ) t where t.rk=1
+select player_id,min(event_date) As first_login from Activity group by player_id
+select player_id,min(event_date) as first_login from Activity group by 1
+select player_id,min(event_date) as first_login from Activity group by player_id
+select player_id,min(event_date) as first_login from activity group by 1
+select player_id,min(event_date) as first_login from activity group by player_id
+select player_id,min(event_date) first_login from activity group by player_id
+select player_id,min(event_date)as first_login from activity group by 1
+select t.player_id as player_id, t.event_date as first_login from (select player_id, event_date, Rank() over(partition by player_id order by event_date) as date_rank from Activity) t where date_rank =1
+select t.player_id, t.event_date first_login from (select player_id, event_date, rank() over(partition by player_id order by event_date asc) r from activity) t where t.r = 1
+with CTE_Activity as ( select *, row_number() over (partition by player_id order by event_date) as rn from Activity) select player_id, event_date as first_login from CTE_Activity where rn = 1
+with a1 as( select player_id, event_date, row_number()over(partition by player_id order by event_date asc) row_no from activity) select distinct player_id, event_date as first_login from a1 where row_no =1
+with cte as ( select player_id, event_date, rank() over(partition by player_id order by event_date) as rk from activity ) select player_id, event_date as first_login from cte where rk=1
+with cte as ( select player_id,device_id,event_date,dense_rank() over(partition by player_id order by event_date) as rnk from Activity ) select player_id,event_date as first_login from cte where rnk = 1
+with cte as (select player_id, event_date, DENSE_RANK() OVER(PARTITION BY player_id order by event_date ) as first_logins from Activity) select player_id, event_date as first_login from cte WHERE first_logins = 1
+with cte1 as ( select player_id, event_date, rank() over (partition by player_id order by event_date asc) as player_rank from Activity ) select player_id, event_date as first_login from cte1 where player_rank = 1
+with rw as (select player_id, event_date, row_number() over (partition by player_id order by event_date) as rw from activity) select player_id, event_date as first_login from rw where rw = 1
+with some_data as ( select player_id, event_date, RANK() OVER (PARTITION BY player_id ORDER BY event_date ASC) login_rank from Activity ) select player_id, event_date as first_login from some_data where login_rank=1
+with t1 as (select player_id, event_date,rank() over (partition by player_id order by event_date) as rn from activity) select player_id, event_date as first_login from t1 where rn =1
+with temp as( select player_id,event_date, dense_rank() over(partition by player_id order by event_date) as rnk from Activity ) select player_id,event_date as first_login from temp where rnk=1
+with x as ( select player_id, event_date, dense_rank() over(partition by player_id order by event_date) as denser from activity) select player_id, event_date as first_login from x where denser=1 order by first_login
+with x as (select player_id , event_date as first_login , dense_rank() over(partition by player_id order by event_date asc) as rnk from Activity) select player_id , first_login from x where rnk = 1

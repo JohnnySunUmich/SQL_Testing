@@ -1,0 +1,170 @@
+SELECT NAME FROM CUSTOMER WHERE (REFEREE_ID IS NULL) OR (REFEREE_ID != 2)
+SELECT NAME FROM CUSTOMER WHERE REFEREE_ID is null OR REFEREE_ID <> 2
+SELECT a.name FROM customer a WHERE a.referee_id != 2 or a.referee_id is NULL
+SELECT a.name from customer a left join customer b on a.referee_id=b.id where a.referee_id!=2 or a.referee_id IS NULL
+SELECT c.name FROM customer AS c WHERE IFNULL(c.referee_id,0) != 2
+SELECT c.name FROM customer c WHERE c.referee_id <> 2 OR c.referee_id IS NULL
+SELECT c1.name FROM customer as c1 WHERE c1.referee_id IS NULL or c1.referee_id != 2
+SELECT name FROM CUSTOMER WHERE COALESCE(referee_id, 0) != 2
+SELECT name FROM Customer WHERE COALESCE(referee_id, 0) != 2
+SELECT name FROM Customer WHERE COALESCE(referee_id, 0) <> 2
+SELECT name FROM Customer WHERE referee_id != 2 OR referee_id IS NULL
+SELECT name FROM Customer WHERE referee_id <> '2' OR referee_id IS NULL
+SELECT name FROM Customer WHERE referee_id IS NULL OR referee_id != 2
+SELECT name FROM Customer WHERE referee_id is NULL OR referee_id <> 2
+SELECT name FROM customer WHERE ((referee_id != 2) OR (ISNULL(referee_id)))
+SELECT name FROM customer WHERE (referee_id != 2 OR referee_id IS NULL)
+SELECT name FROM customer WHERE (referee_id != 2) OR (referee_id IS NULL)
+SELECT name FROM customer WHERE (referee_id <> 2) OR (referee_id IS NULL)
+SELECT name FROM customer WHERE COALESCE(referee_id, 0) != 2
+SELECT name FROM customer WHERE COALESCE(referee_id,0) != 2
+SELECT name FROM customer WHERE COALESCE(referee_id,0) !=2
+SELECT name FROM customer WHERE IF(referee_id is null,0, referee_id) <> 2
+SELECT name FROM customer WHERE IFNULL(referee_id, 0) != 2
+SELECT name FROM customer WHERE IFNULL(referee_id, 0) <> 2
+SELECT name FROM customer WHERE IFNULL(referee_id,0) <> 2
+SELECT name FROM customer WHERE NOT referee_id =2 or referee_id IS NULL
+SELECT name FROM customer WHERE coalesce(referee_id, 9999999) <>2
+SELECT name FROM customer WHERE customer.referee_id <>2 or ISNULL(customer.referee_id)
+SELECT name FROM customer WHERE id NOT IN ( SELECT id FROM customer WHERE referee_id = 2 )
+SELECT name FROM customer WHERE id NOT IN (SELECT id FROM customer WHERE referee_id = '2')
+SELECT name FROM customer WHERE id NOT IN (SELECT id FROM customer WHERE referee_id = 2)
+SELECT name FROM customer WHERE referee_Id <> 2 OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_Id <> 2 or referee_Id is Null
+SELECT name FROM customer WHERE referee_Id <> 2 or referee_Id is null
+SELECT name FROM customer WHERE referee_Id <> 2 or referee_id is null
+SELECT name FROM customer WHERE referee_id != '2' OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id != '2' OR referee_id is NULL
+SELECT name FROM customer WHERE referee_id != 2 OR ISNULL(referee_id)
+SELECT name FROM customer WHERE referee_id != 2 OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id != 2 or referee_id IS NULL
+SELECT name FROM customer WHERE referee_id != 2 or referee_id is null
+SELECT name FROM customer WHERE referee_id !='2' OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id !=2 OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id <> '2' OR ISNULL(referee_id)
+SELECT name FROM customer WHERE referee_id <> '2' OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id <> 2 OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id <> 2 or referee_id IS NULL
+SELECT name FROM customer WHERE referee_id <> 2 or referee_id is NULL
+SELECT name FROM customer WHERE referee_id <>2 OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id IS NULL OR referee_id != '2'
+SELECT name FROM customer WHERE referee_id IS NULL OR referee_id != 2
+SELECT name FROM customer WHERE referee_id IS NULL OR referee_id <> '2'
+SELECT name FROM customer WHERE referee_id IS NULL OR referee_id <> 2
+SELECT name FROM customer WHERE referee_id IS NULL OR referee_id <>2
+SELECT name FROM customer WHERE referee_id IS NULL OR referee_id!=2
+SELECT name FROM customer WHERE referee_id IS NULL or referee_id != '2'
+SELECT name FROM customer WHERE referee_id IS NULL or referee_id != 2
+SELECT name FROM customer WHERE referee_id NOT IN ('2') OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id is null OR referee_id <> 2
+SELECT name FROM customer WHERE referee_id!='2' OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id!=2 OR referee_id IS NULL
+SELECT name FROM customer WHERE referee_id!=2 or referee_id IS NULL
+SELECT name FROM customer where referee_id != 2 OR referee_id IS NULL
+SELECT name from customer WHERE COALESCE(referee_id,0) != 2
+SELECT name from customer WHERE referee_id != 2 or referee_id is Null
+SELECT name from customer where IFNULL(referee_id,0) <> 2
+SELECT name from customer where referee_id != 2 or referee_id is null
+SELECT name from customer where referee_id !=2 or referee_id is null
+SeleCt name from customer where referee_id <> 2 OR referee_id IS NULL
+Select name FROM customer WHERE referee_id!=2 OR referee_id IS NULL
+Select name From customer Where referee_id != 2 or referee_id is null
+Select name From customer Where referee_id <> 2 or referee_id is NULL
+Select name From customer where referee_id != 2 or referee_id is null
+Select name From customer where referee_id is null or referee_id !=2
+Select name from Customer where ifNULL(referee_id,-1)<>2
+Select name from customer where coalesce(referee_id,0) <> 2
+Select name from customer where referee_id != 2 OR referee_id IS NULL
+Select name from customer where referee_id != 2 or referee_id is NULL
+Select name from customer where referee_id != 2 or referee_id is null
+Select name from customer where referee_id <> 2 OR referee_id IS NULL
+Select name from customer where referee_id <> 2 or referee_id is null
+select A.name from (SELECT name, ifnull(referee_id, 0) as new from customer) A where A.new !=2
+select c.name from customer c where c.referee_id != 2 or c.referee_id is null
+select c.name from customer c where c.referee_id <> 2 or c.referee_id IS NULL
+select c1.name as name from customer c1 left join customer c2 on c1.referee_id =c2.id where c2.name is null or c2.id<>2
+select c1.name from customer c1 where referee_id != 2 or referee_id is null
+select c1.name from customer c1 where referee_id !=2 or referee_id is null
+select name from (select id, name, coalesce(referee_id, 0) as ref_id from customer)t where ref_id <>2
+select name from Customer where referee_id != 2 or referee_id IS Null
+select name from Customer where referee_id <> 2 or referee_id is null
+select name from customer WHERE ifnull(referee_id,0) <> 2
+select name from customer WHERE referee_id is NULL OR referee_id <> 2
+select name from customer as A where ifnull(referee_id,0) not in (2)
+select name from customer c where referee_id !=2 OR referee_id IS NULL
+select name from customer c where referee_id <> 2 or referee_id is null
+select name from customer c where referee_id is null or referee_id != 2
+select name from customer where (referee_id!=2 or referee_id is null)
+select name from customer where COALESCE(referee_id,0) != 2
+select name from customer where COALESCE(referee_id,0)!=2
+select name from customer where IFNULL(referee_id,0) != 2
+select name from customer where Not referee_id = '2' or referee_id IS NULL
+select name from customer where coalesce (referee_id,0) <> 2
+select name from customer where coalesce(referee_id, -1) != 2
+select name from customer where coalesce(referee_id, 0) != 2
+select name from customer where coalesce(referee_id, 0) <> 2
+select name from customer where coalesce(referee_id,0) != 2
+select name from customer where coalesce(referee_id,0) !=2
+select name from customer where coalesce(referee_id,0) <> 2
+select name from customer where coalesce(referee_id,1) <> '2'
+select name from customer where id <> all ( select id from ( select * from customer where referee_id = 2 ) a )
+select name from customer where id not in (select id from customer where referee_id = '2')
+select name from customer where id not in (select id from customer where referee_id = 2)
+select name from customer where ifnull (referee_id,0) <> 2
+select name from customer where ifnull(referee_id, -1) <> 2
+select name from customer where ifnull(referee_id, 0) != 2
+select name from customer where ifnull(referee_id, 0) <> 2
+select name from customer where ifnull(referee_id,0) != 2
+select name from customer where ifnull(referee_id,0) <>2
+select name from customer where ifnull(referee_id,0)<>2
+select name from customer where referee_id != '2' or referee_id is Null
+select name from customer where referee_id != '2' or referee_id is null
+select name from customer where referee_id != 2 OR referee_id is NULL
+select name from customer where referee_id != 2 or isnull(referee_id)
+select name from customer where referee_id != 2 or referee_id IS NULL
+select name from customer where referee_id != 2 or referee_id is NULL
+select name from customer where referee_id != 2 or referee_id is NUll
+select name from customer where referee_id != 2 or referee_id is NuLL
+select name from customer where referee_id != 2 or referee_id is Null
+select name from customer where referee_id != 2 or referee_id is null
+select name from customer where referee_id !="2" or referee_id is Null
+select name from customer where referee_id !='2' or referee_id is null
+select name from customer where referee_id !=2 or referee_id IS NULL
+select name from customer where referee_id !=2 or referee_id is Null
+select name from customer where referee_id !=2 or referee_id is null
+select name from customer where referee_id <> '2' or referee_id is NULL
+select name from customer where referee_id <> '2' or referee_id is null
+select name from customer where referee_id <> 2 OR referee_id IS NULL
+select name from customer where referee_id <> 2 OR referee_id is NULL
+select name from customer where referee_id <> 2 OR referee_id is null
+select name from customer where referee_id <> 2 or referee_id IS NULL
+select name from customer where referee_id <> 2 or referee_id is NULL
+select name from customer where referee_id <> 2 or referee_id is Null
+select name from customer where referee_id <> 2 or referee_id is null
+select name from customer where referee_id <>2 or isnull(referee_id)
+select name from customer where referee_id <>2 or referee_id is NULL
+select name from customer where referee_id <>2 or referee_id is Null
+select name from customer where referee_id <>2 or referee_id is null
+select name from customer where referee_id is NULL or referee_id !=2
+select name from customer where referee_id is NULL or referee_id <> 2
+select name from customer where referee_id is null or referee_id != 2
+select name from customer where referee_id is null or referee_id !=2
+select name from customer where referee_id is null or referee_id <> '2'
+select name from customer where referee_id is null or referee_id <> 2
+select name from customer where referee_id is null or referee_id <>2
+select name from customer where referee_id is null or referee_id not in (select referee_id from customer where referee_id = 2)
+select name from customer where referee_id is null or referee_id!=2
+select name from customer where referee_id is null or referee_id<>2
+select name from customer where referee_id not in (2) OR referee_id is null
+select name from customer where referee_id not in (2) or referee_id is null
+select name from customer where referee_id not like '2' or referee_id is null
+select name from customer where referee_id!="2" or referee_id is null
+select name from customer where referee_id!=2 or Referee_id is null
+select name from customer where referee_id!=2 or isnull(referee_id)
+select name from customer where referee_id!=2 or referee_id is NULL
+select name from customer where referee_id!=2 or referee_id is null
+select name from customer where referee_id!=2 union all select name from customer where referee_id is null
+select name from customer where referee_id<>2 or referee_id is null
+with cte as ( select distinct id from customer where referee_id = 2 ) select name from customer where id not in (select * from cte)
+with cte_final as ( select name from customer where coalesce(referee_id, 'some bogus value of your choosing') != 2 ) select * from cte_final
+with cte_final as ( select name from customer where referee_id != 2 or referee_id is null ) select * from cte_final

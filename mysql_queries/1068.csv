@@ -1,0 +1,372 @@
+SELECT B.product_name, A.year, A.price FROM Sales A LEFT JOIN Product B ON A.product_id = B.product_id
+SELECT DISTINCT P.product_name, S.year, S.price FROM (SELECT DISTINCT product_id, year, price FROM Sales) S INNER JOIN Product AS P USING (product_id)
+SELECT DISTINCT product_name, year, price FROM Sales s JOIN Product p USING(product_id)
+SELECT Distinct Product.product_name, Sales.year, Sales.price FROM Sales Join Product ON Sales.product_id = Product.product_id
+SELECT P.PRODUCT_NAME, S.YEAR, S.PRICE FROM SALES S JOIN PRODUCT P ON S.PRODUCT_ID = P.PRODUCT_ID GROUP BY S.SALE_ID
+SELECT P.product_name, S.year, S.price FROM Product AS P JOIN Sales AS S ON P.product_id = S.product_id
+SELECT P.product_name, S.year, S.price FROM Sales S JOIN Product AS P USING (product_id)
+SELECT P.product_name, S.year, S.price FROM Sales S JOIN Product P ON S.product_id = P.product_id
+SELECT P.product_name, S.year, S.price FROM Sales S JOIN Product P ON S.product_id = P.product_id GROUP BY S.sale_id
+SELECT P.product_name, S.year, S.price FROM Sales S JOIN Product P ON S.product_id = P.product_id ORDER BY P.product_id
+SELECT P.product_name, S.year, S.price FROM Sales S LEFT JOIN Product P ON P.product_id = S.product_id
+SELECT P.product_name, S.year, S.price FROM Sales S LEFT JOIN Product P ON S.product_id=P.product_id
+SELECT PRODUCT_NAME, YEAR, PRICE FROM SALES INNER JOIN PRODUCT USING (PRODUCT_ID)
+SELECT PRODUCT_NAME, YEAR, PRICE FROM SALES S JOIN PRODUCT P ON S.PRODUCT_ID = P.PRODUCT_ID GROUP BY S.SALE_ID
+SELECT Product.product_name, Sales.year, Sales.price FROM Product JOIN Sales ON Product.product_id = Sales.product_id
+SELECT Product.product_name, Sales.year, Sales.price FROM Product, Sales WHERE Sales.product_id = Product.product_id
+SELECT Product.product_name, Sales.year, Sales.price FROM Sales JOIN Product ON Product.product_id = Sales.product_id
+SELECT Product.product_name, Sales.year, Sales.price FROM Sales JOIN Product ON Sales.product_id = Product.product_id
+SELECT Product.product_name, Sales.year, Sales.price FROM Sales LEFT JOIN Product ON Sales.product_id = Product.product_id
+SELECT Product.product_name,Sales.year, Sales.price FROM Sales JOIN Product ON Sales.product_id = Product.product_id
+SELECT a.product_name, b.year, b.price FROM product a RIGHT JOIN sales b USING(product_id)
+SELECT b.product_name, a.year, a.price FROM Sales AS a LEFT JOIN Product AS b ON a.product_id = b.product_id
+SELECT b.product_name, a.year, a.price FROM Sales a LEFT JOIN Product b ON a.product_id=b.product_id
+SELECT b.product_name, a.year, a.price FROM Sales a LEFT JOIN Product b ON a.product_id=b.product_id ORDER BY 2
+SELECT b.product_name, a.year, a.price FROM Sales a, Product b WHERE a.product_id=b.product_id
+SELECT b.product_name, a.year, a.price FROM Sales as a INNER JOIN Product as b ON a.product_id = b.product_id
+SELECT c.product_name, c.year, c.price FROM ( SELECT a.year, a.price, b.product_name FROM Sales a INNER JOIN Product b ON a.product_id = b.product_id ) c
+SELECT p.product_name , s.year , s.price FROM Sales s INNER JOIN Product p ON p.product_id = s.product_id
+SELECT p.product_name AS product_name, s.year AS year, s.price AS price FROM Sales AS s LEFT JOIN Product AS p ON s.product_id = p.product_id
+SELECT p.product_name AS product_name, s.year AS year, s.price AS price FROM Sales s, Product p WHERE s.product_id = p.product_id
+SELECT p.product_name AS product_name, s.year AS year, s.price AS price FROM sales s LEFT JOIN product p ON s.product_id = p.product_id
+SELECT p.product_name as product_name, s.year as year, s.price price from Sales as s LEFT JOIN Product as p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM (SELECT DISTINCT sale_id, product_id, year, price FROM Sales) AS s left join Product p on s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM (SELECT DISTINCT sale_id, product_id, year, price FROM Sales) s INNER JOIN Product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM (SELECT DISTINCT sale_id, product_id, year, price FROM Sales) s LEFT JOIN Product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Product as p JOIN Sales as s USING (product_id)
+SELECT p.product_name, s.year, s.price FROM Product p INNER JOIN Sales s ON p.product_id = s.product_id
+SELECT p.product_name, s.year, s.price FROM Product p JOIN Sales s ON p.product_id = s.product_id
+SELECT p.product_name, s.year, s.price FROM SALES s JOIN product p ON s.product_id = p.product_id GROUP BY sale_id
+SELECT p.product_name, s.year, s.price FROM Sales AS s JOIN Product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales AS s, Product AS p WHERE s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales as s INNER JOIN Product as p ON S.PRODUCT_ID = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s INNER JOIN Product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s INNER JOIN Product p ON s.product_id = p.product_id GROUP BY s.sale_id
+SELECT p.product_name, s.year, s.price FROM Sales s JOIN Product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s JOIN Product p ON s.product_id = p.product_id GROUP BY s.sale_id
+SELECT p.product_name, s.year, s.price FROM Sales s LEFT JOIN Product p ON p.product_id = s.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id GROUP BY p.product_name, s.year, s.price
+SELECT p.product_name, s.year, s.price FROM Sales s LEFT JOIN Product p ON s.product_id=p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s join Product p on s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM Sales s, Product p WHERE s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales s JOIN product p ON s.product_id = p.product_id GROUP BY s.sale_id
+SELECT p.product_name, s.year, s.price FROM sales s JOIN product p USING (product_id) GROUP BY s.sale_id
+SELECT p.product_name, s.year, s.price FROM sales s LEFT JOIN product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales s left join product p on s.product_id = p.product_id group by sale_id
+SELECT p.product_name, s.year,s.price FROM Sales s JOIN product p ON s.product_id = p.product_id
+SELECT p.product_name, s.year,s.price FROM sales s JOIN product p ON s.product_id = p.product_id GROUP BY s.sale_id
+SELECT p.product_name,s.year,s.price FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id
+SELECT p.product_name,s.year,s.price FROM Sales s LEFT JOIN Product p ON s.product_id=p.product_id
+SELECT p.product_name,s.year,s.price from Sales s join Product p using (product_id)
+SELECT p2.product_name as product_name,p1.year as year,p1.price as price FROM Sales p1 LEFT JOIN Product p2 on p1.product_id=p2.product_id
+SELECT product_name , year , price FROM sales INNER JOIN product USING(product_id)
+SELECT product_name, `year`, price FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id
+SELECT product_name, year , price FROM Sales s, Product p WHERE p.product_id = s.product_id
+SELECT product_name, year, price FROM Product JOIN Sales ON Product.product_id = Sales.product_id
+SELECT product_name, year, price FROM Product as p Inner join Sales as s ON p.product_id= s.product_id
+SELECT product_name, year, price FROM Product p JOIN Sales s ON p.product_id=s.product_id
+SELECT product_name, year, price FROM Sales AS S LEFT JOIN Product AS P ON S.product_id = P.product_id
+SELECT product_name, year, price FROM Sales AS s LEFT JOIN Product AS p ON s.product_id = p.product_id
+SELECT product_name, year, price FROM Sales INNER JOIN Product ON Sales.product_id = Product.product_id
+SELECT product_name, year, price FROM Sales INNER JOIN Product USING(product_id)
+SELECT product_name, year, price FROM Sales INNER JOIN Product USING(product_id) GROUP BY sale_id
+SELECT product_name, year, price FROM Sales INNER JOIN Product on Product.product_id=Sales.product_id
+SELECT product_name, year, price FROM Sales JOIN Product ON Sales.product_id = Product.product_id
+SELECT product_name, year, price FROM Sales JOIN Product ON Sales.product_id=Product.product_id
+SELECT product_name, year, price FROM Sales JOIN Product USING (product_id)
+SELECT product_name, year, price FROM Sales LEFT JOIN Product ON Product.product_id = Sales.product_id
+SELECT product_name, year, price FROM Sales LEFT JOIN Product ON Sales.product_id = Product.product_id
+SELECT product_name, year, price FROM Sales LEFT JOIN Product ON Sales.product_id = Product.product_id GROUP BY Sales.sale_id
+SELECT product_name, year, price FROM Sales LEFT JOIN Product ON Sales.product_id=Product.product_id
+SELECT product_name, year, price FROM Sales S JOIN Product P ON P.product_id = S.product_id
+SELECT product_name, year, price FROM Sales as s INNER JOIN Product as p ON s.product_id = p.product_id
+SELECT product_name, year, price FROM Sales as s JOIN Product as p ON s.product_id = p.product_id GROUP BY sale_id
+SELECT product_name, year, price FROM Sales s INNER JOIN Product p ON p.product_id = s.product_id
+SELECT product_name, year, price FROM Sales s INNER JOIN Product p ON s.product_id = p.product_id
+SELECT product_name, year, price FROM Sales s JOIN Product p ON s.product_id = p.product_id
+SELECT product_name, year, price FROM Sales s LEFT JOIN Product p ON s.product_id = p.product_id
+SELECT product_name, year, price FROM Sales s, Product p WHERE s.product_id = p.product_id
+SELECT product_name, year, price FROM product p JOIN Sales s ON p.product_id = s.product_id
+SELECT product_name, year, price FROM product p JOIN sales s ON p.product_id = s.product_id
+SELECT product_name, year, price FROM sales JOIN product ON sales.product_id = product.product_id
+SELECT product_name, year, price FROM sales LEFT JOIN product ON sales.product_id = product.product_id
+SELECT product_name, year, price FROM sales S JOIN product P on S.product_id=P.product_id ORDER BY year
+SELECT product_name, year, price FROM sales S LEFT JOIN product P on S.product_id=P.product_id ORDER BY year
+SELECT product_name, year, price FROM sales join product ON sales.product_id = product.product_id
+SELECT product_name, year, price from Product INNER JOIN Sales on Product.product_id=Sales.product_id
+SELECT product_name, year,price FROM SALES AS S INNER JOIN PRODUCT AS P ON P.product_id = S.product_id
+SELECT product_name,year,price FROM (SELECT sale_id, s.product_id, year, quantity, price,product_name FROM Sales s LEFT JOIN Product p ON s.product_id= p.product_id) A
+SELECT product_name,year,price FROM (SELECT sale_id, s.product_id, year, quantity, price,product_name FROM Sales s LEFT JOIN Product p ON s.product_id= p.product_id) A WHERE sale_id IN (SELECT sale_id FROM Sales )
+SELECT product_name,year,price FROM Sales LEFT JOIN Product USING (product_id)
+SELECT product_name,year,price FROM Sales LEFT JOIN Product USING(product_id) GROUP BY sale_id
+SELECT product_name,year,price FROM Sales p1 LEFT JOIN Product p2 on p1.product_id=p2.product_id
+SELECT product_name,year,price From Sales INNER JOIN Product ON Sales.product_id= Product.product_id Group By sale_id
+SELECT r.product_name,l.year,l.price from sales l inner join product r on l.product_id=r.product_id
+SELECT t2.product_name, t1.year, t1.price FROM Sales AS t1 INNER JOIN Product AS t2 ON t1.product_id = t2.product_id
+SELECT t2.product_name,t1.year,t1.price FROM sales t1 LEFT JOIN Product t2 ON t1.product_id = t2.product_id ORDER BY year
+Select DISTINCT p.product_name, s.year, s.price from Sales s left join Product p on s.product_id = p.product_id
+Select P.product_name, S.year, S.price from Sales S left join Product P on P.product_id = S.product_id
+Select P.product_name, S.year, S.price from sales s Left join product p ON P.product_id = S.product_id
+Select Product.product_name, Sales.year,Sales.price from Product, Sales where Product.product_id=Sales.product_id
+Select Product.product_name,Sales.year,Sales.price FROM Sales JOIN Product ON Sales.product_id = Product.product_id Order by Sales.year
+Select a.product_name, b.year, b.price from product as a join sales as b on a.product_id = b.product_id
+Select b.product_name, a.year,SUM(a.price) as price from Sales a JOIN Product b on a.product_id = b.product_id group by sale_id
+Select p.product_name, s.year, s.price From Sales as s Join Product as p on s.product_id = p.product_id
+Select p.product_name, s.year, s.price from Sales s left join Product p on s.product_id=p.product_id
+Select p.product_name, s.year,s.price from Product p right join Sales s on p.product_id = s.product_id
+Select p.product_name, year, price From Sales s Left join Product p On s.product_id = p.product_id
+Select p.product_name,s.year,s.price from Product p right join Sales s on p.product_id = s.product_id
+Select product_name, year, price FROM SALES S join product P ON S.product_id = P.product_id
+Select product_name, year, price From Sales s Left Join Product p On s.product_id = p.product_id
+Select product_name, year, price from Sales s Join Product p on s.product_id = p.product_id
+Select product_name, year, price from Sales s inner join product p on s.product_id = p.product_id
+Select product_name, year, price from Sales s left Join Product p on s.product_id=p.product_id
+Select t2.product_name, t1.year, t1.price from sales as t1 left join Product as t2 on t1.product_id =t2.product_id
+With c as ( Select s.Sale_id,p.product_name, s.year ,s.price from sales s join product p on s.product_id=p.product_id ) select product_name,year,price from c
+select B.product_name,A.year, A.price from Sales A join Product B on A.product_id =B.product_id
+select P.product_name , S.year , S.price from Sales S inner join Product P on S.product_id = P.product_id
+select P.product_name as product_name, S.year as year, S.price as price from Sales S, Product P where S.product_id=P.product_id
+select P.product_name, S.year, S.price from Product P join Sales S on P.product_id = S.product_id
+select P.product_name, S.year, S.price from Product P right JOIN Sales S on P.product_id = S.product_id
+select P.product_name, S.year, S.price from Sales S LEFT JOIN Product P ON S.product_id = P.product_id
+select P.product_name, S.year, S.price from Sales S RIGHT JOIN Product P On P.product_id = S.product_id WHERE S.Sale_id IS NOT NULL OR S.Year IS NOT NULL
+select P.product_name, S.year, S.price from Sales S inner join Product P on S.product_id = P.product_id
+select P.product_name, S.year, S.price from Sales S left join Product P on S.product_id=P.product_id
+select P.product_name, S.year, S.price from Sales S, Product P where S.product_id = P.product_id
+select P.product_name, S.year, S.price from Sales S, Product P where S.product_id =P.product_id
+select P.product_name, S.year, S.price from Sales as S left join Product as P on P.product_id = S.product_id
+select P.product_name, S.year, S.price from Sales as S left join Product as P on S.product_id = P.product_id
+select P.product_name, S.year, S.price from Sales as S left join Product as P on S.product_id=P.product_id order by S.sale_id
+select P.product_name, S.year, S.price from Sales as S left join product As P on S.product_id = P.product_id
+select P.product_name, year, price from Sales S left join Product P on P.product_id = S.product_id
+select P.product_name,S.year,S.price from Sales S left join product P on S.product_id=P.product_id
+select Product.product_name, Sales.year, Sales.price from Sales join Product on Product.product_id = Sales.product_id
+select Product.product_name, Sales.year, Sales.price from Sales join Product where Product.product_id = Sales.product_id
+select Product.product_name, Sales.year, Sales.price from Sales left join Product on Product.product_id = Sales.product_id
+select Product.product_name, Sales.year, Sales.price from Sales left join Product on Sales.product_id = Product.product_id
+select Product.product_name, year, price from Sales join Product on Sales.product_id = Product.product_id
+select S.year , S.price, p.product_name from Sales S join Product P on S.product_id=P.product_id order by year,price
+select a.product_name, b.year, b.price from Product as a inner join Sales as b on a.product_id = b.product_id
+select a.year, a.price, b.product_name from sales a left join product b on a.product_id = b.product_id
+select b.product_name , a.year , a.price from Sales a inner join Product b on a.product_id = b.product_id order by a.product_id
+select b.product_name , a.year , a.price from sales a left join product b on a.product_id = b.product_id
+select b.product_name as product_name, a.year as year, a.price as price from sales a left join product b on a.product_id=b.product_id
+select b.product_name, a.year , a.price from sales a inner join product b on a.product_id = b.product_id group by a.sale_id
+select b.product_name, a.year, a.price from Sales a join Product b on a.product_id = b.product_id
+select b.product_name, a.year, a.price from Sales a join Product b on a.product_id=b.product_id
+select b.product_name, a.year, a.price from Sales as a left join Product as b on a.product_id = b.product_id
+select b.product_name, a.year, a.price from sales a inner join Product b on a.product_id= b.product_id
+select b.product_name, a.year, a.price from sales a left join product b on a.product_id = b.product_id
+select b.product_name, a.year,a.price from Sales a inner join Product b on a.product_id = b.product_id
+select b.product_name, a.year,a.price from Sales a left join Product b on a.product_id=b.product_id
+select b.product_name, year,price from Sales as a left join Product as b using(product_id)
+select b.product_name,a.year,a.price from Sales as a inner join Product as b on a.product_id= b.product_id
+select b.product_name,a.year,a.price from Sales as a left join Product as b on a.product_id = b.product_id
+select b.product_name,a.year,a.price from sales a join product b on a.product_id = b.product_id
+select c.product_name, c.year, c.price from (select product_name, year, price from Sales a join Product b on a.product_id = b.product_id) c
+select distinct P.product_name, S.year, S.price from Sales S join Product P on S.product_id = P.product_id
+select distinct P.product_name, S.year, S.price from Sales S, Product P where P.product_id = S.product_id
+select distinct P.product_name, S.year, S.price from Sales as S join Product as P on S.product_id = P.product_id
+select distinct P.product_name, S.year, S.price from Sales as S left join Product as P on S.product_id = P.product_id
+select distinct p.product_name , s.year, s.price from ( select distinct product_id, year, price from Sales )s inner join Product p using(product_id)
+select distinct p.product_name, s.year, s.price from Sales as s join Product as p on s.product_id = p.product_id
+select distinct p.product_name, s.year, s.price from sales s inner join product p on s.product_id = p.product_id
+select distinct p.product_name, s.year, s.price from sales s join product p on s.product_id = p.product_id
+select distinct p.product_name, s.year, s.price from sales s, product p where s.product_id = p.product_id
+select distinct p.product_name,s.year,s.price from sales s inner join product p on s.product_id = p.product_id order by 1
+select distinct p.product_name,s.year,s.price from sales s join product p using (product_id) order by 2
+select distinct product_name , year , price from sales left join product using (product_id)
+select distinct product_name, year, price from Sales left join Product on Sales.product_id = Product.product_id
+select distinct product_name, year, price from Sales, Product where Sales.product_id = Product.product_id
+select distinct product_name, year, price from sales ,product where sales.product_id = product.product_id
+select p.product_name , s.price , s.year from Sales s left join Product p on s.product_id = p.product_id
+select p.product_name , s.year ,s.price from Sales as s join Product as p on (s.product_id =p.product_id)
+select p.product_name , s.year, s.price from ( select distinct product_id, year, price from Sales )s join Product p on s.product_id = p.product_id
+select p.product_name , s.year, s.price from Sales s LEFT JOIN Product p ON s.product_id = p.product_id group by s.sale_id
+select p.product_name , s.year, s.price from sales s join product p on p.product_id =s.product_id
+select p.product_name , year, price from Sales s join Product p on s.product_id = p.product_id
+select p.product_name ,s.year ,s.price from Sales s join Product p on s.product_id = p.product_id
+select p.product_name as product_name , s.year as year, s.price from sales s join product p on s.product_id = p.product_id
+select p.product_name as product_name, s.year as year, s.price as price from Sales as s left join Product as p on p.product_id = s.product_id
+select p.product_name as product_name, s.year as year, s.price as price from sales s join product p on s.product_id = p.product_id
+select p.product_name, a.year,a.price from sales as a inner join Product as p where a.product_id = p.product_id
+select p.product_name, s.year as 'year', s.price from Sales s, Product p where s.product_id = p.product_id
+select p.product_name, s.year, min(price) price from sales s join product p on p.product_id=s.product_id group by p.product_name, s.year, sale_id
+select p.product_name, s.year, s.price FROM product p JOIN sales s ON p.product_id = s.product_id
+select p.product_name, s.year, s.price from Product p inner join Sales s on p.product_id = s.product_id
+select p.product_name, s.year, s.price from Product p join Sales s on p.product_id = s.product_id
+select p.product_name, s.year, s.price from Product p join Sales s on p.product_id=s.product_id
+select p.product_name, s.year, s.price from Product p join Sales s on p.product_id=s.product_id order by 1 asc,2 desc
+select p.product_name, s.year, s.price from Product p join Sales s where p.product_id = s.product_id
+select p.product_name, s.year, s.price from Product p right join Sales s using (product_id)
+select p.product_name, s.year, s.price from Sales S join Product P on S.product_id=P.product_id
+select p.product_name, s.year, s.price from Sales as s join Product as p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from Sales as s left join Product as p using (product_id)
+select p.product_name, s.year, s.price from Sales s Inner Join Product p on s.product_id = p.product_id group by s.sale_id
+select p.product_name, s.year, s.price from Sales s LEFT JOIN Product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from Sales s Left Join Product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from Sales s inner join Product p on p.product_id = s.product_id
+select p.product_name, s.year, s.price from Sales s inner join Product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from Sales s inner join Product p on s.product_id = p.product_id order by s.sale_id
+select p.product_name, s.year, s.price from Sales s join Product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from Sales s join Product p on s.product_id = p.product_id group by p.product_name, s.year, s.price
+select p.product_name, s.year, s.price from Sales s join Product p on s.product_id=p.product_id
+select p.product_name, s.year, s.price from Sales s join Product p using (product_id)
+select p.product_name, s.year, s.price from Sales s left join Product p on (s.product_id = p.product_id) order by s.year desc
+select p.product_name, s.year, s.price from Sales s left join Product p on p.product_id = s.product_id
+select p.product_name, s.year, s.price from Sales s left join Product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from Sales s left join Product p on s.product_id=p.product_id
+select p.product_name, s.year, s.price from Sales s, Product p where s.product_id = p.product_id
+select p.product_name, s.year, s.price from product p INNER JOIN sales s ON p.product_id = s.product_id
+select p.product_name, s.year, s.price from product p inner join sales s on p.product_id = s.product_id
+select p.product_name, s.year, s.price from product p inner join sales s on p.product_id = s.product_id group by s.sale_id
+select p.product_name, s.year, s.price from product p inner join sales s on p.product_id=s.product_id
+select p.product_name, s.year, s.price from product p inner join sales s on p.product_id=s.product_id group by s.sale_id
+select p.product_name, s.year, s.price from product p join sales s on p.product_id = s.product_id
+select p.product_name, s.year, s.price from product p join sales s on p.product_id=s.product_id
+select p.product_name, s.year, s.price from sales as s inner join product as p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from sales as s left join product as p on p.product_id = s.product_id
+select p.product_name, s.year, s.price from sales as s left join product as p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from sales as s left join product as p on s.product_id = p.product_id group by s.sale_id
+select p.product_name, s.year, s.price from sales as s left join product as p using (product_id)
+select p.product_name, s.year, s.price from sales s , product p where s.product_id = p.product_id
+select p.product_name, s.year, s.price from sales s inner join product p on (p.product_id = s.product_id)
+select p.product_name, s.year, s.price from sales s inner join product p on p.product_id = s.product_id
+select p.product_name, s.year, s.price from sales s inner join product p on s.product_id = p.product_id group by s.sale_id
+select p.product_name, s.year, s.price from sales s join product p on p.product_id = s.product_id
+select p.product_name, s.year, s.price from sales s join product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from sales s join product p on s.product_id=p.product_id
+select p.product_name, s.year, s.price from sales s left join product p on s.product_id = p.product_id
+select p.product_name, s.year, s.price from sales s left join product p on s.product_id = p.product_id group by s.sale_id
+select p.product_name, s.year, s.price from sales s left join product p on s.product_id=p.product_id
+select p.product_name, s.year, s.price from sales s left join product p using(product_id)
+select p.product_name, s.year, s.price from sales s left outer join product p on s.product_id=p.product_id
+select p.product_name, s.year,s.price from Product p join Sales s on p.product_id = s.product_id
+select p.product_name, s.year,s.price from Sales s left join Product p on p.product_id = s.product_id
+select p.product_name, s.year,s.price from product p join sales s on p.product_id =s.product_id
+select p.product_name, s.year,s.price from sales s left join product p on s.product_id=p.product_id
+select p.product_name, year, price from sales s left join product p on s.product_id = p.product_id
+select p.product_name,s.year, s.price from sales s inner join product p on p.product_id = s.product_id
+select p.product_name,s.year,s.price from Product p join Sales s on p.product_id=s.product_id
+select p.product_name,s.year,s.price from Sales s LEFT JOIN Product p using(product_id)
+select p.product_name,s.year,s.price from Sales s inner join Product P on s.product_id = p.product_id
+select p.product_name,s.year,s.price from Sales s join Product p on s.product_id=p.product_id group by sale_id,year
+select p.product_name,s.year,s.price from Sales s left join Product p on s.product_id = p.product_id
+select p.product_name,s.year,s.price from Sales s left join Product p on s.product_id=p.product_id
+select p.product_name,s.year,s.price from product p join sales s on p.product_id=s.product_id
+select p.product_name,s.year,s.price from sales s inner join product p on s.product_id=p.product_id
+select p.product_name,s.year,s.price from sales s join product p on s.product_id=p.product_id
+select p.product_name,s.year,s.price from sales s left join product p on p.product_id = s.product_id
+select p.product_name,s.year,s.price from sales s left join product p on s.product_id = p.product_id
+select p.product_name,s.year,s.price from sales s left join product p on s.product_id = p.product_id group by s.sale_id order by s.year desc
+select p.product_name,s.year,s.price from sales s left join product p on s.product_id=p.product_id
+select prod.product_name ,sales.year ,sales.price from Sales sales join Product prod on sales.product_id = prod.product_id
+select product.product_name, sales.year, sales.price from sales left join product on sales.product_id = product.product_id
+select product.product_name, sales.year,sales.price from sales left outer join product on sales.product_id = product.product_id
+select product.product_name,sales.year,sales.price from Product Right Outer join Sales ON Product.Product_id=Sales.product_id
+select product_name , year , price from (select distinct product_id, year, price from sales) s left join product using (product_id)
+select product_name , year , price from Sales s join Product p on (s.product_id = p.product_id)
+select product_name , year , price from sales inner join product on sales.product_id = product.product_id
+select product_name , year , price from sales s inner join product p on s.product_id = p.product_id order by sale_id
+select product_name , year , price from sales s left join product p on s.product_id = p.product_id
+select product_name , year,price from Product p join sales s on p.product_id =s.product_id
+select product_name ,year ,price from Product, Sales where Product.product_id = Sales.product_id
+select product_name ,year ,price from Sales inner join Product on Sales.product_id = Product.product_id
+select product_name, Sales.year,price from Sales join Product on Sales.product_id = Product.product_id
+select product_name, `year`, price from Sales a join Product b on a.product_id = b.product_id
+select product_name, `year`, price from Sales s join Product p on s.product_id= p.product_id
+select product_name, `year`, price from sales s left join product p on s.product_id = p.product_id
+select product_name, a.year, a.price from sales a join product b on a.product_id = b.product_id
+select product_name, a.year, a.price from sales a join product b using(product_id)
+select product_name, sales.year, price from sales left join product on sales.product_id = product.product_id
+select product_name, year, price from (select a.*, b.product_name from Sales a left join Product b on a.product_id=b.product_id) c group by product_name,year,sale_id
+select product_name, year, price from Product join Sales using(product_id) group by sale_id
+select product_name, year, price from Product p JOIN Sales s USING(product_id)
+select product_name, year, price from Product p join Sales s on p.product_id = s.product_id
+select product_name, year, price from Product p join Sales s using(product_id)
+select product_name, year, price from Sales Join product On Sales.product_id = Product.product_id
+select product_name, year, price from Sales S inner join Product P on S.product_id = P.product_id
+select product_name, year, price from Sales S join Product P on S.product_id = P.product_id
+select product_name, year, price from Sales a INNER JOIN Product b on a.product_id=b.product_id group by sale_id
+select product_name, year, price from Sales a join product b on a.product_id = b.product_id
+select product_name, year, price from Sales a left join Product b on a.product_id = b.product_id
+select product_name, year, price from Sales as S inner join Product as P on S.product_id=P.product_id group by sale_id
+select product_name, year, price from Sales join Product on Product.product_id = Sales.product_id
+select product_name, year, price from Sales join Product on Sales.product_id = Product.product_id
+select product_name, year, price from Sales join Product using (product_id) group by sale_id
+select product_name, year, price from Sales left join Product on Product.product_id = Sales.product_id
+select product_name, year, price from Sales left join Product on Sales.product_id = Product.product_id
+select product_name, year, price from Sales left join Product using (product_id)
+select product_name, year, price from Sales left join Product using(product_id)
+select product_name, year, price from Sales left outer join Product on Product.product_id = Sales.product_id
+select product_name, year, price from Sales natural join Product
+select product_name, year, price from Sales s inner join Product p on s.product_id = p.product_id
+select product_name, year, price from Sales s inner join Product p on s.product_id = p.product_id group by sale_id
+select product_name, year, price from Sales s inner join Product p on s.product_id=p.product_id group by sale_id
+select product_name, year, price from Sales s join Product p on s.product_id = p.product_id
+select product_name, year, price from Sales s join Product p on s.product_id = p.product_id order by 1,2
+select product_name, year, price from Sales s left join Product p on p.product_id = s.product_id
+select product_name, year, price from Sales s left join product p on s.product_id = p.product_id
+select product_name, year, price from Sales s left join product p on s.product_id =p.product_id
+select product_name, year, price from Sales s, Product p where s.product_id = p.product_id
+select product_name, year, price from product join sales using (product_id)
+select product_name, year, price from product p join sales s using(product_id) order by year
+select product_name, year, price from product p left join Sales s on s.product_id =p.product_id where price is not null
+select product_name, year, price from sales a, product b where a.product_id = b.product_id order by product_name
+select product_name, year, price from sales as s join product as p using (product_id)
+select product_name, year, price from sales as s left join product as p on p.product_id = s.product_id
+select product_name, year, price from sales inner join product on sales.product_id = product.product_id
+select product_name, year, price from sales join product on (sales.product_id = product.product_id)
+select product_name, year, price from sales join product using(product_id)
+select product_name, year, price from sales left join product on sales.product_id = product.product_id
+select product_name, year, price from sales left join product on sales.product_id = product.product_id order by year desc
+select product_name, year, price from sales left join product using (product_id)
+select product_name, year, price from sales left join product using(product_id)
+select product_name, year, price from sales natural join product
+select product_name, year, price from sales s inner join product p on s.product_id = p.product_id
+select product_name, year, price from sales s join product p on s.product_id = p.product_id
+select product_name, year, price from sales s join product p on s.product_id=p.product_id
+select product_name, year, price from sales s join product p on s.product_id=p.product_id group by sale_id
+select product_name, year, price from sales s join product using (product_id)
+select product_name, year, price from sales s join product using(product_id)
+select product_name, year, price from sales s left join product p on p.product_id = s.product_id
+select product_name, year, price from sales s left join product p on s.product_id = p.product_id
+select product_name, year, price from sales s left join product p on s.product_id = p.product_id group by sale_id
+select product_name, year, price from sales s left join product using (product_id)
+select product_name, year, price from sales, Product where Sales.product_id = Product.product_id
+select product_name, year, price from sales, product where sales.product_id = product.product_id
+select product_name, year, s.price from Sales s left join Product p on s.product_id = p.product_id group by sale_id, year
+select product_name, year,price from Sales left join Product on Sales.product_id=Product.product_id
+select product_name, year,price from Sales, Product where Sales.product_id=Product.product_id
+select product_name, year,price from product p inner join sales s on p.product_id = s.product_id
+select product_name, year,price from product p join sales s on p.product_id = s.product_id order by sale_id
+select product_name, year,price from sales inner join product using(product_id)
+select product_name, year,price from sales left join product on sales.product_id = product.product_id
+select product_name,s.year,price from sales s join product p on s.product_id=p.product_id group by sale_id
+select product_name,s.year,price from sales s left join product p on s.product_id=p.product_id group by sale_id
+select product_name,year,price from Product p join Sales s on p.product_id = s.product_id
+select product_name,year,price from Sales S join Product P on S.product_id=P.product_id
+select product_name,year,price from Sales a left join Product b on a.product_id = b.product_id
+select product_name,year,price from Sales join Product on Sales.product_id = Product.product_id
+select product_name,year,price from Sales join Product on Sales.product_id= Product.product_id
+select product_name,year,price from Sales join product on product.product_id = sales.product_id
+select product_name,year,price from Sales s join Product p on s.product_id = p.product_id group by 1,2,3
+select product_name,year,price from Sales s join Product p on s.product_id=p.product_id
+select product_name,year,price from Sales s left join Product P on s.product_id=p.product_id
+select product_name,year,price from product right join sales using(product_id)
+select product_name,year,price from sales a join product b on a.product_id=b.product_id
+select product_name,year,price from sales as a left join product as b on a.product_id=b.product_id
+select product_name,year,price from sales join product on sales.product_id = product.product_id
+select product_name,year,price from sales join product on sales.product_id=product.product_id
+select product_name,year,price from sales s join Product p on s.product_id=p.product_id group by sale_id
+select product_name,year,price from sales s join product p on s.product_id = p.product_id group by sale_id
+select product_name,year,price from sales s join product p on s.product_id=p.product_id group by s.sale_id
+select s.year, s.price, p.product_name from Sales as s join Product as p on s.product_id=p.product_id
+select t1.product_name , t2.year , t2.price from Product t1 inner join Sales t2 using(product_id)
+select t2.product_name, t1.year, t1.price from Sales t1 left join Product t2 on t1.product_id = t2.product_id
+select t2.product_name, t1.year, t1.price from sales as t1 left join product as t2 on t1.product_id = t2.product_id
+select t2.product_name,t1.year,t1.price from Sales t1 left join product t2 on t1.product_id = t2.product_id
+select year, price, product_name from Sales join Product on Sales.product_id = product.product_id
+with cte as( select A.sale_id, B.product_name, A.year,A.price from sales A left join product B on A.product_id = B.product_id group by A.sale_id, B.product_name, A.year,A.price ) select product_name, cte.year, price from cte
+with q1 AS (SELECT p.product_name,s.sale_id, s.year, s.price FROM Sales s JOIN product p ON s.product_id = p.product_id GROUP BY 1,2,3) SELECT product_name, year, price FROM q1

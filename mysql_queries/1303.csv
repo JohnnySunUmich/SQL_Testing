@@ -1,0 +1,201 @@
+SELECT E.employee_id, team_size FROM Employee E LEFT JOIN (SELECT Employee_id, team_id,COUNT(employee_id) as team_size FROM Employee GROUP BY team_id) teams USING (team_id)
+SELECT E1.employee_id, count(E2.team_id) AS team_size FROM Employee AS E1 inner JOIN Employee AS E2 ON E1.team_id=E2.team_id GROUP BY E1.employee_id
+SELECT a.employee_id ,a.team_size FROM (SELECT e.employee_id ,e.team_id ,ts.team_size FROM (SELECT * FROM Employee) e Left join (SELECT team_id ,count(employee_id) over (partition by team_id) as 'team_size' FROM Employee) as ts ON e.team_id = ts.team_id ) a GROUP BY a.employee_id,a.team_size
+SELECT a.employee_id, COUNT(b.employee_id) AS team_size FROM Employee a LEFT OUTER JOIN Employee b ON a.team_id = b.team_id GROUP BY a.employee_id
+SELECT a.employee_id, b.team_size FROM (SELECT team_id, COUNT(employee_id) AS team_size FROM Employee GROUP BY team_id) b JOIN Employee AS a WHERE b.team_id=a.team_id
+SELECT a.employee_id, b.team_size FROM Employee AS a JOIN (SELECT team_id, COUNT(employee_id) AS team_size FROM Employee GROUP BY team_id) AS b ON a.team_id = b.team_id
+SELECT a.employee_id, team_size FROM Employee a JOIN (SELECT team_id, count(employee_id) as team_size FROM EMPLOYEE GROUP BY team_id) b ON a.team_id = b.team_id ORDER BY employee_id
+SELECT e.employee_id, (SELECT COUNT(*) FROM Employee eI GROUP BY team_id HAVING e.team_id = eI.team_id) as team_size FROM Employee e
+SELECT e.employee_id, emp.team_size FROM ( SELECT team_id, count(employee_id) as team_size FROM Employee GROUP BY team_id) as emp JOIN Employee e ON e.team_id = emp.team_id
+SELECT e.employee_id, t.Team_Size FROM Employee e INNER JOIN (SELECT team_id, count(1) AS Team_Size FROM Employee GROUP BY 1) t ON e.team_id = t.team_id
+SELECT e.employee_id, t.c AS team_size FROM Employee e LEFT JOIN (SELECT COUNT(employee_id) AS c, team_id FROM Employee GROUP BY 2) t ON e.team_id = t.team_id GROUP BY 1
+SELECT e.employee_id, t.size team_size FROM Employee e JOIN (SELECT team_id, COUNT(*) size FROM Employee GROUP BY team_id) t ON e.team_id = t.team_id
+SELECT e.employee_id, team_size FROM Employee e JOIN (SELECT team_id, COUNT(employee_id) AS team_size FROM Employee GROUP BY team_id) t ON e.team_id = t.team_id
+SELECT e.employee_id, team_size FROM Employee e LEFT JOIN (SELECT team_id, COUNT(team_id) AS team_size FROM Employee GROUP BY 1) a ON e.team_id = a.team_id
+SELECT e1.employee_id, COUNT(e2.employee_id) AS team_size FROM employee e1 LEFT JOIN employee e2 ON e1.team_id=e2.team_id GROUP BY e1.employee_id, e2.team_id
+SELECT e1.employee_id, team_size FROM employee e1 JOIN ( SELECT team_id, COUNT(DISTINCT employee_id) AS team_size FROM employee GROUP BY team_id ) e2 ON e1.team_id = e2.team_id
+SELECT employee.employee_id, x.team_size FROM employee JOIN (SELECT team_id, COUNT(1) as team_size FROM employee GROUP BY team_id) x ON x.team_id = employee.team_id
+SELECT employee_id , COUNT(*) OVER (PARTITION BY team_id) AS team_size FROM employee
+SELECT employee_id , count(*) over(partition by team_id) as team_size FROM Employee
+SELECT employee_id, COUNT(*) OVER (PARTITION BY team_id) AS team_size FROM employee
+SELECT employee_id, COUNT(*) OVER(PARTITION BY team_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS team_size FROM Employee
+SELECT employee_id, COUNT(*) OVER(PARTITION BY team_id) AS team_size FROM Employee
+SELECT employee_id, COUNT(employee_id) OVER (PARTITION BY team_id) AS team_size FROM Employee
+SELECT employee_id, COUNT(employee_id) OVER (PARTITION BY team_id) AS team_size FROM Employee ORDER BY employee_id
+SELECT employee_id, COUNT(employee_id) OVER (PARTITION BY team_id) as team_size FROM Employee
+SELECT employee_id, COUNT(employee_id) OVER (PARTITION BY team_id)AS team_size FROM Employee ORDER BY employee_id
+SELECT employee_id, COUNT(employee_id) OVER(PARTITION BY team_id) AS team_size FROM Employee
+SELECT employee_id, COUNT(employee_id)OVER(PARTITION BY team_id) AS team_size FROM Employee ORDER BY employee_id
+SELECT employee_id, COUNT(team_id) OVER (PARTITION BY team_id) AS team_size FROM Employee
+SELECT employee_id, COUNT(team_id) OVER(PARTITION BY team_id) AS team_size FROM Employee
+SELECT employee_id, COUNT(team_id) OVER(PARTITION BY team_id) As 'team_size' FROM Employee
+SELECT employee_id, COUNT(team_id) OVER(partition by team_id) as team_size FROM Employee
+SELECT employee_id, COUNT(team_id) OVER(partition by team_id) as team_size FROM Employee ORDER BY employee_id
+SELECT employee_id, COUNT(team_id) over(partition by team_id) as team_size FROM Employee ORDER BY employee_id
+SELECT employee_id, a.team_size AS 'team_size' FROM Employee JOIN (SELECT team_id, COUNT(*) AS 'team_size' FROM Employee GROUP BY team_id) AS a USING (team_id)
+SELECT employee_id, count(team_id) over (partition by team_id) as team_size FROM Employee Group by employee_id
+SELECT employee_id, t.team_size FROM Employee e LEFT JOIN ( SELECT team_id, count(*) team_size FROM Employee GROUP BY team_id ) t ON e.team_id = t.team_id
+SELECT employee_id, team_size FROM Employee AS e LEFT JOIN ( SELECT team_id, COUNT(DISTINCT employee_id) AS team_size FROM Employee GROUP BY team_id ) AS teams ON e.team_id = teams.team_id
+SELECT employee_id, team_size FROM Employee AS e LEFT JOIN ( SELECT team_id, COUNT(employee_id) AS team_size FROM Employee GROUP BY team_id ) AS teams ON e.team_id = teams.team_id
+SELECT employee_id, team_size FROM Employee JOIN ( SELECT team_id, COUNT(employee_id) AS team_size FROM Employee GROUP BY team_id ) AS Teams ON Employee.team_id=Teams.team_id
+SELECT employee_id, team_size FROM Employee JOIN (SELECT team_id, COUNT(*) AS team_size FROM Employee GROUP BY team_id) AS a USING (team_id)
+SELECT employee_id, team_size FROM Employee LEFT JOIN ( SELECT team_id, COUNT(DISTINCT employee_id) AS team_size FROM Employee GROUP BY team_id ) AS Teams ON Employee.team_id = Teams.team_id
+SELECT employee_id, team_size FROM Employee as e LEFT JOIN ( SELECT team_id, COUNT(DISTINCT Employee_id) as team_size FROM Employee GROUP BY team_id) as teams ON e.team_id = teams.team_id
+SELECT employee_id, team_size FROM Employee as e LEFT JOIN ( SELECT team_id, count(employee_id) as team_size FROM Employee GROUP BY team_id ) as t ON e.team_id = t.team_id
+SELECT employee_id, team_size FROM Employee e LEFT JOIN ( SELECT team_id, COUNT(employee_id) AS team_size FROM Employee GROUP BY team_id) t ON e.team_id = t.team_id
+SELECT employee_id, team_size FROM employee e JOIN (SELECT team_id, COUNT(team_id) as team_size FROM employee GROUP BY team_id) r ON r.team_id = e.team_id
+SELECT employee_id,team_size FROM (SELECT team_id, COUNT(team_id) AS team_size FROM Employee GROUP BY team_id) as A JOIN ( SELECT * FROM Employee) as B ON A.team_id = B.team_id
+SELECT t1.employee_id, t2.team_size FROM Employee AS t1 INNER JOIN ( SELECT team_id, COUNT(1) AS team_size FROM Employee GROUP BY team_id ) AS t2 ON t1.team_id = t2.team_id
+SELECT t1.employee_id, t2.team_size FROM Employee t1 LEFT JOIN (SELECT team_id, COUNT(*) AS team_size FROM Employee GROUP BY team_id) t2 ON t1.team_id = t2.team_id
+Select Employee.employee_id ,t.team_size from Employee Left Join (Select team_id,count(employee_id) team_size from Employee group by team_id) as t on t.team_id=Employee.team_id
+Select b.employee_id, team_size From (select team_id, count(*) team_size From Employee Group by team_id) a join Employee b on a.team_id = b.team_id
+Select employee_id, cnt As 'team_size' From Employee Join (Select team_id, Count(employee_id) As cnt From Employee Group By team_id) tmp On Employee.team_id = tmp.team_id
+WITH T AS (SELECT team_id, count(employee_id) as team_size from Employee group by team_id) SELECT Employee.employee_id, T.team_size from T right join Employee on T.team_id=Employee.team_id
+WITH cte AS ( SELECT team_id, COUNT(DISTINCT employee_id) AS team_size FROM Employee Group BY team_id ) SELECT employee_id, team_size FROM Employee e LEFT JOIN cte c on e.team_id = c.team_id
+WITH cte AS ( SELECT team_id, count(distinct employee_id) as team_size FROM employee GROUP BY team_id ) SELECT distinct e.employee_id, c.team_size FROM employee e JOIN cte c ON e.team_id = c.team_id
+WITH cte AS (SELECT team_id, COUNT(team_id) as ct FROM Employee GROUP BY team_id) SELECT employee_id, ct as team_size FROM Employee e LEFT JOIN cte ON e.team_id = cte.team_id
+WITH cte AS( SELECT team_id, COUNT(team_id) AS team_size FROM Employee GROUP BY team_id ) SELECT employee_id, team_size FROM Employee e LEFT JOIN cte c ON e.team_id = c.team_id
+WITH t AS ( SELECT team_id, COUNT(employee_id) AS num FROM Employee GROUP BY team_id ) SELECT employee_id, num AS team_size FROM Employee e INNER JOIN t ON t.team_id=e.team_id
+WITH t AS( SELECT team_id, COUNT(DISTINCT employee_id) AS team_size FROM Employee GROUP BY team_id ) SELECT e.employee_id, t.team_size FROM Employee e JOIN t ON e.team_id = t.team_id
+WITH table1 AS ( SELECT team_id, COUNT(employee_id) AS team_size FROM employee GROUP BY team_id ) SELECT employee.employee_id, table1.team_size FROM employee JOIN table1 ON employee.team_id = table1.team_id
+WITH table1 AS ( SELECT team_id, COUNT(employee_id) AS team_size FROM employee GROUP BY team_id ) SELECT employee.employee_id, table1.team_size FROM table1 join employee on table1.team_id = employee.team_id
+WITH team AS (SELECT team_id, COUNT(team_id) AS team_size FROM employee GROUP BY team_id) SELECT e.employee_id, t.team_size FROM employee e JOIN team t ON e.team_id = t.team_id
+WITH team_size AS ( SELECT team_id, COUNT(employee_id) AS size FROM Employee GROUP BY 1 ) SELECT e.employee_id, t.size AS team_size FROM Employee e JOIN team_size t ON e.team_id = t.team_id
+WITH team_size AS ( SELECT team_id, COUNT(employee_id) AS size FROM Employee GROUP BY 1) SELECT emp.employee_id, ts.size AS team_size FROM Employee emp LEFT JOIN team_size ts USING(team_id)
+WITH team_sizes AS ( SELECT team_id, COUNT(*) AS team_size FROM Employee GROUP BY team_id ) SELECT e.employee_id, ts.team_size FROM Employee e LEFT JOIN team_sizes ts ON ts.team_id = e.team_id
+WITH teamsize(team_id,size) AS( SELECT team_id, count(team_id) FROM Employee GROUP BY team_id) SELECT Employee.employee_id,size as team_size FROM Employee LEFT JOIN teamsize ON Employee.team_id = teamsize.team_id
+WITH temp as ( SELECT employee_id, team_id, COUNT(team_id) AS team_size FROM Employee GROUP BY team_id ) SELECT Employee.employee_id, temp.team_size FROM Employee LEFT JOIN temp ON Employee.team_id = temp.team_id
+WITH tst as (select count(team_id) as team_size, team_id from Employee group by 2) select employee_id, team_size from Employee e join tst t on e.team_id = t.team_id
+select E.employee_id, (select count(1) from EMployee where team_id = E.team_id) team_size from Employee E
+select E.employee_id, F.team_size from Employee E join (select team_id, count(*) as team_size from Employee group by team_id) F on E.team_id = F.team_id
+select E.employee_id,T1.team_size from( select E1.team_id,count(E1.employee_id) as team_size from Employee as E1 group by E1.team_id) as T1 right join Employee as E on T1.team_id=E.team_id
+select a.employee_id , b.team_size from Employee a , (select team_id , count(*) as team_size from Employee group by team_id) b where a.team_id = b.team_id
+select a.employee_id, b.team_size From Employee a Left join (select Team_id, count(distinct employee_id) team_size from Employee group by 1) b on a.team_id = b.team_id
+select a.employee_id, b.team_size from Employee a join ( select team_id, count(team_id) as team_size from Employee group by team_id) b on a.team_id = b.team_id
+select a.employee_id, b.team_size from Employee as a join (select team_id, count(team_id) as team_size from Employee group by team_id) as b on b.team_id = a.team_id
+select a.employee_id, b.team_size from Employee as a left join ( select team_id, count(team_id) as team_size from Employee group by team_id ) as b on a.team_id=b.team_id
+select a.employee_id, b.team_size from employee a inner join (select team_Id, count(team_id) team_size from employee group by team_id)b on a.team_id = b.team_id
+select a.employee_id, b.team_size from employee a join (SELECT team_id, COUNT(*) AS team_size FROM Employee GROUP BY team_id) b where a.team_id = b.team_id
+select a.employee_id, b.team_size from employee a, (SELECT team_id, COUNT(*) AS team_size FROM Employee GROUP BY team_id) b where a.team_id = b.team_id
+select a.employee_id, b.team_size from employee as a inner join (select team_id, count(team_id) as team_size from employee group by team_id) as b on a.team_id = b.team_id
+select a.employee_id, count(a.team_id) as team_size from employee a left join employee b on a.team_id = b.team_id group by a.employee_id order by team_size desc, a.employee_id
+select a.employee_id, team_size from Employee a left join (select team_id, count(team_id) as team_size from Employee group by team_id) b on a.team_id = b.team_id
+select a.employee_id, x.cnt as team_size from Employee a left join (select team_id, count(distinct employee_id) as cnt from Employee group by 1) x on a.team_id = x.team_id
+select a.employee_id,(select count(team_id)from employee where a.team_id=team_id)as team_size from employee a
+select a.employee_id,b.team_size from employee a join ( select team_id , count(team_id) as team_size from employee group by team_id ) b on a.team_id = b.team_id
+select c.employee_id, c.ct as team_size from (select a.employee_id, b.team_id, b.ct from Employee a inner join (select team_id, count(*) as ct from Employee group by team_id ) b on a.team_id = b.team_id) c
+select distinct a.employee_id, b.team_size from employee a left join ( select team_id, count(distinct employee_id) as team_size from employee group by team_id) b on a.team_id = b.team_id
+select distinct employee_id, e.team_size from Employee, (select count(team_id) as team_size, team_id from Employee group by team_id) as e where e.team_id=Employee.team_id order by employee_id
+select distinct employee_id,count(employee_id) OVER (PARTITION BY team_id) as team_size from employee
+select e.employee_id , count(employee_id) over(partition by team_id) as team_size from employee e
+select e.employee_id , t.team_size from employee as e inner join (select team_id, count(distinct employee_id) as team_size from employee group by team_id) as t on e.team_id = t.team_id
+select e.employee_id , tmp.team_size from Employee e join ( select team_id, count(distinct employee_id) as team_size from Employee group by team_id )tmp on e.team_id = tmp.team_id
+select e.employee_id, (select count(team_id) from Employee where e.team_id = team_id) as team_size from Employee e
+select e.employee_id, b.team_size from Employee e join ( select team_id, count(*) as team_size from Employee group by team_id ) b on e.team_id = b.team_id
+select e.employee_id, b.team_size from employee e join (select team_id, count(team_id) as team_size from employee group by team_id) b on e.team_id = b.team_id group by e.employee_id
+select e.employee_id, c.count as team_size from Employee e left join (select team_id, count(distinct employee_id)as count from Employee group by team_id) as c on e.team_id=c.team_id
+select e.employee_id, count(d.Employee_id) as team_size from Employee e join Employee d on e.team_id = d.team_id group by e.employee_id
+select e.employee_id, count(e1.team_id) as team_size from Employee e join Employee e1 on e.team_id=e1.team_id group by e.employee_id
+select e.employee_id, h.count as team_size from Employee e join ( select team_id, count(1) as count from Employee group by team_id ) h on e.team_id = h.team_id
+select e.employee_id, s.team_size from Employee as e join (select team_id, count(team_id) as team_size from Employee group by team_id) as s on e.team_id = s.team_id
+select e.employee_id, s.team_size from employee e join (select team_id, count(*) as team_size from employee group by team_id) s on e.team_id = s.team_id
+select e.employee_id, t.size as team_size from Employee as e join (select team_id, count(employee_id) as size from Employee group by team_id) as t on e.team_id = t.team_id
+select e.employee_id, t.team_size from Employee as e left join (select team_id, count(employee_id) as team_size from Employee group by team_id) as t on e.team_id = t.team_id
+select e.employee_id, t.team_size from Employee e join ( select team_id, count(*) as team_size from Employee group by 1 ) t on e.team_id = t.team_id
+select e.employee_id, t.team_size from Employee e, (select team_id, count(team_id) as team_size from Employee group by team_id) t where e.team_id = t.team_id
+select e.employee_id, t.team_size from employee e inner join ( select team_id as team_number, count(team_id) as team_size from Employee group by team_id ) as t on e.team_id=t.team_number
+select e.employee_id, t.team_size from employee e left join (select team_id ,count(distinct(employee_id)) as team_size from employee group by team_id) t on e.team_id = t.team_id
+select e.employee_id, team.team_size from Employee e inner join (select team_id,count(distinct employee_id) team_size from employee group by 1) team on (e.team_id=team.team_id)
+select e.employee_id, team_size from Employee e join ( select team_id, count(employee_id) as team_size from Employee group by team_id )base on e.team_id = base.team_id
+select e.employee_id, temp.team_size from employee e left join ( select team_id, count(team_id) as team_size from employee group by team_id ) temp on e.team_id = temp.team_id
+select e.employee_id, tmp.c as team_size from employee e join (select team_id, count(*) as c from Employee group by team_id) tmp on e.team_id=tmp.team_id
+select e.employee_id,( select count(team_id) from employee where employee.team_id=e.team_id group by team_id ) as team_size from Employee e
+select e.employee_id,c.team_size from Employee e join (select team_id , count(team_id) as team_size from Employee group by team_id) c on e.team_id = c.team_id
+select e1.employee_id employee_id, count(1) team_size from Employee e1 inner join Employee e2 on e1.team_id = e2.team_id group by e1.employee_id
+select e1.employee_id, count(e1.team_id) as team_size from Employee e1, Employee e2 where e1.team_id=e2.team_id group by e1.employee_id
+select e1.employee_id, count(e2.employee_id) as team_size from Employee e1 inner join Employee e2 on e1.team_id = e2.team_id group by e1.employee_id, e2.team_id
+select e1.employee_id, count(e2.employee_id) as team_size from Employee e1 inner join Employee e2 on e1.team_id = e2.team_id group by e1.employee_id, e2.team_id order by e1.employee_id
+select e1.employee_id, t.team_size from employee e1 join (select team_id, count(employee_id) as team_size from employee group by team_id)t on t.team_id=e1.team_id
+select employee_id , count(*) over(partition by team_id ) as team_size from employee
+select employee_id , count(employee_id) over(partition by team_id) as team_size from employee
+select employee_id , count(team_id) over (partition by team_id) as team_size from employee
+select employee_id ,count(employee_id) over (partition by team_id) as team_size from Employee
+select employee_id, (select count(team_id) from Employee e2 where e2.team_id=e1.team_id) team_size from Employee e1 group by employee_id
+select employee_id, a.ecnt as team_size from employee e join ( select team_id, count(employee_id) as ecnt from employee group by team_id ) a on e.team_id = a.team_id
+select employee_id, count(*) over (partition by team_id) as team_size from Employee
+select employee_id, count(*) over (partition by team_id) as team_size from employee
+select employee_id, count(*) over(partition by team_id) as team_size from Employee
+select employee_id, count(*) over(partition by team_id) as team_size from employee
+select employee_id, count(*) over(partition by team_id) as team_size from employee group by employee_id
+select employee_id, count(*) over(partition by team_id) team_size from Employee e1 group by employee_id
+select employee_id, count(*) over(partition by team_id) team_size from employee group by employee_id order by employee_id
+select employee_id, count(1) over (partition by team_id) as team_size from Employee
+select employee_id, count(1) over(partition by team_id) as team_size from employee
+select employee_id, count(employee_id) OVER (PARTITION BY team_id) as team_size from Employee
+select employee_id, count(employee_id) OVER(PARTITION BY team_id) as team_size from Employee
+select employee_id, count(employee_id) OVER(PARTITION BY team_id) as team_size from Employee order by employee_id
+select employee_id, count(employee_id) over (partition by team_id ) as team_size from Employee
+select employee_id, count(employee_id) over (partition by team_id) as team_size from Employee
+select employee_id, count(employee_id) over (partition by team_id) as team_size from Employee order by 1
+select employee_id, count(employee_id) over (partition by team_id) as team_size from Employee order by employee_id
+select employee_id, count(employee_id) over (partition by team_id) as team_size from employee
+select employee_id, count(employee_id) over (partition by team_id)as team_size from employee
+select employee_id, count(employee_id) over(partition by team_id) as team_size from Employee
+select employee_id, count(employee_id) over(partition by team_id) as team_size from employee
+select employee_id, count(employee_id) over(partition by team_id) as team_size from employee order by employee_id
+select employee_id, count(team_id) over (partition by team_id) AS team_size from Employee
+select employee_id, count(team_id) over (partition by team_id) as team_size from Employee
+select employee_id, count(team_id) over (partition by team_id) as team_size from employee e
+select employee_id, count(team_id) over(PARTITION by team_id) as team_size from Employee
+select employee_id, count(team_id) over(partition by team_id rows between unbounded preceding and unbounded following) as team_size from employee
+select employee_id, count(team_id) over(partition by team_id) as team_size from Employee
+select employee_id, count(team_id) over(partition by team_id) as team_size from employee
+select employee_id, count(team_id) over(partition by team_id) as team_size from employee order by employee_id
+select employee_id, count(team_id)over(partition by team_id) as team_size from Employee
+select employee_id, employee_count as team_size from Employee as E1 join ( select team_id, count(*) as employee_count from Employee group by team_id ) as E2 on E2.team_id = E1.team_id
+select employee_id, team_size from Employee as e left join (SELECT team_id, COUNT( employee_id) AS team_size FROM Employee GROUP BY team_id) as teams on e.team_id = teams.team_id
+select employee_id, team_size from Employee as e left join (select team_id, count(team_id) as team_size from Employee group by team_id) as t on e.team_id=t.team_id
+select employee_id, team_size from Employee e left join (select team_id, COUNT(DISTINCT employee_id) as team_size from Employee group by team_id) as team on e.team_id = team.team_id
+select employee_id, team_size from Employee e left join (select team_id, count(*) as team_size from Employee group by team_id) as team on e.team_id = team.team_id
+select employee_id, team_size from Employee left join (select team_id, count(distinct employee_id) as team_size from Employee group by team_id) as t on Employee.team_id = t.team_id
+select employee_id, team_size from employee e join (select team_id, count(employee_id) as team_size from employee group by team_id) t on e.team_id = t.team_id
+select employee_id, team_size from employee e join (select team_id, count(team_id) team_size from employee group by team_id)a on e.team_id=a.team_id order by 1
+select employee_id, team_size from employee e left join ( select team_id, count(team_id) as team_size from employee group by 1) b on e.team_id = b.team_id
+select employee_id, team_size from employee, (select team_id , count(1) as team_size from employee group by team_id) sub where employee.team_id=sub.team_id
+select employee_id, temp.size as team_size from Employee join (select team_id, count(*) as size from Employee group by team_id) as temp on temp.team_id = Employee.team_id
+select employee_id,a.team_size from Employee e, (select count(employee_id) as team_size, team_id from Employee group by team_id) as a where e.team_id = a.team_id
+select employee_id,count(*) over (partition by team_id) as team_size from Employee group by employee_id
+select employee_id,count(*) over (partition by team_id) team_size from employee
+select employee_id,count(employee_id) over (partition by team_id) as team_size from Employee
+select employee_id,count(employee_id) over(partition by team_id) as team_size from Employee
+select employee_id,team_size from (select team_id,count(team_id) as team_size from employee group by team_id) as A JOIN (select * from employee) B on A.team_id=B.team_id
+select t1.employee_id, t2.team_size from Employee as t1 inner join (select team_id, count(1) as team_size from Employee group by team_id) as t2 on t1.team_id = t2.team_id
+select t1.employee_id, t2.team_size from Employee as t1 join (select team_id, count(1) as team_size from Employee group by team_id) as t2 on t1.team_id = t2.team_id
+select temp.team_size, e.employee_id from Employee e join (select count(employee_id) as team_size, team_id from Employee group by team_id) temp on e.team_id = temp.team_id
+with E2 as (select team_id, count(team_id) as team_size from employee group by team_id) select E1.employee_id, E2.team_size from employee E1 left join E2 on E1.team_id = E2.team_id
+with a as ( select team_id, count(*) as `c1` from Employee group by team_id ) select e.employee_id, a.c1 as `team_size` from Employee as e left join a on (e.team_id = a.team_id)
+with a as (select team_id, count(distinct employee_id) AS team_size from Employee group by team_id ) select t1.employee_id, t2.team_size from Employee t1 join a t2 on t1.team_id = t2.team_id
+with a as(select team_id, count(team_id) as team_size from employee group by 1) select e.employee_id, a.team_size from employee e join a on a.team_id = e.team_id
+with b as( select team_id, count(*) as team_size from Employee group by team_id) select employee_id, team_size from employee a left join b on a.team_id=b.team_id
+with cnt as( select team_id, count(*) as team_size from Employee group by team_id ) select employee_id, c.team_size from Employee e join cnt c on e.team_id = c.team_id
+with cte as ( select team_id, count(*) as team from employee group by team_id ) select employee_id, team as team_size from employee e left join cte c on e.team_id = c.team_id
+with cte as ( select team_id, count(team_id) as team_size from employee group by 1) select e.employee_id, c.team_size from employee e left join cte c on e.team_id=c.team_id
+with cte as (Select team_id, count(employee_id) as team_size From Employee Group by team_id) Select e.employee_id, c.team_size From Employee as e Join cte as c on e.team_id = c.team_id
+with cte as (select team_id , count(team_id) as team_size from Employee group by team_id) select e.employee_id,c.team_size from Employee e join cte c on e.team_id = c.team_id
+with cte as (select team_id as team, count(employee_id) as team_size from employee group by team_id) select employee_id, team_size from employee join cte where team_id = team
+with cte as (select team_id, count(*) as team_size from Employee group by 1) select e.employee_id, team_size from Employee e left join cte c on e.team_id = c.team_id
+with cte as (select team_id, count(*) as team_size from employee group by team_id) select e.employee_id, cte.team_size from employee e join cte on e.team_id = cte.team_id
+with cte as( select team_id, count(*) as team_size from employee e group by team_id ) select employee_id, team_size from employee e join cte c using (team_id)
+with cte as( select team_id, count(*) as team_size from employee e group by team_id ) select employee_id, team_size from employee e join cte c using (team_id) group by employee_id
+with cte as( select team_id, count(team_id) as team_size from employee group by 1) select e.employee_id, c.team_size from employee e left join cte c on e.team_id=c.team_id
+with cte_team as( select team_id, count(*) as team_size from employee group by team_id ) select employee_id, team_size from employee e inner join cte_team t on e.team_id = t.team_id
+with emp_size as ( select team_id, count(distinct employee_id) as team_size from Employee group by 1 ) select e.employee_id, team_size from Employee e join emp_size on e.team_id = emp_size.team_id
+with grouped_data as (select employee_id, team_id, count(team_id) as team_size from Employee group by team_id) select e.employee_id, gd.team_size from Employee e left join grouped_data gd on e.team_id = gd.team_id
+with t as ( select team_id, count(employee_id) as team_size from employee group by team_id ) select e.employee_id, t.team_size from employee e left join t on e.team_id = t.team_id
+with t as (select team_id, count(distinct employee_id) as team_size from employee group by 1) select e.employee_id, t.team_size from employee e left join t on e.team_id = t.team_id
+with t as (select team_id, count(employee_id) as team_size from employee group by team_id) select employee_id, team_size from employee a join t on a.team_id = t.team_id order by 1
+with table1 as(Select team_id, count(employee_id) team_size from Employee group by team_id ) select employee_id, team_size from Employee e left join table1 t ON e.team_id = t.team_id
+with team_size as ( select team_id, count(employee_id) team_size from employee group by team_id ) select e.employee_id, ts.team_size from employee e left join team_size ts on ts.team_id = e.team_id
+with temp as ( select team_id, count(employee_id) as team_size from Employee group by team_id ) select employee_id, team_size from employee as e join temp on e.team_id = temp.team_id
+with total as (select count(distinct employee_id) ct, team_id from Employee group by team_id) select e.employee_id, t.ct as team_size from total t left join Employee e on e.team_id = t.team_id
+with x as (select team_id , count(employee_id) as team_size from Employee group by team_id) select e.employee_id, x.team_size from Employee as e left join x on e.team_id = x.team_id

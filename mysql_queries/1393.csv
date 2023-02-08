@@ -1,0 +1,271 @@
+SELECT B.STOCK_NAME, (S.PRICE_SUM - B.PRICE_SUM) CAPITAL_GAIN_LOSS FROM ( SELECT SUM(PRICE) PRICE_SUM, STOCK_NAME FROM STOCKS WHERE OPERATION = 'Sell' GROUP BY STOCK_NAME ) S, ( SELECT SUM(PRICE) PRICE_SUM, STOCK_NAME FROM STOCKS WHERE OPERATION = 'Buy' GROUP BY STOCK_NAME ) B WHERE B.STOCK_NAME = S.STOCK_NAME
+SELECT B.stock_name, B.capital_gain_loss FROM (SELECT A.stock_name, A.operation_day, SUM(A.price) OVER (PARTITION BY A.stock_name ORDER BY A.operation_day) capital_gain_loss FROM (SELECT stock_name, operation, operation_day, (CASE WHEN operation = 'Buy' THEN -1*price ELSE price END) price FROM Stocks) A) B WHERE (B.stock_name, B.operation_day) IN (SELECT stock_name, MAX(operation_day) FROM Stocks GROUP BY stock_name)
+SELECT S1.stock_name, (S2.total - S1.total) AS capital_gain_loss FROM (SELECT stock_name, SUM(price) AS total FROM Stocks WHERE operation = 'Buy' GROUP BY stock_name) AS S1 INNER JOIN (SELECT stock_name, SUM(price) AS total FROM Stocks WHERE operation = 'Sell' GROUP BY stock_name) AS S2 USING(stock_name)
+SELECT s.stock_name, SUM(CASE WHEN s.operation = 'Sell' THEN s.price ELSE (-1) * s.price END) as capital_gain_loss FROM Stocks s GROUP BY stock_name
+SELECT s.stock_name, SUM(CASE WHEN s.operation = 'Sell' THEN s.price WHEN s.operation = 'Buy' THEN (-1) * s.price ELSE 0 END) as capital_gain_loss FROM Stocks s GROUP BY stock_name
+SELECT s.stock_name, Sum(CASE WHEN (s.operation = 'Buy') Then -1 * s.price ELSE s.price END) as capital_gain_loss FROM Stocks s GROUP BY s.stock_name
+SELECT s.stock_name, sell.sm-buy.sm AS capital_gain_loss FROM Stocks s, (SELECT stock_name, SUM(price) AS sm FROM Stocks WHERE operation = 'Buy' GROUP BY stock_name) AS buy, (SELECT stock_name, SUM(price) AS sm FROM Stocks WHERE operation = 'Sell' GROUP BY stock_name) AS sell WHERE s.stock_name = buy.stock_name AND s.stock_name = sell.stock_name GROUP BY s.stock_name
+SELECT stock_name , SUM(CASE operation WHEN 'Sell' THEN price END) - SUM(CASE operation WHEN 'Buy' THEN price END) AS capital_gain_loss FROM stocks GROUP BY 1
+SELECT stock_name ,SUM(CASE WHEN operation = 'Sell' THEN price END)- SUM(CASE WHEN operation = 'Buy' THEN price END) AS capital_gain_loss FROM Stocks GROUP BY 1
+SELECT stock_name ,sum(case when operation = 'Buy' then -price when operation = 'Sell' then price end) as capital_gain_loss FROM Stocks group by stock_name
+SELECT stock_name, (SUM(CASE WHEN operation = 'Sell' THEN price END) - SUM(CASE WHEN operation = 'Buy' THEN price END)) as capital_gain_loss FROM stocks GROUP BY 1
+SELECT stock_name, (SUM(IF(operation = 'Sell', price,0)) - SUM(IF(operation = 'Buy', price,0))) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM( CASE WHEN operation = "Buy" THEN -price ELSE price END ) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM( CASE WHEN operation = 'Buy' THEN - price ELSE price END)AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM( CASE WHEN operation = 'Buy' THEN -price ELSE price END ) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM( CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM((CASE WHEN operation ='Buy' THEN -1 ELSE 1 END)*price) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = "Buy" THEN -1*price ELSE price END) as capital_gain_loss FROM Stocks GROUP BY 1
+SELECT stock_name, SUM(CASE WHEN operation = "Buy" THEN -1*price WHEN operation = "Sell" THEN price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = "Buy" THEN -price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name ORDER BY capital_gain_loss
+SELECT stock_name, SUM(CASE WHEN operation = "Buy" THEN -price WHEN operation = "Sell" THEN price END) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = "Buy" THEN price * (-1) ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -1*price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS "capital_gain_loss" FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS 'capital_gain_loss' FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY 1
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY 1 ORDER BY 1
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price END) + SUM(CASE WHEN operation = 'Sell' THEN price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN -price WHEN operation = 'Sell' THEN price ELSE 0 END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Buy' THEN price*(-1) ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name ORDER BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE (-1) * price END) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE -1*price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE -price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE -price END) AS capital_gain_loss FROM stocks GROUP BY 1
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE -price END) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE -price END) capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE 0 END) - SUM(CASE WHEN operation = 'Buy' THEN price ELSE 0 END) capital_gain_loss FROM stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price ELSE 0 END)-SUM(CASE WHEN operation = 'Buy' THEN price ELSE 0 END) AS capital_gain_loss FROM Stocks GROUP BY 1
+SELECT stock_name, SUM(CASE WHEN operation = 'Sell' THEN price END) - SUM(CASE WHEN operation = 'Buy' THEN price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation="Buy" THEN -price ELSE price END) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation='Buy' THEN -1*price WHEN operation = 'Sell' THEN price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation='Buy' THEN -price ELSE +price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation='Buy' THEN -price ELSE price END) as capital_gain_loss FROM Stocks GROUP BY Stock_name ORDER BY operation_day
+SELECT stock_name, SUM(CASE WHEN operation='Buy' THEN -price WHEN operation='Sell' THEN price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(CASE WHEN operation='Sell' THEN price ELSE price*(-1) END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(IF(operation = "Buy", -price, price)) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(IF(operation = 'Buy', - price, price)) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(IF(operation = 'Buy', -price, price)) AS capital_gain_loss FROM Stocks GROUP BY 1
+SELECT stock_name, SUM(IF(operation = 'Buy', -price, price)) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(IF(operation='Buy', -price, price)) AS capital_gain_loss FROM Stocks GROUP BY stock_name ORDER BY capital_gain_loss DESC
+SELECT stock_name, SUM(IF(operation='Buy', -price, price)) AS capital_gain_loss FROM stocks GROUP BY 1
+SELECT stock_name, SUM(IF(operation='Sell', price, -price)) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(IF(operation='Sell',price, null)) - SUM(IF (operation='Buy', price, null)) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, SUM(capital_gain_loss) AS 'capital_gain_loss' FROM (SELECT stock_name, operation, CASE WHEN operation = 'Buy' THEN (SUM(price)*(-1)) ELSE SUM(price) END AS 'capital_gain_loss' FROM Stocks GROUP BY stock_name, operation)r GROUP BY stock_name
+SELECT stock_name, SUM(diff) capital_gain_loss FROM ( SELECT *, price - LAG(price) OVER(PARTITION BY stock_name ORDER BY operation_day) diff FROM stocks ) t WHERE operation = 'Sell' GROUP BY 1 ORDER BY 2 DESC
+SELECT stock_name, SUM(t.diff) capital_gain_loss FROM ( SELECT *, price - LAG(price) OVER(PARTITION BY stock_name ORDER BY operation_day) diff FROM stocks ) t WHERE t.operation = 'Sell' GROUP BY 1 ORDER BY 2 DESC
+SELECT stock_name, SUM(unit_pnl) capital_gain_loss FROM ( SELECT stock_name, (CASE operation WHEN "Buy" THEN -1 * price WHEN "Sell" THEN price END) unit_pnl FROM Stocks ) t GROUP BY stock_name
+SELECT stock_name, sum(CASE WHEN operation = 'Buy' THEN -price WHEN operation = 'Sell' Then price END) AS capital_gain_loss FROM stocks GROUP BY stock_name
+SELECT stock_name, sum(CASE WHEN operation = 'Buy' then -1 *price ELSE price END) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, sum(CASE WHEN operation='Sell' THEN price ELSE -price END) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, sum(Case when operation = 'Sell' then price else -price end) as capital_gain_loss FROM Stocks group by stock_name
+SELECT stock_name, sum(IF(operation = 'Buy', -price, price)) as capital_gain_loss FROM stocks GROUP BY stock_name
+SELECT stock_name, sum(case when operation = 'Buy' THEN -price ELSE price END) as capital_gain_loss From Stocks GROUP BY stock_name
+SELECT stock_name, sum(if(operation="Sell", price, 0))-sum(if(operation="Buy",price, 0)) AS capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, sum(if(operation='Sell',price,0))-sum(if(operation='Buy',price,0)) as capital_gain_loss FROM Stocks GROUP BY stock_name
+SELECT stock_name, sum(seller_price) - sum(buyer_price) as capital_gain_loss FROM ( SELECT s.*, case when s.operation = 'Buy' then price else 0 end as buyer_price, case when s.operation = 'Sell' then price else 0 end as seller_price FROM Stocks s ) a group by 1
+SELECT stock_name,SUM(CASE WHEN operation = "Buy" THEN -price ELSE price END) AS capital_gain_loss FROM Stocks GROUP by stock_name
+SELECT stock_name,SUM(IF(operation='SELL',price,-price)) as capital_gain_loss FROM Stocks Group BY stock_name
+SELECt stock_name, SUM(case when operation='BUY'then -price else price end) as capital_gain_loss FROM Stocks GROUP BY stock_name
+Select buy.stock_name, coalesce(sp,0)-cp as capital_gain_loss from (select stock_name, sum(price) as cp from Stocks where operation = 'Buy' group by 1) as buy left join (select stock_name, sum(price) as sp from Stocks where operation = 'Sell' group by 1) as sell on buy.stock_name = sell.stock_name
+Select s.stock_name, s.sell-b.buy as capital_gain_loss From (Select stock_name, sum(price) as buy From Stocks Where operation = 'Buy' Group by stock_name ) b Join (select stock_name, sum(price) as sell From Stocks Where operation = 'Sell' Group by stock_name ) s On b.stock_name = s.stock_name
+Select stock_name , sum(case when operation="Sell" then price else -price end) as capital_gain_loss from stocks group by stock_name
+Select stock_name, SUM(case when operation='Sell' then price else 0 end)-SUM(case when operation='Buy' and operation_day<max_day then price else 0 end) as capital_gain_loss From (Select *, MAX(operation_day) OVER(PARTITION BY stock_name) as max_day From Stocks) S1 Group by stock_name
+Select stock_name, Sum(case when operation = 'Sell' then price else null end) -Sum(case when operation = 'Buy' then price else null end) as capital_gain_loss from Stocks s group by 1
+Select stock_name, sum(case when operation = 'Buy' then -price else price end) as capital_gain_loss From Stocks Group by 1
+Select stock_name, sum(case when operation = 'Buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+Select stock_name, sum(case when operation='Sell'then price else 0 end )-sum(case when operation='Buy' then price else 0 end) as capital_gain_loss from Stocks group by stock_name
+Select stock_name, sum(if(operation="buy",-price,price)) as capital_gain_loss from stocks group by stock_name
+Select stock_name,SUM(case when operation='Sell' Then price else price*(-1) END) as capital_gain_loss From Stocks Group By stock_name
+Select stock_name,Sum(IF(operation = 'Sell', price, 0)) - Sum(IF(operation = 'Buy', price, 0)) as capital_gain_loss From Stocks Group by stock_name
+WITH CTE AS (SELECT *, row_number() over (partition by stock_name order by stock_name, operation_day desc) as row_num from stocks ) SELECT t1.stock_name,sum(t1.price - t2.price) as capital_gain_loss FROM CTE T1 join CTE T2 on T1.STOCK_NAME = T2.STOCK_NAME and t1.row_num = t2.row_num -1 WHERE T1.OPERATION = 'Sell' and t2.operation = 'Buy' group by t1.stock_name
+WITH CTE AS (SELECT stock_name, operation, price, CASE WHEN operation='buy' THEN price*-1 ELSE price END as real_price FROM stocks) SELECT stock_name, SUM(real_price) as capital_gain_loss FROM CTE GROUP BY stock_name
+WITH CTE1 AS ( SELECT stock_name, SUM(CASE WHEN operation = 'buy' THEN price ELSE 0 END) AS buy, SUM(CASE WHEN operation = 'sell' THEN price ELSE 0 END) AS sell FROM Stocks GROUP BY stock_name) SELECT stock_name, sell-buy AS capital_gain_loss FROM CTE1
+WITH S0 AS (SELECT stock_name, operation_day, price FROM Stocks WHERE operation = 'Buy' ORDER BY stock_name ASC, operation_day ASC), S1 AS (SELECT ROW_NUMBER() OVER (ORDER BY stock_name ASC, operation_day ASC) AS `id`, stock_name, price AS buy_price FROM S0), S2 AS (SELECT stock_name, operation_day, price FROM Stocks WHERE operation = 'Sell' ORDER BY stock_name ASC, operation_day ASC), S3 AS (SELECT ROW_NUMBER() OVER (ORDER BY stock_name ASC, operation_day ASC) AS `id`, stock_name, price AS sell_price FROM S2) SELECT S1.stock_name, SUM(sell_price - buy_price) AS capital_gain_loss FROM S1 INNER JOIN S3 ON S1.`id` = S3.`id` GROUP BY S1.stock_name
+WITH StockPurchaseAmout AS (SELECT stock_name ,SUM(IF(operation = 'Buy', price,0)) AS total_buy ,SUM(IF(operation = 'Sell', price,0)) AS total_sell FROM Stocks GROUP BY stock_name) SELECT stock_name, total_sell - total_buy AS capital_gain_loss FROM StockPurchaseAmout
+WITH b AS ( SELECT *, ROW_NUMBER() OVER (PARTITION BY stock_name ORDER BY operation_day) AS buyorder FROM Stocks WHERE operation = "Buy" ), s AS( SELECT *, ROW_NUMBER() OVER (PARTITION BY stock_name ORDER BY operation_day) AS sellorder FROM Stocks WHERE operation = "Sell" ) SELECT b.stock_name, SUM(s.price-b.price) AS capital_gain_loss FROM b JOIN s ON b.stock_name = s.stock_name AND b.buyorder = s.sellorder GROUP BY 1
+WITH cte AS ( SELECT * FROM Stocks WHERE operation = 'Sell' UNION ALL SELECT stock_name, operation, operation_day, price*-1 FROM Stocks WHERE operation = 'Buy' ) SELECT stock_name, SUM(price) AS 'capital_gain_loss' FROM cte GROUP BY 1 ORDER BY 1
+WITH cte AS (SELECT stock_name, CASE WHEN operation = 'Buy' THEN -price WHEN operation = 'Sell' THEN price END price FROM Stocks) SELECT stock_name, SUM(price) AS capital_gain_loss FROM cte GROUP BY 1 ORDER BY 2 DESC
+WITH cte AS( SELECT stock_name, CASE WHEN operation = 'Buy' THEN price*(-1) WHEN operation = 'Sell' THEN price END as pr FROM stocks ) SELECT stock_name, sum(pr) as capital_gain_loss FROM cte GROUP BY stock_name
+WITH cte1 as (SELECT *, CEILING(ROW_NUMBER() OVER (PARTITION BY stock_name ORDER BY stock_name, operation_day)/2) as row_num FROM Stocks ORDER BY stock_name, operation_day), cte2 as (SELECT stock_name, row_num, MAX(CASE WHEN operation = "Buy" THEN price ELSE 0 end) as buy_price, MAX(CASE WHEN operation = "Sell" THEN price ELSE 0 end) as sell_price FROM cte1 GROUP BY stock_name, row_num) SELECT stock_name, sum(sell_price-buy_price) as capital_gain_loss FROM cte2 GROUP BY stock_name
+WITH t AS ( SELECT stock_name, CASE WHEN operation = 'Buy' THEN -price ELSE price END AS price FROM Stocks ) SELECT stock_name, SUM(price) AS capital_gain_loss FROM t GROUP BY stock_name
+WITH temp AS ( SELECT a.stock_name, a.operation, a.price AS buy_price, b.price AS sell_price, a.operation_day AS buy_day, b.operation_day AS sell_day FROM Stocks a JOIN Stocks b ON a.stock_name = b.stock_name AND a.operation_day < b.operation_day AND a.operation != b.operation WHERE a.operation = 'Buy' AND b.operation = 'Sell' ) SELECT stock_name, SUM(sell_price - buy_price) AS capital_gain_loss FROM temp WHERE (stock_name, buy_day, sell_day) IN ( SELECT stock_name, buy_day, MIN(sell_day) AS sell_day FROM temp GROUP BY stock_name, buy_day ) GROUP BY 1
+WITH temp AS ( SELECT stock_name, CASE WHEN operation = "Buy" THEN price*(-1) WHEN operation = "SELL" THEN price END AS price FROM Stocks ) SELECT stock_name, SUM(price) AS capital_gain_loss FROM temp GROUP BY stock_name
+WITH temp AS ( SELECT stock_name, operation, SUM(Price) AS "Price_Total" FROM Stocks GROUP BY stock_name, operation) SELECT a.stock_name AS "stock_name", SUM((b.Price_total - a.Price_total)) AS "capital_gain_loss" FROM temp AS a JOIN (SELECT stock_name, Price_Total FROM temp WHERE operation = 'Sell') AS b ON a.stock_name = b.stock_name WHERE operation = 'Buy' GROUP BY a.stock_name
+WITH temp AS ( SELECT stock_name, operation, SUM(Price) AS "Price_Total" FROM Stocks GROUP BY stock_name, operation) SELECT a.stock_name, (b.Price_total - a.Price_total) AS "capital_gain_loss" FROM temp AS a JOIN (SELECT stock_name, Price_Total FROM temp WHERE operation = 'Sell') AS b ON a.stock_name = b.stock_name WHERE operation = 'Buy'
+WITH temp AS ( SELECT stock_name, operation, SUM(price) AS price FROM Stocks GROUP BY stock_name, operation ) SELECT stock_name, SUM(IF(operation = 'Sell', price, 0)) - SUM(IF(operation = 'Buy', price, 0)) AS capital_gain_loss FROM temp GROUP BY stock_name
+With CTE as (Select stock_name, operation, Case when operation= 'Buy' then -price else price end as price_new From stocks ) Select distinct stock_name, sum(price_new) over(partition by stock_name) as capital_gain_loss From CTE
+With a AS (SELECT stock_name, CASE WHEN operation = 'Sell' THEN price ELSE price * (-1) END AS gain_loss FROM Stocks) SELECT stock_name, SUM(gain_loss) AS capital_gain_loss FROM a GROUP BY stock_name
+select * from ( select stock_name, (sale - purchase) as capital_gain_loss from ( select stock_name, sum(case when operation in ('Sell') then price else 0 end) as sale, sum(case when operation in ('Buy') then price else 0 end) as purchase from Stocks group by 1) as a ) as b order by capital_gain_loss desc
+select A.Stock_Name, (A.Sell - B.Buy) as capital_gain_loss from (select stock_name, sum(price) as Sell from stocks where operation = 'Sell' group by stock_name) A left join (select stock_name, sum(price) as Buy from stocks where operation = 'Buy' group by stock_name) B on A.stock_name = B.stock_name
+select S.stock_name, (S.PS - B.PB) "capital_gain_loss" from (select stock_name, sum(price) PS from stocks where operation = 'Sell' group by stock_name) S left outer join (select stock_name, sum(price) PB from stocks where operation = 'Buy' group by stock_name) B on S.stock_name = B.stock_name
+select Stocks.stock_name, gain+loss as capital_gain_loss from Stocks left outer join (select stock_name, -SUM(price) as loss from Stocks where operation = 'Buy' group by stock_name) as loss_stocks on Stocks.stock_name = loss_stocks.stock_name left outer join (select stock_name, SUM(price) as gain from Stocks where operation = 'Sell' group by stock_name) as gains_stocks on Stocks.stock_name = gains_stocks.stock_name group by Stocks.stock_name
+select Stocks.stock_name, sum(Stocks.price*if(Stocks.operation="Buy", -1, 1)) as capital_gain_loss from Stocks group by Stocks.stock_name
+select a.stock_name, b.amount-a.amount as capital_gain_loss from (select stock_name, operation, sum(price) as amount from stocks group by stock_name, operation) as a, (select stock_name, operation, sum(price) as amount from stocks group by stock_name, operation) as b where a.stock_name = b.stock_name and a.operation= 'Buy' and b.operation = 'Sell'
+select a.stock_name, sum(a.new_price) as 'capital_gain_loss' from ( select *, case when operation = 'Buy' then -1*price else price end as 'new_price' from Stocks) as a group by a.stock_name
+select a.stock_name, sum(price) as capital_gain_loss from ( select stock_name, case when operation="buy" then -1*price else price end as price from stocks ) a group by a.stock_name
+select a.stock_name, total_sell-total_buy as capital_gain_loss from (select stock_name,sum(price) as total_sell from stocks where operation='Sell' group by 1) a left join (select stock_name,sum(price) as total_buy from stocks where operation='Buy' group by 1) b on a.stock_name=b.stock_name
+select a.stock_name,(a.sell-b.buy) as capital_gain_loss from (select stock_name,sum(price) sell from stocks where operation='sell' group by stock_name)a join (select stock_name,sum(price) buy from stocks where operation='buy' group by stock_name)b on a.stock_name=b.stock_name
+select b.stock_name, (ifnull(total_sell,0) - ifnull(total_buy,0)) as capital_gain_loss from (select stock_name,sum(price) total_sell from Stocks where operation ='Sell' group by stock_name) s right join (select stock_name, sum(price) as total_buy from Stocks where operation = 'Buy' group by stock_name ) b on s.stock_name = b.stock_name
+select buy.stock_name, (sell.sell_price - buy.buy_price) as capital_gain_loss from (select stock_name, sum(price) as buy_price from stocks where operation = 'buy' group by stock_name) buy inner join (select stock_name, sum(price) as sell_price from stocks where operation = 'sell' group by stock_name) sell on buy.stock_name = sell.stock_name
+select distinct stock_name, (sum(case when operation='sell' then price else 0 end)-sum(case when operation='buy' then price else 0 end)) as capital_gain_loss from stocks group by stock_name
+select distinct stock_name, sum( case when operation = 'Buy' then -price else price end) over(partition by stock_name) as capital_gain_loss from Stocks
+select distinct stock_name, sum(capital_gain_loss) over (partition by stock_name) as capital_gain_loss from (select stock_name, case when operation = 'Buy' then price*(-1) when operation = 'Sell' then price*(1) end as capital_gain_loss from Stocks) A
+select distinct stock_name, sum(case when operation = 'Buy' then -price else price end) over (partition by stock_name) capital_gain_loss from stocks
+select distinct stock_name, sum(case when operation = 'Buy' then price*-1 else price end) as capital_gain_loss from Stocks group by stock_name
+select distinct(t1.stock_name), sum(t1.value) over(partition by t1.stock_name) as capital_gain_loss from (select *, case when operation = 'Buy' then -1*price else 1 *price end as value from Stocks) t1 order by capital_gain_loss
+select s.stock_name, coalesce(sell_sum - buy_sum, 0) as capital_gain_loss from (select Stock_name, sum(price) as buy_sum from Stocks where operation = 'Buy' group by Stock_name) b join (select Stock_name, sum(price) as sell_sum from Stocks where operation = 'Sell' group by Stock_name) s on s.stock_name = b.stock_name
+select s.stock_name, sum(case when operation = 'Buy' then -price else price end) capital_gain_loss from Stocks s group by stock_name
+select s.stock_name, sum(case when operation='Buy' then -price else price end) as capital_gain_loss from stocks s group by 1
+select s.stock_name, sum(if(operation = 'Buy', -price, price)) capital_gain_loss from Stocks s group by stock_name
+select sell.stock_name as stock_name, sell.cost-buy.cost as capital_gain_loss from (select sum(sell.price) as cost ,sell.stock_name from Stocks sell where sell.operation='Sell' group by sell.stock_name)as sell JOIN (select sum(buy.price) as cost ,buy.stock_name from Stocks buy where buy.operation='Buy' group by buy.stock_name)as buy ON sell.stock_name = buy.stock_name
+select stock_name , SUM(CASE WHEN operation = 'Buy' THEN -price ELSE price END) AS capital_gain_loss from Stocks group by 1
+select stock_name , sum(amount) as capital_gain_loss from (select stock_name, (case when operation = "buy" then -price else price end) as amount from Stocks) temp group by 1
+select stock_name , sum(case when operation = 'Buy' then -price else price end) as capital_gain_loss from stocks group by 1
+select stock_name , sum(case when operation = 'Sell' then price else 0 end) - sum(case when operation = 'Buy' then price else 0 end) as capital_gain_loss from Stocks group by stock_name
+select stock_name , sum(if(operation='Buy', -price, price)) as capital_gain_loss from stocks group by 1
+select stock_name , sum(if(operation='buy', -1*price, price)) as capital_gain_loss from stocks group by 1
+select stock_name , sum(m) as capital_gain_loss from ( select stock_name, case when operation = 'buy'then -price else price end as m from stocks)a group by stock_name
+select stock_name , sum(price) as capital_gain_loss from ( select stock_name , operation , operation_day , Case when operation = 'Buy' Then (-1* price) Else price End as price from stocks s ) agg group by 1
+select stock_name ,sum( case when operation ='Buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name ,sum(case when operation = 'Sell' then Price else -Price end) as capital_gain_loss from stocks group by 1
+select stock_name ,sum(case when operation = 'Sell' then price when operation = 'Buy' then -price else 0 end ) as capital_gain_loss from Stocks group by stock_name
+select stock_name, (SUM(CASE WHEN operation = 'Sell' then price else null end) - SUM(CASE WHEN operation = 'Buy' then price else null end)) as capital_gain_loss from Stocks group by 1
+select stock_name, (sell_price-buy_price) as capital_gain_loss FROM ( select stock_name ,sum(case when operation = 'Sell' then price else 0 end) as sell_price ,sum(case when operation = 'Buy' then price else 0 end) as buy_price From Stocks group by stock_name ) as t1
+select stock_name, (sum(case when operation = 'Sell' then price else 0 end) - sum(case when operation = 'Buy' then price else 0 end)) as capital_gain_loss from Stocks group by 1
+select stock_name, (sum(case when operation='sell' then price else 0 end)-sum(case when operation='buy' then price else 0 end) ) as capital_gain_loss from stocks group by stock_name
+select stock_name, (total_sales - total_purchases) as capital_gain_loss from ( select S1.stock_name, SUM(price) as total_sales, S2.total_purchases from Stocks as S1 join ( select stock_name, SUM(price) as total_purchases from Stocks as S2 where operation = 'Buy' group by S2.stock_name ) AS S2 ON S1.stock_name = S2.stock_name where operation = 'Sell' group by S1.stock_name ) as results
+select stock_name, SUM( CASE WHEN operation = 'Buy' THEN -price ELSE price END ) as capital_gain_loss FROM Stocks GROUP BY stock_name
+select stock_name, SUM(CASE when operation ='Buy' then -1*price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, SUM(IF(operation='Buy', price*-1, price)) as capital_gain_loss FROM Stocks GROUP BY stock_name
+select stock_name, SUM(case when operation = 'Buy' then -price else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, capital_gain_loss from ( select stock_name, total - lead(total, 1) over(partition by stock_name order by operation) capital_gain_loss from ( select stock_name, operation, sum(price) total from stocks group by stock_name, operation ) t ) t1 where capital_gain_loss is not null
+select stock_name, sellprice-buyprice as capital_gain_loss from ( select stock_name, sum(price) as sellprice, operation from Stocks where operation = 'Sell' group by stock_name ) a join ( select stock_name, sum(price) as buyprice, operation from Stocks where operation = 'Buy' group by stock_name ) b using (stock_name)
+select stock_name, selltotal-buytotal as capital_gain_loss from( select stock_name, sum(case when operation = 'Buy'then price else 0 end) as buytotal, sum(case when operation='Sell' then price else 0 end) as selltotal from Stocks group by stock_name) t
+select stock_name, sum( case operation when 'Sell' then price else price * -1 end) as capital_gain_loss from stocks s group by stock_name
+select stock_name, sum( case when operation = 'Buy' then -1*price else price end ) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum( case when operation = 'Buy' then -1*price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum( case when operation = 'buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum( case when operation = 'buy' then price*-1 else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum( case when operation='Buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(( case operation when "Buy" then -price when "Sell" then price else 0 end )) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(CASE WHEN operation='Buy' then -price else price end) as capital_gain_loss from Stocks group by 1
+select stock_name, sum(CASE WHEN operation='sell' then price else 0 end)- SUM(CASE WHEN operation='buy' then price else 0 end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(IF(operation="Sell",price,-price)) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(abc) as capital_gain_loss from( select *, case when operation = 'Buy' then -1*price else price end as abc from stocks ) t group by stock_name
+select stock_name, sum(amount) as capital_gain_loss from (select stock_name, case when operation = 'Buy' then price * (-1) else price end as amount from stocks) a group by stock_name
+select stock_name, sum(amount) as capital_gain_loss from (select stock_name, case when operation = 'buy' then price*(-1) else price end as amount from Stocks) as tmp group by 1
+select stock_name, sum(case operation when 'Buy' then price*-1 when 'sell' then price end) capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation = "Buy" then -price else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = "Buy" then -price else price end) as capital_gain_loss from stocks group by stock_name order by stock_name
+select stock_name, sum(case when operation = "Sell" then price else (-1)*price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then -1*price else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then -price else price END) as capital_gain_loss from Stocks group by stock_name order by 2 desc
+select stock_name, sum(case when operation = 'Buy' then -price else price end) as capital_gain_loss from Stocks group by 1
+select stock_name, sum(case when operation = 'Buy' then -price else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then -price when operation = 'Sell' then price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then price * -1 else price end ) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then price * -1 else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Buy' then price * -1 else price end) as capital_gain_loss from stocks group by stock_name order by operation_day, operation
+select stock_name, sum(case when operation = 'Buy' then price*-1 else price end) capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation = 'Sell' then price else (-1)*price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Sell' then price else (-1)*price end) capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation = 'Sell' then price else -price end) as capital_gain_loss from Stocks group by 1
+select stock_name, sum(case when operation = 'Sell' then price else -price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Sell' then price else -price end) as capital_gain_loss from stocks a group by 1
+select stock_name, sum(case when operation = 'Sell' then price else -price end) capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation = 'Sell' then price else 0 end) - sum(case when operation = 'Buy' then price else 0 end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation = 'Sell' then price else price*-1 end) as capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation = 'buy' then -price else price end) as capital_gain_loss from Stocks group by 1
+select stock_name, sum(case when operation = 'buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation = 'buy' then price * -1 when operation = 'sell' then price end) as 'capital_gain_loss' from stocks group by stock_name
+select stock_name, sum(case when operation ='Buy' then -price when operation = 'sell' then price end) as capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation like 'B%' then -price else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation= 'Buy' then -price else price end ) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation="Buy" then -price else price end) as capital_gain_loss from Stocks group by 1
+select stock_name, sum(case when operation="Buy" then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation="Buy" then price*-1 else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation="Sell" then price else -price end) as capital_gain_loss from Stocks group by 1
+select stock_name, sum(case when operation='Buy' then -1*price else price end) as capital_gain_loss from stocks group by 1
+select stock_name, sum(case when operation='Buy' then -1*price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation='Buy' then -price else price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation='Buy' then -price else price end) capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation='Buy' then -price else price end) capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation='Sell' then price else -price end) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation='Sell' then price else -price end) capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation='Sell' then price else -price end)as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation='Sell' then price else -price end)capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation='Sell' then price else null end) - sum(case when operation='Buy' then price else null end) capital_gain_loss from (select stock_name, operation, sum(price) price from stocks group by stock_name, operation) a group by stock_name
+select stock_name, sum(case when operation='Sell' then price else price*(-1) end) capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(case when operation='buy' then -1*price when operation = 'sell' then price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when operation='buy' then -price else price end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(case when rn % 2 <> 0 then 0-price else price end) as capital_gain_loss from(select stock_name, price, row_number() over(partition by stock_name order by operation_day asc) as rn from Stocks )x group by 1
+select stock_name, sum(gain_loss) as capital_gain_loss from ( select stock_name, case when operation='Sell' then price when operation='Buy' then price*(-1) else 0 end as gain_loss from Stocks ) t group by stock_name
+select stock_name, sum(if(operation = "Sell",price,0)) - sum(if(operation = "Buy",price,0))as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(if(operation = 'Sell', price, 0)) - sum(if(operation = 'Buy', price, 0)) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(if(operation='Buy', -price, price)) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(if(operation='Buy',-1,1)*price) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(if(operation='Buy',-price,price)) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(if(operation='Sell', price, 0)) - sum(if(operation='Buy', price, 0)) as capital_gain_loss from stocks group by 1
+select stock_name, sum(if(operation='Sell', price, 0)) - sum(if(operation='Buy', price, 0)) as capital_gain_loss from stocks group by 1 order by 1 desc
+select stock_name, sum(if(operation='Sell',price, null))-sum(if(operation='Buy',price, null)) as capital_gain_loss from Stocks group by stock_name
+select stock_name, sum(lead_action_price - price) as capital_gain_loss from ( select *, row_number() over (partition by stock_name order by operation_day) as row_rk, lead(price, 1) over (partition by stock_name order by operation_day) as lead_action_price from stocks) a where mod(row_rk, 2) = 1 group by stock_name
+select stock_name, sum(new_price) as capital_gain_loss from (select *, case when operation = 'Buy' then (-1*price) else (price) end as new_price from stocks) dudu group by stock_name order by capital_gain_loss desc
+select stock_name, sum(price) as capital_gain_loss from (select stock_name, if(operation='Buy', -price,price) as price from stocks) as ts group by stock_name
+select stock_name, sum(price*(operation = 'Sell')) - sum(price*(operation = 'Buy')) capital_gain_loss from stocks group by stock_name
+select stock_name, sum(price*case when operation = 'Buy' then -1 else 1 end) as capital_gain_loss from stocks group by stock_name
+select stock_name, sum(price*sign) as capital_gain_loss from ( select stock_name, price, case when operation = "Buy" then -1 else 1 end as sign from stocks ) sub group by stock_name
+select stock_name, sum(price_with_sign) as capital_gain_loss from (select stock_name, if(operation='Buy',-price,price) as price_with_sign from Stocks )a group by stock_name
+select stock_name, sum(sell_price-price) as capital_gain_loss from ( select *, lead(price) over(partition by stock_name order by operation_day) as sell_price from Stocks ) t where operation='Buy' group by 1
+select stock_name, sum(value) capital_gain_loss from ( select stock_name, operation, case when operation = 'Buy' then -price else price end value from Stocks) temp group by stock_name
+select stock_name,(sell-buy) as capital_gain_loss from ( select stock_name, sum(case when operation='Buy' then price end) as buy, sum(case when operation='Sell' then price end) as sell from Stocks group by stock_name) A
+select stock_name,sum(case when operation='Buy' then price*(-1) else price end) as capital_gain_loss from Stocks group by 1
+select stock_name,sum(case when operation='buy' then -price else price end) capital_gain_loss from stocks group by 1
+select stock_name,sum(if(operation='Buy',-price,price)) as capital_gain_loss from stocks group by 1
+select stock_name,sum(price1) as capital_gain_loss from (select *, case when operation='Buy' THEN -1.0*price when operation='Sell' then 1.0*price end as price1 from Stocks) t group by 1 order by 2 desc
+select t.stock_name, sum(t.next_price - t.price) as capital_gain_loss from ( select stock_name, operation, price, lead(price) over(partition by stock_name) as next_price from Stocks ) t where t.operation = 'Buy' group by t.stock_name
+select t1.stock_name, (t2.sell - t1.buy) as capital_gain_loss from (select stock_name, sum(price) as buy from stocks where operation = 'Buy' group by 1) t1 left join (select stock_name, sum(price) as sell from stocks where operation = 'Sell' group by 1) t2 on t1.stock_name = t2.stock_name
+select t1.stock_name, (t2.sellP - t1.buyP) capital_gain_loss from (select stock_name, sum(price) buyP from stocks where operation = 'Buy' group by stock_name) t1 inner join (select stock_name, sum(price) sellP from stocks where operation = 'Sell' group by stock_name) t2 on t1.stock_name = t2.stock_name
+select t1.stock_name, sum(t2.total_sell - t1.total_buy) as capital_gain_loss from (select stock_name, sum(price) as total_buy from stocks where operation = 'Buy' group by stock_name) t1 join (select stock_name, sum(price) as total_sell from stocks where operation = 'Sell' group by stock_name) t2 on t1.stock_name = t2.stock_name group by stock_name
+select t1.stock_name, t2.price2 - t1.price1 as capital_gain_loss from (select stock_name, operation, sum(price) as price1 from stocks group by stock_name, operation) as t1 join (select stock_name, operation, sum(price) as price2 from stocks group by stock_name, operation) as t2 on t1.stock_name = t2.stock_name and t1.operation='Buy' and t2.operation='Sell'
+select temp1.stock_name, (temp2.total-temp1.total) capital_gain_loss from (select stock_name,sum(price) as total from stocks where operation ='buy' group by stock_name) temp1 left join (select stock_name, sum(price) as total from stocks where operation ='sell' group by stock_name) temp2 on temp1.stock_name = temp2.stock_name group by stock_name
+with a as (select distinct stock_name, operation_day, price, row_number() over(partition by stock_name order by operation_day asc) as seq from Stocks where operation ='Buy' order by 1,2), b as (select distinct stock_name, operation_day, price, row_number() over(partition by stock_name order by operation_day asc) as seq from Stocks where operation ='Sell' order by 1,2) select a.stock_name, sum(b.price-a.price) as capital_gain_loss from a left join b on a.stock_name = b.stock_name and a.seq= b.seq group by 1 order by 1
+with buy as(select *, dense_rank() over(order by stock_name, operation_day asc) as my_rank from stocks where operation='buy'), sell as (select *, dense_rank() over(order by stock_name, operation_day asc) as my_rank from stocks where operation='sell') select b.stock_name, sum(if(b.operation_day<s.operation_day and b.my_rank=s.my_rank,s.price-b.price,0)) as capital_gain_loss from buy b join sell s on b.stock_name=s.stock_name group by 1
+with buys as ( select stock_name, price, row_number() over (partition by stock_name order by operation_day) as rownum from stocks where operation='Buy' ), sells as ( select stock_name, price, row_number() over (partition by stock_name order by operation_day) as rownum from stocks where operation='Sell' ), joined as ( select b.stock_name, sum(s.price - b.price) as cap_sum from buys b join sells s on b.stock_name = s.stock_name and b.rownum = s.rownum group by b.stock_name ) select stock_name, sum(cap_sum) as capital_gain_loss from joined group by stock_name
+with casea as ( select *, (case when operation='Buy' then -price else price end) as proce from stocks ) select stock_name , sum(proce) as capital_gain_loss from casea group by stock_name
+with cte as ( select *, case when operation='Buy' then price *(-1) else price end as price2 from Stocks) select stock_name, sum(price2) as capital_gain_loss from cte group by stock_name
+with cte as ( select *, row_number() over(partition by stock_name order by operation_day asc) as rn from Stocks) select y.stock_name, sell_p - buy_p as capital_gain_loss from(select stock_name, sum(price) as sell_p from cte where rn%2 = 0 group by 1)x left join (select stock_name, sum(price) as buy_p from cte where rn%2 <> 0 group by 1) y on x.stock_name = y.stock_name
+with cte as ( select stock_name, buyday, min(sellday), buyp, sellp from (select s1.stock_name, s1.operation_day as buyday, s2.operation_day as sellday, s1.price as buyp, s2.price as sellp, s1.operation as op1, s2.operation as op2 from stocks s1 join stocks s2 on s1.stock_name = s2.stock_name and s1.operation_day<s2.operation_day and s1.operation = 'Buy') s where (op1 != op2 ) and buyday<sellday group by stock_name, buyday ) select stock_name, sum(sellp)-sum(buyp) as capital_gain_loss from cte group by stock_name
+with cte as ( select stock_name, buyday, min(sellday), buyp, sellp from (select s1.stock_name, s1.operation_day as buyday, s2.operation_day as sellday, s1.price as buyp, s2.price as sellp, s1.operation as op1, s2.operation as op2 from stocks s1 join stocks s2 on s1.stock_name = s2.stock_name and s1.operation_day<s2.operation_day) s where (op1 != op2 and op1='Buy') and buyday<sellday group by stock_name, buyday ) select stock_name, sum(sellp)-sum(buyp) as capital_gain_loss from cte group by stock_name
+with cte as ( select stock_name, case when operation = "Buy" then price * -1 when operation = "Sell" then price end as signed_price from Stocks ) select stock_name, sum(signed_price) as `capital_gain_loss` from cte group by stock_name
+with cte as ( select stock_name, case when operation='Buy' then (-1)*price else price end as total from stocks ) select stock_name,sum(total) as capital_gain_loss from cte group by stock_name
+with cte as ( select stock_name, operation, operation_day, case when operation='Buy' then -1*price else price end as updated_price from stocks ) select distinct stock_name, sum(updated_price) over(partition by stock_name) as capital_gain_loss from cte
+with cte as ( select stock_name, operation, operation_day, case when operation='Buy' then -1*price else price end as updated_price from stocks ) select stock_name, sum(updated_price) as capital_gain_loss from cte group by stock_name
+with cte as ( select stock_name, operation, operation_day, if(operation="Sell", price, -price) as new_price from Stocks order by operation_day ) select stock_name, sum(new_price) as capital_gain_loss from cte group by 1
+with cte as ( select stock_name, sum(case when operation='Buy' then price else 0 end) buy_price, sum(case when operation='Sell' then price else 0 end) sell_price from stocks group by stock_name ) select stock_name, sell_price-buy_price as capital_gain_loss from cte
+with cte as ( select stock_name, sum(case when operation='Sell' then price else 0 end ) - sum(case when operation='Buy' then price else 0 end) as capital_gain_loss from Stocks group by stock_name ) select * from cte
+with cte as (SELECT stock_name, operation, SUM(CASE WHEN operation = 'Buy' THEN price END) AS buying_price, SUM(CASE WHEN operation = 'Sell' THEN price END) AS selling_price FROM Stocks GROUP BY 1,2) select stock_name,SUM(selling_price) - SUM(buying_price) AS capital_gain_loss FROM cte GROUP BY 1 ORDER BY 1
+with cte as (select s.stock_name,sum(s.price) as total_buy from stocks as s where s.operation='Buy' group by s.stock_name) , cte2 as (select s.stock_name,sum(s.price) as total_sell from stocks as s where s.operation='Sell' group by s.stock_name) Select cte.stock_name, total_sell-total_buy as 'capital_gain_loss' from cte inner join cte2 on cte.stock_name=cte2.stock_name group by cte.stock_name
+with cte as (select stock_name, operation, sum(price) as price from Stocks group by 1,2) select a.stock_name, b.price - a.price as capital_gain_loss from cte a, cte b where a.stock_name = b.stock_name and a.operation = 'Buy' and b.operation = 'Sell'
+with cte as (select stock_name, sum(price)buy from stocks where operation='Buy' group by stock_name ), ctee as ( select stock_name,sum(price)sell from stocks where operation='Sell' group by 1 ) select a.stock_name, (sell-buy)capital_gain_loss from ctee b join cte a on a.stock_name=b.stock_name
+with cte as(select *, lag(price) over(partition by stock_name order by operation_day asc) as lag_price from Stocks) select stock_name, sum(price-lag_price) as capital_gain_loss from cte group by stock_name, operation having operation = 'Sell'
+with cte as(select stock_name, (case when operation = 'Buy' then -price else price end) as cost from stocks) select stock_name, sum(cost) as capital_gain_loss from cte group by stock_name
+with cte1 as (select stock_name, case when operation = "Buy" then -price when operation ="Sell" then price end as b_s from Stocks) select stock_name, sum(b_s) as capital_gain_loss from cte1 group by stock_name
+with gains as ( SELECT stock_name, operation, operation_day, price, lag(price) OVER (partition by stock_name order by operation_day) as last_price FROM Stocks ) SELECT stock_name, sum(price - last_price) as capital_gain_loss FROM gains WHERE operation = "Sell" GROUP BY stock_name
+with gains as (select stock_name, sum(case when operation='Sell' then price when operation='Buy' then -1*price end) gain from stocks group by stock_name ) select stock_name, gain as capital_gain_loss from gains
+with l as ( select stock_name, sum(price) as losses from stocks where operation = "Buy" group by stock_name ), g as ( select stock_name, sum(price) as gains from stocks where operation = "Sell" group by stock_name ) select g.stock_name, g.gains - l.losses as capital_gain_loss from g join l on g.stock_name = l.stock_name
+with stock_table as ( select stock_name, -1 * sum(price) "price" from stocks where operation = 'Buy' group by stock_name union select stock_name, sum(price) from stocks where operation = 'Sell' group by stock_name ) select stock_name, sum(price) "capital_gain_loss" from stock_table group by stock_name
+with t as ( select stock_name, operation, operation_day, case when operation='Buy' then -1*price else price end as updated_price from stocks) select stock_name, sum(updated_price) as capital_gain_loss from t group by stock_name
+with t as (select stock_name, (case when operation = "Buy" then -1* price else price end) as price from Stocks) select stock_name, sum(price) as capital_gain_loss from t group by stock_name
+with t1 as ( Select *, rank() OVER (partition by stock_name, operation ORDER BY operation_day) txn_ct from Stocks ) select stock_name, sum(case when operation = 'buy' then -price when operation = 'sell' then price else 0 end) as capital_gain_loss from stocks group by stock_name
+with t1 as ( select * , case when operation = "Buy" Then 0-price else price end as c from stocks ), t2 as ( select stock_name, sum(c)over(partition by stock_name) as capital_gain_loss from t1) select * from t2 group by 1,2
+with t1 as ( select *, case when operation = 'Buy' then price*-1 else price end as capital from Stocks ) select distinct stock_name, sum(capital) as capital_gain_loss from t1 group by stock_name
+with t1 as (select stock_name, sum(case when operation = 'Buy' then price end) as Bought, sum(case when operation = 'Sell' then price end) as sold from Stocks group by stock_name) select stock_name,(sold-Bought) as capital_gain_loss from t1
+with temp as (select stock_name, if(operation='Buy',-sum(price),sum(price)) as capital_gain_loss from Stocks group by stock_name, operation) select stock_name, sum(capital_gain_loss) as capital_gain_loss from temp group by stock_name
+with temp1 as (select stock_name, operation, operation_day, price, lag(price) over (partition by stock_name order by operation_day) as prev_buy_price from Stocks), sell_table as (select * from temp1 where operation = 'Sell') select stock_name, sum((cast(price as signed) - cast(prev_buy_price as signed))) as capital_gain_loss from sell_table group by 1 order by 2
+with temp_tab as ( select stock_name, operation, sum(price) price from stocks group by stock_name,operation ) select a.stock_name, (b.price - a.price) capital_gain_loss from temp_tab a join temp_tab b on a.stock_name = b.stock_name where a.operation = 'Buy' and b.operation = 'Sell' group by a.stock_name
+with total as (SELECT stock_name,operation,sum(price)price from Stocks group by 1,2) SELECT distinct s.stock_name,(t1.price-t2.price) as capital_gain_loss FROM Stocks s JOIN total t1 ON (s.stock_name=t1.stock_name and t1.operation='Sell') JOIN total t2 ON (s.stock_name=t2.stock_name and t2.operation='Buy')
+with x as ( select *, rank() over (partition by stock_name order by operation_day asc) as day, case when operation = 'Buy' then price * -1 else price * 1 end as p from stocks ) select stock_name, sum(p) as capital_gain_loss from x group by 1

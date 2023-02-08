@@ -1,0 +1,363 @@
+SELECT DISTINCT S.Seller_name FROM Seller S LEFT JOIN (SELECT * FROM Orders WHERE YEAR(sale_date) = 2020) O ON S.seller_id = O.seller_id WHERE O.seller_id IS NULL order by 1
+SELECT DISTINCT s.seller_name FROM Seller s WHERE s.seller_id NOT IN (SELECT seller_id FROM Orders WHERE sale_date LIKE "2020%" ) ORDER BY 1
+SELECT DISTINCT s.seller_name FROM Seller s WHERE s.seller_id NOT IN (SELECT seller_id FROM orders WHERE EXTRACT(YEAR FROM sale_date) = 2020 ) ORDER BY 1
+SELECT DISTINCT seller_name FROM Orders o RIGHT JOIN Seller s ON o.seller_id=s.seller_id WHERE s.seller_id NOT IN (SELECT seller_id FROM Orders o WHERE left(sale_date,4)='2020') ORDER BY 1
+SELECT DISTINCT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE year(sale_date)=2020) ORDER BY seller_name
+SELECT DISTINCT seller_name FROM Seller WHERE seller_id NOT IN (select distinct seller_id from Orders where YEAR(sale_date) = 2020) ORDER BY seller_name ASC
+SELECT DISTINCT seller_name FROM seller WHERE seller_id Not in ( SELECT seller_id FROM orders WHERE year(sale_date) = 2020 ) ORDER BY seller_name ASC
+SELECT S.seller_name FROM Seller AS S LEFT JOIN Orders O ON S.seller_id = O.seller_id AND YEAR(O.sale_date) = '2020' WHERE O.sale_date IS NULL ORDER BY S.seller_name ASC
+SELECT S.seller_name FROM Seller AS S WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY seller_name
+SELECT S.seller_name FROM Seller S WHERE S.seller_id NOT IN (SELECT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020') ORDER BY 1
+SELECT SELLER_NAME FROM SELLER S LEFT JOIN ( SELECT * FROM ORDERS WHERE YEAR(SALE_DATE)='2020')X ON S.SELLER_ID =X.SELLER_ID WHERE X.ORDER_ID IS NULL ORDER BY SELLER_NAME
+SELECT SELLER_NAME FROM SELLER WHERE SELLER_ID NOT IN (SELECT SELLER_ID FROM ORDERS WHERE SALE_DATE LIKE '2020%') ORDER BY SELLER_NAME ASC
+SELECT SELLER_NAME FROM SELLER WHERE SELLER_NAME NOT IN ( SELECT X.SELLER_NAME FROM ( SELECT S.SELLER_NAME, COUNT(O.ORDER_ID) FROM SELLER S, ORDERS O WHERE S.SELLER_ID = O.SELLER_ID AND YEAR(O.SALE_DATE) = '2020' GROUP BY S.SELLER_NAME ) X ) ORDER BY SELLER_NAME ASC
+SELECT SELLER_NAME from Seller WHERE seller_id not in (select seller_id from Orders where date_format(sale_date , '%Y') = '2020') ORDER BY seller_name
+SELECT Seller_name FROM Seller WHERE seller_id NOT IN ( SELECT s.seller_id FROM Seller s JOIN Orders o ON s.seller_id=o.seller_id WHERE YEAR(sale_date)=2020 ) ORDER BY 1
+SELECT s.seller_name FROM Seller AS s LEFT JOIN ( SELECT seller_id, YEAR(sale_date) AS year_sale FROM Orders AS o HAVING year_sale = '2020' ) AS o ON o.seller_id = s.seller_id WHERE ISNULL( o.seller_id ) ORDER BY s.seller_name
+SELECT s.seller_name FROM Seller AS s WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY 1
+SELECT s.seller_name FROM Seller as s WHERE s.seller_id not in (SELECT distinct o.seller_id FROM Orders as o LEFT JOIN Seller as s on o.seller_id = s.seller_id WHERE year(sale_date) = '2020') ORDER BY seller_name
+SELECT s.seller_name FROM Seller s LEFT JOIN ( SELECT COUNT(Order_id),seller_id FROM ORDERS WHERE LEFT(sale_date,4) = '2020' GROUP BY seller_id ) o ON o.seller_id = s.seller_id WHERE o.seller_id IS NULL ORDER BY seller_name
+SELECT s.seller_name FROM Seller s LEFT JOIN ( SELECT DISTINCT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020' ) a ON s.seller_id = a.seller_id WHERE a.seller_id IS NULL ORDER BY 1
+SELECT s.seller_name FROM Seller s LEFT JOIN Orders o ON o.seller_id = s.seller_id WHERE s.seller_id NOT IN ( SELECT seller_id FROM Orders WHERE YEAR(sale_date)=2020 ) ORDER BY s.seller_name
+SELECT s.seller_name FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id AND YEAR(o.sale_date) = 2020 GROUP BY s.seller_name HAVING(COUNT(order_id)) = 0 ORDER BY 1
+SELECT s.seller_name FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id AND YEAR(o.sale_date) = 2020 WHERE o.customer_id is NULL ORDER BY 1
+SELECT s.seller_name FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id GROUP BY s.seller_id HAVING SUM(CASE WHEN YEAR(sale_date) = 2020 THEN 1 ELSE 0 END) = 0 ORDER BY seller_name
+SELECT s.seller_name FROM Seller s WHERE s.seller_id NOT IN ( SELECT seller_id FROM Orders o WHERE YEAR(o.sale_date)=2020 ) ORDER BY s.seller_name
+SELECT s.seller_name FROM Seller s where seller_id NOT IN (SELECT seller_id FROM Orders WHERE LEFT(sale_date,4) = "2020") ORDER BY seller_name
+SELECT s.seller_name FROM seller s Left JOIN Orders o ON s.seller_id = o.seller_id WHERE s.seller_id NOT IN ( SELECT seller_id FROM Orders WHERE YEAR(sale_date)=2020 ) OrDER BY s.seller_name
+SELECT s.seller_name FROM seller s WHERE s.seller_name NOT IN( SELECT seller_name FROM Orders o LEFT JOIN Seller s ON o.seller_id = s.seller_id GROUP BY order_id HAVING MIN(sale_date) >= "2020-01-01" AND MAX(sale_date) <= "2020-12-31" ) ORDER BY s.seller_name
+SELECT seller.seller_name from seller left join (select * from orders where orders.sale_date between '2020-01-01' and '2020-12-31' ) o on seller.seller_id = o.seller_id where o.order_cost is null order by seller.seller_name asc
+SELECT seller.seller_name from seller left join (select orders.seller_id, orders.order_cost from orders where orders.sale_date between '2020-01-01' and '2020-12-31' ) o on seller.seller_id = o.seller_id where o.order_cost is null order by seller.seller_name asc
+SELECT seller_name AS SELLER_NAME FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE Year(sale_date)='2020') ORDER BY 1
+SELECT seller_name AS SELLER_NAME FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date)=2020) ORDER BY seller_name ASC
+SELECT seller_name FROM ( SELECT * FROM orders AS o WHERE sale_date BETWEEN '2020-01-01' AND '2020-12-31' ) AS temp RIGHT JOIN seller AS s ON temp.seller_id = s.seller_id WHERE temp.seller_id IS NULL ORDER BY seller_name ASC
+SELECT seller_name FROM ( SELECT seller_id FROM Orders GROUP BY seller_id HAVING SUM(sale_date BETWEEN '2020-01-01' AND '2020-12-31') > 0 ) s RIGHT JOIN Seller USING(seller_id) WHERE s.seller_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM (SELECT seller_id, seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020)) AS no_sales_sellers ORDER BY seller_name
+SELECT seller_name FROM SELLER WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM ORDERS WHERE SALE_DATE LIKE "2020%") ORDER BY 1
+SELECT seller_name FROM SELLER WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM ORDERS WHERE SALE_DATE LIKE "2020%") ORDER BY seller_name
+SELECT seller_name FROM Seller A LEFT JOIN Orders B ON A.seller_id = B.seller_id AND SUBSTR(sale_date, 1, 4) = '2020' WHERE B.seller_id IS NULL ORDER BY 1
+SELECT seller_name FROM Seller AS s LEFT JOIN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date)=2020) AS tmp USING(seller_id) WHERE tmp.seller_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM Seller JOIN (SELECT seller_id FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date) = 2020)) t USING (seller_id) ORDER BY 1
+SELECT seller_name FROM Seller LEFT JOIN (SELECT * FROM Orders WHERE YEAR(sale_date) = 2020) t ON t.seller_id = Seller.seller_id WHERE t.seller_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM Seller LEFT JOIN (SELECT * FROM Orders WHERE Year(sale_date) = 2020 GROUP BY seller_id HAVING SUM(order_cost)>0) t1 USING(seller_id) WHERE t1.order_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM Seller LEFT JOIN Orders ON Seller.seller_id = Orders.seller_id GROUP BY Seller.seller_id HAVING sum(if(sale_date BETWEEN '2020-01-01' AND '2020-12-31',1,0))=0 ORDER BY seller_name ASC
+SELECT seller_name FROM Seller LEFT JOIN Orders ON Seller.seller_id= Orders.seller_id AND YEAR(sale_Date) = 2020 GROUP BY Seller.seller_id HAVING COUNT(order_id) = 0 ORDER BY seller_name
+SELECT seller_name FROM Seller LEFT JOIN Orders USING(seller_id) WHERE seller_id NOT IN( SELECT seller_id FROM Orders WHERE sale_date LIKE '2020%' ) GROUP BY seller_id ORDER BY seller_name
+SELECT seller_name FROM Seller LEFT JOIN Orders USING(seller_id) WHERE seller_id NOT IN( SELECT seller_id FROM Orders WHERE sale_date LIKE '2020%' ) GROUP BY seller_id ORDER BY seller_name ASC
+SELECT seller_name FROM Seller S LEFT JOIN ( SELECT * FROM Orders WHERE EXTRACT(YEAR FROM sale_date)=2020 ) AS table_2020 ON s.seller_id = table_2020.seller_id GROUP BY seller_name HAVING COUNT(order_cost) =0 ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE NOT seller_id IN (SELECT seller_id FROM Orders WHERE sale_date LIKE '2020%') ORDER BY seller_name ASC
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020' ) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020 ) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020 ) ORDER BY seller_name ASC
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT seller_id FROM Orders WHERE sale_date BETWEEN '2020-01-01' AND '2020-12-31' ) ORDER BY seller_name ASC
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT seller_id FROM Orders WHERE sale_date like '2020%' ) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT(seller_id) FROM Orders WHERE sale_date >= "2020-01-01") ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT DISTINCT(seller_id) FROM Orders WHERE sale_date BETWEEN "2020-01-01" AND "2020-12-31" AND order_cost > 0) order by seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT distinct seller_id FROM Orders WHERE YEAR(sale_date) = "2020" ) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020' ) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN ( SELECT seller_id FROM Orders WHERE SUBSTRING(sale_date, 1, 4) = '2020' ) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders O WHERE YEAR(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020') ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020') ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020 ) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY 1 ASC
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT seller_id FROM Orders WHERE year(sale_date) = '2020') ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT DISTINCT(seller_id) FROM Orders WHERE LEFT(sale_date, 4) = '2020') ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE EXTRACT(YEAR FROM sale_date)='2020') ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE LEFT(sale_date, 4) = '2020') ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE LEFT(sale_date,4) = '2020') ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY seller_name ASC
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date)=2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE sale_date BETWEEN '2020-01-01' AND '2020-12-31') ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE year(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM Orders WHERE year(sale_date)=2020) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT seller_id FROM orders WHERE Year(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT IN( SELECT seller_id FROM Orders WHERE LEFT(sale_date,4) = 2020 ) ORDER BY seller_name ASC
+SELECT seller_name FROM Seller WHERE seller_id NOT IN( SELECT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_id NOT in (SELECT seller_id FROM Orders WHERE left(sale_date,4)=2020) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_id not in (SELECT distinct seller_id FROM Orders WHERE year(sale_date) = 2020) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_name NOT IN ( SELECT DISTINCT seller_name FROM Seller INNER JOIN Orders USING(seller_id) WHERE sale_date>='2020-01-01' AND sale_date<='2020-12-31' ) ORDER BY 1
+SELECT seller_name FROM Seller WHERE seller_name NOT IN ( SELECT seller_name FROM Seller NATURAL JOIN Orders WHERE YEAR(sale_date) = '2020' ) ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_name NOT IN (SELECT DISTINCT s.seller_name FROM Seller s INNER JOIN Orders o ON s.seller_id = o.seller_id WHERE sale_date BETWEEN '2020-01-01' AND '2020-12-31') ORDER BY seller_name
+SELECT seller_name FROM Seller WHERE seller_name NOT IN (SELECT DISTINCT seller_name FROM Orders JOIN Seller ON Orders.seller_id=Seller.seller_id WHERE YEAR(sale_date)=2020) ORDER BY seller_name
+SELECT seller_name FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id AND EXTRACT(YEAR FROM sale_date) = 2020 WHERE order_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id AND LEFT(sale_date, 4) = '2020' WHERE o.sale_date IS null ORDER BY 1
+SELECT seller_name FROM Seller s LEFT JOIN Orders o on o.seller_id = s.seller_id and year(o.sale_date) = 2020 WHERE o.seller_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM Seller s WHERE NOT EXISTS ( SELECT seller_name FROM orders o WHERE o.seller_id = s.seller_id AND EXTRACT(year FROM sale_date) = 2020 ) ORDER BY seller_name
+SELECT seller_name FROM Seller s WHERE s.seller_id NOT IN (SELECT seller_id FROM Orders o where year(o.sale_date) = 2020 ) order by seller_name Asc
+SELECT seller_name FROM Seller s WHERE seller_id NOT IN( SELECT DISTINCT seller_id FROM Orders WHERE LEFT(sale_date,4) = '2020' ) ORDER BY seller_name
+SELECT seller_name FROM seller LEFT JOIN (SELECT seller_id, order_id FROM orders WHERE YEAR(sale_date) = 2020) temp ON seller.seller_id = temp.seller_id WHERE order_id IS NULL ORDER BY seller_name
+SELECT seller_name FROM seller WHERE seller_id NOT IN (SELECT seller_id FROM orders WHERE SUBSTRING(sale_date,1,4)="2020" GROUP BY seller_id HAVING COUNT(order_id)>0) ORDER BY 1
+SELECT seller_name FROM seller WHERE seller_id NOT IN (SELECT seller_id FROM orders WHERE YEAR(sale_date)=2020) ORDER BY 1
+SELECT seller_name FROM seller WHERE seller_id not in ( select seller_id from orders where left(sale_date, 4) = '2020' ) ORDER BY 1
+SELECT seller_name FROM seller WHERE seller_id not in (SELECT seller_id FROM Orders o where YEAR(sale_date) = '2020') ORDER BY 1
+SELECT seller_name FROM seller WHERE seller_name NOT IN ( SELECT DISTINCT(seller_name) FROM seller s RIGHT JOIN orders o ON s.seller_id = o.seller_id WHERE YEAR(sale_date) = 2020 ) ORDER BY seller_name ASC
+SELECT seller_name FROM seller WHERE seller_name NOT IN ( SELECT seller_name FROM seller s RIGHT JOIN orders o ON s.seller_id = o.seller_id WHERE YEAR(sale_date) = 2020 GROUP BY seller_name ) ORDER BY seller_name ASC
+SELECT seller_name FROM seller WHERE seller_name NOT IN (SELECT s.seller_name FROM seller s JOIN orders o ON s.seller_id = o.seller_id WHERE sale_date LIKE '2020%') ORDER BY 1 ASC
+SELECT seller_name FROM seller WHERE seller_name NOT IN (SELECT seller_name FROM seller s LEFT JOIN orders o ON s.seller_id=o.seller_id WHERE o.sale_date BETWEEN '2020-01-01' AND '2020-12-31' GROUP BY s.seller_name) ORDER BY seller_name ASC
+SELECT seller_name FROM seller WHERE seller_name not in ( SELECT DISTINCT s.seller_name FROM Orders o JOIN Seller s ON o.seller_id = s.seller_id AND EXTRACT(YEAR from sale_date) = 2020) ORDER BY 1
+SElECT s.seller_name FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id WHERE s.seller_id NOT IN (SELECT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) ORDER BY s.seller_name
+Select s.seller_name FROM seller s Where s.seller_id not in( Select distinct o.seller_id From Orders o Where Left(o.sale_date,4) = '2020' Group by o.seller_id) Order by s.seller_name Asc
+Select s.seller_name as SELLER_NAME from Seller s left join Orders o on (s.seller_id = o.seller_id and year(o.sale_date) = '2020') group by s.seller_name having count(order_id) = 0 order by s.seller_name
+Select s.seller_name as SELLER_NAME from Seller s left join Orders o on (s.seller_id = o.seller_id and year(o.sale_date) = '2020') group by s.seller_name having ifnull(count(order_id), 0) = 0 order by s.seller_name
+Select seller_name From Seller Where seller_id not in (Select seller_id From Orders Where date_format(sale_date, "%Y") = 2020) Order by seller_name
+Select seller_name from Seller where seller_id not in ( Select seller_id from Orders where year(sale_date) = 2020) order by seller_name asc
+Select seller_name from Seller where seller_id not in (Select distinct seller_id from Orders where sale_date BETWEEN '2020-01-01 ' and '2020-12-31 ') order by seller_name
+Select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where year(sale_date)='2020') order by seller_name asc
+Select seller_name from Seller where seller_id not in( Select distinct seller_id from customer c join orders o on c.customer_id = o.customer_id where date_format(sale_date,"%Y") = "2020") order by 1
+Select seller_name from Seller where seller_name not in (Select seller_name from Seller join Orders using(seller_id) where left(sale_date,4) ='2020') order by 1
+Select seller_name from seller as s left join orders as o on s.seller_id=o.seller_id and year(sale_date)=2020 where order_id is null order by seller_name
+Select seller_name from seller where seller_id NOT IN(Select s.seller_id from seller s join orders o on s.seller_id=o.seller_id where Left(o.sale_date,4)='2020') order by seller_name
+Select seller_name from seller where seller_name not in ( select distinct s.seller_name from seller s JOIN orders o ON s.seller_id = o.seller_id where YEAR(sale_date) = 2020) order by seller_name asc
+WITH CTE1 AS ( SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020) SELECT seller_name FROM Seller WHERE seller_id NOT IN (SELECT * FROM CTE1) ORDER BY seller_name
+WITH Sales2020 AS ( SELECT DISTINCT seller_id FROM Orders WHERE YEAR(sale_date) = 2020 ), SellersWithNoSales AS ( SELECT seller_id FROM Seller WHERE seller_id NOT IN ( SELECT seller_id FROM Sales2020 ) ), FinalTable AS ( SELECT seller_name FROM Seller S INNER JOIN SellersWithNoSales W ON S.seller_id = W.seller_id ) SELECT * FROM FinalTable ORDER BY seller_name ASC
+WITH cte AS ( SELECT * FROM Orders WHERE sale_date LIKE '2020%' ) SELECT s.seller_name FROM Seller s LEFT JOIN cte ON s.seller_id = cte.seller_id where cte.order_id is null ORDER BY s.seller_name ASC
+WITH cte AS ( SELECT seller_name, (CASE WHEN EXTRACT(YEAR FROM sale_date) = 2020 THEN 1 ELSE 0 END) AS sales FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id ) SELECT seller_name FROM cte GROUP BY seller_name HAVING SUM(sales) = 0 ORDER BY seller_name ASC
+WITH s2020 as ( SELECT DISTINCT seller_id FROM Orders O WHERE sale_date > '2019-12-31' ) SELECT seller_name FROM Seller LEFT JOIN s2020 ON s2020.seller_id = Seller.seller_id WHERE s2020.seller_id IS NULL ORDER BY seller_name
+WITH sales_by_year AS ( SELECT s.seller_name, SUM(CASE WHEN YEAR(o.sale_date) = 2020 THEN 1 ELSE 0 END) sales_2020 FROM Seller s LEFT JOIN Orders o ON s.seller_id = o.seller_id GROUP BY seller_name HAVING sales_2020 = 0 ) SELECT seller_name FROM sales_by_year WHERE sales_2020 = 0 ORDER BY seller_name ASC
+WITH t AS (SELECT seller_id FROM orders WHERE sale_date LIKE '2020%') SELECT seller_name FROM seller WHERE seller_id NOT IN (SELECT seller_id from t) ORDER BY seller_name ASC
+WITH tab AS (SELECT * FROM Orders WHERE EXTRACT(year FROM sale_date) = 2020) SELECT S.seller_name FROM Seller S LEFT JOIN tab t ON S.seller_id = t.seller_id WHERE t.order_id IS NULL ORDER BY 1
+WITH temp AS (SELECT s.seller_name, COUNT(*) AS c FROM Orders o LEFT JOIN Seller s ON o.seller_id=s.seller_id WHERE YEAR(sale_date)='2020' GROUP BY 1) SELECT s.seller_name FROM Seller s LEFT JOIN temp ON s.seller_name=temp.seller_name WHERE c IS NULL ORDER BY 1 ASC
+WITH transactions_2020 AS ( SELECT order_id, seller_id FROM Orders WHERE LEFT(sale_date,4) = '2020' ) SELECT seller_name FROM Seller LEFT JOIN transactions_2020 USING(seller_id) WHERE order_id IS NULL ORDER BY seller_name ASC
+WITH twenty_sales AS ( SELECT DISTINCT seller_id AS 'seller_id' FROM Orders WHERE (sale_date >= '2020-01-01') AND (sale_date <= '2020-12-31') ) SELECT a.seller_name AS 'SELLER_NAME' FROM Seller a LEFT JOIN twenty_sales b ON a.seller_id=b.seller_id WHERE b.seller_id IS NULL ORDER BY 1
+WITH twenty_sales AS ( SELECT seller_id AS 'seller_id' FROM Orders WHERE (sale_date >= '2020-01-01') AND (sale_date <= '2020-12-31') ) SELECT DISTINCT a.seller_name AS 'SELLER_NAME' FROM Seller a LEFT JOIN twenty_sales b ON a.seller_id=b.seller_id WHERE b.seller_id IS NULL ORDER BY 1
+select S.seller_name as SELLER_NAME from Seller S where S.seller_id not in (select seller_id from Orders where Year(sale_date) = '2020') Order by 1
+select S.seller_name from Seller S where S.seller_id not in (select O.seller_id from Orders O where year(sale_date) = 2020) order by S.seller_name
+select S.seller_name from seller S left join orders O on O.seller_id = S.seller_id and year(O.sale_date) = '2020' where O.order_id is null order by 1 asc
+select Seller.seller_name from (select Seller.seller_id,table1.order_id,table1.sale_date from Seller left join (select * from orders where year(sale_date)=2020 ) as table1 on Seller.seller_id = table1.seller_id where table1.order_id is null ) as table2 left join Seller on table2.seller_id = Seller.seller_id order by Seller.seller_name asc
+select a.seller_name as SELLER_NAME from seller a left join orders b on a.seller_id = b.seller_id and date_format(b.sale_date, '%Y') = '2020' where b.order_cost is null order by SELLER_NAME asc
+select a.seller_name as SELLER_NAME from seller as a left join (select seller_id, count(order_id) as cnt from orders where sale_date between '2020-01-01' and '2020-12-31' group by 1 ) as b on a.seller_id = b.seller_id where cnt is NULL order by 1
+select a.seller_name from Seller a left join (select distinct seller_id haha from Orders where YEAR(sale_date)=2020) b on a.seller_id=b.haha where b.haha is null order by a.seller_name
+select a.seller_name from Seller a left outer join Orders b on ( (a.seller_id = b.seller_id) and (year(b.sale_date) = 2020)) where year(b.sale_date) is null order by 1
+select a.seller_name from seller a left join (select seller_id, customer_id from orders where year(sale_date)=2020) t on a.seller_id = t.seller_id where t.customer_id is null order by a.seller_name asc
+select a.seller_name from seller a left join orders b on a.seller_id = b.seller_id and year(b.sale_date) = 2020 where b.order_id is null order by 1
+select a.seller_name from seller a left join orders b on a.seller_id=b.seller_id where a.seller_id not in (select seller_id from orders where year(sale_date) = 2020) order by seller_name asc
+select a.seller_name from seller a left outer join orders b on a.seller_id = b.seller_id and year(b.sale_date) = 2020 where b.order_id is null order by 1
+select a.seller_name from seller as a left join orders as b on a.seller_id = b.seller_id group by a.seller_id having sum(if(YEAR(b.sale_date)=2020,1,0))=0 order by seller_name
+select b.seller_name as SELLER_NAME from seller b where b.seller_id not in (select a.seller_id from orders a where a.sale_date like '2020-%') order by b.seller_name
+select b.seller_name from Seller as b where b.seller_id not in (select a.seller_id from Orders as a where a.sale_date between '2020-01-01' and '2020-12-31') order by b.seller_name
+select distinct S.seller_name from Seller S left outer join (select distinct Seller_id from Orders where year(sale_date)=2020) O on S.seller_id=O.seller_id where O.seller_id is null order by seller_name
+select distinct s.seller_name as SELLER_NAME from Seller as s left join Orders as o on s.seller_id = o.seller_id where s.seller_id not in ( select seller_id from Orders where sale_date >= "2020-01-01" and sale_date <= "2020-12-31 " ) order by s.seller_name
+select distinct s.seller_name as SELLER_NAME from seller s where s.seller_id not in ( select distinct o.seller_id from orders o where year(sale_date) = '2020' ) order by 1
+select distinct s.seller_name from Orders o right join Seller s on o.seller_id = s.seller_id where s.seller_id not in (select seller_id from Orders where sale_date like '2020%') order by s.seller_name ASC
+select distinct s.seller_name from Orders o right join seller s on o.seller_id = s.seller_id group by s.seller_id having sum(if(year(sale_date)=2020,1,0))=0 order by 1
+select distinct s.seller_name from seller as s left join orders as o on s.seller_id = o.seller_id and year(o.sale_date) = 2020 where o.seller_id is null order by s.seller_name
+select distinct s.seller_name from seller s left join orders o on s.seller_id = o.seller_id and extract(year from sale_date) = 2020 where o.seller_id is null order by 1
+select distinct seller_name FROM seller WHERE seller_id Not in (SELECT seller_id FROM orders where year(sale_date) = 2020 ) ORDER BY seller_name asc
+select distinct seller_name from Seller where seller_id not in (select distinct seller_id from Orders where YEAR(sale_date)=2020) order by 1
+select distinct seller_name from Seller where seller_id not in (select distinct seller_id from Orders where left(sale_date, 4) = '2020') order by seller_name
+select distinct seller_name from Seller where seller_id not in (select seller_id from Orders where left(sale_date,4)='2020') order by seller_name asc
+select distinct seller_name from seller a left join (select * from orders where year(sale_date)=2020) b on a.seller_id=b.seller_id where b.seller_id is null order by seller_name
+select distinct seller_name from seller s left join (select * from Orders where year(sale_date) = 2020) o on s.seller_id = o.seller_id where o.seller_id is null order by 1
+select distinct seller_name from seller s where seller_id not in (select seller_id from orders where sale_date like '2020%') order by seller_name asc
+select distinct seller_name from seller where seller_id not in ( select seller_id from orders where year(sale_date)=2020) order by 1
+select distinct seller_name from seller where seller_id not in (select distinct seller_id from orders where year(sale_date) =2020) order by 1
+select distinct seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date)='2020') order by 1
+select distinct seller_name from seller where seller_name not in (select distinct s.seller_name from seller s join orders o on o.seller_id = s.seller_id where left(sale_date,4) = '2020') order by 1
+select s.seller_name as 'SELLER_NAME' from Seller s where seller_id not in(select seller_id from orders where year(sale_date)=2020 ) order by seller_name
+select s.seller_name as SELLER_NAME from seller as s left join orders as o on s.seller_id = o.seller_id and left(o.sale_date,4) = '2020' where o.seller_id is null order by 1
+select s.seller_name as SELLER_NAME from seller s left join orders o on s.seller_id = o.seller_id where s.seller_id not in (select seller_id from orders where year(sale_date)=2020 ) ORDER BY seller_name asc
+select s.seller_name as SELLER_NAME from seller s left join orders o on s.seller_id = o.seller_id where s.seller_id not in (select seller_id from orders where year(sale_date)=2020 ) order by s.seller_name
+select s.seller_name as SELLER_NAME from seller s where s.seller_id not in( select distinct o.seller_id from orders o where year(sale_date) = 2020 ) order by 1
+select s.seller_name as seller_name from Seller as s left join Orders as o on s.seller_id = o.seller_id where s.seller_id not in ( select distinct seller_id from Orders where sale_date between "2020-01-01" and "2020-12-31" ) order by seller_name asc
+select s.seller_name as seller_name from seller s left join orders o on s.seller_id = o.seller_id and left(o.sale_date, 4) = 2020 where o.customer_id is null group by s.seller_id order by s.seller_name
+select s.seller_name from Seller as s left join Orders as o on o.seller_id = s.seller_id where s.seller_id not in ( select seller_id from Orders where sale_date between "2020-01-01" and "2020-12-31" ) order by seller_name asc
+select s.seller_name from Seller as s left join Orders as o on s.seller_id = o.seller_id where s.seller_id not in ( select seller_id from Orders where sale_date >= "2020-01-01" and sale_date <= "2020-12-31" ) order by s.seller_name
+select s.seller_name from Seller as s left join Orders as o on s.seller_id = o.seller_id where s.seller_id not in ( select seller_id from Orders where sale_date between "2020-01-01" and "2020-12-31" ) order by s.seller_name
+select s.seller_name from Seller as s where s.seller_id not in (select s.seller_id from Seller as s left join Orders as o on s.seller_id = o.seller_id where year(o.sale_date)='2020') order by s.seller_name asc
+select s.seller_name from Seller s left join Orders o on s.seller_id=o.seller_id group by 1 having count(case when date_format(sale_date, '%Y')=2020 then o.order_id end)=0 order by 1
+select s.seller_name from Seller s where s.seller_id not in (select o.seller_id from Orders o where o.sale_date like '2020%') order by seller_name asc
+select s.seller_name from Seller s where seller_id not in (select distinct seller_id from orders where sale_date between '2020-01-01' and '2020-12-31') order by seller_name asc
+select s.seller_name from Seller s where seller_id not in (select o.seller_id from Orders o left join Customer c on o.customer_id = c.customer_id left join seller s on o.seller_id = s.seller_id where year(sale_date)= 2020) order by seller_name
+select s.seller_name from Seller s where seller_id not in (select o.seller_id from Orders o where year(sale_date) = 2020) order by 1
+select s.seller_name from Seller s where seller_id not in (select seller_id from orders where sale_date between '2020-01-01' and '2020-12-31') order by seller_name asc
+select s.seller_name from seller as s left join (select * from orders where year(sale_date) = 2020) as o on s.seller_id = o.seller_id where o.seller_id is null order by seller_name
+select s.seller_name from seller as s left join orders as o on s.seller_id=o.seller_id and year(o.sale_date)=2020 group by s.seller_name having sum(o.order_id is not null)=0 order by s.seller_name
+select s.seller_name from seller s left join (select * from orders o where year(sale_date) = "2020") o on s.seller_id = o.seller_id where o.seller_id is null group by seller_name order by 1 asc
+select s.seller_name from seller s left join (select * from orders where year(sale_date)=2020) o on s.seller_id = o.seller_id where o.seller_id is null order by 1 asc
+select s.seller_name from seller s left join (select distinct seller_id from orders where year(sale_date) = 2020) o on o.seller_id=s.seller_id where o.seller_id is null order by s.seller_name
+select s.seller_name from seller s left join (select seller_id from orders where year(sale_date) = '2020') as o on s.seller_id = o.seller_id where o.seller_id is null order by 1 asc
+select s.seller_name from seller s left join Orders o ON (s.seller_id = o.seller_id and year(o.sale_date) = '2020') where order_id is null order by seller_name
+select s.seller_name from seller s left join Orders o ON (s.seller_id = o.seller_id and year(sale_date) = '2020') where order_id is null order by seller_name
+select s.seller_name from seller s left join orders o On s.seller_id = o.seller_id and Year(o.sale_date) = 2020 where o.seller_id IS NULL order by 1
+select s.seller_name from seller s left join orders o on o.seller_id = s.seller_id and left(sale_date,4) ='2020' where o.seller_id is null order by seller_name
+select s.seller_name from seller s left join orders o on o.seller_id = s.seller_id where s.seller_id not in ( select distinct seller_id from orders where year(sale_date) = 2020 ) order by s.seller_name asc
+select s.seller_name from seller s left join orders o on s.seller_id = o.seller_id and o.sale_date like "2020%" where o.order_id is null order by s.seller_name asc
+select s.seller_name from seller s left join orders o on s.seller_id = o.seller_id and year(sale_date) = 2020 where o.seller_id is null order by s.seller_name
+select s.seller_name from seller s left join orders o on s.seller_id = o.seller_id where s.seller_id not in (select seller_id from orders where year(sale_date)=2020 ) ORDER BY 1
+select s.seller_name from seller s where s.seller_id not in (select distinct o.seller_id from Orders o where left(o.sale_date, 4) = '2020') order by s.seller_name
+select s.seller_name from seller s where s.seller_id not in (select distinct seller_id from orders o1 where sale_date between '2020-01-01' and '2020-12-31' ) order by 1
+select s.seller_name from seller s where s.seller_id not in (select seller_id from orders where year(sale_date)=2020) order by 1 asc
+select s.seller_name from seller s where seller_id not in (select seller_id from orders where left(sale_date,4) = '2020') order by 1
+select s.seller_namefrom Seller s left join Orders o on s.seller_id = o.seller_id and Year(o.sale_date) = '2020' where o.sale_date is null order by s.seller_name
+select s1.seller_name from Seller s1 left join (select distinct s.seller_name, o.seller_id from Seller s join Customer c left join Orders o on c.customer_id = o.customer_id and s.seller_id = o.seller_id where year(sale_date) = 2020) a on s1.seller_id = a.seller_id where a.seller_name is null order by s1.seller_name ASC
+select s1.seller_name from Seller s1 where s1.seller_id not in ( select distinct s.seller_id from Seller s, Orders o where s.seller_id = o.seller_id and o.sale_date >= '2020-01-01' ) order by s1.seller_name asc
+select sellInfo.seller_name as seller_name from ( select s.seller_name as seller_name, max(o.sale_date) as latest_sale_date from Orders o right join Seller s on o.seller_id = s.seller_id group by s.seller_id ) sellInfo where sellInfo.latest_sale_date is null or datediff('2020-01-01', sellInfo.latest_sale_date) > 0 order by seller_name
+select seller_name FROM Seller WHERE seller_id NOT IN (select distinct (seller_id) from Orders where left(sale_date,4)="2020") ORDER BY 1
+select seller_name SELLER_NAME from Seller s where not exists (select 1 from Orders o where o.seller_id=s.seller_id and date_format(sale_date,'%Y')='2020') order by 1 asc
+select seller_name as "SELLER_NAME" from Seller where seller_id not in (select distinct seller_id from Orders where year(sale_date) = '2020') order by seller_name
+select seller_name as SELLER_NAME from Seller where Seller.seller_id not in ( SELECT seller_id FROM Orders GROUP BY seller_id HAVING SUM(CASE WHEN YEAR(sale_date)=2020 THEN 1 ELSE 0 END) > 0) ORDER BY seller_name ASC
+select seller_name as SELLER_NAME from Seller where seller_name not in ( select s.seller_name from Orders o join Seller s on o.seller_id = s.seller_id where year(o.sale_date) = 2020) order by 1 asc
+select seller_name as SELLER_NAME from seller where seller_id not in (select distinct seller_id from orders where year(sale_date)=2020) order by 1
+select seller_name as SELLER_NAME from seller where seller_id not in (select seller_id from seller join orders using(seller_id) where year(sale_date)=2020) order by 1
+select seller_name from (select a.seller_name,b.seller_id as id_seller from Seller a left join (select distinct seller_id from Orders where year(sale_date)=2020) b on a.seller_id= b.seller_id ) c where id_seller is null order by seller_name
+select seller_name from Orders o right join Seller s on o.seller_id=s.seller_id and year(sale_date)=2020 where o.order_id is null order by seller_name ASC
+select seller_name from Orders right join Seller using(seller_id) group by seller_id having sum(if(year(sale_date) = '2020', 1, 0)) = 0 order by seller_name ASC
+select seller_name from Seller left join Orders on Seller.seller_id = Orders.seller_id where Seller.seller_id not in ( select seller_id from Orders where year(sale_date) = "2020" ) order by seller_name
+select seller_name from Seller s left join Orders o on o.seller_id = s.seller_id and year(sale_date) = 2020 group by seller_name having count(order_id) = 0 order by 1 asc
+select seller_name from Seller s left join Orders o on s.seller_id = o.seller_id and year(o.sale_date) = 2020 where o.seller_id is null order by 1
+select seller_name from Seller s where seller_id not in (select seller_id from Orders where year(sale_date)=2020) order by seller_name
+select seller_name from Seller where Seller_id not in (select seller_id from Orders where left(sale_date, 4) = '2020') order by seller_name asc
+select seller_name from Seller where seller_id NOT IN (Select distinct seller_id from Orders O where YEAR(sale_date) = 2020) order by seller_name
+select seller_name from Seller where seller_id NOT IN (select seller_id from Orders where Year(sale_date) = '2020') order by seller_name
+select seller_name from Seller where seller_id not in ( select O.seller_id from Orders O where Year(sale_date) = 2020 ) order by seller_name
+select seller_name from Seller where seller_id not in ( select distinct seller_id from Orders where YEAR(sale_date) = 2020 ) order by seller_name
+select seller_name from Seller where seller_id not in ( select distinct seller_id from Orders where date_format(sale_date, '%Y') = 2020 and order_cost > 0 ) order by 1
+select seller_name from Seller where seller_id not in ( select distinct seller_id from Orders where date_format(sale_date,"%Y")=2020 ) order by seller_name asc
+select seller_name from Seller where seller_id not in ( select distinct seller_id from Orders where substr(sale_date,1,4) = 2020) order by 1 asc
+select seller_name from Seller where seller_id not in ( select distinct seller_id from Orders where year(sale_date)=2020) order by seller_name
+select seller_name from Seller where seller_id not in ( select distinct seller_id from orders where substr(sale_date,1,4) = '2020') order by 1
+select seller_name from Seller where seller_id not in ( select seller_id from Customer join Orders using (customer_id) where left(sale_date,4)='2020') order by 1
+select seller_name from Seller where seller_id not in ( select seller_id from Orders where date_format(sale_date,'%Y')='2020' ) order by seller_name
+select seller_name from Seller where seller_id not in ( select seller_id from Orders where substr(sale_date,1,4) = 2020) order by 1 asc
+select seller_name from Seller where seller_id not in ( select seller_id from Orders where substring(sale_date, 1, 4) = '2020' ) order by seller_name
+select seller_name from Seller where seller_id not in ( select seller_id from Orders where year(sale_date) = 2020 group by seller_id ) order by seller_name asc
+select seller_name from Seller where seller_id not in ( select seller_id from Orders where year(sale_date) = 2020) order by 1
+select seller_name from Seller where seller_id not in ( select seller_id from orders where year(sale_date) = 2020) order by seller_name
+select seller_name from Seller where seller_id not in ( select seller_id from orders where year(sale_date) ='2020' ) order by 1
+select seller_name from Seller where seller_id not in (select Distinct seller_id from Orders where sale_date between '2020-01-01' and '2020-12-31') order by seller_name
+select seller_name from Seller where seller_id not in (select distinct seller_id as seller_id from Orders where year(sale_date) = 2020) order by seller_name asc
+select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where date_format(sale_date, '%Y') = '2020' ) order by 1
+select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where left(sale_date, 4) = '2020') order by 1
+select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where sale_date >= '2020-01-01') order by seller_name asc
+select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where sale_date like '2020%') order by seller_name asc
+select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where substring(sale_date,1,4) = '2020' ) order by 1
+select seller_name from Seller where seller_id not in (select distinct seller_id from Orders where year(sale_date) = '2020' group by seller_id) order by 1
+select seller_name from Seller where seller_id not in (select distinct(seller_id) from Orders where sale_date between '2020-01-01' and '2020-12-31' ) order by seller_name
+select seller_name from Seller where seller_id not in (select distinct(seller_id) from Orders where year(sale_date) ='2020') order by seller_name
+select seller_name from Seller where seller_id not in (select o.seller_id from Orders o join Seller s using (seller_id) where year(sale_date)='2020' ) order by seller_name
+select seller_name from Seller where seller_id not in (select o.seller_id from Seller s join Orders o on (o.seller_id = s.seller_id and o.sale_date between '2020-01-01' and '2020-12-31')) order by seller_name
+select seller_name from Seller where seller_id not in (select s.seller_id from Orders o inner join Seller s on o.seller_id = s.seller_id where year(sale_date) = 2020) order by seller_name asc
+select seller_name from Seller where seller_id not in (select seller_id from Orders group by seller_id having max(year(sale_date)) = '2020') order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders group by seller_id having max(year(sale_date)) = 2020) order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where YEAR(sale_date)='2020') order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where extract(year from sale_date) = '2020') order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where extract(year from sale_date) = 2020) order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where extract(year from sale_date) = 2020) order by seller_name asc
+select seller_name from Seller where seller_id not in (select seller_id from Orders where left(sale_date, 4) = '2020') order by 1
+select seller_name from Seller where seller_id not in (select seller_id from Orders where left(sale_date,4)="2020") order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where sale_date > "2019-12-31") order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where sale_date like '2020%' group by 1) order by 1
+select seller_name from Seller where seller_id not in (select seller_id from Orders where sale_date like '2020%') order by 1
+select seller_name from Seller where seller_id not in (select seller_id from Orders where substr(sale_date,1,4) = '2020') order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date) = '2020') order by seller_name asc
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date) = 2020 ) order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date) = 2020) order by 1 asc
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date) = 2020) order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date)= 2020) order by seller_name asc
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date)="2020") order by seller_name
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date)='2020') order by 1 asc
+select seller_name from Seller where seller_id not in (select seller_id from Orders where year(sale_date)=2020) order by seller_name
+select seller_name from Seller where seller_id not in( select seller_id from Orders where order_cost>0 and sale_date>='2020-01-01') order by seller_name
+select seller_name from Seller where seller_name not in ( select distinct seller_name from Orders o left join Seller s using (seller_id) where year(sale_date) = 2020 ) order by seller_name
+select seller_name from Seller where seller_name not in ( select s.seller_name from Seller s inner join Orders o on s.seller_id=o.seller_id where substring(sale_date,1,4)=2020) order by seller_name
+select seller_name from Seller where seller_name not in ( select seller_name from Seller left join Orders on Seller.seller_id = Orders.seller_id where year(Orders.sale_date) = 2020 ) order by seller_name
+select seller_name from Seller where seller_name not in (select distinct seller_name from Orders o left join Seller s using(seller_id) where year(sale_date) = 2020) order by 1 asc
+select seller_name from orders a right join seller b on a.seller_id = b.seller_id and date_format(a.sale_date, '%Y') = '2020' where a.seller_id is null order by 1
+select seller_name from seller a where seller_id not in (select distinct seller_id from orders b where date_format(sale_date,'%Y') ='2020') order by seller_name
+select seller_name from seller as s left join orders as o on o.seller_id=s.seller_id where seller_name not in (select seller_name from orders as o join seller as s on o.seller_id=s.seller_id where left(sale_date,4)=2020) order by 1
+select seller_name from seller as s left join orders as o on s.seller_id=o.seller_id and year(sale_date)=2020 where o.seller_id is null order by seller_name asc
+select seller_name from seller left join ( select seller_id, sale_date from orders where left(sale_date,4)="2020" ) temp1 using (seller_id) where temp1.sale_date is null order by 1
+select seller_name from seller left join ( select seller_id, sale_date from orders where left(sale_date,4)="2020" ) temp1 using (seller_id) where temp1.seller_id is null order by 1
+select seller_name from seller left join (select seller_id from orders where sale_date >= '2020-01-01' and sale_date <= '2020-12-31') as a on a.seller_id = seller.seller_id where a.seller_id is null order by seller_name
+select seller_name from seller left join orders on orders.seller_id = seller.seller_id where seller.seller_id not in (select seller_id from orders where year(sale_date) = 2020) order by seller_name asc
+select seller_name from seller left join orders on seller.seller_id=orders.seller_id and year(orders.sale_date) =2020 where orders.order_id is null group by 1 order by 1
+select seller_name from seller s left join (select * from Orders where year(sale_date) = 2020) o on s.seller_id = o.seller_id group by 1 having count(order_id) = 0 order by 1
+select seller_name from seller s left join (select * from Orders where year(sale_date) = 2020) o on s.seller_id = o.seller_id where o.seller_id is null group by 1 order by 1
+select seller_name from seller s left join (select * from Orders where year(sale_date) = 2020) o on s.seller_id = o.seller_id where o.seller_id is null order by 1
+select seller_name from seller s left join (select distinct seller_id from orders where date_format(sale_date,'%Y')=2020) ns on s.seller_id=ns.seller_id where ns.seller_id is null order by seller_name
+select seller_name from seller s left join (select seller_id from orders where date_format(sale_date,'%Y')="2020") o on s.seller_id=o.seller_id where o.seller_id is null order by seller_name
+select seller_name from seller s left join (select seller_id, customer_id from orders where year(sale_date)=2020) o using(seller_id) where o.customer_id is null order by 1
+select seller_name from seller s left join (select seller_id, customer_id from orders where year(sale_date)=2020) o using(seller_id) where o.seller_id is null order by 1
+select seller_name from seller s left outer join ( select seller_id, order_id from orders where date_format(sale_date, '%Y') =2020) o on s.seller_id = o.seller_id where o.order_id is null order by 1
+select seller_name from seller src where not exists (select 1 from orders tgt where left(sale_date,4)='2020' and tgt.seller_id=src.seller_id) order by seller_name
+select seller_name from seller where seller_id in( select seller_id from seller where seller_id not in( select seller_id from orders where left(sale_date,4)='2020' ) ) order by seller_name asc
+select seller_name from seller where seller_id not in ( Select distinct o.seller_id from Orders o where o.sale_date like '2020%') order by 1
+select seller_name from seller where seller_id not in ( select distinct s.seller_id from seller s join orders o on s.seller_id = o.seller_id where year(sale_date) = '2020' ) order by 1
+select seller_name from seller where seller_id not in ( select distinct seller_id from orders where year(sale_date)="2020") order by seller_name asc
+select seller_name from seller where seller_id not in ( select distinct(seller_id) from orders where year(sale_date) = '2020' ) order by 1
+select seller_name from seller where seller_id not in ( select s.seller_id from seller s left join orders o on s.seller_id=o.seller_id where left(o.sale_date,4)='2020' group by 1 having count(distinct order_id)>0 ) order by 1 asc
+select seller_name from seller where seller_id not in ( select seller_id from Orders O where year(sale_date)='2020' ) order by seller_name
+select seller_name from seller where seller_id not in ( select seller_id from orders where left(sale_date,4)='2020') order by 1
+select seller_name from seller where seller_id not in ( select seller_id from orders where seller_id in ( select seller_id from orders where year(sale_date)=2020 ) ) order by seller_name
+select seller_name from seller where seller_id not in ( select seller_id from orders where year(sale_date)=2020 ) order by seller_name
+select seller_name from seller where seller_id not in (select distinct seller_id from Orders where year(sale_date) = '2020') order by 1
+select seller_name from seller where seller_id not in (select distinct seller_id from Orders where year(sale_date) = '2020') order by seller_name
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where Year(sale_date) = 2020) order by 1 asc
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where date_format(sale_date,'%Y')=2020) order by seller_name
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where left(sale_date, 4) = '2020') order by seller_name
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where left(sale_date, 4)='2020') order by seller_name
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where left(sale_date,4) = 2020) order by 1
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where sale_date between '2020-01-01' and '2020-12-31') order by 1
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where sale_date between '2020-01-01' and '2020-12-31') order by seller_name asc
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where sale_date like '2020%') order by 1
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where year(sale_date) = '2020') order by 1
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where year(sale_date) = 2020) order by seller_name
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where year(sale_date) = 2020) order by seller_name asc
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where year(sale_date)=2020) order by 1
+select seller_name from seller where seller_id not in (select distinct seller_id from orders where year(sale_date)=2020) order by seller_name asc
+select seller_name from seller where seller_id not in (select distinct(seller_id) from orders where year(sale_date) = 2020) order by seller_name asc
+select seller_name from seller where seller_id not in (select s.seller_id from orders o join seller s on s.seller_id = o.seller_id where year(o.sale_date) = '2020') order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from customer c right join orders o on o.customer_id = c.customer_id where year(sale_date) = 2020 group by o.customer_id) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders o where year(sale_date) = '2020') order by 1
+select seller_name from seller where seller_id not in (select seller_id from orders o where year(sale_date) = 2020) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where Year(sale_date) ='2020') order by seller_name asc
+select seller_name from seller where seller_id not in (select seller_id from orders where date_format(sale_date, '%Y') = '2020') order by 1
+select seller_name from seller where seller_id not in (select seller_id from orders where date_format(sale_date,'%Y') = '2020') order by 1 asc
+select seller_name from seller where seller_id not in (select seller_id from orders where extract(year from sale_date) = 2020) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where left(sale_date, 4) = 2020) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where left(sale_date,4)='2020') order by seller_name asc
+select seller_name from seller where seller_id not in (select seller_id from orders where sale_date >= '2020-01-01' and sale_date <= '2020-12-31') order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where sale_date like '2020%') order by 1
+select seller_name from seller where seller_id not in (select seller_id from orders where sale_date like '2020%') order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where substr(sale_date, 1,4) = 2020 ) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_Date)='2020') order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date )='2020') order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date) = '2020') order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date) = 2020 ) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date) = 2020) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date) = 2020) order by seller_name asc
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date) =2020) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date)=2020 ) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date)=2020) order by seller_name
+select seller_name from seller where seller_id not in (select seller_id from orders where year(sale_date)=2020) order by seller_name asc
+select seller_name from seller where seller_id not in( select distinct(seller_id) from orders where sale_date between '2020-01-01' and '2020-12-31' ) order by seller_name
+select seller_name from seller where seller_id not in( select orders.seller_id from orders where left(orders.sale_date,4) = '2020') order by seller_name asc
+select seller_name from seller where seller_id not in( select seller_id from orders where date_format(sale_date, '%Y') = '2020') order by seller_name
+select seller_name from seller where seller_id not in(select seller_id from orders where extract(year from sale_date)='2020') order by seller_name
+select seller_name from seller where seller_id not in(select seller_id from orders where left(sale_date,4)='2020') order by seller_name asc
+select seller_name from seller where seller_name not in ( select seller_name from ( select year(o.sale_date), sum(o.order_cost), s.seller_name from orders o inner join seller s on s.seller_id=o.seller_id where year(o.sale_date)=2020 group by year(o.sale_date), s.seller_name)p) order by seller_name
+select seller_name from seller where seller_name not in ( select seller_name from orders left join seller using (seller_id) where sale_date >='2020-01-01' ) order by seller_name
+select seller_name from seller where seller_name not in ( select seller_name from seller a join orders b on a.seller_id = b.seller_id where year(sale_date) = '2020' group by 1) order by 1 asc
+select seller_name from seller where seller_name not in (select s.seller_name from seller s join orders o on o.seller_id=s.seller_id where year(sale_date)='2020' group by s.seller_id) order by seller_name
+select seller_name from seller where seller_name not in( select distinct seller_name from orders o,seller s where o.seller_id=s.seller_id and date_format(sale_date,'%Y') ='2020' ) order by 1
+select seller_name from seller where seller_name not in( select s.seller_name from seller s join orders o on s.seller_id = o.seller_id where Year(o.sale_date) = 2020) group by seller_name order by seller_name asc
+select seller_name from seller where seller_name not in( select seller_name from seller s left join orders o on s.seller_id = o.seller_id where sale_date like '2020%' ) order by 1
+select t2.SELLER_NAME from (select s.seller_name SELLER_NAME,coalesce(t1.b,0) day from seller s left join (select seller_id a,sale_date b from orders where sale_date between '2020-01-01' and '2020-12-31')t1 on s.seller_id=t1.a)t2 where t2.day=0 order by 1 asc
+with c as ( select seller_name from seller s left join orders o on s.seller_id = o.seller_id and year(o.sale_date) = 2020 where order_id is null order by 1 ) select * from c
+with cte as ( Select seller_name from seller s left join orders o on s.seller_id=o.seller_id where Year(o.sale_date)='2020' ) select seller_name from seller where seller_name not in (select seller_name from cte) order by 1
+with cte as ( select distinct seller_id from orders where year(sale_date)=2020 ) select seller_name from seller as s left join cte on s.seller_id=cte.seller_id where cte.seller_id is null order by seller_name asc
+with cte as ( select seller_id, year(sale_date) as sale_year from orders where year(sale_date) != 2020 group by seller_id ) select seller_name from seller s left join cte c using (seller_id) where s.seller_id not in (select distinct seller_id from orders where year(sale_date) = 2020 ) order by seller_name
+with cte as ( select seller_id,count(date_format(sale_date,'%Y')) from orders where date_format(sale_date,'%Y') = '2020' group by seller_id) select seller_name from seller where seller_id not in ( select distinct seller_id from orders where year(sale_date) = '2020') order by seller_name asc
+with cte as ( select seller_id,count(date_format(sale_date,'%Y')) from orders where date_format(sale_date,'%Y') = '2020' group by seller_id) select seller_name from seller where seller_id not in ( select seller_id from cte) order by seller_name asc
+with cte as (select distinct(seller_id) from orders where year(sale_date) = '2020') select seller_name from seller left join cte on seller.seller_id = cte.seller_id where cte.seller_id is null order by 1
+with cte as( select * from orders where year(sale_date) = '2020') SELECT s.seller_name FROM Seller s LEFT JOIN cte ON s.seller_id = cte.seller_id GROUP BY s.seller_id HAVING COUNT(cte.order_id)=0 ORDER BY s.seller_name ASC
+with cte as( select seller_id from seller where seller_id not in( select distinct seller_id from orders where left(sale_date,4)=2020)) select seller_name from seller where seller_id in (select*from cte) order by 1
+with final as ( with cte as ( Select *, count(order_id) over (partition by seller_id) as 'each_orders' from Orders where year(sale_date) = 2020 ) Select s.seller_name,c1.* from Seller s left join cte c1 on s.seller_id = c1.seller_id ) Select seller_name from final where each_orders is null order by seller_name asc
+with sales as ( select seller_id, ifnull(sum(order_cost),0) as total from orders where sale_date between '2020-01-01' and '2020-12-31' group by seller_id) select s.seller_name from seller as s left join sales on s.seller_id = sales.seller_id where sales.total is null order by seller_name
+with sid as(select seller_id from Orders where substring(sale_date,1,4) in ('2020')) select s.seller_name from seller s where s.seller_id not in (select seller_id from sid) order by 1 asc
+with temp as (select seller_id, year(sale_date) date_year, count(order_id) n_of_order from orders group by 1,2 having date_year = 2020) select s.seller_name from seller s left join temp t on t.seller_id = s.seller_id where n_of_order is null order by 1
+with x as (select * from orders where year(sale_date) = 2020 ) select s.seller_name from seller s left join x on x.seller_id=s.seller_id where x.order_id is null order by s.seller_name

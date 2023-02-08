@@ -1,0 +1,192 @@
+SELECT L1.LOG_ID AS START_ID, MIN(L2.LOG_ID) AS END_ID FROM (SELECT LOG_ID FROM LOGS WHERE LOG_ID-1 NOT IN (SELECT LOG_ID FROM LOGS)) L1, (SELECT LOG_ID FROM LOGS WHERE LOG_ID+1 NOT IN (SELECT LOG_ID FROM LOGS)) L2 WHERE L1.LOG_ID<=L2.LOG_ID GROUP BY L1.LOG_ID
+SELECT L1.log_id start_id, MIN(L2.log_id) end_id FROM Logs L1 JOIN (SELECT log_id FROM Logs WHERE log_id + 1 NOT IN (SELECT log_id FROM Logs)) L2 WHERE L1.log_id <= L2.log_id AND L1.log_id - 1 NOT IN (SELECT log_id FROM Logs) GROUP BY start_id
+SELECT MIN(Z.log_id) AS start_id, MAX(Z.log_id) AS end_id FROM ( SELECT log_id, RANK() OVER(ORDER BY log_id) AS rnk FROM Logs ) Z GROUP BY Z.log_id - Z.rnk
+SELECT MIN(log_id) AS Start_Id, MAX(log_id) AS End_Id FROM(SELECT log_id, (log_id - ROW_NUMBER() OVER(ORDER BY log_id)) AS Diff FROM Logs) AS t GROUP BY Diff
+SELECT MIN(log_id) AS start_id ,MAX(log_id) AS end_id FROM (SELECT * ,ROW_NUMBER() OVER (ORDER BY log_id) AS rn FROM Logs) a GROUP BY log_id - rn ORDER BY 1
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM ( SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) AS num FROM Logs ) AS subq GROUP BY log_id - num
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM ( SELECT log_id, log_id - (ROW_NUMBER() OVER(ORDER BY log_id)) AS rk FROM Logs) X GROUP BY rk ORDER BY 1
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM ( SELECT log_id, log_id - ROW_NUMBER() OVER (ORDER BY log_id ASC) AS grp FROM Logs ) tmp GROUP BY grp
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT l.log_id, (l.log_id - l.row_num) AS diff FROM (SELECT log_id, row_number() over() AS row_num FROM Logs) l ) l2 GROUP BY diff
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, (log_id - RANK()OVER(ORDER BY log_id)) AS diff FROM logs) t GROUP BY diff
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, (log_id - ROW_NUMBER() OVER(ORDER BY log_id)) AS grp FROM Logs) a GROUP BY grp
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, ROW_NUMBER() OVER (ORDER BY log_id) AS counter FROM Logs) a GROUP BY (log_id - counter)
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, ROW_NUMBER() OVER (ORDER BY log_id) AS num FROM Logs) sub GROUP BY log_id-num
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, ROW_NUMBER() OVER (ORDER BY log_id) AS rnk FROM LOGS) t GROUP BY log_id - rnk ORDER BY start_id
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) AS num FROM Logs) AS t1 GROUP BY log_id - num
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM (SELECT log_id, log_id - ROW_NUMBER() OVER() AS diff FROM Logs) t GROUP BY diff
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM( SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) AS num FROM Logs) sub GROUP BY log_id - num
+SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM( SELECT log_id, log_id - ROW_NUMBER() OVER(ORDER BY log_id) as diff FROM Logs ) a GROUP BY diff
+SELECT MIN(log_id) AS start_id,MAX(log_id) AS end_id FROM (Select log_id, ROW_NUMBER() OVER (ORDER BY log_id) AS row_n FROM Logs)a GROUP BY log_id-a.row_n
+SELECT MIN(log_id) as start_id, MAX(log_id) as end_id FROM ( SELECT log_id, ROW_NUMBER() OVER() AS RN, CAST(ROW_NUMBER() OVER() as SIGNED) - log_id as delta FROM Logs ) as sub GROUP BY delta
+SELECT MIN(log_id) as start_id, MAX(log_id) as end_id FROM( SELECT log_id, log_id- ROW_NUMBER() OVER(ORDER BY log_id) AS num FROM Logs) temp GROUP BY num
+SELECT MIN(log_id) start_id, MAX(log_id) end_id FROM ( SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) row_num FROM Logs ) tmp GROUP BY log_id - row_num ORDER BY start_id
+SELECT MIN(log_id) start_id, MAX(log_id) end_id FROM ( SELECT log_id, log_id - rank() OVER(ORDER BY log_id) rnk FROM logs ) fyi GROUP BY rnk
+SELECT MIN(log_id) start_id, MAX(log_id) end_id FROM (SELECT log_id, ROW_NUMBER() OVER (ORDER BY log_id) row_num From Logs)l1 GROUP BY (l1.log_id - l1.row_num)
+SELECT Start.log_id start_id, End.log_id end_id FROM ( SELECT ROW_NUMBER() OVER(ORDER BY log_id) AS id, A.log_id FROM Logs A LEFT JOIN Logs B ON A.log_id = B.log_id + 1 WHERE B.log_id IS NULL ) AS Start INNER JOIN ( SELECT ROW_NUMBER() OVER(ORDER BY log_id) AS id, A.log_id FROM Logs A LEFT JOIN Logs B ON A.log_id + 1 = B.log_id WHERE B.log_id IS NULL ) AS End ON Start.id = End.id
+SELECT l1.log_id AS start_id, MIN(l2.log_id) AS end_id FROM ( SELECT log_id FROM Logs WHERE log_id-1 NOT IN (SELECT * FROM Logs) )l1, ( SELECT log_id FROM Logs WHERE log_id+1 NOT IN (SELECT * FROM Logs) )l2 WHERE l1.log_id <= l2.log_id GROUP BY l1.log_id
+SELECT l1.log_id AS start_id, MIN(l2.log_id) AS end_id FROM Logs l1 LEFT JOIN Logs l2 ON l1.log_id <= l2.log_id WHERE NOT (l1.log_id - 1) IN (SELECT log_id FROM Logs) AND NOT (l2.log_id + 1) IN (SELECT log_id FROM Logs) GROUP BY l1.log_id
+SELECT l1.log_id AS start_id,IFNULL(MIN(l2.log_id),(SELECT Max(log_id) FROM Logs)) As end_id frOM (SELECT log_id FROM Logs WHERE log_id-1 NOT IN (SELECT * FROM Logs)) AS l1,(SELECT log_id FROM logs WHERE log_id+1 NOT IN (SELECT * FROM Logs)) AS l2 WHERE l1.log_id<=l2.log_id GROUP BY start_id
+SELECT min(a.log_id) AS start_id,max(a.log_id) AS end_id FROM ( SELECT log_id, log_id - RANK() OVER(ORDER BY log_id) AS diff FROM logs )a GROUP BY a.diff
+SELECT min(l1.log_id) start_id, max(l1.log_id) end_id FROM (SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) row_num FROM Logs) l1 GROUP BY (l1.log_id - l1.row_num) ORDER BY start_id
+SELECT min(log_id) AS start_id , max(log_id) AS end_id FROM ( SELECT ROW_NUMBER() OVER(ORDER BY log_id) AS num , log_id FROM Logs ) AS A GROUP BY log_id - num
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM ( SELECT Log_id, RANK() OVER (ORDER BY log_id ASC) as ranks FROM Logs) as a GROUP BY log_id-ranks
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM ( SELECT log_id, row_number() over (order by log_id) as rn FROM logs ) as t GROUP BY log_id-rn
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM (SELECT log_id , ROW_NUMBER() OVER(ORDER BY log_id) AS num FROM Logs) a GROUP BY log_id - num
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM (SELECT log_id, RANK() OVER(ORDER BY log_id) as num FROM Logs) a GROUP BY log_id - num
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM (SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) as num FROM Logs) a GROUP BY log_id - num
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM (SELECT log_id, log_id - dense_rank() over (order by log_id) as rnk FROM Logs) as a GROUP BY rnk
+SELECT min(log_id) as start_id, max(log_id) as end_id FROM (SELECT log_id, row_number() over(order by log_id) as num FROM Logs) a GROUP BY log_id - num
+SELECT start_id, end_id FROM (SELECT ROW_NUMBER() OVER (ORDER BY start_id) AS row_id, start_id FROM (SELECT (CASE WHEN l_prev.log_id IS NULL THEN l.log_id ELSE NULL END) AS start_id FROM Logs AS l LEFT JOIN Logs AS l_prev ON l_prev.log_id = l.log_id - 1) AS t_prev WHERE start_id IS NOT NULL) AS final_prev INNER JOIN (SELECT ROW_NUMBER() OVER (ORDER BY end_id) AS row_id, end_id FROM (SELECT (CASE WHEN l_next.log_id IS NULL THEN l.log_id ELSE NULL END) AS end_id FROM Logs AS l LEFT JOIN Logs AS l_next ON l_next.log_id = l.log_id + 1) AS t_next WHERE end_id IS NOT NULL) AS final_next ON final_prev.row_id = final_next.row_id ORDER BY start_id
+SELECT t1.log_id AS START_ID, t2.log_id AS END_ID FROM (SELECT log_id FROM Logs WHERE log_id-1 NOT IN (SELECT log_id FROM Logs)) AS t1, (SELECT log_id FROM Logs WHERE log_id+1 NOT IN (SELECT log_id FROM Logs)) AS t2 WHERE t1.log_id <= t2.log_id GROUP BY t1.log_id
+Select Min(Logs_3.start_id) as start_id, Logs_3.end_id From (Select Logs.log_id as start_id, Min(Logs_2.log_id) as end_id From Logs Join (Select log_id From (Select log_id, LEAD(log_id, 1) OVER (ORDER BY log_id) AS `lead` From Logs) as Logs_1 Where (`lead` != log_id+1 or `lead` is Null)) as Logs_2 On Logs.log_id <= Logs_2.log_id Group By Logs.log_id) as Logs_3 Group By Logs_3.end_id
+Select Min(log_id) as start_id, Max(log_id) as end_id From ( Select log_id, Row_Number() Over(Order By log_id) as row_num From Logs) as a Group By log_id - row_num
+Select min(log_id) as start_id, max(log_id) as end_id from ( SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) as num FROM Logs) a group by log_id-num
+Select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, row_number() over (order by log_id) as num from Logs) a group by log_id-num
+Select min(log_id) as start_id, max(log_id) as end_id from (SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) as num FROM Logs) as a group by log_id -num
+WITH CTE AS ( SELECT log_id, log_id - DENSE_RANK() OVER (ORDER BY log_id) rnk FROM logs ) SELECT min(log_id) as start_id, max(log_id) as end_id FROM CTE GROUP BY rnk
+WITH CTE AS (SELECT LOG_ID AS ID, DENSE_RANK() OVER(ORDER BY LOG_ID) AS RN FROM LOGS) SELECT MIN(ID) AS START_ID, MAX(ID) AS END_ID FROM CTE GROUP BY ID-RN ORDER BY START_ID
+WITH CTE AS( SELECT log_id, (log_id - ROW_NUMBER()OVER(ORDER BY log_id)) AS diff FROM Logs ) SELECT MIN(log_id) AS 'start_id', MAX(log_id) AS 'end_id' FROM CTE GROUP BY diff ORDER BY start_id
+WITH CTE1 AS ( SELECT LOG_ID, ROW_NUMBER() OVER(ORDER BY LOG_ID) AS RNO FROM LOGS ) SELECT MIN(LOG_ID) AS START_ID, MAX(LOG_ID) AS END_ID FROM CTE1 GROUP BY LOG_ID - RNO ORDER BY START_ID
+WITH CTE1 AS ( SELECT log_id, CAST(RANK() OVER (ORDER BY log_id) AS SIGNED)-log_id AS ct FROM Logs) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM CTE1 GROUP BY ct ORDER BY start_id
+WITH Mapping AS (SELECT log_id ,log_id - RANK() OVER(ORDER BY log_id ASC) AS Mp FROM Logs) SELECT MIN(log_id) AS start_id ,MAX(log_id) AS end_id FROM Mapping GROUP BY Mp ORDER BY 1 ASC
+WITH STEP1 AS( SELECT LOG_ID, ROW_NUMBER() OVER(ORDER BY LOG_ID) AS ROWN FROM LOGS), STEP2 AS( SELECT LOG_ID, LOG_ID-ROWN AS DIFF FROM STEP1) SELECT MIN(LOG_ID) AS start_id, MAX(LOG_ID) AS end_id FROM STEP2 GROUP BY DIFF
+WITH a AS ( SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) AS num FROM Logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM a GROUP BY log_id - num
+WITH ahead AS ( SELECT log_id, RANK() OVER (ORDER BY log_id) as rownum FROM logs) SELECT min(log_id) as start_id, max(log_id) as end_id FROM ahead GROUP BY log_id - rownum
+WITH cte AS ( SELECT continuous , COUNT(log_id) as num_count , MAX(log_id) as end_id , MIN(log_id) as start_id FROM ( SELECT * , log_id - ROW_NUMBER() OVER(ORDER BY log_id) as continuous FROM Logs) t1 GROUP BY continuous ) SELECT start_id , end_id FROM cte
+WITH cte AS ( SELECT continuous , MAX(log_id) as end_id , MIN(log_id) as start_id FROM ( SELECT * , log_id - ROW_NUMBER() OVER(ORDER BY log_id) as continuous FROM Logs) t1 GROUP BY continuous ) SELECT start_id , end_id FROM cte
+WITH cte AS( SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) AS rn FROM Logs ), cte1 AS( SELECT *, (log_id - rn) AS grp FROM cte ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM cte1 GROUP BY grp
+WITH cts AS ( SELECT log_id, ROW_NUMBER() OVER (ORDER BY log_id) as row_num FROM Logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM cts GROUP BY log_id - row_num
+WITH log_diff AS ( SELECT log_id, ABS(log_id - RANK() OVER(ORDER BY log_id)) log_rank_diff FROM logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM log_diff GROUP BY log_rank_diff
+WITH log_diff AS ( SELECT log_id, ABS(log_id - RANK() OVER(ORDER BY log_id)) log_rank_diff FROM logs ) select min(log_id) as start_id, max(log_id) as end_id from log_diff group by log_rank_diff
+WITH log_rank AS (SELECT log_id, log_id - RANK() OVER (ORDER BY log_id) AS distance FROM Logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM log_rank GROUP BY distance
+WITH logs as ( SELECT log_id, log_id - row_number() over (order by log_id) as diff FROM logs ) SELECT min(log_id) as start_id, max(log_id) as end_id FROM logs GROUP BY diff
+WITH num AS (SELECT log_id, Row_number() OVER (ORDER BY log_id) row_num FROM logs) SELECT Min(log_id) start_id, Max(log_id) end_id FROM num GROUP BY log_id - row_num
+WITH rk as (SELECT log_id, rank()over(order by log_id) as rk FROM Logs), rk_diff as ( SELECT min(log_id) start_id, max(log_id) end_id, log_id-rk as diff FROM rk group by 3) SELECT start_id, end_id FROM rk_diff order by 1
+WITH start_ AS ( SELECT log_id, dense_rank() OVER (ORDER BY log_id ASC) AS ranked FROM Logs WHERE (log_id-1) NOT IN (SELECT log_id FROM Logs) ), end_ AS ( SELECT log_id, dense_rank() OVER (ORDER BY log_id ASC) AS ranked FROM Logs WHERE (log_id+1) NOT IN (SELECT log_id FROM Logs) ) SELECT S.log_id AS start_id, E.log_id AS end_id FROM start_ AS S, end_ AS E WHERE S.ranked=E.ranked
+WITH t(logid,prevlogid,nextlogid) AS ( SELECT log_id, lag(log_id) OVER(order by log_id) prevlogid, lead(log_id)OVER(order by log_id)nextlogid FROM logs ), t1(rno,start_id) AS ( SELECT row_number() OVER (order by logid), logid FROM t WHERE t.prevlogid IS NULL OR t.logid-t.prevlogid>1 ), t2(rno,end_id) AS ( SELECT row_number() OVER (order by logid), logid FROM t WHERE t.nextlogid IS NULL OR t.nextlogid-t.logid>1 ) SELECT start_id,end_id FROM t1 INNER JOIN t2 ON t1.rno=t2.rno
+WITH t1 AS (SELECT log_id, ROW_NUMBER() OVER(ORDER BY log_id) AS rank_ FROM Logs) SELECT min(log_id) AS start_id, max(log_id) AS end_id FROM (SELECT log_id, (log_id-rank_) AS group_ FROM t1) t2 GROUP BY group_
+WITH temp AS (SELECT log_id, ROW_NUMBER()OVER(ORDER BY log_id) AS rn FROM Logs) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM temp GROUP BY log_id-rn ORDER BY 1
+WITH tmp AS ( SELECT log_id, ROW_NUMBER() OVER (ORDER BY log_id ASC) AS rn FROM Logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM tmp GROUP BY log_id - rn
+WITH tmp AS ( SELECT log_id, log_id - ROW_NUMBER() OVER (ORDER BY log_id) AS grp FROM Logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM tmp GROUP BY grp
+WITH x AS ( SELECT log_id, ABS(log_id - RANK() OVER(ORDER BY log_id)) log_rank_diff FROM logs ) SELECT MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM x GROUP BY log_rank_diff
+With x as ( Select log_id , log_id - dense_rank() over (order by log_id) rnk from logs) Select min(log_id) as start_ID , max(Log_id) as end_Id From x group by rnk
+select L1.log_id as start_id ,L2.log_id as end_id from (select log_id from Logs where log_id - 1 not in (select log_id from Logs)) as L1, (select log_id from Logs where log_id + 1 not in (select log_id from Logs)) as L2 where L1.log_id <= L2.log_id group by L1.log_id
+select MIN(log_id) as start_id, MAX(log_id) as end_id from ( select log_id, row_number() over (order by log_id) as rn from logs )a group by (log_id -rn)
+select distinct first_value(log_id) over (partition by diff order by log_id rows between unbounded preceding and unbounded following) as start_id, last_value(log_id) over (partition by diff order by log_id rows between unbounded preceding and unbounded following) as end_id from ( select log_id, (log_id - (rank() over (order by log_id))) as diff from logs ) d
+select distinct first_value(log_id) over(partition by n) start_id, last_value(log_id) over(partition by n) end_id from (select log_id, log_id - row_number() over() n from Logs) t
+select fin.start_id,end_id from ( select b.difference,min(b.log_id) as start_id,max(b.log_id) as end_id from ( select a.log_id,(a.log_id-a.rn) as difference from (select log_id,row_number() over(order by log_id ASC) as rn from Logs) a) b group by b.difference) fin
+select min(Log_id) as start_id, max(Log_id) as end_id from (select Log_id, (Log_id -id_rank) as rank_diff from (select Log_id, rank() over (order by Log_id) as id_rank from Logs) A ) B group by rank_diff order by start_id
+select min(a.log_id) as start_id, max(a.log_id) as end_id from (select log_id,row_number() over(order by log_id) as rownum from Logs) a group by log_id-rownum
+select min(a.log_id) as start_id, max(a.log_id) as end_id from( select log_id, log_id - dense_rank() over (order by log_id) as seq from Logs ) a group by a.seq
+select min(a.log_id) as start_id,max(a.log_id) as end_id from ( select log_id,(log_id - dense_rank() over(order by log_id)) as rnk from Logs ) a group by a.rnk
+select min(a.log_id) as start_id,max(a.log_id) as end_id from (select a.log_id,(a.log_id-a.rw_no) grp from (select log_id,row_number() over () as rw_no from logs) a) a group by a.grp
+select min(c.log_id) as start_id, max(c.log_id) as end_id FROM ( select log_id, log_id-row_number() OVER (ORDER BY log_id) as cohort FROM Logs ) as c group by c.cohort
+select min(log_Id) as start_id, max(log_Id) as end_id from (select log_id, row_number () over (order by log_id) as dif from logs) a group by log_id-dif
+select min(log_id) as "start_id", max(log_id) as "end_id" from (select log_id, rank() over (order by log_id) as ranking from logs) cte group by log_id - ranking
+select min(log_id) as 'start_id', max(log_id) as 'end_id' from ( select log_id, row_number() over(order by log_id) as row_num from Logs )as t group by log_id - row_num
+select min(log_id) as START_ID, id as END_ID from (select a.log_id, max(b.log_id) as id from (select log_id, row_number() over () as rn from Logs) a join (select log_id, row_number() over () as rn from Logs) b on b.log_id + a.rn = b.rn + a.log_id group by a.log_id) a group by end_id order by start_id
+select min(log_id) as START_ID,max(log_id)as "END_ID" from( SELECT log_id,log_id - ROW_NUMBER() OVER () as rnk FROM logs) as cte group by rnk
+select min(log_id) as start_id , max(log_id) as end_id from (select log_id , log_id - dense_rank() over (order by log_id) as rnk from Logs) a group by rnk
+select min(log_id) as start_id , max(log_id) as end_id from (select log_id, rank() over (order by log_id) as ranking from Logs)t group by (log_id-ranking) order by start_id
+select min(log_id) as start_id, max(log_id) as end_id from ( Select log_id, row_number() over (order by log_id) as rnum from Logs ) a group by log_id-rnum
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, (log_id - rank() over(order by log_id)) as rnk from logs ) as tab group by rnk
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, log_id - rank() over (order by log_id asc) as difference from logs ) t group by difference order by start_id asc
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, log_id - row_number() over () as diff from Logs ) diff_table group by diff
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, log_id - row_number() over (order by log_id) as diff from Logs ) t group by diff order by 1
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, log_id - row_number() over(order by log_id) as rnk from Logs ) A group by rnk order by 1
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, log_id-row_number()over(order by log_id) as groupin from Logs )a group by groupin
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, rank() over(order by log_id) as rn, log_id - rank() over (order by log_id) as diff from logs ) as drv group by diff order by start_id
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, row_number() over (order by log_id asc), log_id-row_number() over (order by log_id asc) as ranges from logs ) asd group by ranges
+select min(log_id) as start_id, max(log_id) as end_id from ( select log_id-row_number() over (order by log_id) as diff, log_id from logs ) t group by diff
+select min(log_id) as start_id, max(log_id) as end_id from (SELECT log_id, DENSE_RANK() OVER(ORDER BY log_id) as num FROM Logs) a group by log_id - num
+select min(log_id) as start_id, max(log_id) as end_id from (select *,row_number() over (order by log_id) as rown from Logs) a group by log_id-rown
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, cast((dense_rank() over (order by log_id asc)) as signed) - log_id as diff from Logs) temp group by diff
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, log_id - rank() over(order by log_id) as rk from logs) a group by rk
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, log_id-row_number() over (order by log_id) as group_id from Logs) temp group by group_id
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, log_id-row_number()over(order by log_id) as grp from logs) as temp group by grp order by start_id
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, log_id-row_number()over(order by log_id) as grp from logs) t group by grp
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, rank() over (order by log_id) as `rank` from Logs) a group by log_id - `rank`
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, row_number() over () as rk from Logs) a group by log_id - rk
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, row_number() over (order by log_id) as num from logs) a group by log_id - num
+select min(log_id) as start_id, max(log_id) as end_id from (select log_id, row_number() over (order by log_id) as row_no from logs) t1 group by log_id - row_no
+select min(log_id) as start_id, max(log_id) as end_id from( select log_id, log_id - dense_rank() over(order by log_id) as 'rank_group' from logs) as A group by rank_group
+select min(log_id) as start_id, max(log_id) as end_id from( select log_id, log_id - dense_rank()over(order by log_id) as grp from logs )a group by grp order by start_id
+select min(log_id) as start_id, max(log_id) as end_id from( select log_id, log_id - row_number()over(order by log_id) as grp from logs )a group by grp order by start_id
+select min(log_id) as start_id, max(log_id) as end_id from( select log_id, log_id-row_number()over(order by log_id) as gp from Logs) t group by gp order by 1
+select min(log_id) as start_id, max(log_id) as end_id from( select log_id, row_number() over(order by log_id) rn from Logs) temp group by log_id - rn
+select min(log_id) as start_id,max(log_id) as end_id from ( select log_id,log_id-row_number() over() as diff from logs) t group by diff
+select min(log_id) as start_id,max(log_id) as end_id from (select log_id,row_number() over(order by log_id) as num from Logs) as a group by a.log_id-a.num
+select min(log_id) as start_id,max(log_id) as end_id from( select log_id, (log_id-rank() over(order by log_id)) as diff from Logs) tb group by tb.diff
+select min(log_id) as start_id,max(log_id)as end_id from (select log_id,log_id-row_num as diff from (select log_id,row_number()over(order by log_id)as row_num from logs)as a)as b group by diff
+select min(log_id) start_id , max(log_id) end_id from ( select log_id, ROW_NUMBER() over(order by log_id) as num from Logs ) t group by log_id - num
+select min(log_id) start_id, max(log_id) end_id from ( select log_id, log_id-rn1 log_diff from ( select log_id, row_number() over(order by log_id) rn1 from logs)b )a group by log_diff
+select min(log_id) start_id, max(log_id) end_id from (select log_id, log_id - row_number() over(order by log_id) diff from Logs) temp group by diff order by 1
+select min(log_id) start_id, max(log_id) end_id from (select log_id, row_number() over (order by log_id) as num from logs) a group by log_id - num
+select min(log_id) start_id, max(log_id) end_id from (select log_id, row_number() over() row_num from Logs) t1 group by log_id - row_num
+select min(log_id) start_id, max(log_id) end_id from (select log_id, row_number() over(order by log_id) as num from logs) as temp group by log_id-num
+select min(log_id) start_id, max(log_id) end_id from (select log_id, row_number() over(order by log_id) ind from Logs) t group by log_id - ind
+select min(temp.log_id) as start_id, max(temp.log_id) as end_id from (select l.log_id, l.log_id-row_number() over () as grp from Logs l ) temp group by temp.grp
+select min(tmp.log_id) as start_id,max(tmp.log_id) as end_id from (select L1.log_id,L1.log_id - DENSE_RANK() over(ORDER BY L1.log_id) as rk from Logs L1 ) tmp group by rk
+select start_id, end_id from ( select min(log_id) as start_id, max(log_id) as end_id, log_id - row_num as diff from ( select log_id, row_number() over () as row_num from Logs ) diff_table group by diff ) temp
+select start_id, end_id from (select row_number() over(order by log_id asc) ind, log_id 'start_id' from Logs l1 where log_id - 1 not in (select log_id from Logs)) t1 join (select row_number() over(order by log_id asc) ind, log_id 'end_id' from Logs l1 where log_id + 1 not in (select log_id from Logs)) t2 using (ind)
+select start_id, min(end_id) as end_id from (select t1.log_id as start_id from Logs as t1 left join Logs t2 on t1.log_id-1=t2.log_id where t2.log_id is null) t_start join (select t1.log_id as end_id from Logs as t1 left join Logs t2 on t1.log_id+1=t2.log_id where t2.log_id is null) t_end where start_id<=end_id group by start_id
+select start_id, min(end_id) as end_id from (select t1.log_id as start_id from logs as t1 left join logs as t2 on t1.log_id-1 = t2.log_id where t2.log_id is null) tt_start join (select t1.log_id as end_id from logs as t1 left join logs as t2 on t1.log_id+1 = t2.log_id where t2.log_id is null) tt_end where start_id<=end_id group by start_id
+select start_id,end_id from (select log_id as end_id,row_number() over (order by log_id) as rnk from logs where log_id not in (select log_id-1 from logs))a left join (select log_id as start_id,row_number() over (order by log_id) as rnk from logs where log_id not in (select log_id+1 from logs))b on a.rnk=b.rnk
+select starts.log_id as start_id, ends.log_id as end_id from (select * from logs where log_id - 1 not in (select * from logs)) as starts join (select * from logs where log_id + 1 not in (select * from logs)) as ends where starts.log_id <= ends.log_id group by starts.log_id
+with CTE as ( Select log_id, (log_id - ROW_number() over (order by log_id)) as island from Logs) Select min(log_id) as start_id, max(log_id) as end_id from CTE group by island
+with CTE as ( select log_id, log_id-row_number() over(order by log_id) as group_sets from Logs ) select min(log_id) as start_id, max(log_id) as end_id from CTE group by group_sets
+with L as ( select log_id, log_id-row_number() over(order by log_id asc) as grp from Logs ) select min(log_id) as start_id, max(log_id) as end_id from L group by grp
+with L1 as ( select log_id, log_id + 1 - row_number() over(order by log_id asc) as grp from Logs ) select min(log_id) as start_id, max(log_id) as end_id from L1 group by grp order by start_id asc
+with Logs_1 as (select log_id, (log_id-row_number() over(order by log_id)) as diff from Logs) select distinct first_value(log_id) over(partition by diff order by log_id rows between unbounded preceding and unbounded following) as start_id ,last_value(log_id) over(partition by diff order by log_id rows between unbounded preceding and unbounded following) as end_id from Logs_1
+with abc as (select log_id, log_id-row_number() over (order by log_id ) as b from Logs) select min(log_id) as start_id, max(log_id) as end_id from abc group by b
+with begin_pts as ( select log_id, row_number() over() as pos from logs where (log_id+1 in (select log_id from logs) and log_id-1 not in (select log_id from logs)) or (log_id+1 not in (select log_id from logs) and log_id-1 not in (select log_id from logs)) ), end_pts as ( select log_id, row_number() over() as pos from logs where (log_id+1 not in (select log_id from logs) and log_id-1 in (select log_id from logs)) or (log_id+1 not in (select log_id from logs) and log_id-1 not in (select log_id from logs)) ) select b.log_id as start_id, e.log_id as end_id from begin_pts b join end_pts e where b.pos = e.pos
+with cte as ( select log_id, (log_id-rw) as diff from (select log_id, row_number() over(order by log_id) as rw from logs) b order by log_id) select min(log_id) as start_id, max(log_id) as end_id from cte group by diff
+with cte as ( select log_id, lag(log_id,1,1) over (order by log_id) as previous from Logs) select min(log_id) as start_id, max(log_id) as end_id from cte cross join (select @logs:=1) as s group by if(log_id=previous+1,@logs,@logs:=@logs+1)
+with cte as ( select log_id, log_id - (rank() over (order by log_id)) as diff from logs ) select min(log_id) as start_id, max(log_id) as end_id from cte group by diff
+with cte as ( select log_id, rank() over (order by log_id asc) as rnk from logs ) select min(log_id) as start_id,max(log_id) as end_id from cte group by log_id-rnk
+with cte as ( select log_id, rank() over (order by log_id) as rank_num from Logs ) select min(log_id) as start_id, max(log_id) as end_id from cte group by log_id - rank_num
+with cte as ( select log_id, rank() over(order by log_id asc) as rnk from logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by (log_id-rnk)
+with cte as ( select log_id, row_number() over (order by log_id) rnk from Logs ) select min(log_id) start_id, max(log_id) end_id from cte group by log_id - rnk
+with cte as ( select log_id, row_number() over(order by log_id) as rnk from logs order by 1) select min(log_id) as start_id, max(log_id) as end_id from cte group by log_id - rnk
+with cte as ( select starts.log_id as start_id, ends.log_id as end_id from (select * from logs where log_id - 1 not in (select * from logs)) as starts join (select * from logs where log_id + 1 not in (select * from logs)) as ends where starts.log_id <= ends.log_id) select start_id, min(end_id) as end_id from cte group by start_id
+with cte as (select cast(row_number() over (order by log_id) as signed) as id, log_id from logs) , starts as (select c1.id as id, c1.log_id as start_id from cte as c1 join cte as c2 where c1.log_id - c2.log_id > 1 and c1.id - c2.id = 1 or c1.id = 1 group by c1.log_id order by c1.log_id) , ends as (select c1.id as id, c1.log_id as end_id from cte as c1 join cte as c2 where c2.log_id - c1.log_id > 1 and c2.id - c1.id = 1 or c1.id = (select count(*) from cte) group by c1.log_id order by c1.log_id) select start_id, end_id from starts join ends where end_id - start_id = ends.id - starts.id
+with cte as (select log_id, log_id - row_number() over (order by log_id) as diff from Logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by diff order by start_id
+with cte as (select log_id, row_number() over(order by log_id) as R from logs) select min(t.log_id) as 'START_ID', max(t.log_id) as 'END_ID' from cte as t group by t.log_id-t.R
+with cte as (select log_id, row_number() over(order by log_id) as rn from logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by (log_id - rn)
+with cte as (select log_id, row_number() over(order by log_id) as row_num from Logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by (log_id-row_num)
+with cte as (select log_id,log_id- rank() over(order by log_id) as ran from logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by ran
+with cte as (select log_id,log_id-row_number() over (order by log_id) as r from logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by r
+with cte as (select z.*, abs(z.log_id-z.rk) as diff from (select log_id, dense_rank()over(order by log_id) as rk from logs) z) select min(log_id) as start_id, max(log_id) as end_id from cte group by diff
+with cte as( select log_id, rank() over(order by log_id ) ranking from logs ) select min(log_id) start_id, max(log_id) end_id from cte group by log_id - ranking
+with cte as( select log_id, rank() over(order by log_id ) rnk from Logs ) select min(log_id) start_id, max(log_id) end_id from cte group by log_id - rnk
+with cte as( select log_id, row_number() over(order by log_id) as seq from logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by log_id-seq
+with cte as( select log_id,row_number()over(order by log_id)as num from Logs) select min(log_id) as start_id, max(log_id)as end_id from cte group by log_id-num
+with cte as(select log_id , rank() over(order by log_id) as rnk from logs) select min(log_id) as start_id, max(log_id) as end_id from cte group by log_id-rnk
+with cte_diff AS ( SELECT log_id, log_id - ROW_NUMBER() OVER (ORDER BY log_id ASC) AS diff FROM Logs ) SELECT start_id, end_id FROM ( SELECT diff, MIN(log_id) AS start_id, MAX(log_id) AS end_id FROM cte_diff GROUP BY diff ) b
+with diffone(log_id) as (select log_id+1 from Logs) select a.log_id start_id,b.log_id end_id from (select a.log_id,rank() over(order by a.log_id) rk from Logs a left join diffone b on a.log_id=b.log_id where isnull(b.log_id)) a left join (select b.log_id-1 log_id,rank() over(order by b.log_id) rk from diffone b left join Logs a on a.log_id=b.log_id where isnull(a.log_id)) b on a.rk=b.rk
+with ff as ( select log_id, log_id - dense_rank() over (order by log_id)rnk from logs ) select min(log_id) as start_id,max(log_id) as end_id from ff group by rnk
+with ff as ( select log_id,log_id - dense_rank() over (order by log_id)rnk from logs ) select min(log_id) as start_id,max(log_id) as end_id from ff group by rnk
+with gg as (select log_id, log_id - dense_rank() over (order by log_id)rnk from logs) select min(log_id) as start_id, max(log_id) as end_id from gg group by rnk
+with group_rank as (Select log_id, rank()over(order by log_id) as rank_log, log_id - rank()over(order by log_id) as rk From Logs) Select min(log_id) as start_id, max(log_id) as end_id From group_rank Group by rk
+with initial as (select log_id, (cast(log_id as signed) - cast(rank() over (order by log_id) as signed) ) as r_diff from Logs ) select min(log_id) as start_id, max(log_id) as end_id from initial group by r_diff
+with log_id_rank as( select log_id, rank() over (order by log_id) as log_rank from Logs ) select min(log_id) as start_id, max(log_id) as end_id from log_id_rank group by log_id - log_rank
+with num as( select log_id, log_id - (row_number() over(order by log_id)) as diff from logs) select min(log_id) as start_id, max(log_id) as end_id from num group by diff order by start_id
+with row_logs as ( select log_id, row_number() over(order by log_id) as rn from logs ) select min(log_id) as start_id, max(log_id) as end_id from row_logs group by (log_id-rn)
+with se as ( select log_id, log_id - dense_rank() over (order by log_id)rnk from logs ) select min(log_id) as start_id, max(log_id) as end_id from se group by rnk
+with st as ( select c.log_id from Logs c where c.log_id - 1 not in (select log_id from logs) ) ,en as ( select c.log_id from Logs c where c.log_id + 1 not in (select log_id from logs) ) select st.log_id as start_id , min(en.log_id) as end_id from st left join en on st.log_id <= en.log_id group by st.log_id
+with step1 as ( select log_id, log_id - row_number() over(order by log_id) as n from logs ) select min(log_id) as start_id, max(log_id) as end_id from step1 group by n
+with t as ( Select log_id, (log_id - ROW_NUMBER() over (order by "1")) as island from Logs ) Select min(log_id) as start_id, max(log_id) as end_id from t group by island
+with t as ( select *, log_id - row_number() over (order by log_id) as grp from logs) select min(log_id) as start_id, max(log_id) as end_id from t group by grp
+with t as (select log_id, log_id - row_number() over (order by log_id) as diff from Logs) select min(log_id) as 'start_id', max(log_id) as 'end_id' from t group by diff order by 1
+with t1 AS (SELECT log_id, row_number() over (order by log_id) as row_num, log_id - row_number() over (order by log_id) as diff from Logs) SELECT min(log_id) AS "start_id", max(log_id) AS "end_id" from t1 GROUP BY diff
+with t1 as ( select log_id, (log_id - row_number() over(order by log_id)) as diff from Logs ) select min(log_id) as start_id, max(log_id) as end_id from t1 group by diff
+with t1 as ( select log_id, log_id - rank() over(order by log_id) as rk from logs ) select min(log_id) as start_id, max(log_id) as end_id from t1 group by rk
+with t1 as( select l1.log_id, rank() over (order by l1.log_id) id from logs l1 left join logs l2 on l1.log_id-1=l2.log_id where l2.log_id is null ), t2 as( select l1.log_id, rank() over(order by l1.log_id) id from logs l1 left join logs l2 on l1.log_id+1=l2.log_id where l2.log_id is null ) select t1.log_id start_id, t2.log_id end_id from t1 join t2 on t1.id=t2.id
+with tb1 as (select log_id as id, log_id - rank() over (order by log_id) as r from Logs) select min(tb1.id) as start_id, max(tb1.id) as end_id from tb1 group by r
+with tem as ( select log_id, rk, (log_id - rk) as dif from( select row_number() over (order by log_id) as rk, log_id from logs) a) select min(log_id) as start_id, max(log_id) as end_id from ( select log_id, rk, dif, row_number() over (partition by dif) as int_rk from tem )a group by dif, (log_id - int_rk) order by start_id
+with temp as ( select log_id, log_id - dense_rank() over (order by log_id) rnk from logs ) select min(log_id) as start_id, max(log_id) as end_id from temp group by rnk
+with temp as ( select log_id, log_id - rank()over(order by log_id) as grp from logs ) select min(log_id) as start_id, max(log_id) as end_id from temp group by grp
+with temp as ( select log_id, log_id-dense_rank() over (order by log_id) order_group from logs ) select min(log_id) as start_id, max(log_id) as end_id from temp group by order_group
+with temp as ( select log_id, log_id-row_number() over (order by log_id) order_group from logs ) select min(log_id) start_id, max(log_id) end_id from temp group by order_group
+with tmp as ( select log_id,log_id - dense_rank() over (order by log_id)rnk from logs ) select min(log_id) as start_id , max(log_id) as end_id from tmp group by rnk
+with tmp as( select *, row_number() over(order by log_id) as rn from logs ) select min(log_id) as start_id, max(log_id) as end_id from tmp group by (log_id - rn)

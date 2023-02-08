@@ -1,0 +1,440 @@
+SELECT * FROM (SELECT Score, (DENSE_RANK() OVER (ORDER BY Score DESC)) AS `Rank` FROM Scores) as a
+SELECT * FROM (SELECT Score, DENSE_RANK() OVER(ORDER BY Score Desc) AS `Rank` FROM Scores) sub ORDER BY score DESC
+SELECT A.Score, count(distinct B.Score) as 'Rank' FROM Scores A join Scores B on A.score<=B.score group by A.id order by A.score desc
+SELECT Q.Score,(SELECT count(DISTINCT P.Score) FROM Scores as P where Q.Score<P.Score)+1 as 'RANK' FROM Scores as Q ORDER BY Q.Score DESC
+SELECT S.Score as score, (SELECT COUNT(DISTINCT S1.score) FROM Scores S1 WHERE S1.Score >= S.Score) AS 'Rank' FROM Scores S ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) AS "Rank" FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score<=S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) AS 'Rank' FROM Scores AS S, (SELECT DISTINCT Score FROM Scores) AS S2 WHERE S2.Score >= S.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) AS 'Rank' FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score <= S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) AS 'Rank' FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score<=S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) AS `Rank` FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score<=S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) as `Rank` FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score <= S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, COUNT(S2.Score) as `Rank` FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score<=S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.Score, count(S2.Score) AS `Rank` FROM Scores S, (SELECT DISTINCT Score FROM Scores) S2 WHERE S.Score <= S2.Score GROUP BY S.Id ORDER BY S.Score DESC
+SELECT S.score, COUNT(S2.score) AS "RANK" FROM Scores S,(SELECT DISTINCT score FROM Scores) S2 WHERE S2.score >= S.score GROUP BY S.id ORDER BY S.score DESC
+SELECT S.score,COUNT(S2.score) AS 'Rank' FROM Scores S, (SELECT DISTINCT(Score) FROM Scores) S2 WHERE S.score <= S2.score GROUP BY S.Id ORDER BY S.score DESC
+SELECT S.score,COUNT(S2.score) AS 'Rank' FROM Scores S,(SELECT DISTINCT(Score) FROM Scores) S2 WHERE S.score<=S2.score GROUP BY S.id ORDER BY S.score DESC
+SELECT S1.SCORE, COUNT(S2.SCORE) AS 'RANK' FROM SCORES S1, (SELECT DISTINCT SCORE FROM SCORES) S2 WHERE S1.SCORE <= S2.SCORE GROUP BY S1.ID ORDER BY S1.SCORE DESC
+SELECT S1.Score, ( SELECT COUNT(DISTINCT Score) FROM Scores WHERE Score >= S1.Score) AS 'Rank' FROM Scores S1 ORDER BY S1.Score DESC
+SELECT S1.Score, (SELECT COUNT(DISTINCT Score) FROM Scores S2 WHERE S2.Score >= S1.Score) AS "Rank" FROM Scores S1 ORDER BY S1.Score DESC
+SELECT S1.Score, COUNT(DISTINCT(S2.Score)) AS 'Rank' FROM Scores S1, Scores S2 WHERE S2.Score >= S1.Score GROUP BY S1.Id ORDER BY S1.Score DESC
+SELECT S1.score, COUNT(S2.Score) AS `Rank` FROM Scores S1, (SELECT DISTINCT Score FROM Scores) S2 WHERE S1.Score<=S2.Score GROUP BY S1.Id ORDER BY S1.Score DESC
+SELECT S1.score, COUNT(S2.score) AS "Rank" FROM Scores S1, (SELECT DISTINCT score FROM Scores) S2 WHERE S1.score <= S2.score GROUP BY S1.Id ORDER BY S1.score DESC
+SELECT SCORE, DENSE_RANK() OVER (ORDER BY SCORE DESC) 'Rank' FROM SCORES
+SELECT SCORE, DENSE_RANK() OVER(ORDER BY SCORE DESC) AS 'RANK' FROM SCORES
+SELECT SCORE, DENSE_RANK() OVER(ORDER BY SCORE DESC) AS `RANK` FROM SCORES
+SELECT SCORE, DENSE_RANK() OVER(ORDER BY SCORE DESC) `RANK` FROM SCORES
+SELECT SCORES.SCORE, DENSE_RANK() OVER (ORDER BY SCORES.SCORE DESC) AS 'RANK' FROM SCORES
+SELECT Score 'score', dense_rank() over (ORDER BY Score DESC) 'Rank' FROM Scores
+SELECT Score , DENSE_RANK() OVER( ORDER BY Score DESC ) 'Rank' FROM Scores
+SELECT Score , Dense_Rank() OVER(ORDER BY Score DESC) as `Rank` from Scores
+SELECT Score ,DENSE_RANK() OVER(ORDER BY Score DESC) AS "Rank" FROM Scores ORDER BY 1 DESC
+SELECT Score ,DENSE_RANK() OVER(ORDER BY Score DESC) AS "Rank" FROM Scores ORDER BY 2 ASC
+SELECT Score AS 'score', dense_rank() OVER(ORDER BY Score DESC) AS 'Rank' FROM sCORES
+SELECT Score AS score , dense_rank() OVER (ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT Score AS score ,DENSE_RANK() OVER (ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT Score AS score, (DENSE_RANK() OVER(ORDER BY Score DESC)) AS 'Rank' FROM Scores
+SELECT Score AS score, (SELECT count(DISTINCT Score) FROM Scores WHERE Score >= s.Score) AS 'Rank' FROM Scores s ORDER BY Score DESC
+SELECT Score AS score, DENSE_RANK() OVER (ORDER BY Score DESC) AS 'Rank' FROM Scores ORDER BY 1 DESC
+SELECT Score AS score, DENSE_RANK() OVER (ORDER BY Score DESC) AS `Rank` FROM Scores ORDER BY score DESC
+SELECT Score AS score, DENSE_RANK() OVER( ORDER BY Score DESC) AS 'Rank' FROM Scores ORDER BY 'Rank'
+SELECT Score AS score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT Score AS score, DENSE_RANK() OVER(ORDER BY Score DESC) AS `Rank` FROM Scores
+SELECT Score AS score, DENSE_RANK() over (ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT Score as 'score', DENSE_RANK() OVER(ORDER BY Score DESC) as 'Rank' FROM Scores ORDER BY 'Rank' desc
+SELECT Score as score, (SELECT COUNT(DISTINCT Score) FROM Scores WHERE Score >= s.Score) as `Rank` FROM Scores s ORDER BY Score DESC
+SELECT Score as score, (SELECT COUNT(DISTINCT score)+1 FROM Scores AS s2 WHERE s2.score > s1.score) AS 'Rank' FROM Scores AS s1 Order BY score DESC
+SELECT Score as score, DENSE_RANK() OVER (ORDER BY Score DESC) AS `Rank` FROM Scores
+SELECT Score as score, DENSE_RANK() OVER(ORDER BY Score DESC) as 'Rank' FROM Scores
+SELECT Score as score, DENSE_Rank() OVER (ORDER BY Score DESC) as `Rank` FROM Scores ORDER BY score DESC
+SELECT Score score, DENSE_RANK() OVER( ORDER BY Score DESC ) `Rank` FROM Scores
+SELECT Score, ( SELECT count(DISTINCT Score) FROM Scores T where S.score <= T.score ) AS 'Rank' FROM Scores S ORDER BY Score DESC
+SELECT Score, (SELECT COUNT(DISTINCT Score) FROM Scores S1 WHERE S1.Score >= S2.Score) AS 'Rank' FROM Scores S2 ORDER BY Score desc
+SELECT Score, (SELECT COUNT(DISTINCT Score) FROM Scores WHERE Score >= i.Score) `Rank` from Scores i ORDER BY Score DESC
+SELECT Score, (SELECT COUNT(DISTINCT Score) FROM Scores WHERE Score >= s.Score) `Rank` FROM Scores s ORDER BY Score DESC
+SELECT Score, (SELECT count(*) FROM (SELECT DISTINCT Score s FROM Scores) tmp WHERE s >= Score) AS `Rank` FROM Scores ORDER BY Score DESC
+SELECT Score, (SELECT count(*) FROM (SELECT distinct Score s FROM Scores) AS tmp WHERE s >= Score) AS `Rank` FROM Scores ORDER BY Score desc
+SELECT Score, (SELECT count(DISTINCT Score) FROM Scores WHERE Score > s.Score)+1 AS "Rank" FROM Scores AS s ORDER BY Score DESC
+SELECT Score, (SELECT count(DISTINCT Score) from Scores as S2 where S.Score <= S2.Score ) as `Rank` FROM Scores as `S` ORDER BY Score DESC
+SELECT Score, (SELECT count(distinct Score) FROM Scores WHERE Score >= s.Score) 'Rank' FROM Scores s ORDER BY Score desc
+SELECT Score, (SELECT count(distinct Score) FROM Scores WHERE Score >= s.Score) `Rank` FROM Scores s ORDER BY Score desc
+SELECT Score, (SELECT count(distinct Score) FROM Scores WHERE Score >= s.Score) as 'Rank' FROM Scores s ORDER BY Score desc
+SELECT Score, @rank := @rank + (@prev <> (@prev := Score)) `Rank` FROM Scores, (SELECT @rank := 0, @prev := -1) init ORDER BY Score desc
+SELECT Score, DENSE_RANK () OVER( ORDER BY Score desc) AS 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER ( ORDER BY Score DESC ) AS `Rank` FROM Scores ORDER BY `Rank`
+SELECT Score, DENSE_RANK() OVER ( ORDER BY score DESC ) `Rank` FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) 'Rank' FROM Scores ORDER BY Score DESC
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) 'Rank' from Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS "Rank" FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS `RANK` FROM Scores ORDER BY 2
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS `Rank` FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS `Rank` FROM Scores ORDER BY Score DESC
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) As 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) `Rank` FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) as "Rank" FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY Score DESC) as 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY score DESC) 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER (ORDER BY score DESC) AS "Rank" FROM Scores
+SELECT Score, DENSE_RANK() OVER (order by score desc ) AS 'Rank' FROM Scores order by Score desc
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) AS "Rank" FROM Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores ORDER BY 'Rank'
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores ORDER BY Score DESC
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' From Scores ORDER BY Score DESC
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) `Rank` FROM Scores ORDER BY `Rank`
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) as 'Rank' FROM Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score DESC) as `Rank` FROM Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score desc) "Rank" From Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY Score desc) 'RANK' from Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY score DESC) 'RANK' FROM Scores
+SELECT Score, DENSE_RANK() OVER(ORDER BY score DESC) AS "Rank" FROM Scores ORDER BY 1 DESC
+SELECT Score, DENSE_RANK() OVER(order by score DESC) AS 'Rank' from scores order by score desc
+SELECT Score, DENSE_RANK() over (ORDER BY Score DESC) AS "Rank" FROM Scores
+SELECT Score, DENSE_Rank() OVER(ORDER BY Score DESC) 'Rank' FROM Scores
+SELECT Score, Dense_Rank() over(order by score desc) as 'Rank' FROM scores
+SELECT Score, FT2.Rank FROM Scores AS FT1 JOIN( SELECT UV.SC AS SCO, ROW_NUMBER() OVER(ORDER BY UV.SC DESC) AS 'Rank' FROM (SELECT DISTINCT Score AS SC FROM Scores ORDER BY Score DESC) AS UV ) AS FT2 ON FT1.Score = FT2.SCO ORDER BY Score DESC
+SELECT Score, dense_rank () over (order by Score desc) 'rank' from Scores
+SELECT Score, dense_rank () over (order by Score desc) as 'Rank' from Scores
+SELECT Score, dense_rank() OVER (order by score DESC) As 'Rank' FROM Scores
+SELECT Score, dense_rank() over ( Order by Score desc) as 'Rank' from Scores order by Score desc
+SELECT Score, dense_rank() over (order by Score DESC) as 'Rank' FROM Scores
+SELECT Score, dense_rank() over (order by score desc) as 'Rank' from Scores
+SELECT Score, dense_rank() over (order by score desc) as `Rank` FROM Scores order by `Rank`
+SELECT Scores.Score, COUNT(1) AS `RANK` FROM Scores , ( SELECT DISTINCT Score FROM Scores ) Ranking WHERE Scores.Score <= Ranking.Score GROUP BY Scores.Id ORDER BY Scores.Score DESC
+SELECT Scores.Score, COUNT(Ranking.Score) AS `RANK` FROM Scores , ( SELECT DISTINCT Score FROM Scores ) Ranking WHERE Scores.Score <= Ranking.Score GROUP BY Scores.Id, Scores.Score ORDER BY Scores.Score DESC
+SELECT Scores.Score, Temp.Rank FROM Scores LEFT OUTER JOIN ( SELECT Score, ROW_NUMBER() OVER () AS 'Rank' FROM ( SELECT DISTINCT Score FROM Scores ORDER BY Score DESC ) AS DistinctScores ) Temp ON Scores.Score = Temp.Score ORDER BY Temp.Rank ASC
+SELECT X.SCORE, COUNT(DISTINCT Y.SCORE) AS `RANK` FROM SCORES X JOIN SCORES Y ON X.SCORE <= Y.SCORE GROUP BY X.ID ORDER BY 1 DESC
+SELECT a.SCORE, DENSE_RANK () OVER(ORDER BY a.SCORE DESC) 'Rank' FROM Scores a
+SELECT a.Score as score, (SELECT COUNT(DISTINCT b.Score) FROM Scores b WHERE b.Score >= a.Score) AS 'Rank' FROM Scores a ORDER BY a.Score DESC
+SELECT a.Score as score, COUNT(DISTINCT b.Score) AS `Rank` FROM (SELECT Id, Score FROM Scores) a JOIN (SELECT Score FROM Scores) b ON a.Score <= b.Score GROUP BY A.Id ORDER by A.Score DESC
+SELECT a.Score, (SELECT COUNT(DISTINCT Score) FROM Scores b WHERE b.Score>=a.Score) `Rank` FROM Scores a ORDER BY Score DESC
+SELECT a.Score, COUNT(b.Score) AS `Rank` FROM Scores a LEFT JOIN (SELECT DISTINCT Score FROM Scores ) b ON a.Score <= b.Score GROUP BY a.Id ORDER BY a.Score DESC
+SELECT a.score, COUNT(b.score) AS 'Rank' FROM scores a, (select DISTINCT score from scores) b WHERE a.score <= b.score GROUP BY a.id ORDER BY a.score desc
+SELECT a.score, b.count AS `rank` FROM scores a LEFT JOIN ( SELECT t1.score, count(DISTINCT t2.score) AS count FROM scores t1 LEFT JOIN scores t2 ON t2.score >= t1.score GROUP BY t1.score ) b ON a.score = b.score ORDER BY b.count
+SELECT allScores.score, groupedScores.Rank FROM (SELECT Score as 'score' FROM Scores) as allScores LEFT JOIN (SELECT Score as 'score', RANK() OVER(ORDER BY Score DESC) as 'Rank' FROM Scores GROUP BY Score ORDER BY Score DESC) as groupedScores ON allScores.score = groupedScores.score ORDER BY score DESC
+SELECT c.score as score, d.rank as 'rank' FROM Scores as c JOIN ( SELECT a.Score as score, count(DISTINCT b.score) + 1 as 'rank' FROM Scores as a LEFT JOIN Scores as b ON a.Score < b.Score GROUP BY a.Score ) as d ON c.Score = d.Score ORDER BY -c.Score
+SELECT curr.score, COUNT(DISTINCT lower.score) AS 'rank' FROM scores curr INNER JOIN scores lower ON curr.score <= lower.score GROUP BY curr.id ORDER BY curr.score DESC
+SELECT r.score, r.Rank FROM ( SELECT Score as score, Dense_Rank() Over (Order by Score desc) as `Rank` FROM Scores ) as r
+SELECT s.Score AS score, COUNT(DISTINCT r.Score) AS 'Rank' FROM scores s JOIN Scores as r ON s.Score <= r.Score GROUP BY s.ID ORDER BY s.Score DESC
+SELECT s.Score AS score, COUNT(r.Score) AS 'Rank' FROM scores s, (SELECT DISTINCT Score FROM Scores) r WHERE s.Score <= r.Score GROUP BY s.ID ORDER BY s.Score DESC
+SELECT s.Score as Score , DENSE_RANK() OVER(ORDER BY s.Score DESC) as 'Rank' FROM Scores s
+SELECT s.Score, COUNT(DISTINCT t.Score) AS "Rank" FROM Scores s JOIN Scores t ON s.Score <= t.Score GROUP BY s.Id ORDER BY s.Score DESC
+SELECT s.Score, COUNT(s.Score) AS 'Rank' FROM Scores s, (SELECT DISTINCT Score FROM Scores) t WHERE t.score >= s.score GROUP BY s.id ORDER BY s.score DESC
+SELECT s.Score, COUNT(s2.Score) AS 'Rank' From Scores s, (SELECT DISTINCT(Score) FROM Scores) s2 WHERE s.Score <= s2.Score GROUP BY s.Id Order BY s.Score desc
+SELECT s.Score, COUNT(t.Score) AS 'Rank' FROM (SELECT DISTINCT Score FROM Scores) AS t, Scores AS s WHERE s.Score <= t.Score GROUP BY s.Id, s.Score ORDER BY s.Score DESC
+SELECT s.Score, COUNT(t.Score) AS 'Rank' FROM (SELECT DISTINCT Score FROM Scores) AS t, Scores AS s where s.Score <= t.Score GROUP BY s.Id, s.Score ORDER BY s.Score DESC
+SELECT s.Score, COUNT(t.Score) AS `Rank` FROM (SELECT DISTINCT Score FROM Scores) AS t, Scores AS s WHERE s.Score <= t.Score GROUP BY s.Id, s.Score ORDER BY s.Score DESC
+SELECT s.Score, count(distinct t.score) 'Rank' FROM Scores s JOIN Scores t ON s.Score <= t.score GROUP BY s.Id ORDER BY s.Score desc
+SELECT s.Score, count(distinct t.score) `Rank` FROM Scores s JOIN Scores t ON s.Score <= t.score GROUP BY s.Id ORDER BY count(distinct t.score)
+SELECT s.Score, count(distinct t.score) `Rank` FROM Scores s JOIN Scores t ON s.Score <= t.score GROUP BY s.Id ORDER BY s.Score desc
+SELECT s.Score, count(distinct t.score) as 'Rank' FROM Scores s JOIN Scores t ON s.Score <= t.score GROUP BY s.Id ORDER BY s.Score desc
+SELECT s.Score, count(t.Score) AS 'rank' FROM Scores AS s JOIN (SELECT distinct Score FROM Scores) AS t WHERE s.Score <= t.Score GROUP BY s.id ORDER BY s.Score DESC
+SELECT s.Score, count(t.Score) as 'Rank' FROM (SELECT DISTINCT Score FROM Scores) AS t, Scores AS s WHERE s.Score <= t.Score group by s.Score,s.Id order by s.Score Desc
+SELECT s.Score, r.Rank FROM Scores s JOIN ( SELECT s1.Score score, COUNT(DISTINCT s2.Score) "Rank" FROM Scores s1, Scores s2 WHERE s1.Score <= s2.Score GROUP BY 1 ORDER BY 2 ) r on s.score = r.score ORDER BY 2
+SELECT s.score ,t.ranks AS "Rank" FROM Scores s INNER JOIN ( SELECT s1.Score ,COUNT(DISTINCT s2.Score) AS ranks FROM Scores s1, Scores s2 WHERE s1.Score <= s2.Score GROUP BY s1.Score ORDER BY s1.Score ) t ON s.Score = t.Score ORDER BY t.ranks
+SELECT s.score, (SELECT COUNT(*)+1 FROM (SELECT DISTINCT score FROM scores) AS tmp WHERE tmp.score >s.score) AS 'Rank' FROM scores AS s ORDER BY s.score desc
+SELECT s.score, (SELECT COUNT(*)+1 FROM (SELECT DISTINCT score FROM scores) as unique_scores WHERE score >s.score) AS 'RANK' FROM scores AS s ORDER BY s.score desc
+SELECT s.score, COUNT(DISTINCT t.score) `Rank` FROM Scores s INNER JOIN Scores t WHERE s.score <= t.score GROUP BY s.id ORDER BY s.score DESC
+SELECT s.score, COUNT(t.score) AS "Rank" FROM (SELECT DISTINCT Score FROM Scores) AS t, Scores AS s WHERE s.score <= t.score GROUP BY s.Id, s.Score ORDER BY s.Score DESC
+SELECT s1.Score AS score, COUNT(DISTINCT s2.Score) AS 'Rank' FROM Scores AS s1, (SELECT DISTINCT Score FROM Scores) s2 WHERE s1.Score <= s2.Score GROUP BY s1.Id ORDER BY s1.Score DESC
+SELECT s1.Score as score , DENSE_RANK() OVER(ORDER BY score DESC)as `Rank` FROM Scores s1 ORDER BY s1.Score DESC
+SELECT s1.Score as score, (SELECT COUNT(DISTINCT s2.Score)+1 FROM Scores s2 WHERE s1.Score< s2.Score) AS 'Rank' FROM Scores s1 ORDER BY 1 DESC
+SELECT s1.Score, (SELECT COUNT(DISTINCT Score) FROM Scores s2 WHERE s2.Score >= s1.Score) AS 'Rank' FROM Scores s1 ORDER BY s1.Score DESC
+SELECT s1.Score, (SELECT COUNT(DISTINCT s2.Score) FROM Scores s2 WHERE s1.Score <= s2.Score) as `Rank` FROM Scores s1 ORDER BY Score DESC
+SELECT s1.Score, (SELECT COUNT(DISTINCT s2.Score) FROM Scores s2 WHERE s1.Score <= s2.Score) as `Rank` FROM Scores s1 ORDER BY `Rank`
+SELECT s1.Score, COUNT(DISTINCT s2.Score) AS 'Rank' FROM Scores s1,Scores s2 WHERE s1.Score <= s2.Score GROUP BY s1.id ORDER BY s1.score desc
+SELECT s1.Score, COUNT(DISTINCT(s2.Score)) AS 'Rank' FROM Scores s1, Scores s2 WHERE s2.Score >= s1.Score GROUP BY s1.id ORDER BY s1.Score DESC
+SELECT s1.Score, COUNT(s2.Score) AS 'Rank' FROM Scores s1, ( SELECT DISTINCT Score FROM Scores ) s2 WHERE s1.Score <= s2.Score GROUP BY s1.Id ORDER BY s1.Score DESC
+SELECT s1.Score, count(distinct s2.Score) 'Rank' FROM Scores s1 INNER JOIN Scores s2 ON s1.Score <= s2.Score GROUP BY s1.Id ORDER BY s1.Score desc
+SELECT s1.Score, count(distinct s2.score) 'Rank' FROM Scores s1 JOIN Scores s2 ON s1.Score <= s2.score GROUP BY s1.Id ORDER BY s1.Score desc
+SELECT s1.Score,COUNT(DISTINCT s2.Score) AS 'Rank' FROM Scores s1 JOIN Scores s2 ON s2.Score>=s1.Score GROUP BY s1.Id ORDER BY s1.Score DESC
+SELECT s4.Score, s3.row_num as 'Rank' FROM Scores s4 JOIN ( SELECT s2.Score, ROW_NUMBER() OVER ( ORDER BY s2.Score DESC ) row_num FROM (SELECT DISTINCT s1.Score FROM Scores s1 ORDER BY s1.Score DESC) s2 ) s3 ON s4.Score = s3.Score ORDER BY s4.Score DESC
+SELECT sc.Score, rnk.`Rank` FROM (SELECT Score FROM Scores ORDER BY Score DESC) sc, (SELECT s.Score, (@cnt := @cnt + 1) AS `Rank` FROM (SELECT DISTINCT Score FROM Scores ORDER BY Score DESC) s, (SELECT @cnt := 0) r) rnk WHERE sc.Score = rnk.Score
+SELECT score , DENSE_RANK() OVER ( ORDER BY score desc ) as 'RANK' FROM Scores
+SELECT score ,DENSE_RANK() OVER(order by score DESC) as 'Rank' FROM scores
+SELECT score AS 'Score', DENSE_RANK() OVER (ORDER BY score DESC) AS 'Rank' FROM Scores ORDER BY 1 DESC
+SELECT score AS Score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores ORDER BY 'Rank' ASC
+SELECT score, (DENSE_RANK() OVER(ORDER BY score DESC)) "Rank" FROM Scores
+SELECT score, DENSE_RANK () OVER (ORDER BY score DESC) AS 'Rank' FROM Scores
+SELECT score, DENSE_RANK() OVER ( ORDER BY score DESC ) `Rank` FROM Scores
+SELECT score, DENSE_RANK() OVER ( ORDER BY score DESC) `Rank` FROM scores
+SELECT score, DENSE_RANK() OVER (ORDER BY SCORE DESC) 'Rank' FROM Scores
+SELECT score, DENSE_RANK() OVER (ORDER BY SCORE DESC) AS 'Rank' FROM scores
+SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) AS `Rank` FROM Scores
+SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) AS `Rank` FROM scores
+SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) `Rank` FROM Scores ORDER BY score DESC
+SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) as 'Rank' FROM Scores ORDER BY score desc
+SELECT score, DENSE_RANK() OVER( ORDER BY score DESC) AS 'Rank' FROM Scores
+SELECT score, DENSE_RANK() OVER( ORDER BY score DESC) as "Rank" FROM Scores ORDER BY 2 asc
+SELECT score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT score, DENSE_RANK() OVER(ORDER BY Score DESC) AS `Rank` FROM Scores
+SELECT score, DENSE_RANK() OVER(ORDER BY Score DESC) as 'Rank' FROM Scores
+SELECT score, DENSE_RANK() OVER(ORDER BY score DESC) 'Rank' FROM scores ORDER BY 'Rank'
+SELECT score, DENSE_RANK() OVER(ORDER BY score DESC) AS 'Rank' FROM Scores
+SELECT score, DENSE_RANK() OVER(ORDER BY score DESC) AS 'Rank' FROM Scores ORDER BY score DESC
+SELECT score, DENSE_RANK() over (order by score desc) 'Rank' from Scores
+SELECT score, DENSE_RANK() over(order by score desc) as `Rank` FROM Scores
+SELECT score, DENSE_RANK()OVER(ORDER BY Score DESC) AS 'Rank' FROM Scores
+SELECT score, DENSE_RANK()OVER(ORDER BY score DESC) as 'Rank' FROM Scores
+SELECT score, dense_RANK() OVER(ORDER BY score DESC) 'rank' FROM scores
+SELECT score, dense_rank() OVER (ORDER BY score DESC) AS 'Rank' FROM Scores
+SELECT score, dense_rank() OVER (order by score desc) AS 'Rank' FROM scores
+SELECT score, dense_rank() OVER( ORDER BY score DESC) as 'Rank' FROM Scores
+SELECT score, dense_rank() OVER(ORDER BY score DESC) AS "Rank" FROM Scores
+SELECT score, dense_rank() OVER(ORDER BY score DESC) AS `Rank` FROM Scores
+SELECT score, dense_rank() over (order by score DESC) as 'Rank' FROM scores
+SELECT score, dense_rank() over (order by score desc) `Rank` from Scores
+SELECT score, dense_rank() over (order by score desc) as "Rank" FROM Scores
+SELECT score, dense_rank() over(ORDER BY score DESC) AS 'Rank' FROM Scores
+SELECT score, dense_rank() over(order by score desc) AS 'Rank' FROM Scores
+SELECT score, dense_rank()OVER(ORDER BY Score DESC) as 'Rank' FROM scores
+SELECT score,DENSE_RANK() OVER(ORDER BY score DESC) AS 'Rank' FROM SCORES
+SELECT scores.Score, (SELECT COUNT(DISTINCT s.Score) FROM scores AS s WHERE s.Score >= scores.Score) AS `Rank` FROM scores AS scores ORDER BY scores.Score DESC
+SELECT t.Score, COUNT(s.Score) AS "Rank" FROM(SELECT DISTINCT Score FROM Scores) AS s, Scores AS t WHERE t.score <= s.score GROUP BY t.Id, t.Score ORDER BY t.Score DESC
+SELECT t.score,t.Rank FROM (SELECT score,(SELECT COUNT(distinct s1.score)+1 FROM Scores s1 where s1.score>s.score) as 'Rank' FROM Scores s )t ORDER BY t.rank
+SELECT t1.Score AS score, (SELECT COUNT(DISTINCT t2.Score) FROM Scores t2 WHERE t2.Score > t1.Score) + 1 AS 'Rank' From Scores t1 ORDER BY t1.Score DESC
+SELECT tb1.Score AS Score, (SELECT count(distinct tb2.Score) FROM Scores AS tb2 WHERE tb2.Score > tb1.Score) +1 AS "Rank" FROM Scores as tb1 ORDER BY tb1.Score DESC
+SELECT tb1.Score AS score, (SELECT count(distinct tb2.Score) FROM Scores AS tb2 WHERE tb2.Score > tb1.Score) +1 AS 'Rank' FROM Scores AS tb1 ORDER BY tb1.Score DESC
+SELECT tb1.Score As Score,(SELECT count(distinct tb2.Score) FROM Scores AS tb2 WHERE tb2.Score > tb1.Score) + 1 AS 'Rank' FROM Scores AS tb1 ORDER BY tb1.Score DESC
+SELECT tb1.Score as Score, (SELECT count(distinct tb2.Score) FROM Scores as tb2 WHERE tb2.Score > tb1.Score) + 1 as 'Rank' FROM Scores as tb1 ORDER by tb1.Score DESC
+SELECT tb1.Score as score, (SELECT COUNT(DISTINCT(tb2.Score)) FROM Scores as tb2 WHERE tb2.Score > tb1.Score) + 1 AS 'Rank' FROM Scores as tb1 ORDER BY tb1.Score DESC
+Select S.Score as score, Dense_Rank() over (Order By S.Score desc) as 'Rank' From Scores S
+Select S.score, count(S2.score) as 'Rank' From Scores S, (select distinct score from Scores) as S2 Where S.Score <= S2.Score Group by S.Id Order by S.score Desc
+Select S1.score, (select Count(distinct(S2.score)) From Scores S2 where S2.score >= S1.score) 'Rank' From Scores S1 Order by S1.score DESC
+Select Score , DENSE_RANK() OVER ( ORDER BY Score desc ) as `Rank` from Scores
+Select Score , dense_rank() over (order by Score Desc) as `Rank` from Scores
+Select Score, (SELECT count(distinct Score) from Scores where score >= s1.score) as `Rank` from Scores s1 order by s1.Score desc
+Select Score, DENSE_RANK() OVER (ORDER BY Score DESC) as "Rank" FROM Scores
+Select Score, DENSE_RANK() over (Order by Score desc) as 'Rank' from Scores order by 'Rank' asc
+Select Score, Dense_Rank() over (order by Score Desc) 'Rank' from Scores
+Select Score, Dense_rank() Over (Order By Score Desc) `Rank` From Scores
+Select Score, Dense_rank() over(Order by Score Desc) as "Rank" From Scores
+Select Score, dense_Rank() Over (Order By Score desc) as 'Rank' from Scores
+Select Score, dense_rank() over (order by Score desc) as 'Rank' from Scores order by Score Desc
+Select Score, dense_rank() over (order by score desc) as `Rank` from Scores
+Select a.Score as score, Count(Distinct b.Score) as `Rank` From Scores a, Scores b Where a.Score <= b.Score Group By a.Score, a.Id Order By score DESC
+Select a.score, a.rk as 'rank' from ( Select id, score, dense_rank() over ( order by score desc )rk from scores ) a
+Select s.Score , Dense_Rank() over ( Order by Score DESC ) 'Rank' from Scores s
+Select s.Score, Count(t.Score) as `Rank` from (Select Distinct Score from Scores) as t, Scores as s where s.Score <= t.Score group by s.Id, s.Score order by s.Score desc
+Select s.Score, a.rank_inner as 'Rank' from Scores s, (Select Score, ROW_NUMBER() OVER(order by Score desc) as rank_inner FROM Scores GROUP BY Score) as a where s.Score = a.score ORDER BY s.Score desc
+Select s.Score, count(distinct t.Score) `Rank` From Scores s Join Scores t on s.Score <= t.Score Group by s.Id Order by s.Score desc
+Select s1.score,count(Distinct s2.score) as `rank` from Scores s1 Left Join Scores s2 on s1.score <= s2.score group by s1.Id order by s1.score DESC
+Select score , dense_rank() over (order by score desc ) 'Rank' from Scores
+Select score ,dense_rank() over(order by score desc) as 'Rank' From Scores
+Select score, (Select count(distinct score) from Scores where score>=s.Score) as 'RANK' from Scores s order by score desc
+Select score, DENSE_RANK() OVER( ORDER BY score DESC) AS `Rank` From Scores
+Select score, DENSE_RANK() OVER(Order by score DESC) as 'Rank' from scores
+Select score, DENSE_RANK() over ( order by Score desc )'Rank' from Scores
+Select score, DENSE_RANK() over (order by Score desc)'Rank' from Scores
+Select score, dense_rank() over (Order by score Desc) as 'Rank' from Scores
+Select score, dense_rank() over (order by score desc) as "Rank" from Scores
+Select score, dense_rank() over(order by score desc) as `Rank` from Scores
+Select tS1.Score as Score, (Select count(distinct tS2.Score) From Scores as tS2 where tS2.Score > tS1.Score )+1 as `Rank` From Scores as tS1 Order by tS1.Score DESC
+WITH Scores_unique AS ( SELECT DISTINCT Score FROM Scores ) SELECT s1.Score AS score, (1 + (SELECT COUNT(s2.Score) FROM Scores_unique s2 WHERE s2.Score > s1.Score)) AS 'Rank' FROM Scores s1 ORDER BY s1.Score DESC
+WITH rank_t as ( SELECT DISTINCT Score, dense_rank() OVER(ORDER BY Score DESC) as `Rank` FROM Scores ORDER BY 1 DESC) SELECT Scores.Score as Score, rank_t.`Rank` as `Rank` FROM Scores LEFT JOIN rank_t ON Scores.Score = rank_t.Score ORDER BY 1 DESC
+WITH uniqscores AS (SELECT DISTINCT Score FROM Scores), rankedscores AS (SELECT Score, RANK() OVER (ORDER BY Score DESC) AS rnk FROM uniqscores) SELECT sc.Score as score, rs.rnk as `Rank` FROM Scores sc LEFT JOIN rankedscores rs ON sc.Score = rs.Score ORDER BY score DESC
+select A.Score, count(distinct(B.Score)) as 'Rank' from Scores A join Scores B where B.Score >= A.Score group by A.Id order by A.Score desc
+select S.Score, Dense_Rank() over(order by S.Score desc) 'Rank' from Scores S
+select S.score, `Rank` from scores S join ( select score, (@rank := @rank+1) `Rank` from (select distinct(score) from scores) S, (SELect @rank:= 0 ) r order by 1 desc ) rs on S.score = rs.score order by 1 desc
+select S1.Score as 'score', Count( DISTINCT S2.Score ) as 'Rank' from Scores S1 INNER JOIN Scores S2 ON S1.Score<=S2.Score Group by S1.Id,S1.Score ORDER by S1.Score desc
+select S2.Score as score, S1.Rank from Scores S2, (select Score, @counter:=@counter+1 AS 'Rank' from (select distinct(Score) from Scores order by Score Desc) S3, (select @counter := 0) r) AS S1 where S1.Score = S2.Score order by S1.Rank
+select Score , DENSE_RANK() over(order by Score desc) as `Rank` from Scores order by Score desc
+select Score , dense_rank() over( order by score desc) `rank` from Scores
+select Score , dense_rank() over(order by Score DESC) as "Rank" from Scores
+select Score , dense_rank() over(order by Score desc) as "Rank" from Scores
+select Score as "score", dense_rank() over(order by score desc) as "Rank" from Scores
+select Score as 'score', dense_rank() over (order by Score DESC) as 'rank' from Scores
+select Score as score, DENSE_RANK() OVER (ORDER BY Score DESC) as "Rank" from Scores
+select Score as score, DENSE_RANK() OVER(ORDER BY Score DESC) AS 'Rank' from Scores
+select Score as score, DENSE_RANK() over (order by Score desc) as 'Rank' from Scores
+select Score as score, DENSE_RANK() over (order by score desc) as `Rank` from Scores
+select Score as score, DENSE_RANK() over(order by Score desc) as "Rank" from Scores
+select Score as score, dense_rank () over (order by score desc) 'Rank' from Scores order by Score desc
+select Score as score, dense_rank() over (order by Score DESC) as 'Rank'from Scores
+select Score as score, dense_rank() over (order by Score desc) as "Rank" from Scores
+select Score as score, dense_rank() over (order by Score desc) as 'Rank' from Scores
+select Score as score, dense_rank() over(order by Score desc) as 'Rank' from Scores
+select Score as score, dense_rank() over(order by Score desc) as `Rank` from Scores
+select Score as score, dense_rank()over(order by Score desc) as `Rank` from Scores
+select Score score , dense_rank() over (order by Score desc) 'Rank' from Scores
+select Score, (select count(distinct Score) from Scores where Score >= S.Score) as `Rank` from Scores S order by Score desc
+select Score, (select count(distinct Score) from Scores where Score>=s.Score) as 'Rank' from Scores as s order by Score desc
+select Score, DENSE_RANK () over (order by score desc) as 'rank' from scores
+select Score, DENSE_RANK() OVER ( ORDER BY Score DESC) as "Rank" from Scores
+select Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS `Rank` from Scores
+select Score, DENSE_RANK() OVER (ORDER BY Score DESC) `Rank` FROM Scores
+select Score, DENSE_RANK() OVER (order by Score Desc ) as `Rank` from Scores
+select Score, DENSE_RANK() OVER (order by Score desc) `Rank` from Scores order by Score desc
+select Score, DENSE_RANK() OVER (order by Score desc) as 'rank' from Scores order by 'rank'
+select Score, DENSE_RANK() OVER(order by Score desc) as 'Rank' from Scores order by Score desc
+select Score, DENSE_RANK() OVER(order by Score desc) as `Rank` from Scores order by `Rank` asc
+select Score, DENSE_RANK() over (order by Score desc) as "Rank" from Scores
+select Score, DENSE_RANK() over (order by Score desc) as "Rank" from scores
+select Score, DENSE_RANK() over(order by Score DESC) as 'Rank' from Scores
+select Score, Dense_Rank() OVER (order by score desc) as 'Rank' from Scores
+select Score, Dense_Rank() Over(order by Score Desc) as 'Rank' from Scores
+select Score, Dense_Rank() Over(order by score desc) as 'Rank' from Scores
+select Score, Dense_Rank() over (order by Score DESC) AS "Rank" from Scores
+select Score, Dense_Rank() over(order by score desc) as `Rank` from scores
+select Score, Dense_Rank()over(order by Score DESC) AS "Rank" from Scores
+select Score, Dense_Rank()over(order by Score DESC) As `Rank` from Scores
+select Score, Rnk as 'Rank' from (select Score, dense_rank() over (order by score desc) Rnk from Scores ) A order by Rnk
+select Score, `Rank` from (select ID, Score, Dense_Rank() over(order by Score desc) `Rank` from Scores )A
+select Score, convert(case score when @scoreValue then @r:=@r when @scoreValue:=score then @r:=@r+1 end, decimal) as `Rank` from((select @r:=0, @scoreValue:=null) as A, Scores) order by score desc
+select Score, dense_rank() over (order by Score desc) as "Rank" from Scores
+select Score, dense_rank() over (order by Score desc) as 'Rank' from Scores
+select Score, dense_rank() over (order by Score desc) as `Rank` from Scores
+select Score, dense_rank() over (order by score desc) 'Rank' from Scores
+select Score, dense_rank() over (order by score desc) as "Rank" from Scores
+select Score, dense_rank() over (order by score desc) as "rank" from Scores
+select Score, dense_rank() over (order by score desc) as 'Rank' from scores
+select Score, dense_rank() over (order by score desc) as `Rank` from Scores
+select Score, dense_rank() over(order by Score desc) 'Rank' from Scores
+select Score, dense_rank() over(order by Score desc) as 'Rank' from Scores
+select Score, dense_rank() over(order by Score desc) as `Rank` from Scores
+select Score, dense_rank() over(order by score desc) as 'Rank' from Scores order by 'Rank' asc
+select Score, dense_rank() over(order by score desc) as 'Rank' from scores
+select Score, dense_rank()over (order by Score Desc) as "Rank" from Scores
+select Score, dense_rank()over(order by Score desc) as 'Rank' from Scores order by Score desc
+select Score, dense_rank()over(order by score desc) as 'Rank' from Scores
+select Score, score_rank as "Rank" from ( select id, Score, dense_rank() over(order by score desc) as "score_rank" from Scores group by id, score ) as table_s
+select Score,(select count(distinct Score) from Scores where Score>=s.Score) 'Rank' FROM Scores s ORDER BY Score desc
+select Score,Dense_rank() over (order by score desc) as "Rank" from Scores
+select Score,dense_rank() over(order by Score desc) as "Rank" from Scores
+select Scores.score, count(ranking.score) as `Rank` from Scores, (select distinct score from scores) ranking where Scores.score <= ranking.score group by Scores.Id order by Scores.score desc
+select Scores.score, seriable.Serial as `Rank` from Scores left join ( select score, @row_number:=@row_number+1 as `Serial` from ( select score from Scores group by score order by Score desc ) as grouped, (SELECT @row_number:=0) AS t ) seriable on seriable.score = Scores.score order by score desc
+select Scores.score, t2.`Rank` from Scores left join ( select score, row_number() over (order by score desc) as `Rank` from (select distinct score from Scores order by score) as t1 ) as t2 on Scores.score = t2.score order by Scores.score desc
+select a.Score as Score, (select count(distinct b.Score) from Scores b where b.Score >= a.Score) as 'Rank' from Scores a order by a.Score DESC
+select a.Score, count(b.Score) + 1 as `Rank` from Scores a left join ( select distinct Score from Scores ) b on a.Score < b.score group by a.Id order by a.Score desc
+select a.Score, count(distinct b.Score) as "Rank" from Scores a, Scores b where a.Score<=b.Score group by a.Score, a.Id order by a.Score DESC
+select a.Score, count(distinct b.Score) as 'Rank' from Scores as a, (select distinct Score from Scores) as b where a.Score<=b.Score group by a.Id order by a.Score desc
+select a.Score, count(distinct b.Score) as 'Rank' from Scores as a, Scores as b where a.Score <= b.Score group by a.Id order by a.Score desc, a.Id
+select a.Score,b.Rank from (select Score from Scores order by Score desc) a inner join (select Score,row_number() over () "Rank" from (select distinct(Score) from Scores order by Score desc)stmp) b on a.Score=b.Score order by a.Score desc
+select a.score as Score, r.ran as 'Rank' from scores a inner join (select score, rank() over (order by score desc) as ran from (select distinct score from scores) b) r on a.score=r.score order by a.score desc
+select a.score, count(distinct b.score) as 'rank' from scores a, scores b where a.score <= b.score group by a.id order by a.score desc
+select b.score, (select count(distinct score) from scores as a where b.score <= a.score) as 'Rank' from scores as b order by 2
+select c.score, d.ran as 'Rank' from ( select a.score, ROW_NUMBER() OVER (ORDER BY a.score desc) AS ran from (select distinct score from Scores) as a ) as d inner join Scores as c on c.score = d.score order by ran asc
+select round(Score,5) as Score, dense_rank() over(order by Score desc) as 'Rank' from Scores order by 'Rank'
+select s.Score as 'score', count(*) as 'Rank' from Scores s left join (select Score from Scores group by 1) t on s.Score <= t.Score group by s.id, s.Score order by 1 desc
+select s.Score as 'score', count(distinct s2.Score)+1 as 'Rank' from Scores s left join Scores s2 on s2.Score > s.Score group by s.Id order by count(distinct s2.Score)
+select s.Score as score, DENSE_RANK() OVER( order by s.Score desc) as `Rank` from Scores s
+select s.Score score, `Rank` from Scores s join ( select s1.Score score, count(distinct s2.score) as `Rank` from Scores s1 join Scores s2 on s1.score<=s2.score group by s1.Score ) m on s.Score = m.Score order by s.Score DESC
+select s.Score, count(s2.Score) as 'Rank' from Scores s, (select distinct Score from Scores) s2 where s.Score <=s2.Score group by s.Id order by s.score desc
+select s.Score, count(t.Score) as 'Rank' from Scores as s, (select DISTINCT Score from Scores) as t where s.Score <= t.Score group by s.id, s.Score order by s.Score desc
+select s.score as score,dense_rank()over(order by s.score desc) as 'Rank' from scores s
+select s.score, (select count(1) from (select score from Scores group by score) s2 where s2.score >= s.score) as `Rank` from Scores s order by s.score desc
+select s.score, (select count(distinct score) from scores where score > s.score) + 1 as 'rank' from scores s order by 2
+select s.score, count(1) as `Rank` from Scores s inner join (select score from Scores group by score) s2 on s2.score >= s.score group by s.id, s.score order by s.score desc
+select s.score, count(a.score) as 'Rank' from scores s left join (select distinct score from scores s1) a on s.score<=a.score GROUP BY S.Id ORDER BY S.score DESC
+select s.score, count(distinct s1.score) as 'rank' from scores s left join scores s1 on s.score<=s1.score group by s.id order by score desc
+select s.score, count(distinct s2.score) as `Rank` from Scores s inner join Scores s2 on s.score <= s2.score group by s.Id order by s.score desc
+select s.score, count(distinct s2.score) as `Rank` from Scores s inner join Scores s2 on s2.score >= s.score group by s.id, s.score order by s.score desc
+select s.score, count(distinct t.score) as `Rank` from scores s, scores t where s.score <= t.score group by s.id order by s.score desc
+select s.score, count(s2.score) as 'Rank' from (select distinct score from scores) s2, scores s where s.score<= s2.score group by s.id order by s.score desc
+select s.score, count(s2.score) as 'rank' from Scores as s, (select distinct score from Scores) as s2 where s.score<=s2.score group by s.id order by s.score desc
+select s1.Score as score, ( select count(distinct(s2.Score)) from Scores as s2 where s2.Score>=s1.Score ) as `Rank` from Scores as s1 order by s1.Score desc
+select s1.Score as score,count( distinct s2.score) 'Rank' from Scores s1 join Scores s2 where s1.Score <= s2.Score group by s1.Id order by s1.Score desc
+select s1.Score, (select COUNT(distinct s2.score) from Scores s2 where s2.score >= s1.score ) as `Rank` from Scores s1 order By s1.Score desc
+select s1.Score, Count(s2.Score) as 'Rank' from Scores as s1, (select Distinct Score from Scores) as s2 where s1.Score <= s2.Score group by s1.Id order by s1.Score desc
+select s1.Score, count(distinct s2.Score) as `Rank` from Scores s1 inner join Scores s2 on s1.Score <= s2.Score group by s1.id, s1.score order by s1.Score desc, s1.Id
+select s1.Score, count(s2.Score) as 'Rank' from Scores as s1 , (select distinct Score from Scores) as s2 where s1.Score <= s2.Score group by s1.Id order by s1.Score desc
+select s1.score, (select count(distinct s2.score) + 1 from scores s2 where s2.score > s1.score) as 'Rank' from scores s1 order by s1.score desc
+select s1.score, (select count(distinct score) from scores where score >= s1.score) as `rank` from scores s1 order by s1.score desc
+select s1.score, count(*) as 'Rank' from scores s1 inner join (select distinct score from scores) s2 on s1.score <= s2.score group by id,s1.score order by 2
+select s1.score, count(distinct s2.score) 'Rank' from Scores s1 join Scores s2 on s1.score <= s2.score group by s1.id order by 1 desc
+select s1.score, count(distinct s2.score) 'Rank' from scores s1 join scores s2 on s1.score <= s2.score group by s1.id order by s1.score DESC
+select s1.score, count(distinct s2.score) as "Rank" from Scores s1, Scores s2 where s1.score <= s2.score group by s1.id order by s1.score desc
+select s1.score, temp.rank from scores as s1 join (select s1.score, count(distinct s2.score) as 'rank' from scores as s1 join scores as s2 where s1.score <= s2.score group by s1.score) as temp on s1.score = temp.score order by s1.score desc
+select s2.Score, (select count(distinct s.Score) from Scores s where s.Score >= s2.Score) as 'Rank' from Scores s2 order by 1 desc
+select score , DENSE_RANK() OVER (order by score desc ) "Rank" from Scores
+select score , dense_rank() over ( order by score desc) as `Rank` from scores order by score desc
+select score , dense_rank() over (order by score desc) 'rank' from scores
+select score , dense_rank() over (order by score desc) as 'Rank' from scores order by score desc
+select score , dense_rank() over(order by Score desc) 'rank' from Scores
+select score , dense_rank() over(order by score desc ) as `Rank` from scores
+select score , dense_rank() over(order by score desc) as "Rank" from scores
+select score , dense_rank() over(order by score desc) as `rank` from scores
+select score , dense_rank()over(order by score desc) as "Rank" from scores
+select score ,dense_rank() over(order by Score desc) as 'Rank' from Scores
+select score ,dense_rank() over(order by score desc) 'Rank' from scores
+select score as "Score", dense_rank() over(order by score desc) as "Rank" from scores
+select score as "Score", rank_ as "Rank" from (select score, dense_rank() over(order by score desc) as rank_ from scores ) as scores_
+select score as Score, dense_rank() over (order by score desc) as 'Rank' from scores
+select score as Score, dense_rank() over(order by score desc) AS "Rank" from scores
+select score as Score, dense_rank() over(order by score desc) as 'Rank' from scores
+select score as score,DENSE_RANK() over(order by score desc) as 'Rank' from Scores
+select score, (dense_rank() over (order by score desc)) as 'Rank' from Scores
+select score, (select count(distinct Score) from Scores where Score >= s.Score) as `Rank` from Scores s order by score desc
+select score, (select count(distinct score) from Scores where score>=s.score) 'rank' from Scores as s order by score desc
+select score, (select count(distinct score) from scores where score>=s.score) as 'rank' from scores s order by score desc
+select score, (select count(distinct score) from scores where score>=t1.score) 'rank' from Scores t1 order by score desc
+select score, (select count(distinct t2.score) from scores t2 where t2.score>=t1.score) 'rank' from scores t1 order by score desc
+select score, DENSE_RANK() OVER (ORDER BY score DESC) as `Rank` from Scores
+select score, DENSE_RANK() OVER (ORDER BY score desc) as 'Rank' from scores
+select score, DENSE_RANK() OVER(ORDER BY Score DESC) `Rank` from Scores
+select score, DENSE_RANK() OVER(order by score desc) as "Rank" from Scores
+select score, DENSE_RANK() OVER(order by score desc) as `Rank` from scores
+select score, DENSE_RANK() over (order by score desc) as "Rank" from scores
+select score, DENSE_RANK() over (order by score desc) as `Rank` from scores
+select score, Dense_Rank () over(order by score desc) as 'Rank' from scores
+select score, Dense_rank() over (order by score desc) as 'Rank' from scores
+select score, dense_rank () over (order by score desc) as 'Rank' from scores
+select score, dense_rank() over ( order by score desc) as 'Rank' from Scores
+select score, dense_rank() over (order by Score desc) as `Rank` from Scores order by score desc
+select score, dense_rank() over (order by score desc ) as 'rank' from scores
+select score, dense_rank() over (order by score desc) as "RANK" from Scores Order by "Rank"
+select score, dense_rank() over (order by score desc) as "RANK" from scores
+select score, dense_rank() over (order by score desc) as "Rank" from scores
+select score, dense_rank() over (order by score desc) as 'Rank' from Scores
+select score, dense_rank() over (order by score desc) as 'Rank' from scores
+select score, dense_rank() over (order by score desc) as 'rank' from scores
+select score, dense_rank() over (order by score desc) as `Rank` from Scores
+select score, dense_rank() over (order by score desc) as `Rank` from scores
+select score, dense_rank() over (order by score desc) as `rank` from scores
+select score, dense_rank() over( order by score desc ) as `Rank` from Scores
+select score, dense_rank() over(order by Score desc ) as 'Rank' from Scores
+select score, dense_rank() over(order by Score desc) 'Rank' from Scores
+select score, dense_rank() over(order by Score desc) as "Rank" from Scores
+select score, dense_rank() over(order by Score desc) as 'Rank' from Scores
+select score, dense_rank() over(order by score DESC) as 'Rank' from Scores
+select score, dense_rank() over(order by score DESC) as `Rank` from Scores
+select score, dense_rank() over(order by score desc) "Rank" from scores order by 1 desc
+select score, dense_rank() over(order by score desc) 'Rank' from Scores
+select score, dense_rank() over(order by score desc) 'rank' from scores
+select score, dense_rank() over(order by score desc) as "Rank" from Scores
+select score, dense_rank() over(order by score desc) as "Rank" from scores
+select score, dense_rank() over(order by score desc) as 'Rank' from Scores
+select score, dense_rank() over(order by score desc) as 'Rank' from scores
+select score, dense_rank() over(order by score desc) as 'rank' from Scores order by 'rank' asc
+select score, dense_rank() over(order by score desc) as 'rank' from scores order by 1 desc
+select score, dense_rank() over(order by score desc) as 'rank' from scores order by score desc
+select score, dense_rank() over(order by score desc) as `Rank` from Scores
+select score, dense_rank() over(order by score desc) as `Rank` from scores
+select score, dense_rank() over(order by score desc) as `Rank` from scores order by 2
+select score, dense_rank() over(order by score desc) as `rank` from scores
+select score, dense_rank() over(order by score desc)as "Rank" from Scores
+select score, dense_rank()over(order by score desc) as 'Rank' from scores
+select score, dense_rank()over(order by score desc) as 'rank' from scores
+select score,DENSE_RANK() over (order by score desc) 'Rank' from scores
+select score,DENSE_RANK() over(ORDER BY Score DESC) AS 'Rank' from Scores
+select score,DENSE_RANK() over(order by score desc) as 'Rank' from Scores order by score Desc
+select score,dense_rank() over (order by Score desc) as 'Rank' from Scores
+select score,dense_rank() over (order by score desc) as 'Rank' from Scores order by score desc
+select score,dense_rank() over (order by score desc) as 'rank' from scores order by 2
+select score,dense_rank() over(order by Score desc) as "Rank" from Scores
+select score,dense_rank() over(order by score desc) 'Rank' from Scores
+select score,dense_rank() over(order by score desc) as 'Rank' from Scores
+select score,dense_rank() over(order by score desc) as 'Rank' from scores
+select scores.Score, count(ranking.Score) as `Rank` from scores, (select distinct Score from scores) ranking where ranking.score>=scores.Score group by scores.Id order by scores.Score desc
+select scores.score, count(temp.benchmark) as 'rank' from scores left join (select distinct score as benchmark from scores ) temp on scores.score <= temp.benchmark group by scores.ID order by scores.score desc
+select tb1.score,(select count(distinct tb2.score)from scores tb2 where tb2.score > tb1.score) +1 as 'Rank' from scores tb1 order by score desc
+with Rank_list as ( SELECT s2.Score , ROW_NUMBER() OVER (ORDER BY Score DESC) AS 'Rank' FROM ( SELECT DISTINCT Score FROM Scores ) AS s2 ) select s.Score as "score", s2.Rank from Scores s inner join Rank_list s2 on (s2.Score = s.Score) order by s.Score desc
+with a1 as (select Id, Score from Scores), a2 as (select a1.Score, count(distinct Scores.Score) as 'Rank' from a1, Scores where a1.Score<=Scores.Score group by a1.Id order by a1.Score DESC) select * from a2
+with distinct_values as (select distinct score as d_score from scores order by d_score desc), distinct_ranks as (select d_score, ROW_NUMBER() OVER(ORDER BY d_score DESC) AS Rank_d from distinct_values) select s.score, d.rank_d as `Rank` from scores s left join distinct_ranks d on s.score=d.d_score order by s.score desc
+with distinct_values as (select distinct score as d_score from scores), distinct_ranks as (select d_score, ROW_NUMBER() OVER(ORDER BY d_score DESC) AS Rank_d from distinct_values) select s.score, d.rank_d as `Rank` from scores s left join distinct_ranks d on s.score=d.d_score order by s.score desc
+with pre_score_ranks as ( select Score, dense_rank() over (order by Score desc) as Score_Rank from Scores ), score_ranks as ( select Score, max(Score_Rank) as Score_Rank from pre_score_ranks group by Score ) select Scores.Score as "Score", score_ranks.Score_Rank as "Rank" from Scores join score_ranks on score_ranks.Score = Scores.Score order by Score_Rank asc
+with sc as( select score, DENSE_RANK() OVER(order by score desc) as 'rank' from scores ) select sc.score, sc.rank from sc
+with scoreComp as ( select a.Score, count(distinct(b.Score)) as less_scores from Scores a left join Scores b on a.Score > b.Score and a.Id != b.Id group by 1 ) select a.Score as Score, tot_scores - less_scores as `Rank` from Scores a join scoreComp b on a.Score = b.Score cross join (select count(distinct Score) as tot_scores from scoreComp) tbl order by 2
+with sortedScores as ( select Score as `score`, ROW_NUMBER() OVER (ORDER BY Score desc) as `Rank` from Scores group by Score order by Score desc ) select Scores.Score as `score`, sortedScores.Rank from Scores,sortedScores where Scores.Score=sortedScores.score order by sortedScores.Rank

@@ -1,0 +1,275 @@
+SELECT C.Name FROM (SELECT CandidateId, count(id) cnt FROM Vote GROUP BY CandidateId ORDER BY cnt Desc limit 1) V join Candidate C ON C.id = V.CandidateId
+SELECT C.Name FROM Candidate C JOIN (SELECT CandidateId , COUNT(*)OVER(PARTITION BY CandidateId) AS VCOUNT FROM Vote ORDER BY VCOUNT DESC LIMIT 1) V ON C.id = V.CandidateId
+SELECT C.Name FROM Candidate C WHERE id = (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(id) DESC LIMIT 1)
+SELECT Candidate.Name FROM Candidate JOIN Vote ON Vote.CandidateId=Candidate.id GROUP BY 1 ORDER BY COUNT(DISTINCT Vote.id) DESC LIMIT 1
+SELECT Candidate.Name FROM Candidate LEFT JOIN Vote ON Vote.CandidateId = Candidate.id GROUP BY Candidate.id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name FROM ( SELECT C.Name, V.CandidateId, COUNT(C.Name) AS VOTES FROM Candidate C JOIN Vote V ON C.id = V.CandidateId GROUP BY 1 ORDER BY 3 DESC) AS TEMP HAVING MAX(VOTES)
+SELECT Name FROM ( SELECT C.Name, V.CandidateId, COUNT(C.Name) AS VOTES FROM Candidate C JOIN Vote V ON C.id = V.CandidateId GROUP BY name ORDER BY votes DESC ) AS TEMP HAVING MAX(VOTES)
+SELECT Name FROM ( SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(*) DESC LIMIT 1) BASE1 LEFT JOIN Candidate b ON BASE1.CandidateId= b.id
+SELECT Name FROM ( SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(*) DESC) BASE1 LEFT JOIN Candidate b ON BASE1.CandidateId= b.id LIMIT 1
+SELECT Name FROM (SELECT c.Name AS Name, count(v.CandidateId) as votecount FROM Candidate c JOIN Vote v ON c.id = v.CandidateId GROUP BY c.name) t1 ORDER BY votecount DESC LIMIT 1
+SELECT Name FROM Candidate INNER JOIN ( SELECT CandidateId, count(*) as vote FROM Vote GROUP BY 1 ) tmp ON Candidate.id = tmp.CandidateId ORDER BY vote DESC LIMIT 1
+SELECT Name FROM Candidate JOIN ( SELECT CandidateId, COUNT(*) AS total FROM Vote GROUP BY CandidateId ORDER BY total DESC LIMIT 1 ) t ON id = CandidateId
+SELECT Name FROM Candidate JOIN (SELECT Candidate.id AS id, COUNT(Candidate.Name) as votes FROM Vote LEFT JOIN Candidate ON Vote.CandidateId = Candidate.id GROUP BY Candidate.Name ORDER BY votes DESC LIMIT 1) AS id_votes ON Candidate.id = id_votes.id
+SELECT Name FROM Candidate JOIN (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(*) DESC LIMIT 1) AS winner ON Candidate.id = winner.CandidateId
+SELECT Name FROM Candidate WHERE id = ( SELECT CandidateId FROM ( SELECT CandidateId, COUNT(*) AS cnt FROM Vote GROUP BY CandidateId ORDER BY cnt DESC LIMIT 1 ) t )
+SELECT Name FROM Candidate WHERE id = ( SELECT CandidateId FROM Vote GROUP BY 1 ORDER BY COUNT(*) DESC LIMIT 1 )
+SELECT Name FROM Candidate WHERE id = (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(DISTINCT id) DESC LIMIT 1)
+SELECT Name FROM Candidate WHERE id = (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY Count(CandidateId) DESC LIMIT 1)
+SELECT Name FROM Candidate WHERE id = (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY count(id) DESC LIMIT 1 )
+SELECT Name FROM Candidate WHERE id= (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Name FROM Candidate c INNER JOIN (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(*) DESC LIMIT 1) as winner ON c.id = winner.CandidateId
+SELECT Name FROM Candidate c INNER JOIN (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(CandidateId) DESC LIMIT 1) v ON c.id = v.CandidateId
+SELECT Name FROM Candidate c JOIN ( SELECT CandidateId, COUNT(*) AS num_vote FROM Vote GROUP BY CandidateId ORDER BY num_vote DESC LIMIT 1) b ON c.ID = b.CandidateId
+SELECT Name FROM Candidate c JOIN ( SELECT CandidateId, COUNT(*) AS vt FROM Vote GROUP BY CandidateId ORDER BY 2 DESC LIMIT 1 )t WHERE c.id = t.CandidateId
+SELECT Name FROM Vote AS v JOIN Candidate AS c on v.CandidateId = c.id GROUP BY CandidateId ORDER BY COUNT(v.id) DESC LIMIT 1
+SELECT Name FROM Vote INNER JOIN Candidate ON Vote.CandidateId = Candidate.id GROUP BY CandidateId ORDER BY Count(CandidateId) DESC LIMIT 1
+SELECT Name FROM Vote LEFT JOIN Candidate ON Candidate.id = Vote.CandidateId GROUP BY CandidateId ORDER BY COUNT(Vote.id) DESC LIMIT 1
+SELECT Name FROM Vote v JOIN Candidate c ON c.id = v.candidateId GROUP BY 1 ORDER BY Count(c.id) DESC LIMIT 1
+SELECT Name FROM Vote v JOIN Candidate c on v.candidateId = c.id GROUP BY Name ORDER BY count(0) DESC LIMIT 1
+SELECT Name FROM Vote v LEFT JOIN Candidate c ON v.CandidateId = c.id GROUP BY Name ORDER BY COUNT(CandidateId) DESC LIMIT 1
+SELECT Name FROM vote v JOIN candidate c ON v.candidateid=c.id GROUP BY v.candidateid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name FROM( SELECT Name, COUNT(*) AS x FROM Candidate c JOIN Vote v ON (c.id = v.candidateId) GROUP BY c.id ORDER BY x DESC LIMIT 1 ) t
+SELECT Name from Candidate c INNER JOIN (SELECT CandidateId FROM Vote GROUP BY CandidateID ORDER BY count(*) DESC LIMIT 1) winner ON c.id=winner.CandidateId
+SELECT Name from Candidate c join (select CandidateId from Vote GROUP by CandidateId ORDER BY COUNT(*) DESC LIMIT 1) t on c.id = t. CandidateId
+SELECT a.Name FROM( SELECT b.Name, COUNT(b.Name) FROM Vote a JOIN Candidate b ON a.CandidateId = b.id GROUP BY 1 ORDER BY 2 DESC) a LIMIT 1
+SELECT c.Name FROM ( SELECT CandidateId, COUNT(id) AS votes FROM Vote GROUP BY 1 ORDER BY 2 DESC LIMIT 1) tmp INNER JOIN Candidate c ON tmp.CandidateId = c.id
+SELECT c.Name FROM (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(Id) DESC LIMIT 1 ) as w INNER JOIN Candidate AS c ON w.CandidateId = c.Id
+SELECT c.Name FROM (SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(Id) DESC LIMIT 1 ) as w LEFT JOIN Candidate AS c ON w.CandidateId = c.Id
+SELECT c.Name FROM (SELECT CandidateId, COUNT(CandidateId) as tot FROM Vote GROUP BY CandidateId ORDER BY tot DESC LIMIT 1) v, Candidate c WHERE c.id = v.CandidateId
+SELECT c.Name FROM Candidate AS c LEFT JOIN Vote AS v on c.id = v.CandidateId GROUP BY c.Name ORDER BY COUNT(v.id) DESC LIMIT 1
+SELECT c.Name FROM Candidate c INNER JOIN ( SELECT CandidateID, RANK() OVER (ORDER BY vote_count DESC) AS vote_rank FROM ( SELECT CandidateID, COUNT(1) AS vote_count FROM Vote GROUP BY CandidateID ) vc ) vr ON vr.CandidateID = c.id AND vr.vote_rank = 1
+SELECT c.Name FROM Candidate c JOIN Vote v ON c.id = v.CandidateId GROUP BY c.Name ORDER BY COUNT(c.Name) DESC LIMIT 1
+SELECT c.Name FROM Vote v JOIN Candidate c ON c.id = v.CandidateId GROUP BY v.CandidateId ORDER BY COUNT(v.CandidateId) DESC LIMIT 1
+SELECT c.Name FROM Vote v JOIN Candidate c ON v.CandidateId = c.id GROUP BY 1 ORDER BY COUNT(1) DESC LIMIT 1
+SELECT c.Name FROM Vote v JOIN Candidate c ON v.candidateId = c.id GROUP BY v.candidateID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT c.Name FROM Vote v LEFT JOIN Candidate c ON v.CandidateId = c.id GROUP BY c.Name ORDER BY COUNT(v.CandidateId) DESC LIMIT 1
+SELECT c.Name FROM Vote v LEFT JOIN Candidate c ON v.CandidateId = c.id GROUP BY v.CandidateId ORDER BY COUNT(*) DESC LIMIT 0, 1
+SELECT c.Name FROM Vote v join Candidate c on v.CandidateId=c.id group by v.CandidateId order by count(v.id) desc limit 1
+SELECT c.Name FROM Vote v left JOIN Candidate c ON v.CandidateId = c.id GROUP BY c.Name ORDER BY COUNT(c.Name) DESC LIMIT 1
+SELECT c.name FROM Candidate AS c LEFT JOIN Vote As v ON c.id = v.CandidateId GROUP BY c.id ORDER BY count(distinct v.id) DESC LIMIT 1
+SELECT c.name FROM Vote v JOIN Candidate c ON c.id = v.CandidateId GROUP BY v.CandidateId ORDER BY COUNT(v.CandidateId) DESC LIMIT 1
+SELECT c.name FROM candidate c JOIN (SELECT v.candidateid, rank() over(order by count(v.id) desc) as ranking FROM vote v GROUP BY v.candidateid) as a ON c.id=a.candidateid WHERE a.ranking=1
+SELECT c.name FROM candidate c JOIN vote v ON c.id = v.CandidateId GROUP BY c.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT c.name FROM candidate c LEFT JOIN Vote v ON c.id = v.candidateId GROUP BY c.id ORDER BY count(*) DESC limit 1
+SELECT c.name FROM candidate c LEFT JOIN vote v ON c.id = v.candidateid GROUP BY c.name, v.candidateid ORDER BY COUNT(1) DESC LIMIT 1
+SELECT name AS 'Name' FROM Candidate JOIN (SELECT Candidateid FROM Vote GROUP BY Candidateid ORDER BY COUNT(*) DESC LIMIT 1) AS winner WHERE Candidate.id = winner.Candidateid
+SELECT name AS 'Name' FROM Candidate JOIN (SELECT Candidateid FROM Vote GROUP BY Candidateid ORDER BY COUNT(*) DESC LIMIT 1) AS winner on Candidate.id = winner.Candidateid
+SELECT name AS 'Name' FROM Candidate Where id = (SELECT Candidateid FROM Vote GROUP BY Candidateid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT name FROM ( SELECT name, COUNT(name) as cnt FROM vote v JOIN candidate c ON v.candidateid = c.id GROUP BY 1 ORDER BY 2 DESC)a LIMIT 1
+SELECT name FROM Candidate JOIN (SELECT CandidateId, RANK() OVER (ORDER BY COUNT(id) DESC) AS r FROM Vote GROUP BY CandidateId) as t ON Candidate.id=t.CandidateId WHERE r=1
+SELECT name FROM Candidate JOIN (SELECT candidateid, COUNT(candidateid) AS votes FROM Vote GROUP BY 1 ORDER BY 2 DESC LIMIT 1) a ON id = candidateid
+SELECT name FROM candidate JOIN (SELECT candidateid FROM vote GROUP BY 1 ORDER BY COUNT(*) DESC LIMIT 1) as T1 ON T1.candidateid = candidate.id
+SELECT name FROM candidate WHERE id = (select candidateId from vote group by candidateId order by count(*) desc limit 1)
+SELECT name FROM vote v JOIN candidate c ON v.candidateid=c.id GROUP BY v.candidateid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT name as 'Name' FROM candidate WHERE id = (SELECT candidateid FROM vote GROUP BY Candidateid ORDER BY Count(*) DESC LIMIT 1)
+Select B.Name from ( Select CandidateId from vote group by CandidateId having count(Id) = ( Select Count(Id) from Vote group by CandidateId order by Count(Id) desc limit 1 ) ) A,Candidate B where A.CandidateId = B.Id
+Select N as Name from ( select Candidate.Name as N, COUNT(Vote.CandidateId) AS Winner from Candidate LEFT JOIN Vote ON Candidate.id=Vote.CandidateId GROUP by Name order by Winner DESC) AS max_votes HAVING MAX(Winner)
+Select Name FROM Candidate Where id = (select CandidateId from Vote Group by CandidateId Order by count(CandidateId) desc limit 1 )
+Select Name From Candidate Where id = ( Select CandidateId From Vote Group by CandidateId Order by count(*) Desc limit 1)
+Select Name from ( Select v.CandidateId, c.Name, count(CandidateId) as c from Candidate c right join Vote v on v.CandidateId = c.id group by CandidateId order by c desc ) a limit 1
+Select Name from Candidate where id = (Select candidateId from Vote group by CandidateId order by count(candidateId) DESC Limit 1)
+Select Name from candidate inner join vote on candidate.id = Vote.CandidateId group by Name order by count(Name) Desc Limit 1
+Select b.Name from vote a inner join Candidate b on a.candidateId = b.Id Group by 1 order by count(a.id) desc limit 1
+Select c.Name From ( Select CandidateId, num_votes, row_number() over(order by num_votes desc) as rn From ( Select CandidateId, count(*) as num_votes From Vote group by 1 )a )b Join Candidate c on CandidateId = id where rn = 1
+Select c.Name from Vote v join Candidate c on c.id = v.CandidateId group by v.CandidateId order by count(v.id) desc limit 1
+Select distinct c.Name As Name from Candidate c where c.id = (Select CandidateId from Vote Group by CandidateId order by count(CandidateId) desc limit 1)
+Select name AS 'Name' FROM Candidate JOIN (SELECT CandidateId FROM Vote GROUP BY Candidateid ORDER BY COUNT(*) DESC LIMIT 1) AS winner WHERE Candidate.id = winner.Candidateid
+WITH CTE AS ( select c.Name, COUNT(v.id) AS vote_count FROM Candidate c JOIN Vote v ON c.id = v.CandidateId GROUP BY c.Name ) SELECT Name FROM CTE ORDER BY vote_count DESC LIMIT 1
+WITH CTE AS ( select t1.NAME,COUNT(CANDIDATEID) AS COUNT_CANDIDATE FROM CANDIDATE T1 LEFT JOIN VOTE T2 on T1.ID = CANDIDATEID GROUP BY t1.ID ), CTE_2 AS( SELECT NAME FROM CTE WHERE COUNT_CANDIDATE IN (SELECT MAX(COUNT_CANDIDATE) FROM CTE ) ) SELECT Name FROM CTE WHERE COUNT_CANDIDATE IN (SELECT MAX(COUNT_CANDIDATE) FROM CTE)
+WITH CTE AS (SELECT CandidateId AS id FROM Vote GROUP BY CandidateId ORDER BY COUNT(*) DESC LIMIT 1) SELECT Name FROM Candidate WHERE id in (SELECT id FROM CTE)
+WITH CTE_1 AS ( SELECT CANDIDATEID, COUNT(*) CAND_COUNT FROM VOTE GROUP BY CANDIDATEID ) ,CTE_2 AS ( SELECT CANDIDATEID, CAND_COUNT FROM CTE_1 WHERE CAND_COUNT = ( SELECT MAX(CAND_COUNT) FROM CTE_1 ) ) SELECT NAME FROM CANDIDATE CAN, CTE_2 C2 WHERE C2.CANDIDATEID = CAN.ID
+WITH T AS( SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY COUNT(CandidateId) DESC LIMIT 1) SELECT Name FROM T LEFT JOIN Candidate ON Candidate.id = T.CandidateId
+WITH cand_ranked AS( SELECT Name, Count(Name) AS ct FROM Vote a JOIN Candidate b ON a.CandidateId = b.id GROUP BY Name ORDER BY ct DESC ) SELECT Name FROM cand_ranked LIMIT 1
+WITH cnt AS( SELECT COUNT(DISTINCT V.id) AS votes FROM Candidate C, Vote V WHERE C.id = V.CandidateId GROUP BY C.id ORDER BY votes DESC LIMIT 1 ) SELECT DISTINCT C.Name FROM Candidate C, Vote V WHERE C.id = V.CandidateId GROUP BY C.id HAVING COUNT(DISTINCT V.id) = ( SELECT COUNT(DISTINCT V.id) AS votes FROM Candidate C, Vote V WHERE C.id = V.CandidateId GROUP BY C.id ORDER BY votes DESC LIMIT 1)
+WITH cte AS (SELECT CandidateId, ROW_NUMBER() OVER(ORDER BY COUNT(CandidateId) DESC) AS rownumber FROM Vote GROUP BY CandidateId) SELECT Name FROM Candidate JOIN cte ON Candidate.id = cte.CandidateId WHERE rownumber = 1
+WITH cteCandidateVoteCount AS ( SELECT A.CandidateId, B.Name, COUNT(A.CandidateId) as vote_cnt from Vote A LEFT JOIN Candidate B ON A.CandidateId = B.id GROUP BY A.CandidateId, B.Name ) select Name from cteCandidateVoteCount order by vote_cnt desc limit 1
+WITH max_vote AS ( SELECT candidateid , SUM(1) AS votes FROM vote GROUP BY candidateid ) SELECT c.name FROM max_vote m LEFT JOIN candidate c ON m.candidateid = c.id WHERE votes IN (SELECT MAX(votes) FROM max_vote)
+WITH max_vote as (SELECT CandidateId, COUNT(CandidateId) as cnt FROM vote GROUP BY CandidateId) SELECT c.name FROM candidate c JOIN max_vote m ON c.id = m.CandidateId WHERE m.cnt= (SELECT max(cnt) FROM max_vote )
+WITH num AS ( SELECT CandidateID, COUNT(CandidateID) as ct FROM Vote GROUP BY CandidateID ), a AS ( SELECT Candidate.id, Candidate.Name, num.ct FROM Candidate LEFT JOIN num ON Candidate.id=num.CandidateID ) SELECT Name FROM a WHERE ct = (SELECT MAX(ct) FROM a)
+WITH t AS ( SELECT CandidateID FROM Vote GROUP BY CandidateID ORDER BY COUNT(CandidateId) DESC LIMIT 1 ) SELECT c.name FROM t JOIN Candidate c ON t.CandidateId = c.id
+WITH t AS ( SELECT name, RANK() OVER(ORDER BY COUNT(*) DESC) rk FROM vote v JOIN candidate c ON v.candidateid=c.id GROUP BY v.candidateid ) SELECT name FROM t WHERE rk=1
+WITH table1 AS (SELECT c.Name, COUNT(*) OVER (PARTITION BY v.CandidateId) AS num_votes FROM Vote v INNER JOIN Candidate c ON c.id = v.CandidateId), table2 AS (SELECT Name FROM table1 ORDER BY num_votes DESC LIMIT 1) SELECT Name FROM table2
+WITH table1 AS( SELECT Name, COUNT(v.id) AS cnt FROM Vote v INNER JOIN Candidate c ON v.CandidateId=c.id GROUP BY CandidateId ) SELECT Name FROM table1 WHERE cnt IN (SELECT MAX(cnt) FROM table1)
+WITH table1 AS( SELECT v.id, v.CandidateID, c.Name FROM Vote v INNER JOIN Candidate c ON v.CandidateId = c.id ), table2 AS( SELECT Name, COUNT(Name) AS cnt FROM table1 GROUP BY Name ) SELECT Name FROM (SELECT Name, RANK() OVER(ORDER BY cnt DESC) as rk FROM table2) a WHERE rk = 1
+WITH temp AS (SELECT DISTINCT CandidateId, COUNT(DISTINCT id) AS count_vote FROM Vote GROUP BY CandidateId) SELECT Name FROM Candidate WHERE id IN (SELECT CandidateId FROM temp WHERE count_vote IN (SELECT MAX(count_vote) FROM temp) )
+WITH temp AS( SELECT COUNT(CandidateId) AS votes, CandidateId FROM Vote GROUP BY CandidateId ), temp2 AS( SELECT CandidateId, RANK() OVER(ORDER BY votes DESC) AS rnk FROM temp ) SELECT Name FROM temp2 t JOIN Candidate c ON t.CandidateId = c.id WHERE rnk = 1
+WITH temp_vote as (SELECT CandidateId, dense_rank() OVER (ORDER BY COUNT(CandidateId) DESC) as cnt_vote FROM Vote GROUP BY CandidateId) SELECT Name FROM Candidate c INNER JOIN temp_vote v ON c.id = v.CandidateId where cnt_vote = 1
+WITH votes (id, count) AS ( SELECT CandidateId, COUNT(v.id) FROM Vote v GROUP BY v.CandidateId ) SELECT c.name FROM Candidate c JOIN votes v ON c.id = v.id WHERE v.count = (SELECT MAX(count) FROM votes)
+WITH votes AS ( SELECT candidateid, COUNT(*) as cnt FROM vote GROUP BY candidateid ORDER BY cnt DESC LIMIT 1) SELECT name FROM candidate as c INNER JOIN votes as v ON c.id = v.candidateid
+WITH win_id AS ( SELECT CandidateId FROM Vote GROUP BY CandidateId ORDER BY count(*) DESC LIMIT 1 ) SELECT Name FROM Candidate INNER JOIN win_id ON Candidate.id = win_id.CandidateId
+WITH winning AS ( select CandidateId, COUNT(1) AS n from Vote GROUP BY 1 order by 2 DESC LIMIT 1 ) SELECT Name FROM Candidate WHERE id IN ( select CandidateId FROM winning )
+WITH winning_candidate AS( SELECT candidateId, COUNT(candidateId) as vote_freq FROM vote GROUP BY candidateId ORDER BY vote_freq DESC LIMIT 1 ) SELECT c.name FROM candidate c JOIN winning_candidate wc ON c.id = wc.candidateId
+select C.Name from Candidate C INNER JOIN( select CandidateId, dense_rank() OVER (ORDER BY count(CandidateId) desc) as rnk from Vote GROUP BY CandidateId) Voting ON C.id = Voting.CandidateId WHERE Voting.rnk=1
+select Candidate.Name from (select CandidateId from Vote group by CandidateId order by count(*) desc limit 1) tmp left join Candidate on tmp.CandidateId = Candidate.id
+select Candidate.Name from Candidate,Vote where Candidate.id = Vote.CandidateId group by Vote.CandidateId order by count(*) desc limit 1
+select Candidate.name from Candidate inner join vote on Candidate.id=vote.CandidateId group by Candidate.id order by count(Vote.CandidateId) desc limit 1
+select Name From Candidate where id = (select CandidateId from Vote group by CandidateId order by count(1) desc limit 1)
+select Name from ( Select Name, count(*) as votes from vote v join Candidate c on v.CandidateId = c.id group by 1 order by votes desc limit 1 ) as table_1
+select Name from ( select Name,count(CandidateId) as cnt from Candidate as A inner join Vote as B on A.id=B.CandidateId group by Name order by 2 desc ) X limit 1
+select Name from (select CandidateId from Vote group by CandidateId ORDER BY count(*) DESC LIMIT 1) as a join Candidate on Candidate.id = a.CandidateId
+select Name from (select CandidateId, count(*) as num from Vote group by CandidateId) t join Candidate c on c.id = t.CandidateId order by num desc limit 1
+select Name from (select Name, num_votes,dense_rank() over(order by num_votes desc) as the_rank from (select Name, count(id) as num_votes from (select a.id, a.CandidateId, b.Name from Vote a left join Candidate b on a.CandidateId=b.id) c where Name is not null group by Name)d) e where the_rank=1
+select Name from (select c.Name, count(*) as votes from Candidate c left join Vote v on c.id = v.CandidateId group by c.Name order by votes desc) votes limit 1
+select Name from (select c.Name, count(distinct v.id) as num from Candidate c left join Vote v on c.id=v.CandidateId group by c.id order by num desc limit 1)a
+select Name from Candidate a join Vote b on a.id = b.Candidateid group by Name having count(*) = (select count(CandidateId) from Vote group by CandidateId order by count(CandidateId) desc limit 1 )
+select Name from Candidate c join (select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1) temp on c.id=temp.CandidateId
+select Name from Candidate c join (select CandidateId, count(*) as vote_count from Vote group by CandidateId order by vote_count desc limit 1) temp on c.id = temp.CandidateId
+select Name from Candidate c join (select CandidateId, count(id) from Vote group by 1 order by 2 desc limit 1) t on c.id = t.CandidateId
+select Name from Candidate c join (select CandidateId, count(id) no_votes from Vote group by CandidateId order by no_votes desc limit 1) v on c.id = v.CandidateId
+select Name from Candidate c join Vote v on c.id = v.candidateId group by Name order by count(v.id) desc limit 1
+select Name from Candidate c join(select CandidateId from (select *, count(CandidateId) as freq from Vote group by CandidateId) as a order by freq desc limit 1)b on c.id = b.CandidateId
+select Name from Candidate c left join Vote v on c.id = v.CandidateId group by c.id having count(v.id) = (select max(a.count_num) from (select count(id)over(partition by CandidateId) as count_num from Vote)a)
+select Name from Candidate c where id = (select CandidateId from (select CandidateId, count(id) as num from Vote group by 1 order by num desc limit 1) as t)
+select Name from Candidate inner join (select CandidateId from Vote group by CandidateId order by count(*) DESC limit 1) as winner on Candidate.id = winner.Candidateid
+select Name from Candidate inner join (select CandidateId, count(Id) as total_vote from Vote group by CandidateId order by total_vote desc limit 1) as t1 on Candidate.id = t1.CandidateId
+select Name from Candidate join ( select CandidateId from Vote group by CandidateId order by count(*) desc limit 1 ) as winner on Candidate.id = winner.CandidateId
+select Name from Candidate join ( select CandidateId, count(*) as votes from Vote group by CandidateId ) votes on votes.CandidateId = Candidate.id order by votes desc limit 1
+select Name from Candidate join (select CandidateId from Vote group by 1 order by count(*) desc limit 1) temp on Candidate.Id = temp.CandidateId
+select Name from Candidate join (select CandidateId from Vote group by CandidateId order by count(CandidateId) DESC Limit 1) v on Candidate.id = v.CandidateId
+select Name from Candidate join (select count(id),CandidateId from vote group by CandidateId order by count(id) desc limit 1) as b on Candidate.id = b.CandidateId
+select Name from Candidate join Vote on (Candidate.ID = Vote.CandidateId) group by Name order by count(Name) desc limit 1
+select Name from Candidate join Vote on Candidate.id = Vote.CandidateId group by Candidate.id order by count(*) desc limit 1
+select Name from Candidate left join Vote on (Candidate.ID = Vote.CandidateId) group by Name order by count(Name) desc limit 1
+select Name from Candidate t1 where t1.id = (select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1)
+select Name from Candidate where Candidate.id=(select CandidateID from Vote group by CandidateId order by count(*) DESC limit 1)
+select Name from Candidate where Id = (select CandidateId from Vote group by CandidateId order by count(CandidateId) Desc limit 1)
+select Name from Candidate where id = ( select CandidateId from Vote group by CandidateId order by count(*) desc limit 1)
+select Name from Candidate where id = ( select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1)
+select Name from Candidate where id = ( select CandidateId from vote group by 1 order by count(CandidateId) desc limit 1 )
+select Name from Candidate where id = ( select CandidateId from( select CandidateId, rank() over(order by count(CandidateId) desc) as candidate_rank from Vote group by CandidateId ) V where V.candidate_rank = 1 )
+select Name from Candidate where id = (select CandidateId from Vote group by 1 order by count(*) desc limit 1)
+select Name from Candidate where id = (select CandidateId from Vote group by CandidateId order by Count(CandidateId) desc limit 1)
+select Name from Candidate where id = (select CandidateId from Vote group by CandidateId order by count(*) desc limit 1)
+select Name from Candidate where id = (select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1)
+select Name from Candidate where id = (select CandidateId from vote group by CandidateId order by count(CandidateId) desc limit 1)
+select Name from Candidate where id = (select candidateid from Vote group by candidateid order by count(candidateid) desc limit 1)
+select Name from Candidate where id in ( select CandidateId from ( select CandidateId, rank()over(order by count(*) desc) as rnk from Vote group by 1 ) a where rnk=1 )
+select Name from Candidate where id in ( select CandidateId from Vote group by 1 having count(*) = ( select count(*) as cnt from Vote group by CandidateId order by cnt desc limit 1 ) )
+select Name from Candidate where id in (select CandidateId from (select CandidateId, count(*) as cnt from Vote group by 1 order by 2 desc limit 1)cte)
+select Name from Candidate where id in (select CandidateId from (select CandidateId, count(*) as cnt from Vote group by 1 order by cnt desc limit 1) temp)
+select Name from Candidate where id=(select CandidateId from Vote group by CandidateId order by count(*) desc limit 1)
+select Name from Candidate, (select CandidateId from Vote group by CandidateId order by count(*) Desc LIMIT 1) c1 where Candidate.id = c1.CandidateId
+select Name from Vote as v INNER JOIN Candidate as c on v.CandidateId=c.id group by v.CandidateId order by count(*) desc limit 1
+select Name from Vote as v join Candidate as c on v.CandidateId = c.Id group by CandidateId order by count(Name) desc limit 1
+select Name from Vote left join Candidate on Vote.CandidateId=Candidate.id group by Name order by count(*) desc limit 1
+select Name from candidate c join (select CandidateId, rank() over(order by count(CandidateId) desc) as rnk from vote group by CandidateId) b on c.id = b.CandidateId and rnk = 1
+select Name from candidate c join Vote v on c.id = v.candidateId group by 1 order by count(*) desc limit 1
+select Name from candidate c where id = (select candidateid from vote group by 1 order by count(candidateid) desc limit 1)
+select Name from candidate c, vote v where v.candidateid = c.id group by candidateid order by count(name) desc limit 1
+select Name from candidate cand inner join (select A.candidateid, dense_rank() over(order by A.W desc) R_dr from ( select candidateid,count(candidateid) as W from vote group by candidateid) A) B on cand.Id = B.candidateid where R_dr = 1
+select Name from candidate cand join (select A.candidateid, dense_rank() over(order by A.W desc) R_dr from ( select candidateid,count(candidateid) as W from vote group by candidateid) A) B on cand.Id = B.candidateid where R_dr = 1
+select Name from candidate d join( select CandidateId, count(CandidateId) as cnt from Vote group by 1 order by 2 desc limit 1) c where d.id = c.CandidateId
+select Name from candidate join vote on candidate.id = vote.candidateid group by vote.candidateid order by count(vote.candidateid) desc limit 1
+select Name from vote inner join candidate on candidate.Id = vote.CandidateId group by CandidateId order by count(CandidateId) desc limit 1
+select Name from vote v join candidate c on v.candidateId = c.id group by name order by count(v.id) desc limit 1
+select Name from(select candidateId, count(candidateId) as ccad from vote group by candidateId)t, Candidate C where C.id=t.candidateId order by ccad desc limit 1
+select a.name from (select c.Name as name, count(*) as score from Candidate c inner join vote v on v.CandidateId = c.id group by v.CandidateId order by score desc ) a limit 1
+select a.name from candidate a inner join (select candidateID, count(id) as vote_count from vote group by candidateID order by count(id) desc limit 1) as b on a.id=b.candidateID
+select a.name from candidate a inner join (select candidateid,(count(candidateid)) as num_votes from vote group by candidateid order by count(candidateid) desc limit 1) b on cast(a.id as char) = cast(b.candidateid as char)
+select a.name from candidate a join ( select distinct a.candidateid, count(distinct a.id) as votes from vote a group by a.candidateid order by votes desc limit 1 ) win on a.id = win.candidateid
+select a.name from candidate a where a.id = (select candidateid from vote group by candidateid order by count(id) desc limit 1)
+select b.Name from( select a.Name, a.cnt,rank() over (order by a.cnt DESC) as rnk from (select c.Name, count(v.id) as cnt from Vote v left join Candidate c on v.CandidateId=c.id group by c.Name) a)b where b.rnk=1
+select b.name from (select (candidateid) from vote group by candidateid order by count(*) desc limit 1) a inner join candidate b on a.candidateid = b.id
+select b.name from (select candidateid from vote group by 1 order by count(*) desc limit 1) a join candidate b on a.candidateid=b.id
+select b.name from (select candidateid, count(id) as num_id from vote group by candidateid order by count(id) desc limit 1) a join candidate b on a.candidateid=b.id
+select b.name from vote a, candidate b where b.id=a.candidateid group by candidateid order by count(*) desc limit 1
+select c.Name as Name from Candidate c join (select v.CandidateId, count(v.CandidateId) as cnt from Vote v group by v.CandidateId order by cnt desc limit 1) as v on c.id = v.CandidateId
+select c.Name from ( select distinct(CandidateID) cid, count(*) over (partition by CandidateID order by CandidateID desc) counts from Vote order by counts desc limit 1) v join Candidate c on v.cid=c.id
+select c.Name from (select candidateId, count(candidateId) as votes from Vote group by candidateId) v left join Candidate c on c.id = v.CandidateId order by v.votes desc limit 1
+select c.Name from Candidate c join ( select Candidateid, count(Candidateid) as count from Vote group by 1 order by 2 desc limit 1 ) v on c.id=v.Candidateid
+select c.Name from Candidate c join Vote v on c.id = v.CandidateId group by c.Name order by coalesce(count(v.id),0) desc limit 1
+select c.Name from Candidate c, (select candidateId, count(*) as vote_cnt from Vote group by candidateId order by vote_cnt desc limit 1) m where c.id = m. CandidateId
+select c.Name from Candidate c, Vote v where c.id = v.CandidateId group by c.id order by count(c.id) desc limit 1
+select c.Name from Vote v join Candidate c on v.CandidateId = c.id group by v.CandidateId order by count(v.id) desc limit 1
+select c.Name from candidate c inner join ( select candidateid, count(*) as ct from vote group by 1 order by 2 desc limit 1 ) v on c.id = v.candidateid
+select c.name from (select CandidateId, count(CandidateId) from Vote V group by CandidateId order by count(CandidateId) desc limit 1) t inner join candidate c on c.id = t.CandidateId
+select c.name from Candidate c inner join Vote v on c.id=v.CandidateId group by 1 order by count(c.name) desc limit 1
+select c.name from Vote V inner join candidate c on c.id = V.CandidateId group by V.CandidateId order by count(V.CandidateId) desc limit 1
+select c.name from candidate as c inner join vote as v on c.id = v.candidateid group by c.id,c.name order by count(v.id) desc limit 1
+select c.name from candidate as c where id = ( select candidateid from vote group by candidateid order by count(candidateid) desc limit 1 )
+select c.name from candidate c inner join vote v on c.id=v.CandidateId group by v.CandidateId order by count(v.CandidateId) desc limit 1
+select c.name from candidate c join ( select CandidateId from vote group by CandidateId order by count(distinct id) desc limit 1 ) t on c.id = t.CandidateId
+select c.name from candidate c join ( select candidateid from vote group by 1 order by count(*) desc limit 1 )a on a.candidateid = c.id
+select c.name from candidate c join vote v on c.id = v.candidateId group by c.name order by count(candidateId) desc limit 1
+select c.name from candidate c join vote v on c.id = v.candidateid group by v.candidateid order by count(v.id) desc limit 1
+select c.name from candidate c join vote v on c.id=v.candidateid group by c.id order by count(*) desc limit 1
+select c.name from candidate c left join (select candidateid, count(*) as cnt from vote group by candidateid) v on c.id = v.candidateid order by v.cnt desc limit 1
+select c.name from candidate c where c.id = ( select CandidateId from vote group by CandidateId order by count(distinct id) desc limit 1)
+select c.name from candidate c where id = (select candidateid from vote group by candidateid order by count(candidateid) desc limit 1)
+select c1.Name from Candidate c1 join (select CandidateId from (select CandidateId, count(*) can_cnt from Vote group by 1 order by can_cnt desc) t1 limit 1) t2 on c1.id = t2.CandidateId
+select candidate.Name from Candidate candidate join ( select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1 ) winner on candidate.id = winner.CandidateId
+select d.name from ( select a.name, count(*) from Candidate a, Vote b where a.id = b.CandidateId group by a.name order by 2 desc limit 1) d
+select distinct Name from Candidate c where c.id = ( select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1)
+select distinct Name from Candidate where id in (select CandidateId from (select CandidateId, count(CandidateId) cnt from Vote group by CandidateId order by 2 desc limit 1) temp)
+select name AS 'Name' FROM candidate JOIN (select Candidateid from vote group by candidateid order by count(candidateId) Desc limit 1) as winner where candidate.id = winner.candidateid
+select name from ( select CandidateId, rank() over(order by count(id) desc) as rank_num from vote group by 1) v left join candidate c on v.CandidateId = c.id where rank_num = 1
+select name from ( select Name, count(CandidateId) as cnt from Candidate as c right join Vote as v on c.id = v.CandidateId group by CandidateId order by cnt desc ) T limit 1
+select name from ( select candidateid, rank () over (order by count desc) from ( select candidateid, count(candidateid) as count from vote group by candidateid) as d group by candidateid limit 1) as e join candidate c on c.id = e.candidateid
+select name from ( select name, rank() over (order by cnt desc)rnk from( select c.id, c.name, v.candidateid, count(v.candidateid) as cnt from candidate c join vote v on c.id = v.candidateid group by c.id)g)h where rnk = 1
+select name from (select CandidateId,rank() over (order by votes desc)rnk from (select CandidateId,count(*)votes from vote group by CandidateId)b)c join candidate cc on c.CandidateId = cc.id where c.rnk=1
+select name from (select c.name, count(v.id) "cnt" from candidate c join vote v on c.id = v.candidateid group by 1 order by 2 desc limit 1 ) result_table
+select name from (select c.name, v.candidateid, count(c.name) as votes from candidate c join vote v on C.id = V.CandidateId group by 1 order by 3 desc) as t having max(t.votes)
+select name from (select c.name,count(v.id) as cnt from Candidate c join vote v on c.id = v.CandidateId group by 1 order by 2 desc limit 1) rs_table
+select name from (select id, candidateid, dense_rank() over (order by count(candidateid) desc) as num from vote group by candidateid) a join candidate b on a.candidateid = b.id where num = 1
+select name from (select name from candidate inner join vote on candidate.id=vote.candidateid) as e group by name order by count(name)desc limit 1
+select name from (select name, row_number() over (order by num_votes desc) row_num from ( select candidate.id, name, count(*) num_votes from Candidate left join vote on candidate.id = vote.candidateid group by candidate.id ) counts) winner where row_num = 1
+select name from Candidate where id = (select CandidateId from Vote group by CandidateId order by count(*) desc limit 1)
+select name from candidate a inner join (select candidateid from vote group by candidateid order by count(*) desc limit 1) b on a.id = b.candidateid
+select name from candidate c inner join ( Select CandidateId, Count(1) c from vote group by CandidateId order by c desc limit 1) as t on c.id = t.CandidateId
+select name from candidate c inner join (select CandidateId, count(CandidateId) as cnd_id from vote group by CandidateId order by cnd_id desc LIMIT 1) as v where c.id = v.CandidateId
+select name from candidate c join (select candidateid as candi from vote group by candidateid order by count(candidateid) desc limit 1 ) as winner on candi=id
+select name from candidate c join (select candidateid, count(*) from vote group by candidateid order by count(*) desc limit 1) t on c.id = t.candidateid
+select name from candidate c join (select candidateid, count(candidateid) as vote from vote group by 1) t on c.id=t.candidateid order by vote desc limit 1
+select name from candidate c join vote v on c.id = v.candidateid group by name order by count(1) desc limit 1
+select name from candidate c join vote v on v.candidateId=c.id group by 1 order by count(v.id) desc limit 1
+select name from candidate c right join (select CandidateId, count(CandidateId) as countC from Vote group by CandidateId order by countC desc limit 1) t on c.id = t.candidateId
+select name from candidate inner join (select candidateid, count(*) as n from vote group by 1 order by 2 desc limit 1) tb1 on tb1.candidateid=candidate.id
+select name from candidate join (select candidateid from vote group by candidateid order by count(*) desc Limit 1) as winner where candidate.id = winner.candidateid
+select name from candidate join vote on candidate.id = vote.candidateid group by candidateid order by count(*) desc limit 1
+select name from candidate left join (select candidateid, count(candidateid) as votes from vote group by candidateid) as mostvotes on candidate.id = mostvotes.candidateid order by votes desc limit 1
+select name from candidate t1 inner join (select candidateid from vote group by candidateid having count(*) order by count(*) desc limit 1) t2 on t1.id = t2.candidateid
+select name from candidate where id = ( select candidateid from vote group by candidateid order by count(*) desc limit 1 )
+select name from candidate where id = ( select candidateid from vote group by candidateid order by count(id) desc limit 1 )
+select name from candidate where id = (select candidateid from vote group by candidateid order by count(candidateid) desc limit 1)
+select name from candidate where id in (select x.candidateid from (select candidateid, dense_rank() over (order by count(candidateid) desc) as ranking from vote group by 1)x where x.ranking=1)
+select name from( select c.name, DENSE_RANK()OVER(ORDER BY COUNT(v.id) DESC ) as voterank FROM candidate as c LEFT JOIN Vote as v ON c.id=v.candidateid GROUP BY c.name )a where voterank=1
+select name from( select candidateid, count(candidateid) as total from vote group by candidateid order by total desc limit 1 ) tmp join Candidate c on tmp.candidateid = c.id
+with a as ( select CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1 ) select Candidate.Name Name from Candidate inner join a on Candidate.id = a.CandidateId
+with a as( select c.Name as Name, count(c.Name) as ct from Candidate c left join Vote v on c.id=v.CandidateId where v.id is not null group by c.Name ) select Name from a where a.ct= (select max(ct) from a)
+with b as(select candidateid, count(*) as cnt from vote group by candidateid order by count(*) desc) select name from candidate a join b on a.id = b.candidateid where b.cnt >= (select max(cnt) from b)
+with candidate_counts as ( select c.name, count(1) from vote v inner join candidate c on c.id = v.candidateid group by 1 order by 2 desc limit 1 ) select name from candidate_counts
+with cte as ( select CandidateId from Vote group by CandidateId having count(CandidateId) = (select max(cnt) from (select CandidateId, count(CandidateId) over(partition by CandidateId order by CandidateId) as cnt from Vote) t ) ) select Name from Candidate where id = ( select CandidateId from cte )
+with cte as ( select CandidateId, count(*) as votes, row_number() over(order by count(*) desc) as rownum from vote group by CandidateId ) select Name from Candidate c join cte on cte.CandidateId = c.id where rownum = 1
+with cte as ( select candidateid,count(*) as c from Vote group by candidateid ) select name from candidate where id in ( select candidateid from cte where c = (select max(c) from cte ))
+with cte as ( select candidateid,count(*) as c from Vote group by candidateid order by count(*) desc limit 1 ) select name from candidate where id in ( select candidateid from cte )
+with cte as ( select candidateid,count(*) rnk from vote group by 1 ) select name from candidate where id = ( select candidateid from cte group by 1 order by rnk desc limit 1 )
+with cte as ( select v.CandidateId,c.Name,count(*) from Vote v join Candidate c on v.CandidateId = c.id group by v.CandidateId order by count(*) desc limit 1 ) select Name from cte
+with cte as ( select v.id, v.CandidateId, c.Name, count(c.Name) from Vote v LEFT JOIN Candidate c on v.CandidateId = c.id GROUP BY c.Name ORDER BY count(c.Name) desc) select name from cte limit 1
+with cte as (SELECT CandidateId,count(id) as vote_count from Vote group by 1) select Name from Candidate where id = (select CandidateId from cte where vote_count = (select max(vote_count) from cte))
+with cte as (select CandidateId from Vote group by CandidateId order by count(id) desc limit 1) select Name from cte inner join Candidate on cte.CandidateId = Candidate.id
+with cte as (select CandidateId, count(candidateId) as total from Vote group by candidateId) select distinct Name from Candidate c join Vote v on c.id = v.CandidateId where CandidateId in (select CandidateId from cte where total = ((select max(total) from cte)))
+with cte as (select CandidateId,count(CandidateId) as count1 from Vote group by CandidateId) select distinct Name from Candidate c inner join cte c1 on c.id = c1.candidateId where c.id in (select CandidateId from cte where count1 in (select max(count1) from cte))
+with cte as (select c.name, count(v.candidateid) as cou from vote v inner join candidate c on v.candidateid =c.id group by c.id order by 2 desc) select name from cte limit 1
+with cte_vote as ( select candidateid, count(id) as total_votes, rank() over(order by count(id) desc) as vote_rank from vote group by 1) select name from candidate where id = (select candidateid from cte_vote where vote_rank = 1)
+with m as (select candidateid, count(id) as c1 from vote group by candidateid order by count(id) desc limit 1) select c.name from m inner join candidate as c on m.candidateid = c.id
+with max_vote as ( Select count(CandidateId) as cnt, CandidateId from Vote group by CandidateId order by count(CandidateId) desc limit 1 ) Select Name from max_vote mv, Candidate csd where mv.CandidateId = csd.id
+with result as (select CandidateId, count(CandidateId) cnt from Vote group by CandidateId order by cnt desc limit 1) select c.Name from Candidate c join Result r on c.id = r.CandidateId
+with t as ( Select v.CandidateId, c.Name, count(CandidateId) as c from Candidate c right join Vote v on v.CandidateId = c.id group by CandidateId order by c desc ) Select Name from t limit 1
+with t as ( select CandidateId cid, count(*) c from vote group by CandidateId ) select d.name from t join candidate d on t.cid = d.id order by c desc limit 1
+with t as (select CandidateId, count(id) as Votes from Vote group by CandidateId order by Votes) select Name from( select Name, CandidateId,Votes from Candidate c inner join t on c.id = t.CandidateId order by Votes desc)T1 limit 1
+with t as (select c.name as Name, count(v.id) as votes from candidate c join vote v on c.id=v.CandidateId group by Name) select Name from t where votes=(select max(votes) from t)
+with t1 as ( select CandidateId as id, count(CandidateId) as ct from Vote group by CandidateId order by ct desc ) SELECT Name FROM Candidate WHERE id = (select id from t1 limit 1)
+with t1 as (select name, count(*) from candidate a join vote b on a.id = b.candidateid group by 1 order by 2 desc limit 1) select name from t1
+with tab as ( select candidateId, count(candidateId) as vote_count from vote group by candidateId ) select Name from candidate join tab on tab.candidateId = Candidate.id where tab.vote_count = (select max(vote_count) from tab)
+with tally as ( select CandidateId, count(1) as N, max(count(1)) over () as maxN from Vote group by CandidateId ) select Name from tally left join Candidate c on tally.CandidateId = c.id where N = maxN
+with tbl as (select name, count(candidateId) cnt from vote left join candidate on vote.candidateId = candidate.id group by name order by cnt desc limit 1) select name from tbl
+with temp as ( select candidateid from vote group by candidateid order by count(1) desc limit 1 ) select name from candidate where id = (select candidateid from temp)
+with temp as (select Candidateid, count(CandidateId) as votes from vote group by candidateId) select b.name from temp a join candidate b on a.candidateid = b.id order by a.votes desc limit 1
+with temp as (select candidateId, count(id) as num_vote from Vote group by candidateId order by num_vote desc), win as (select candidateId from temp limit 1) select Name from Candidate where id in (select candidateId from win)
+with valid_can as( select CandidateId from Vote group by CandidateId order by count(*)DESC limit 1) select Name from Candidate join valid_can on Candidate.id = valid_can.Candidateid
+with vc as (Select candidateid, count(*) as ct from Vote group by 1), mac as(Select candidateid, rank() over (order by ct desc) as r from vc ), can as(select candidateid from mac where r=1) select Name from Candidate where id in (select candidateid from can)
+with vote_can as ( select c.name, count(distinct v.id) as votes from candidate c left join vote v on v.candidateid = c.id group by 1 order by 2 desc ) select name from vote_can v limit 1
+with vote_count as ( select CandidateId, count(*) as num_vote from Vote group by CandidateId ) select Name from (select c.Name, v.num_vote from Candidate c join vote_count v on c.id = v.CandidateId) interdb where interdb.num_vote = (select max(num_vote) from Candidate c join vote_count v on c.id = v.CandidateId)
+with winning_id as ( select candidateid as id, count(id) vote_counts from vote group by candidateid order by vote_counts desc limit 1 ) select name from candidate where id in (select id from winning_id)
+with x as ( select CandidateId, count(candidateid) as vote_count from vote group by candidateid order by vote_count desc limit 1 ) select c.name from x join candidate c on x.candidateId = c.id

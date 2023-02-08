@@ -1,0 +1,103 @@
+SELECT T.tweet_id FROM Tweets T WHERE LENGTH(CONTENT) > 15
+SELECT TWEET_ID FROM TWEETS WHERE CHAR_LENGTH(CONTENT) > 15
+SELECT TWEET_ID FROM TWEETS WHERE CHAR_LENGTH(CONTENT)>15
+SELECT Tweets.tweet_id FROM Tweets WHERE LENGTH(Tweets.content) > 15
+SELECT t.tweet_id FROM Tweets t WHERE LENGTH(t.content) > 15
+SELECT t.tweet_id from Tweets t WHERE LENGTH(t.content) > 15
+SELECT t.tweet_id from Tweets t WHERE length(t.content) > 15
+SELECT tweet_id FROM TWEETS WHERE LENgth(content)>15
+SELECT tweet_id FROM Tweets AS T WHERE CHAR_LENGTH(content) > 15
+SELECT tweet_id FROM Tweets WHERE 1=1 AND LENGTH(content) > 15
+SELECT tweet_id FROM Tweets WHERE CHAR_LENGTH(CONTENT) > 15
+SELECT tweet_id FROM Tweets WHERE CHAR_LENGTH(content) > 15
+SELECT tweet_id FROM Tweets WHERE CHAR_LENGTH(content) >15
+SELECT tweet_id FROM Tweets WHERE CHAR_LENGTH(content)>15
+SELECT tweet_id FROM Tweets WHERE CHAR_LENGTH(content)>15 GROUP BY tweet_id
+SELECT tweet_id FROM Tweets WHERE LENGTH(CONTENT) > 15
+SELECT tweet_id FROM Tweets WHERE LENGTH(Tweets.content) > 15
+SELECT tweet_id FROM Tweets WHERE LENGTH(content) > 15
+SELECT tweet_id FROM Tweets WHERE LENGTH(content)>15
+SELECT tweet_id FROM Tweets WHERE char_length(content) > 15
+SELECT tweet_id FROM Tweets WHERE char_length(content)>15
+SELECT tweet_id FROM Tweets WHERE character_length(content)> 15
+SELECT tweet_id FROM Tweets WHERE length(content) > 15
+SELECT tweet_id FROM Tweets WHERE length(content) >15
+SELECT tweet_id FROM Tweets WHERE length(content)>15
+SELECT tweet_id FROM Tweets Where 1 = 1 and length(content) > 15
+SELECT tweet_id FROM Tweets Where LENGTH(content) > 15
+SELECT tweet_id FROM Tweets Where length(content) > 15
+SELECT tweet_id FROM Tweets as t WHERE LENGTH(t.content)>15
+SELECT tweet_id FROM Tweets where char_length(content) > 15
+SELECT tweet_id FROM Tweets where length(content) > 15
+SELECT tweet_id FROM Tweets where length(content)>15
+SELECT tweet_id FROM tweets WHERE CHAR_LENGTH(content) > 15
+SELECT tweet_id FROM tweets WHERE LENGTH(SUBSTR(content, 16)) > 0
+SELECT tweet_id FROM tweets WHERE LENGTH(content) > 15
+SELECT tweet_id FROM tweets WHERE LENGTH(content)>15
+SELECT tweet_id FROM tweets WHERE length(content) > 15
+SELECT tweet_id FROM tweets where LENGTH(content) > 15
+SELECT tweet_id from Tweets WHERE CHAR_LENGTH(content) > 15
+SELECT tweet_id from Tweets WHERE LENGTH(content) > 15
+SELECT tweet_id from Tweets Where length(content) > 15
+SELECT tweet_id from Tweets t WHERE LENGTH(t.content) > 15
+SELECT tweet_id from Tweets where CHAR_LENGTH(content) > 15
+SELECT tweet_id from Tweets where LENGTH(content) > 15
+SELECT tweet_id from Tweets where length(content) > 15
+SELECT tweet_id from Tweets where length(content)>15
+SELECT tweet_id from tweets where length(content)>15
+Select tweet_id FROM Tweets WHERE LENGTH(content) > 15
+Select tweet_id From Tweets Where CHAR_length(content)>15
+Select tweet_id From Tweets Where Length(content) > 15
+Select tweet_id From Tweets Where length(content) > 15
+Select tweet_id from Tweets Where char_length(content) > 15
+Select tweet_id from Tweets where CHAR_LENGTH(content) > 15
+Select tweet_id from Tweets where CHAR_LENGTH(content)>15
+Select tweet_id from Tweets where LENGTH(content) > 15
+Select tweet_id from Tweets where LENGTH(content) >15
+Select tweet_id from Tweets where Length(content) > 15
+Select tweet_id from Tweets where length(content) > 15
+Select tweet_id from Tweets where length(content)>15
+Select tweet_id from tweets where CHAR_LENGTH(content) > 15
+Select tweet_id from tweets where CHAR_LENGTH(content)>15
+WITH tw_length AS ( SELECT tweet_id, length(content) AS tw_length FROM Tweets ) SELECT tweet_id FROM tw_length WHERE tw_length > 15
+select Tweets.tweet_id from Tweets where LENGTH(Tweets.content) > 15
+select distinct tweet_id from Tweets where length(content) > 15
+select distinct tweet_id from Tweets where length(content)>15
+select t.tweet_id from Tweets t where length(t.content)>15
+select t1.tweet_id from Tweets t1 JOIN (select tweet_id, LENGTH(content) as len from Tweets GROUP BY tweet_id HAVING len>15) t2 ON t1.tweet_id=t2.tweet_id
+select tweet_id FROM Tweets WHERE LENGTH(content)>15
+select tweet_id from ( select tweet_id, length(content) as lt from tweets ) r1 where lt>15
+select tweet_id from (select tweet_id, char_length(content) as length from tweets) as t1 where length > 15
+select tweet_id from (select tweet_id, length(content) as len from tweets) as a where len > 15
+select tweet_id from (select tweet_id, length(content) as len_tweet from Tweets ) a where len_tweet>15
+select tweet_id from Tweets Where LENGTH(content)>15
+select tweet_id from Tweets t where length(t.content) > 15
+select tweet_id from Tweets where CHAR_LENGTH(Content) > 15
+select tweet_id from Tweets where CHAR_LENGTH(content) > 15
+select tweet_id from Tweets where CHAR_LENGTH(content)>15
+select tweet_id from Tweets where LENGTH(Tweets.content) > 15
+select tweet_id from Tweets where LENGTH(content) > 15
+select tweet_id from Tweets where LENGTH(content) >15
+select tweet_id from Tweets where LENGTH(content)>15
+select tweet_id from Tweets where char_length(content) > 15
+select tweet_id from Tweets where char_length(content) >15
+select tweet_id from Tweets where char_length(content)>15
+select tweet_id from Tweets where content is not null and length(content)>15
+select tweet_id from Tweets where length (content)>15
+select tweet_id from Tweets where length(content) > 15
+select tweet_id from Tweets where length(content) >15
+select tweet_id from Tweets where length(content)>15
+select tweet_id from Tweets where length(trim(content)) > 15
+select tweet_id from tweets WHERE CHAR_LENGTH(content) > 15
+select tweet_id from tweets t where length(t.content) > 15
+select tweet_id from tweets where 15 < char_length(content)
+select tweet_id from tweets where CHAR_LENGTH(content) > 15
+select tweet_id from tweets where LENGTH(content) > 15
+select tweet_id from tweets where LENGTH(content) >15
+select tweet_id from tweets where char_length(content) > 15
+select tweet_id from tweets where char_length(content)>15
+select tweet_id from tweets where length(content) > 15
+select tweet_id from tweets where length(content) > 15 order by char_length(content) DESC
+select tweet_id from tweets where length(content)> 15
+select tweet_id from tweets where length(content)>15
+select tweet_id from tweets where length(tweets.content)>15

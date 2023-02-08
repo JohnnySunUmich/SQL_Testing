@@ -1,0 +1,226 @@
+SELECT DISTINCT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY 1 ASC) as products FROM Activities GROUP BY 1 ORDER BY 1
+SELECT SELL_DATE, COUNT(DISTINCT PRODUCT) AS NUM_SOLD, GROUP_CONCAT(DISTINCT PRODUCT ORDER BY PRODUCT) AS PRODUCTS FROM ACTIVITIES GROUP BY SELL_DATE
+SELECT SELL_DATE, COUNT(DISTINCT PRODUCT) num_sold, GROUP_CONCAT(DISTINCT PRODUCT ORDER BY PRODUCT) products FROM Activities GROUP BY 1 ORDER BY 1
+SELECT a.sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) as products FROM activities a GROUP BY 1 ORDER BY 1
+SELECT sell_date , COUNT(Distinct product) As num_sold , GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR',') As products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT( DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ',') AS products FROM Activities GROUP BY sell_Date
+SELECT sell_date, COUNT( DISTINCT( product ) ) AS num_sold, GROUP_CONCAT( DISTINCT( product ) ORDER BY product ) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(*) AS num_sold, group_concat(DISTINCT product ORDER BY product) AS products FROM (SELECT DISTINCT sell_date, product FROM Activities ORDER BY product) tmp GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT (product)) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product ) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT product ) AS num_sold, GROUP_CONCAT(distinct product) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT product) AS 'num_sold', GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ',') AS 'products' FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY PRODUCT SEPARATOR ',') PRODUCTS FROM activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY 1 ORDER BY 1 ASC
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY 1
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') as products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products FROM Activities GROUP BY 1 ORDER BY 1
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY 1 ASC
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR "," ) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ",") AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR',') AS products FROM Activities GROUP BY 1 ORDER BY 1
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) as products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM Activities AS T1 GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM activities GROUP BY sell_date ORDER BY sell_date, products
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product) as products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, group_concat( DISTINCT product ORDER BY product ) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold, group_concat(distinct product ORDER BY product) AS products FROM Activities GROUP BY 1
+SELECT sell_date, COUNT(DISTINCT product) as "num_sold", GROUP_CONCAT(DISTINCT product) as "products" FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') as products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) as products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) as products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) products FROM activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, group_concat(DISTINCT product order by product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, group_concat(DISTINCT product) as products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) num_sold, GROUP_CONCAT( DISTINCT product ORDER BY product ASC SEPARATOR ',' ) products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT product) num_sold, GROUP_CONCAT(DISTINCT product) products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product)num_sold,GROUP_CONCAT(DISTINCT product ORDER BY product) products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT product)num_sold,GROUP_CONCAT(DISTINCT product) products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT(PRODUCT)) AS num_sold, GROUP_CONCAT(DISTINCT(product) ORDER BY product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ",") AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT(product) ORDER BY product) AS products FROM Activities GROUP BY 1 ORDER BY 1
+SELECT sell_date, COUNT(DISTINCT(product)) AS num_sold, GROUP_CONCAT(DISTINCT(product) ORDER BY product) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) as products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, COUNT(DISTINCT(product)) as num_sold, group_concat(distinct product order by product) as products FROM Activities Group By sell_date
+SELECT sell_date, COUNT(DISTINCT(product)) num_sold, group_concat(DISTINCT(product)) products FROM activities GROUP BY sell_date
+SELECT sell_date, COUNT(distinct (product))AS num_sold, Group_concat(distinct product order by product) AS products FROM activities GROUP BY sell_date
+SELECT sell_date, COUNT(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) as products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date, COUNT(distinct product)as num_sold, GROUP_CONCAT( DISTINCT product ) AS products FROM Activities GROUP BY sell_date
+SELECT sell_date, Count(distinct product) as num_sold, group_concat(DISTINCT product ORDER BY product ASC) AS products FROM activities GROUP BY sell_date
+SELECT sell_date, count(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) as products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product SEPARATOR ',') as products FROM activities GROUP BY sell_date
+SELECT sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product order by product SEPARATOR ',' ) as products FROM Activities group by sell_date
+SELECT sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products FROM Activities GROUP BY sell_date
+SELECT sell_date, count(distinct(product)) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ",") as products FROM activities GROUP BY sell_date ORDER BY sell_date ASC
+SELECT sell_date, count(distinct(product)) num_sold, GROUP_CONCAT(distinct(product)) products FROM Activities group by sell_date
+SELECT sell_date,COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ',') AS products FROM Activities GROUP BY sell_date ORDER BY sell_date
+SELECT sell_date,COUNT(DISTINCT product) AS num_sold,group_concat(DISTINCT product) AS products FROM Activities GROUP BY sell_date
+SELECT sub.sell_date, COUNT(DISTINCT sub.product) AS num_sold, GROUP_CONCAT(DISTINCT sub.product) AS products FROM ( SELECT * FROM Activities ORDER BY product ) sub GROUP BY sub.sell_date ORDER BY sub.sell_date
+Select a.sell_date, count( distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products from activities a group by a.sell_date order by sell_date asc
+Select sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(distinct product ORDER BY product) as products from Activities group by sell_date
+Select sell_date, Count(Distinct product) As num_sold, Group_Concat(Distinct product Order By product ASC, '') As products From Activities Group By sell_date Order By sell_date
+Select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+Select sell_date,count(distinct product) as num_sold, group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+WITH CTE1 AS ( SELECT DISTINCT sell_date, product FROM Activities) SELECT sell_date, COUNT(*) AS num_sold, GROUP_CONCAT(product ORDER BY product) AS products FROM CTE1 GROUP BY sell_date
+WITH c AS ( SELECT DISTINCT * FROM Activities ) SELECT sell_date, COUNT(product) AS num_sold, group_concat(DISTINCT product ORDER BY product SEPARATOR ',') AS products FROM c GROUP BY sell_date
+select a.sell_date as sell_date, count(distinct a.product) as num_sold, group_concat(distinct a.product order by a.product separator ",") as products from activities a join activities b on a.sell_date=b.sell_date group by a.sell_date order by a.sell_date asc
+select a.sell_date, count(distinct a.product) as num_sold, group_concat(distinct a.product order by a.product) as products from Activities a group by a.sell_date order by a.sell_date asc, a.product asc
+select a1.sell_date, count(distinct a1.product) as num_sold , group_concat( distinct a1.product order by product) as products from activities a1 group by a1.sell_date
+select aa.sell_date, count(distinct aa.product) as num_sold, group_concat(distinct product order by product ASC separator ',') as products from Activities aa group by aa.sell_date
+select b.sell_date, count(*) as num_sold, group_concat(b.product order by product asc) as products from (select a.*, row_number() over (partition by sell_date,product order by product asc) as row_num from Activities as a) as b where row_num=1 group by sell_date
+select distinct sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc SEPARATOR ',') as products from activities group by sell_date order by sell_date
+select distinct sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date order by sell_date
+select distinct sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) products from activities group by sell_date order by sell_date
+select distinct sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from activities group by sell_date order by sell_date
+select sell_date , count( distinct product) as num_sold , group_concat(distinct product) as products from Activities group by sell_date
+select sell_date , count(distinct product) as num_sold , group_concat(distinct product order by product ASC separator ',') as products from activities group by sell_date order by sell_date ASC
+select sell_date , count(distinct product) as num_sold , group_concat(distinct product order by product asc) as products FROM Activities group by sell_date
+select sell_date , count(distinct(product)) as num_sold , group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+select sell_date ,count( distinct product) as num_sold, group_concat( distinct product) as products from activities group by sell_date order by sell_date
+select sell_date ,count(distinct product) as num_sold ,group_concat(distinct product order by product) as products from Activities group by 1 order by 1
+select sell_date ,count(distinct product) as num_sold ,group_concat(distinct product order by product) as products from Activities group by sell_date
+select sell_date ,count(distinct product) as num_sold ,group_concat(distinct product order by product) as products from Activities group by sell_date order by sell_date
+select sell_date ,count(distinct product) num_sold ,group_concat(distinct product order by product) products from Activities group by sell_date
+select sell_date ,count(distinct(product)) as 'num_sold' ,group_concat(distinct(product) order by product asc) as 'products' from Activities group by sell_date
+select sell_date ,count(distinct(product)) as num_sold, group_concat(distinct(product)) as products from activities group by sell_date
+select sell_date, COUNT(DISTINCT(product)) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products FROM Activities GROUP BY sell_date
+select sell_date, COUNT(distinct product ) as num_sold, group_concat(distinct product order by product) as products from Activities GROUP BY sell_date
+select sell_date, count(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product order by product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct (product)) as num_sold, group_concat(distinct (product) order by product ASC separator ',') AS products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct (product)) as num_sold, group_concat(distinct(product) order by product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product ) as num_sold , group_concat(distinct product order by product ) as products from Activities group by 1 order by 1
+select sell_date, count(distinct product ) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as "num_sold", group_concat(distinct product order by product asc separator ',') as products from Activities group by sell_date
+select sell_date, count(distinct product) as 'num_sold', group_concat(distinct product order by product ASC separator ',') as 'products' from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as `num_sold`, group_concat(distinct product ORDER BY product ASC SEPARATOR ',') as `products` from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold , GROUP_CONCAT(DISTINCT product ORDER BY product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold , group_concat(distinct product order by product asc separator ',') as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold , group_concat(distinct product order by product separator ',') as products from activities group by sell_Date order by 1
+select sell_date, count(distinct product) as num_sold , group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products from activities group by 1
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC) as products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ',') as products from activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product order by product asc separator ',') products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product order by product) as products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product order by product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product order by product) as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product) as products from Activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product) as products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, GROUP_CONCAT(distinct product) as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct product) as num_sold, Group_concat(distinct product) as products from Activities A group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat( DISTINCT product ) AS products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat( DISTINCT product ) as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat( distinct product order by product ASC separator ",") as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product ) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product ORDER BY product ASC) as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product ) as products from activities group by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product ) as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product ASC SEPARATOR ',') as products from Activities group by sell_date order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc SEPARATOR ',') as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc separator ',') as products from Activities group by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc separator ',') as products from Activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc separator ',') as products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc separator ',') as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc separator ',') as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product asc) as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ",") as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ",") as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from Activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from activities group by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from activities group by sell_date order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products FROM Activities GROUP BY sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities as a1 group by sell_Date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities group by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities group by sell_date order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product separator ',') as products from Activities group by 1 order by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product separator ',') as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as 'products' from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from Activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from activities as a1 group by sell_Date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from activities group by 1
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from activities group by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products from activities group by sell_date order by sell_date, group_concat(distinct product)
+select sell_date, count(distinct product) as num_sold,group_concat(distinct product) as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) num_sold, GROUP_CONCAT(distinct product order by product) as products from Activities group by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product asc separator ',') as products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product asc separator ',') as products from activities group by sell_date order by sell_date asc
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product asc separator ',') products from Activities group by 1 order by 1
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product asc) products from activities group by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product separator ',') products from Activities group by 1
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product separator ',') products from Activities group by 1 order by 1
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product separator ',') products from activities group by sell_date order by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product order by product) products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct product) num_sold, group_concat(distinct product) products from activities group by 1 order by 1
+select sell_date, count(distinct product)as num_sold,group_concat(distinct product order by product)as products from activities group by 1
+select sell_date, count(distinct(product)) as num_sold , group_concat(DISTINCT product ORDER BY product ASC SEPARATOR ',') as products from Activities group by sell_date ORDER BY sell_date ASC
+select sell_date, count(distinct(product)) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product ASC SEPARATOR ',') AS products from activities group by sell_date order by sell_date asc
+select sell_date, count(distinct(product)) as num_sold, GROUP_CONCAT(DISTINCT product ORDER BY product) AS products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct(product)) as num_sold, group_concat( DISTINCT product ) AS products from activities group by 1
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct product order by product SEPARATOR',') as products from Activities group by sell_date
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct product order by product asc separator ',') as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct product order by product asc) as products from Activities group by sell_date
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct product order by product asc) as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct product order by product asc) as products from activities group by 1 order by 1
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date order by sell_date asc
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct(product) order by product asc) as products from Activities group by sell_date
+select sell_date, count(distinct(product)) as num_sold, group_concat(distinct(product)) as products from Activities group by sell_date order by sell_date
+select sell_date, count(distinct(product)) num_sold, group_concat(distinct product order by product separator ',') products from Activities group by sell_date order by sell_date
+select sell_date,count(distinct Product) as num_sold,group_concat(distinct Product) as products from activities group by sell_date order by sell_date,product
+select sell_date,count(distinct product) as num_sold, group_concat(distinct product order by product asc) as products from activities group by sell_date order by sell_date
+select sell_date,count(distinct product) as num_sold, group_concat(distinct product order by product) as products from Activities group by sell_date
+select sell_date,count(distinct product) as num_sold, group_concat(distinct product order by product) as products from activities group by sell_date order by sell_date
+select sell_date,count(distinct product) as num_sold, group_concat(distinct product) as products from Activities group by sell_date order by sell_date
+select sell_date,count(distinct product) as num_sold,group_concat(distinct product order by product) as products from Activities group by sell_date
+select sell_date,count(distinct product) as num_sold,group_concat(distinct product order by product,',') as products from activities group by 1 order by 1
+select sell_date,count(distinct product) num_sold , group_concat(distinct product order by product separator ',') products from activities group by sell_date
+select sell_date,count(distinct product) num_sold,group_concat(distinct product order by product asc) products from Activities group by sell_date order by sell_date
+select sell_date,count(distinct product) num_sold,group_concat(distinct product order by product) as products from activities group by sell_date
+select sell_date,count(distinct product) num_sold,group_concat(distinct product) products from activities group by 1
+select sell_date,count(distinct product)as num_sold, group_concat( DISTINCT product ) AS products from Activities group by sell_date
+select sell_date,count(sell_date) as num_sold ,GROUP_CONCAT(distinct product) as products from (select distinct sell_date,product from activities)t group by sell_date
+with cte as ( select a.sell_date, a.product from Activities a group by 1,2 order by 1 ) select sell_date, count(*) as 'num_sold', group_concat(product order by product) AS products from cte group by 1 order by 1 ASC
+with cte_agg as ( select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product separator ',') as products from Activities group by 1 order by 1 ) select * from cte_agg
+with filter as (select distinct sell_date,product from Activities group by sell_date, product) select sell_date, count(sell_date) as num_sold, group_concat(distinct product separator ',') as products from filter group by sell_date
+with t1 as (select sell_date, count(distinct product) as num_sold from Activities group by sell_date), t2 as (select a1.sell_date, group_concat(distinct a1.product) as products from Activities a1 join Activities a2 on a1.sell_date=a2.sell_date group by a1.sell_date) select t1.sell_date, t1.num_sold, t2.products from t1 join t2 on t1.sell_date=t2.sell_date
+with x as (select distinct * from Activities) select distinct sell_date, count(product) as num_sold , group_concat(distinct product order by product asc SEPARATOR ',') as products from x group by sell_date order by sell_date
+with x as (select distinct * from Activities) select sell_date, count(product) as num_sold , group_concat( product order by product asc SEPARATOR ',') as products from x group by sell_date order by sell_date

@@ -1,0 +1,362 @@
+SELECT A.player_id, A.device_id FROM Activity A JOIN (SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id) B ON A.player_id = B.player_id WHERE A.event_date = B.event_date
+SELECT A.player_id, A.device_id FROM Activity A WHERE (A.player_id, A.event_date) IN (SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id)
+SELECT A1.player_id, A1.device_id FROM Activity A1 INNER JOIN (SELECT A.player_id, MIN(A.event_date)AS FIRST_DATE FROM Activity A GROUP BY 1) AS A2 ON A1.player_id = A2.player_id AND A1.event_date = A2.FIRST_DATE
+SELECT Activity.player_id, Activity.device_id FROM Activity WHERE (Activity.player_id, Activity.event_date) IN (SELECT Activity.player_id, MIN(Activity.event_date) FROM Activity GROUP BY Activity.player_id)
+SELECT DISTINCT player_id , first_value(device_id) over (partition by player_id order by event_date) device_id from activity
+SELECT DISTINCT player_id, FIRST_VALUE (device_id) OVER (PARTITION BY player_id ORDER BY event_date) AS device_id FROM activity
+SELECT DISTINCT player_id, FIRST_VALUE(device_id) OVER (PARTITION BY player_id ORDER BY event_date) as device_id FROM Activity
+SELECT DISTINCT player_id, FIRST_VALUE(device_id) OVER(PARTITION BY player_id ORDER BY event_date ASC) AS device_id FROM Activity
+SELECT DISTINCT player_id, FIRST_VALUE(device_id) OVER(PARTITION BY player_id ORDER BY event_date) AS device_id FROM Activity
+SELECT DISTINCT player_id, device_id FROM (SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date ASC) AS rnk FROM Activity) Tmp WHERE rnk = 1
+SELECT DISTINCT player_id, device_id FROM activity WHERE (player_id , event_date) IN (SELECT player_id, MIN(event_date) FROM activity GROUP BY player_id)
+SELECT DISTINCT player_id, first_value(device_id) Over ( PARTITION BY player_id order by event_date) as device_id From Activity
+SELECT DISTINCT player_id,device_id FROM( SELECT *, ROW_NUMBER() OVER (PARTITION BY player_id ORDER BY event_date) AS rank_date FROM Activity ) temp WHERE rank_date = 1
+SELECT T.player_id, A.device_id FROM ( SELECT player_id, MIN(event_date)as MIN_DATE FROM Activity GROUP BY player_id ) AS T JOIN Activity AS A ON T.player_id = A.player_id AND T.MIN_DATE = A.event_date
+SELECT T2.player_id, T1.device_id FROM Activity as T1 INNER JOIN (SELECT player_id, MIN(event_date) as dates FROM Activity GROUP BY player_id) as T2 ON T1.player_id = T2.player_id AND T1.event_date = T2.dates
+SELECT a.player_id, a.device_id FROM (SELECT player_id, device_id, ROW_NUMBER()OVER(PARTITION BY player_id ORDER BY event_date) as r FROM Activity) a WHERE a.r=1
+SELECT a.player_id, a.device_id FROM Activity AS a JOIN (SELECT player_id, MIN(event_date) AS "min_date" FROM Activity GROUP BY player_id) as b ON a.player_id = b.player_id WHERE event_date = min_date
+SELECT a.player_id, a.device_id FROM Activity a JOIN ( SELECT b.player_id, MIN(b.event_date) AS min_date FROM Activity b GROUP BY b.player_id) c ON a.player_id = c.player_id AND a.event_date = c.min_date
+SELECT a.player_id, a.device_id FROM Activity a JOIN ( SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id ) t ON a.player_id = t.player_id AND a.event_date = t.event_date
+SELECT a.player_id, a.device_id FROM Activity a JOIN ( SELECT player_id, MIN(event_date) AS min_date FROM Activity GROUP BY player_id ) AS b ON a.player_id = b.player_id WHERE a.event_date = b.min_date
+SELECT a.player_id, a.device_id FROM Activity a WHERE (a.player_id, a.event_date) IN ( SELECT b.player_id, MIN(b.event_date) FROM Activity b GROUP BY b.player_id)
+SELECT a.player_id, a.device_id FROM Activity a, (SELECT player_id, MIN(event_date) as first_login FROM Activity GROUP BY player_id) First_Login WHERE a.player_id = First_login.player_id AND a.event_date = First_login.first_login
+SELECT a.player_id, a.device_id FROM activity a INNER JOIN (SELECT a.player_id, MIN(a.event_date) as first_login FROM activity a GROUP BY a.player_id) as x ON x.first_login = a.event_date AND a.player_id = x.player_id
+SELECT a.player_id, a.device_id FROM activity a JOIN (SELECT player_id, MIN(event_date) AS first_login FROM activity GROUP BY 1) b ON a.player_id = b.player_id AND a.event_date = b.first_login
+SELECT a.player_id, a.device_id FROM activity a JOIN (SELECT player_id, MIN(event_date) first_logged FROM activity GROUP BY player_id) f ON a.player_id =f.player_id AND event_date = first_logged
+SELECT a.player_id, a.device_id FROM activity a JOIN (SELECT player_id, min(event_date) as m_date FROM activity GROUP BY player_id) t ON a.player_id=t.player_id AND a.event_date=t.m_date
+SELECT a.player_id, a2.device_id FROM (SELECT player_id, MIN(event_date) as min_date FROM Activity GROUP BY player_id) a LEFT JOIN Activity a2 ON a.player_id = a2.player_id AND a.min_date = a2.event_date WHERE a.min_date = a2.event_date
+SELECT a.player_id, device_id FROM Activity a, (SELECT player_id, MIN(event_date) AS FirstLoginDate FROM Activity GROUP BY player_id) Sub WHERE a.player_id = Sub.player_id AND a.event_date = Sub.FirstLoginDate
+SELECT a.player_id, device_id FROM activity a LEFT JOIN ( SELECT player_id, MIN(event_date) AS first_event FROM activity GROUP BY player_id ) z ON a.player_id = z.player_id WHERE event_date = first_event
+SELECT a1. player_id, a1.device_id FROM Activity a1 INNER JOIN (SELECT a.player_id , MIN(a.event_date) as event_date FROM Activity a GROUP BY 1) t1 ON a1.player_id = t1.player_id AND a1.event_date = t1.event_date
+SELECT a1.player_id, a1.device_id FROM Activity AS a1 JOIN (SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id ) AS a2 ON a1.player_id=a2.player_id AND a1.event_date=a2.event_date
+SELECT a1.player_id, a1.device_id FROM Activity a1 INNER JOIN (SELECT MIN(a2.event_date) 'event_date', a2.player_id FROM Activity a2 GROUP BY a2.player_id) t ON t.player_id = a1.player_id AND a1.event_date = t.event_date
+SELECT a1.player_id, a1.device_id FROM Activity a1 INNER JOIN (SELECT MIN(a2.event_date) 'event_date', a2.player_id FROM Activity a2 GROUP BY a2.player_id) t ON t.player_id = a1.player_id AND a1.event_date = t.event_date GROUP BY a1.player_id
+SELECT a1.player_id, a1.device_id FROM activity a1 LEFT JOIN activity a2 ON a1.player_id = a2.player_id AND a1.event_Date > a2.event_date WHERE a2.event_date IS NULL
+SELECT a1.player_id, a1.device_id from Activity a1 WHERE (a1.player_id, a1.event_date) IN (SELECT a2.player_id, min(a2.event_date) FROM Activity a2 GROUP BY a2.player_id)
+SELECT a1.player_id, device_id FROM Activity a1 JOIN (SELECT player_id, MIN(event_date) AS min_date FROM Activity GROUP BY player_id) a2 on a1.player_id = a2.player_id WHERE a1.event_date = a2.min_date
+SELECT distinct player_id, first_value(device_id) over (partition by player_id order by event_date) as device_id from activity
+SELECT distinct player_id, first_value(device_id) over(partition by player_id order by event_date asc) device_id from activity
+SELECT e1.player_id, e1.device_id FROM Activity as e1 WHERE (e1.player_id, e1.event_date) in (SELECT e2.player_id, MIN(e2.event_date) FROM Activity as e2 GROUP BY e2.player_id)
+SELECT ltbl.player_id as player_id, device_id from (Select player_id, min(event_date) as event_date FROM ACTIVITY GROUP BY player_id) ltbl left join ACTIVITY on ltbl.player_id = ACTIVITY.player_id and ltbl.event_date = ACTIVITY.event_date
+SELECT player_id , device_id from activity WHERE (player_id, event_date) in (Select player_id , MIN(event_date) from activity group by player_id)
+SELECT player_id ,device_id FROM ( SELECT player_id ,device_id ,RANK () OVER(Partition BY player_id ORDER BY event_date ASC) as EventRank FROM Activity ) a WHERE 1=1 AND a.EventRank = 1
+SELECT player_id, device_id FROM ( SELECT *, RANK() OVER (PARTITION BY player_id ORDER BY event_date) login_order FROM Activity ) a WHERE login_order = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, DENSE_RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS rnk FROM Activity) a WHERE rnk = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, RANK() OVER ( PARTITION BY player_id order by event_date ) as rnk from Activity ) as sub WHERE rnk = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS rk FROM Activity ) AS T where rk=1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS rnk FROM Activity) AS tmp WHERE rnk = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, RANK() OVER(partition by player_id order by event_date) as rnk FROM Activity)t WHERE rnk = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, RANK()OVER(partition by player_id order by event_date ASC) AS rnk FROM Activity ) a WHERE a.rnk = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, ROW_NUMBER() OVER(PARTITION BY player_id ORDER BY event_date) AS ranking FROM Activity) t WHERE ranking = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, event_date, rank() OVER (PARTITION BY player_id ORDER BY event_date) AS rnk FROM Activity )temp WHERE rnk = 1
+SELECT player_id, device_id FROM ( SELECT player_id, device_id, rank() over(partition by player_id order by event_date) as ranking FROM activity) a WHERE ranking = 1
+SELECT player_id, device_id FROM ( select player_id, device_id, ROW_NUMBER() OVER (PARTITION BY player_id ORDER BY event_date ASC) AS rown from activity ) AS q WHERE rown=1
+SELECT player_id, device_id FROM (SELECT *, MIN(event_date) OVER (PARTITION BY player_id ORDER BY player_id) AS Min_date FROM Activity) temp WHERE event_date = Min_date
+SELECT player_id, device_id FROM (SELECT *, MIN(event_date) OVER(PARTITION BY player_id) AS Mindate FROM Activity) a1 WHERE event_date = Mindate
+SELECT player_id, device_id FROM (SELECT *, RANK() OVER(PARTITION BY Player_id ORDER BY event_date) AS date_rank FROM Activity) tmp WHERE date_rank = 1
+SELECT player_id, device_id FROM (SELECT *, rank () over(PARTITION BY player_id ORDER BY event_date asc) AS ranking FROM Activity) AS R WHERE ranking = 1
+SELECT player_id, device_id FROM (SELECT player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS 'rk' FROM Activity) temp WHERE rk=1
+SELECT player_id, device_id FROM (SELECT player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS rnk FROM Activity) as first_played WHERE rnk = 1
+SELECT player_id, device_id FROM (SELECT player_id, device_id, rank() over (partition by player_id ORDER BY event_date)rnk FROM activity) A WHERE rnk =1
+SELECT player_id, device_id FROM ACTIVITY a where (player_id, event_date) in (select player_id,min(event_date) from ACTIVITY group by player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN ( SELECT player_id, MIN(event_date) AS min_date FROM Activity GROUP BY player_id )
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN ( SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id )
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN ( SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id ) GROUP BY player_id
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN ( SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (SELECT player_id, MIN(event_date) AS event_date FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (SELECT player_id, MIN(event_date) FROM ACTIVITY GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (SELECT player_id, MIN(event_date) FROM Activity GROUP BY 1)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id) ORDER BY player_id ASC
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (SELECT player_id, MIN(event_date) FROM activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) IN (select player_id, MIN(event_date) FROM Activity GROUP BY 1)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) in ( SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) in ( SELECT player_id, min(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id, event_date) in (SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id,event_date) IN (SELECT player_id, MIN(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id, device_id FROM Activity WHERE (player_id,event_date) in ( select player_id,min(event_date) from Activity group by player_id )
+SELECT player_id, device_id FROM Activity WHERE(player_id,event_date) IN (SELECT player_id, MIN(event_date) FROm Activity GROUP BY player_id)
+SELECT player_id, device_id FROM activity WHERE (player_id, event_date) IN ( SELECT player_id, MIN(event_date) FROM activity GROUP BY player_id )
+SELECT player_id, device_id FROM activity WHERE (player_id, event_date) IN (select player_id, Min(event_date) From activity Group by player_id)
+SELECT player_id, device_id FROM activity WHERE (player_id, event_date) in ( SELECT player_id, min(event_date) FROM activity GROUP BY player_id )
+SELECT player_id, device_id FROM( SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date ASC) AS first_login FROM Activity )t WHERE first_login = 1
+SELECT player_id, device_id FROM( SELECT player_id, device_id, ROW_NUMBER()OVER(PARTITION BY player_id order by event_date) AS row_n FROM Activity ) as x WHERE row_n=1 ORDER BY player_id
+SELECT player_id,device_id FROM (SELECT player_id,device_id, DENSE_RANK() OVER(PARTITION BY player_id ORDER BY event_date) as r FROM Activity) as tab1 WHERE tab1.r = 1
+SELECT player_id,device_id FROM Activity WHERE (player_id,event_date) in ( SELECT player_id, min(event_date) FROM Activity GROUP BY player_id)
+SELECT player_id,device_id FROM Activity WHERE (player_id,event_date) in (SELECT player_id,min(event_date) FROM Activity group by player_id)
+SELECT tb1.player_id, tb1.device_id FROM( SELECT player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) as rnk FROM Activity) AS tb1 WHERE tb1.rnk = 1
+Select A.player_id, A.device_id from Activity A inner join (select player_id, min(event_date) as first_login from Activity Group by player_id) B on A.player_id = B.player_id and A.event_date = B.First_login
+Select a.player_id, a.device_id from (select t.player_id, t.device_id,rank()over(partition by player_id order by event_date asc)devrnk from activity t )a where a.devrnk=1
+Select a.player_id, a.device_id from Activity a Join ( Select player_id, min(event_date) as min_date from Activity group by player_id ) p on a.player_id = p.player_id and a.event_date = p.min_date
+Select a1.player_id,a1.device_id FROM Activity a1 INNER JOIN (Select player_id,MIN(event_date) as first_login FROM Activity Group by player_id ) as a2 ON a1.player_id = a2.player_id AND a1.event_date = a2.first_login
+Select player_id, device_id From Activity Where (player_id, event_date) in ( Select player_id, min(event_date) From activity Group by 1)
+Select player_id, device_id From Activity Where (player_id, event_date) in (Select player_id, Min(event_date) from activity group by player_id)
+Select player_id, device_id From Activity Where (player_id, event_date) in (Select player_id, min(event_date) as event_date From Activity Group by player_id)
+Select player_id, device_id from ( Select player_id, device_id, rank() over ( partition by player_id order by event_date) holder from Activity ) temp where holder = 1
+Select player_id, device_id from (Select player_id, device_id, Dense_rank() Over(partition by player_id order by event_date ASC) as rnk from Activity)p where rnk = 1
+Select player_id, device_id from (Select player_id, device_id, dense_rank() over (partition by player_id order by event_date) as 'date' from activity) as A Where date = 1
+Select player_id, device_id from Activity where (player_id, event_date) IN (select player_id, MIN(event_date) from Activity group by 1)
+Select player_id, device_id from Activity where (player_id, event_date) in ( Select player_id, min(event_date) from Activity group by player_id )
+Select player_id, device_id from Activity where (player_id, event_date) in ( select player_id, MIN(event_date) from Activity group by player_id )
+Select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by player_id)
+Select player_id,device_id from ( Select player_id,device_id, row_number() over(partition by player_id order by event_date) rnk from activity ) a where rnk=1
+Select player_id,device_id from Activity where (player_id, event_date) in ( select player_id, min(event_date) from Activity group by player_id)
+Select player_id,device_id from Activity where (player_id,event_date) in (Select player_id,min(event_date) from Activity group by 1)
+Select t.player_id, t.device_id From( Select ac.player_id, ac.device_id, rank() Over(partition by ac.player_id order by ac.event_date asc) as play_rank From activity ac ) as t Where t.play_rank = 1
+Select t1.player_id,device_id from Activity as t1 join (select player_id,min(event_date) as min_date from Activity group by player_id) as t2 on t1.player_id=t2.player_id where t1.event_date =t2.min_date
+Select x.player_id, x.device_id From (Select player_id,device_id, rank()over(partition by player_id order by event_date) rnk from Activity) x where rnk =1
+WITH A AS ( SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date asc) AS rnk FROM Activity ) SELECT player_id,device_id FROM A WHERE rnk = 1
+WITH A AS ( SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date) as rnk FROM Activity ) SELECT player_id, device_id FROM A WHERE rnk = 1
+WITH A AS( SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS rnk FROM Activity ) SELECT player_id, device_id FROM A WHERE rnk = 1
+WITH CTE AS( SELECT *, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS R1 FROM Activity ) SELECT DISTINCT player_id, device_id FROM CTE WHERE R1 = 1 ORDER BY 1
+WITH CTE AS( SELECT player_id, device_id, LAG(event_date, 1) OVER (PARTITION BY player_id ORDER BY event_date) AS lag_event_date FROM Activity) SELECT player_id, device_id FROM CTE WHERE lag_event_date IS NULL
+WITH CTE AS(select player_id, device_id, MIN(event_date) M from activity GROUP BY player_id ) select DISTINCT A.player_id, A.device_id from CTE, ACTIVITY A WHERE M = A.EVENT_DATE AND CTE.PLAYER_ID = A.PLAYER_ID
+WITH FirstLogin AS (SELECT player_id ,device_id ,event_date ,RANK() OVER(PARTITION BY player_id ORDER BY event_date ASC) AS Rk FROM Activity) SELECT player_id ,device_id FROM FirstLogin WHERE Rk = 1 ORDER BY 1 ASC
+WITH NT1 AS ( SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id ) SELECT Activity.player_id, Activity.device_id FROM Activity INNER JOIN NT1 ON Activity.player_id= NT1.player_id AND Activity.event_date=NT1.first_login
+WITH T AS( select player_id, min(event_date) as first_date from Activity group by player_id ) select A1.player_id, A1.device_id from Activity A1 join T on A1.player_id = T.player_id and A1.event_date = T.first_date
+WITH TEMP AS ( SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id ) SELECT A.player_id, device_id FROM TEMP A LEFT JOIN Activity B ON A.player_id = B.player_id AND A.first_login = B.event_date
+WITH Temp AS (SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS rank_log FROM Activity) SELECT player_id, device_id FROM Temp WHERE rank_log = 1
+WITH base as ( SELECT player_id, device_id, ROW_NUMBER() OVER(PARTITION BY player_id ORDER BY event_date) rnk FROM Activity ) SELECT player_id, device_id FROM base WHERE rnk = 1
+WITH cte AS ( SELECT *, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS d_rank FROM Activity) SELECT player_id, device_id FROM cte WHERE d_rank = 1
+WITH cte AS (SELECT player_id, MIN(event_date) AS first_date FROM Activity GROUP BY player_id) SELECT cte.player_id, device_id FROM cte JOIN Activity A ON cte.player_id=A.player_id AND cte.first_date=A.event_date
+WITH cte AS (SELECT player_id, device_id, dense_rank() over(partition by player_id order by event_date) as rnk FROM Activity) SELECT player_id, device_id FROM cte where rnk=1
+WITH cte AS(SELECT RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS rnk, player_id, device_id FROM Activity) SELECT DISTINCT player_id, device_id FROM cte WHERE rnk = 1
+WITH cte1 as (SELECT device_id, player_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date ASC) as rnk FROM Activity) SELECT device_id, player_id FROM cte1 WHERE rnk=1
+WITH fd as (select player_id, min(event_date) as min_date from Activity group by player_id) SELECT FD.player_id, device_id FROM Activity JOIN FD on FD.player_id = Activity.player_id WHERE event_date = min_date
+WITH first_login_date AS (SELECT player_id, MIN(event_date) AS first_date FROM Activity GROUP BY player_id) SELECT Activity.player_id, Activity.device_id FROM Activity JOIN first_login_date ON Activity.player_id = first_login_date.player_id AND Activity.event_date = first_login_date.first_date ORDER BY Activity.player_id
+WITH player_activity AS ( SELECT player_id , device_id , event_date , DENSE_RANK() over(PARTITION BY player_id ORDER BY event_date ASC) AS rnk FROM Activity ) SELECT player_id , device_id FROM player_activity WHERE rnk = 1
+WITH player_dates as ( SELECT player_id, device_id, RANK () OVER ( PARTITION BY player_id ORDER BY event_date) as plr_date FROM Activity) SELECT player_id, device_id FROM player_dates WHERE plr_date = 1
+WITH recent_date as (SELECT player_id, device_id, event_date, DENSE_RANK() over(Partition by player_id ORDER BY event_date) as rnk FROM activity) SELECT player_id,device_id FROM recent_date WHERE rnk = 1
+WITH sub AS (SELECT player_id, MIN(event_date) AS first_date FROM Activity GROUP BY player_id) SELECT a.player_id, a.device_id FROM Activity a, sub s WHERE a.player_id = s.player_id AND a.event_date = s.first_date
+WITH t AS ( SELECT player_id, MIN(event_date) AS first_logged FROM Activity GROUP BY player_id ) SELECT a.player_id, a.device_id FROM Activity a LEFT JOIN t ON a.player_id = t.player_id WHERE a.event_date = t.first_logged
+WITH t AS ( SELECT player_id, MIN(event_date) event_date FROM activity GROUP BY player_id ) SELECT a.player_id player_id, a.device_id device_id FROM activity a JOIN t ON a.player_id=t.player_id AND a.event_date=t.event_date
+WITH t1 AS ( SELECT *, RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS position FROM Activity ) SELECT player_id, device_id FROM t1 WHERE position = 1 ORDER BY player_id
+WITH t1 AS (SELECT player_id, MIN(event_date) AS min_date FROM activity GROUP BY player_id) SELECT a.player_id, device_id FROM activity a, t1 WHERE a.player_id = t1.player_id AND a.event_date = t1.min_date
+WITH t1 AS( SELECT player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) ranking FROM activity) SELECT player_id, device_id FROM t1 WHERE ranking = 1
+WITH tab AS (SELECT player_id, device_id, DENSE_RANK() OVER (PARTITION BY player_id ORDER BY event_date) AS RNK FROM Activity) SELECT player_id, device_id FROm tab WHERE RNK = 1
+WITH tableT AS (SELECT a.*, rank() over( partition by a.player_id order by a.event_date) AS "Rank" FROM Activity as a) SELECT t.player_id, t.device_id from tableT as t where t.Rank=1
+WITH tbl AS( SELECT player_id, device_id, ROW_NUMBER() OVER(PARTITION BY player_id ORDER BY event_date) as rank_number FROM Activity ) SELECT player_id, device_id FROM tbl WHERE rank_number = 1
+WITH temp AS( SELECT *, FIRST_VALUE(event_date) OVER (PARTITION BY player_id order by event_date) AS first_login FROM Activity ) SELECT player_id, device_id FROM temp WHERE first_login = event_date
+With activity_1 As( Select player_id, device_id, event_date, rank() over(partition by player_id order by event_date asc) as rnk From Activity) Select player_id, device_id From activity_1 where rnk = 1
+With dateOrder as (Select player_id, event_date, device_id, rank() over (partition by player_id order by event_date asc) as rankNo from Activity) select player_id, device_id from dateOrder where rankNo=1
+select A.player_id, A.device_id from Activity A join ( select player_id,min(event_date) as first_join from Activity group by player_id ) as B on A.player_id = B.player_id and A.event_date = B.first_join
+select A.player_id, device_id from ((select player_id, min(event_date) as min_date from activity group by player_id)A inner join (select player_id, device_id,event_date from activity)B on A.player_id = B.player_id and A.min_date = B. event_date)
+select A.player_id,A.device_id from Activity A,(select player_id,min(event_date) as ev from Activity group by player_id) Z where A.player_id=Z.player_id and A.event_date=Z.ev
+select Activity.player_id, Activity.device_id from ( select player_id, min(event_date) as event_date from Activity group by player_id ) a,Activity where Activity.event_date=a.event_date and Activity.player_id=a.player_id
+select PLAYER_ID, DEVICE_ID from activity where (player_id, event_date) in (select player_id, min(event_date) from activity group by player_id)
+select a. player_id, b.device_id from (select player_id, min(event_date ) as install_date from Activity group by player_id)a left join Activity b on a.player_id=b.player_id and install_date=b.event_date order by player_id
+select a.player_id as player_id, a.device_id as device_id from (select player_id , device_id, event_date from activity)a join (select player_id, min(event_date) min_date from activity group by player_id)b on a.player_id = b.player_id and a.event_date = b.min_date
+select a.player_id as player_id, device_id from (select player_id, device_id, event_date from Activity) as a join ( select player_id, min(event_date) as event_date from Activity group by 1) as b on a.player_id = b.player_id and a.event_date = b.event_date
+select a.player_id, a.device_id from ( select player_id, device_id, dense_rank() over(partition by player_id order by event_date) as rnum from Activity ) a where a.rnum = 1
+select a.player_id, a.device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date ) as rnk from activity) a where a.rnk =1
+select a.player_id, a.device_id from (select *, rank() over (partition by player_id order by event_date) as 'daterank' from Activity) a where a.daterank = 1
+select a.player_id, a.device_id from (select player_id, device_id, event_date, dense_rank() over (partition by player_id order by event_date asc) d_rank from activity) a where a.d_rank=1
+select a.player_id, a.device_id from (select rank() over (partition by player_id order by event_date asc) as rk, player_id, device_id from Activity) as a where a.rk = 1
+select a.player_id, a.device_id from Activity a JOIN ( SELECT player_id, MIN(event_date) as first_login FROM Activity GROUP BY player_id) b on a.player_id = b.player_id and a.event_date = b.first_login
+select a.player_id, a.device_id from Activity a inner join ( select player_id, min(event_date) as first_login from Activity group by player_id ) b on a.player_id = b.player_id and a.event_date = b.first_login
+select a.player_id, a.device_id from Activity a inner join (select player_id , min(event_date) event_date from Activity group by player_id) b on a.event_date = b.event_date and a.player_id = b.player_id
+select a.player_id, a.device_id from Activity a inner join (select player_id, min(event_date) as first_login from Activity group by player_id) p on p.player_id=a.player_id and a.event_date=p.first_login
+select a.player_id, a.device_id from Activity a join (select player_id, min(event_date) as event_date from Activity group by player_id) pt on a.player_id = pt.player_id and a.event_date = pt.event_date
+select a.player_id, a.device_id from Activity a left join Activity b on a.player_id = b.player_id and a.event_date > b.event_date where b.event_date is null
+select a.player_id, a.device_id from Activity a, (select player_id, device_id, min(event_date) as newdate from Activity group by player_id) as new where a.player_id = new.player_id AND a.event_date = new.newdate
+select a.player_id, a.device_id from Activity a, (select player_id, min(event_date) as evt from Activity group by player_id) tmp where a.player_id = tmp.player_id and a.event_date = tmp.evt
+select a.player_id, a.device_id from Activity a, (select player_id, min(event_date) as mindate from Activity group by player_id) tmp where a.player_id = tmp.player_id and a.event_date = tmp.mindate
+select a.player_id, a.device_id from Activity a, (select player_id, min(event_date) first_login from Activity group by player_id) b where a.player_id = b.player_id and a.event_date = b.first_login
+select a.player_id, a.device_id from Activity as a where (a.player_id, a.event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select a.player_id, a.device_id from Activity as a, (select player_id, min(event_date) as earliest_date from Activity group by player_id) as b where a.player_id = b.player_id and a.event_date = b.earliest_date
+select a.player_id, a.device_id from activity a inner join ( select player_id , min(event_date) mindt from activity group by player_id ) foo on a.player_id = foo.player_id and a.event_date = foo.mindt
+select a.player_id, a.device_id from activity a inner join (select player_id, min(event_date) as mindate from activity group by player_id) b on a.player_id = b.player_id and a.event_date = b.mindate
+select a.player_id, a.device_id from activity a join (select player_id, min(event_date) as first_login from activity group by 1) b on a.player_id=b.player_id and a.event_date=b.first_login
+select a.player_id, a.device_id from activity a join (select player_id, min(event_date) as first_login from activity group by player_id)b on a.player_id = b.player_id and a.event_date = b.first_login
+select a.player_id, a.device_id from activity a right join (select player_id, min(event_date) as first_login from Activity group by player_id) a1 on a.player_id = a1.player_id and a.event_date = a1.first_login
+select a.player_id, a.device_id from activity a, ( select min(event_date) as min_event_date, player_id from Activity group by player_id)T where a.event_date = T.min_event_date and a.player_id = T.player_id
+select a.player_id, a.device_id from activity a, (select player_id, min(event_date) as first_login from activity group by player_id) as t1 where a.player_id = t1.player_id and a.event_date = t1.first_login
+select a.player_id, a.device_id from activity a, (select player_id, min(event_date) as first_login from activity group by player_id)b where a.player_id = b.player_id and a.event_date = b.first_login
+select a.player_id, b.device_id from (select player_id, min(event_date) as firstlogin from Activity group by player_id) a join Activity b on a.player_id = b.player_id and a.firstlogin = b.event_date
+select a.player_id, device_id from activity a join (select player_id, min(event_date) as mi from activity group by player_id) b on a.player_id = b.player_id and event_date = mi
+select a.player_id,a.device_id From activity a JOIN ( select player_id,min(event_date) as m_date from activity group by player_id) b on a.player_id=b.player_id and a.event_date=b.m_date
+select a.player_id,a.device_id from ( select player_id, device_id, dense_rank()over(partition by player_id order by event_date) r from activity)a where r=1
+select a.player_id,a.device_id from (select player_id,device_id, rank() over (partition by player_id order by event_date ASC) as rnk from activity ) a where a.rnk=1
+select a.player_id,a.device_id from( select player_id,device_id,rank()over (partition by player_id order by event_date)rank_ from activity )a where rank_=1
+select a.player_id,device_id from Activity a inner join (select player_id, min(event_date) as min_date from Activity group by 1) c on a.player_id=c.player_id and c.min_date=a.event_date
+select a2.player_id, a1.device_id from activity as a1 join ( select player_id, min(event_date) as min_event_date from activity group by player_id) as a2 on a1.player_id = a2.player_id where a1.event_date = a2.min_event_date
+select ac.player_id, ac.device_id from activity ac where (ac.player_id, ac.event_date) in (select player_id, MIN(event_date) from Activity ac2 group by ac2.player_id)
+select b.player_id, a.device_id from (select player_id, min(event_date) as min_date from Activity a group by player_id) b left join Activity a on b.player_id = a.player_id and b.min_date = a.event_date
+select b.player_id, b.device_id from ( select player_id, min(event_date) as eventt from Activity group by player_id ) a join Activity b on a.player_id = b.player_id and a.eventt = b.event_date
+select b.player_id, b.device_id from (select player_id, min(event_date) as ev_date from activity group by player_id) a inner join activity b on a.player_id = b.player_id and a.ev_date = b.event_date
+select b.player_id, b.device_id from activity b join ( select player_id, device_id, min(event_date) as `first_login` from activity group by player_id )a on a.player_id = b.player_id and a.first_login = b.event_date
+select device_id,player_id FROM (select device_id, player_id, DENSE_RANK() OVER (partition by player_id ORDER BY event_date)AS rnk from Activity) a where rnk = 1
+select distinct Activity.player_id, Activity.device_id from Activity join (select player_id, min(event_date) as event_date from Activity group by player_id) as FirstLogIn on FirstLogIn.player_id = Activity.player_id and FirstLogIn.event_date = Activity.event_date
+select distinct a.player_id as player_id, a.device_id as device_id from activity as a, (select distinct player_id, min(event_date) as dt from activity group by player_id order by player_id, dt asc) as tmp where a.player_id = tmp.player_id and a.event_date = tmp.dt
+select distinct a.player_id, a.device_id from Activity a inner join (select distinct player_id, min(event_date) as 'event_date' from Activity group by player_id) b on a.player_id = b.player_id and a.event_date = b.event_date
+select distinct a.player_id, a.device_id from Activity a where (a.player_id ,a.event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select distinct a.player_id, a.device_id from Activity as a inner join (select distinct player_id, min(event_date) as mindate from Activity group by player_id) as a2 on a.player_id=a2.player_id and a.event_date=a2.mindate
+select distinct player_id , first_value(device_id) over (partition by player_id order by event_date) device_id from activity
+select distinct player_id, FIRST_VALUE(device_id) OVER (PARTITION BY player_id ORDER BY event_date ASC) AS device_id from Activity
+select distinct player_id, device_id from ( select player_id, device_id, rank() over (partition by player_id order by event_date) as "rank" from activity ) t1 where t1.rank = 1
+select distinct player_id, device_id from Activity where (player_id, event_date) in ( select player_id, min(event_date) from Activity group by player_id)
+select distinct player_id, device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select distinct player_id, device_id from activity where (player_id,event_date) in (select player_id, min(event_date) from activity group by player_id)
+select distinct player_id, first_value(device_id) over (partition by player_id order by event_date asc) as device_id from Activity
+select distinct player_id, first_value(device_id) over (partition by player_id order by event_date asc) as device_id from activity
+select distinct player_id, first_value(device_id) over (partition by player_id order by event_date) as device_id from Activity
+select distinct player_id, first_value(device_id) over (partition by player_id order by event_date) as device_id from activity
+select distinct player_id, first_value(device_id) over (partition by player_id order by event_date) device_id from Activity
+select distinct player_id, first_value(device_id) over(partition by player_id order by event_date) as device_id from activity
+select distinct(player_id), device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select k.player_id, k.device_id from (select player_id, device_id, row_number() over (partition by player_id order by event_date) as RNK from Activity ) as k where k.RNK = 1
+select player_id , device_id from (select player_id, device_id ,rank() over(partition by player_id order by event_date) as rn from activity) as a where rn = 1
+select player_id , device_id from Activity where (player_id , event_date) in (select player_id , min(event_date) from Activity group by player_id )
+select player_id , device_id from Activity where (player_id ,event_date ) in ( select player_id ,min(event_date) from Activity group by player_id )
+select player_id , device_id from activity where (player_id, event_date) in ( select player_id, min(event_date) as edate from activity group by player_id )
+select player_id , device_id from activity where (player_id, event_date) in (select player_id, min(event_date) as event_date from activity group by player_id)
+select player_id ,device_id from (select player_id ,device_id ,rank() over(partition by player_id order by event_date) as rn from Activity) temp where rn = 1
+select player_id, device_id FROM ( select player_id, device_id, rank() over(partition by player_id order by event_date asc) as rnk from activity ) tmp where tmp.rnk = 1
+select player_id, device_id from ( select * , row_number() over (partition by player_id order by event_date) rownum from activity ) foo where rownum = 1
+select player_id, device_id from ( select *, dense_rank() over(partition by player_id order by event_date) as rnk from Activity) a where rnk=1
+select player_id, device_id from ( select *, row_number() over(partition by player_id order by event_date) as rownbr from activity ) A where rownbr = 1
+select player_id, device_id from ( select player_id, device_id, RANK() over(partition by player_id order by event_date) as rnk from Activity ) a where rnk=1
+select player_id, device_id from ( select player_id, device_id, ROW_NUMBER() OVER(PARTITION BY player_id ORDER BY event_date) as ranked from Activity) a where ranked=1
+select player_id, device_id from ( select player_id, device_id, dense_rank() over (partition by player_id order by event_date asc) as rnk from Activity ) a where a.rnk=1
+select player_id, device_id from ( select player_id, device_id, dense_rank() over(partition by player_id order by event_date) as ranking from Activity )a where a.ranking = 1
+select player_id, device_id from ( select player_id, device_id, event_date, rank() over(partition by player_id order by event_date) rnk from activity )tb where rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank () over(partition by player_id order by event_date ) rnk from Activity )t where rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over (partition by player_id order by event_date asc) as rankk from activity) asd where rankk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over (partition by player_id order by event_date) as Rnk from Activity )a where Rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date asc) as rk from activity ) tmp where rk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date asc) rnk from activity ) tmp where rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date) as rk from activity ) a where rk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date) as rnk from Activity ) a where rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date) as rnk from Activity ) temp where rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date) rnk from activity ) t where rnk = 1
+select player_id, device_id from ( select player_id, device_id, rank()over(partition by player_id order by event_date) as rak from activity) as sub where rak = 1
+select player_id, device_id from ( select player_id, device_id, row_number() over (partition by player_id order by event_date) rnk from activity)a where rnk = 1
+select player_id, device_id from ( select player_id, device_id, row_number() over(partition by player_id order by event_date) as ranked from activity ) a where ranked = 1
+select player_id, device_id from ( select player_id, device_id, row_number() over(partition by player_id order by event_date) as ranked from activity ) as subsequey where ranked = 1
+select player_id, device_id from ( select player_id, device_id, row_number() over(partition by player_id order by event_date) as ranked from activity ) f where ranked = 1
+select player_id, device_id from (select *, rank() over (partition by player_id order by event_date asc) as rnk from Activity) as new where rnk = 1
+select player_id, device_id from (select *, row_number() over (partition by player_id order by event_date) as rn from Activity) t where rn=1
+select player_id, device_id from (select *, row_number() over (partition by player_id order by event_date) as rn from Activity) tmp where rn = 1
+select player_id, device_id from (select *, row_number()over(partition by player_id order by event_date) as t from activity) as temp where t = 1
+select player_id, device_id from (select player_id, device_id , rank() over(partition by player_id order by event_date asc) as rnk from activity) a where a.rnk=1
+select player_id, device_id from (select player_id, device_id, dense_rank() over (partition by player_id order by event_date) as time_rank from activity) as temp where time_rank=1
+select player_id, device_id from (select player_id, device_id, event_date, dense_rank() over(partition by player_id order by event_date) rn from activity)a where a.rn=1
+select player_id, device_id from (select player_id, device_id, event_date, games_played, row_number() over(partition by player_id order by event_date ) as rn from activity group by 1,2,3,4 )a where rn =1
+select player_id, device_id from (select player_id, device_id, event_date, min(event_date) over (partition by player_id) as first_login from Activity) t where event_date=first_login
+select player_id, device_id from (select player_id, device_id, event_date, min(event_date) over(partition by player_id) as first_login from Activity) t where event_date = first_login
+select player_id, device_id from (select player_id, device_id, event_date, rank() over (partition by player_id order by event_date asc) as rk from Activity) tbl where rk=1
+select player_id, device_id from (select player_id, device_id, event_date, rank() over (partition by player_id order by event_date) as rank_date from activity )ranked where rank_date = 1
+select player_id, device_id from (select player_id, device_id, event_date, rank() over(Partition by player_id order by event_date) as rnk from Activity)a where rnk = 1
+select player_id, device_id from (select player_id, device_id, event_date, rank() over(partition by player_id order by event_date ) as rnk from activity )a where rnk=1
+select player_id, device_id from (select player_id, device_id, event_date, rank()over(partition by player_id order by event_date) as rank_no from Activity) rank1 where rank_no=1
+select player_id, device_id from (select player_id, device_id, event_date, row_number() over(partition by player_id order by event_date) as rn from Activity) as lookup where rn = 1
+select player_id, device_id from (select player_id, device_id, rank() over(PARTITION BY player_id order by event_date) date_rank from Activity) as t where t.date_rank = 1
+select player_id, device_id from (select player_id, device_id, rank() over(partition by player_id order by event_date) as 'r' from activity) a where a.r = 1
+select player_id, device_id from (select player_id, device_id, rank() over(partition by player_id order by event_date) as rnk from Activity) as tab where rnk = 1
+select player_id, device_id from (select player_id, first_value(device_id) over (partition by player_id order by event_date) as device_id from activity ) a group by 1, 2
+select player_id, device_id from Activity a where (player_id,event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity a2 where (a2.player_id, a2.event_date )in (select player_id, min(a1.event_date) from Activity a1 group by a1.player_id)
+select player_id, device_id from Activity as a_1 where (a_1.player_id, a_1.event_date) in ( select player_id, min(event_date) as earliest_date from Activity as a_2 group by player_id )
+select player_id, device_id from Activity where (player_id, event_date) IN ( select player_id , min(event_date) as first_login from Activity group by player_id)
+select player_id, device_id from Activity where (player_id, event_date) IN (select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity where (player_id, event_date) in ( select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) as event_date from Activity group by 1)
+select player_id, device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) as event_date from Activity group by player_id)
+select player_id, device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by 1)
+select player_id, device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity where (player_id, event_date) in (select player_id, min(event_date) from activity group by player_id)
+select player_id, device_id from Activity where (player_id, event_date)in (select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity where (player_id,event_date) in ( select player_id,min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity where (player_id,event_date) in (select player_id, min(event_date) as date from Activity group by 1 order by 1)
+select player_id, device_id from Activity where (player_id,event_date) in (select player_id, min(event_date) from Activity group by player_id )
+select player_id, device_id from Activity where (player_id,event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from Activity where (player_id,event_date) in (select player_id, min(event_date) from Activity group by player_id) group by 1
+select player_id, device_id from Activity where(player_id, event_date)in ( select player_id,min(event_date) from Activity group by player_id )
+select player_id, device_id from activity where (player_id, event_date) IN( select player_id, MIN(event_date) as event_date FROM activity group by player_id )
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id , min(event_date) from activity group by player_id)
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id, min(event_date) as event_date from activity group by player_id )
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id, min(event_date) as first_login from activity group by player_id )
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id, min(event_date) from activity group by player_id )
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id, min(event_date) from activity group by player_id)
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id,min(event_date) from activity group by 1 )
+select player_id, device_id from activity where (player_id, event_date) in ( select player_id,min(event_date)y from activity group by 1 )
+select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) as event_date from activity group by player_id)
+select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) as first_login from activity group by player_id)
+select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) as mindt from activity group by 1) group by 1,2 order by 1
+select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) from Activity group by player_id)
+select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) from activity group by 1)
+select player_id, device_id from activity where (player_id, event_date) in (select player_id, min(event_date) from activity group by player_id)
+select player_id, device_id from activity where (player_id,event_date) in ( select player_id,min(event_date) from activity group by player_id)
+select player_id, device_id from activity where (player_id,event_date) in (select player_id, min(event_date) from activity group by player_id)
+select player_id, device_id from activity where (player_id,event_date) in (select player_id, min(event_date)y from activity group by player_id)
+select player_id, device_id from activity where( player_id, event_date)in (select player_id, min(event_date) from activity group by player_id)
+select player_id, device_id from activity where(player_id, event_date) in (select player_id, min(event_date) as event_date from activity group by player_id )
+select player_id, device_id from( select *, rank() over(partition by player_id order by event_date) as rk from activity )temp1 where rk=1
+select player_id, device_id from( select player_id, device_id, dense_rank() over( partition by player_id order by event_date ) as 'rnk' from Activity) as temp_table where rnk = 1
+select player_id, device_id from( select player_id, device_id, event_date, min(event_date) over (partition by player_id) as min_date from Activity) as TMP where event_date = min_date order by player_id
+select player_id, device_id from(select player_id, device_id, row_number() over(partition by player_id order by event_date) rnk from Activity )tmp where rnk = 1
+select player_id,device_id from ( select player_id, device_id, rank() over(partition by player_id order by event_date) rnk from activity) a where rnk = 1
+select player_id,device_id from ( select player_id,device_id, rank() over (partition by player_id order by event_Date asc) as rankNum from activity) A where rankNum=1
+select player_id,device_id from ( select player_id,device_id, row_number() over (partition by player_id order by event_date asc) rnk from Activity) as base where base.rnk = 1
+select player_id,device_id from ( select player_id,device_id,rank()over(partition by player_id order by event_date) rnk from activity ) a where rnk = 1
+select player_id,device_id from ( select player_id,device_id,rank()over(partition by player_id order by event_date) rnk from activity )a where rnk = 1
+select player_id,device_id from (Select player_id,device_id,dense_rank() over (partition by player_id order by event_date) as rnk from Activity) a where a.rnk=1
+select player_id,device_id from (select player_id,device_id, RANK() OVER(PARTITION BY player_id order by event_date) as rnk from Activity) as sub where rnk=1
+select player_id,device_id from (select player_id,device_id, ROW_NUMBER() OVER(PARTITION BY player_id order by event_date) as rn from Activity) as sub where rn=1
+select player_id,device_id from (select player_id,device_id,event_date,min(event_date) over(partition by player_id order by event_date) min_evdt from activity) a where min_evdt=event_date
+select player_id,device_id from (select player_id,device_id,row_number () over(partition by player_id order by event_date) as ranks from Activity) as y where ranks=1
+select player_id,device_id from Activity where (player_id,event_date) IN (select player_id,ev_date from (select player_id,min(event_date) as ev_date from Activity group by player_id) as tbl1)
+select player_id,device_id from Activity where (player_id,event_date) in ( select player_id,min(event_date) from Activity group by player_id)
+select player_id,device_id from Activity where (player_id,event_date) in (select player_id,min(event_date) from Activity group by player_id)
+select player_id,device_id from activity a join (select player_id pl,min(event_date) cc from activity group by 1)t1 on a.player_id=t1.pl and a.event_date=t1.cc
+select player_id,device_id from activity where (player_id,event_date) in ( select player_id,min(event_date) from activity group by player_id )
+select player_id,device_id from activity where (player_id,event_date) in (select player_id,min(event_date) as first_login from activity group by player_id)
+select player_id,device_id from activity where (player_id,event_date) in (select player_id,min(event_date) from activity group by player_id)
+select player_id,device_id from( select player_id,device_id,rank() over (partition by player_id order by event_date asc) rk from activity ) t where t.rk=1
+select player_id,device_id from(select player_id,device_id, dense_rank() over(partition by player_id order by event_date )as rnk from Activity) as a where rnk = 1
+select t.player_id, t.device_id from (select player_id, device_id, rank() over(partition by player_id order by event_date asc) r from activity) t where t.r = 1
+select t.player_id,t.device_id from ( select player_id,device_id, rank() over( partition by player_id order by event_date asc ) device_rank from Activity order by player_id ) as t where t.device_rank=1 order by player_id
+select tmp.player_id, a.device_id from (select player_id, min(event_date) as first_login from activity group by player_id) as tmp inner join activity a on tmp.player_id = a.player_id and tmp.first_login = a.event_date
+select tmp.player_id,tmp.device_id from (select player_id,device_id,row_number() over(partition by player_id order by event_date) as rnk from activity) tmp where tmp.rnk=1
+select x.player_id, x.device_id from (select player_id, device_id, dense_rank() over(partition by player_id order by event_date) as r from activity)x where x.r=1
+with A as ( select player_id, device_id, row_number() over(partition by player_id order by event_date) as rn from Activity ) select player_id, device_id from A where rn=1
+with CTE AS(select player_id, device_id, RANK() OVER (PARTITION BY player_id ORDER BY event_date) RK from activity) select player_id, device_id from CTE WHERE RK =1
+with FirstLogin as ( select player_id, device_id, event_date, min(event_date) over (partition by player_id) as min_date from Activity ) select player_id, device_id from FirstLogin where min_date = event_date
+with activity_1 As( Select player_id, device_id, event_date, dense_rank() over(partition by player_id order by event_date asc) as rnk From Activity) Select player_id, device_id From activity_1 where rnk = 1
+with b as ( select player_id, device_id, min(event_date) as min_date from activity group by player_id) select a.player_id, a.device_id from activity a join b on a.player_id = b.player_id and a.event_date = b.min_date
+with b as (select player_id, min(event_date) as first_logged_date from activity group by player_id) select a.player_id, a.device_id from activity a left join b on a.player_id = b.player_id where a.event_date = b.first_logged_date
+with c AS(SELECT player_id, event_date, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS RK FROM Activity ) SELECT player_id, device_id FROM c WHERE RK = 1
+with cte as ( SELECT *, RANK()OVER(PARTITION BY player_id ORDER BY event_date ASC) as 'RNK' FROM Activity) SELECT player_id, device_id FROM cte WHERE RNK=1
+with cte as ( Select player_id, device_id, dense_Rank() over (partition by player_id order by event_date) as DR from activity ) Select player_id, device_id from cte where DR = 1
+with cte as ( select player_id, device_id, dense_rank()over(partition by player_id order by event_date asc) d_r from Activity ) select player_id, device_id from cte where d_r = 1
+with cte as ( select player_id, device_id, rank() over (partition by player_id order by event_date) as r from Activity ) select player_id, device_id from cte where r=1
+with cte as ( select player_id, device_id, rank() over(partition by player_id order by event_date) as session_rank from activity) select player_id, device_id from cte where session_rank = 1 order by player_id
+with cte as ( select player_id, min(event_date) as event_date from Activity group by player_id ) select a.player_id, device_id from Activity a join cte on a.player_id = cte.player_id and a.event_date = cte.event_date
+with cte as ( select player_id,device_id,event_date,dense_rank() over(partition by player_id order by event_date) rnk from Activity) select player_id,device_id from cte where rnk =1
+with cte as (select *, min(event_date) over (partition by player_id) as min_date from Activity) select player_id, device_id from cte where event_date = min_date
+with cte as (select *, min(event_date) over (partition by player_id) as min_date from Activity) select player_id, device_id from cte where event_date = min_date order by 1
+with cte as (select *, min(event_date) over (partition by player_id) as min_date from Activity) select player_id, device_id from cte where event_date = min_date order by player_id
+with cte as (select player_id, device_id, rank() over(partition by player_id order by event_date) as rk from activity) select player_id,device_id from cte where rk = 1 group by 1,2
+with cte as (select player_id,device_id, row_number() over (partition by player_id order by event_date asc) as rn from activity) select player_id ,device_id from cte where rn=1
+with first_login as (select player_id, min(event_date) as first_login from Activity group by player_id) select a.player_id,b.device_id from first_login a left join Activity b on a.player_id=b.player_id and a.first_login=b.event_date
+with first_login as( select player_id, min(event_date) as event_date from Activity group by player_id ) select a.player_id , a.device_id from Activity a join first_login f on (a.player_id = f.player_id and a.event_date = f.event_date )
+with min_date as ( select player_id, min(event_date) min_date from activity group by player_id ) select a.player_id, a.device_id from activity a, min_date md where a.player_id = md.player_id and a.event_date = md.min_date
+with p as ( select player_id, device_id, event_date, rank() over(partition by player_id order by event_date) as rk from Activity ) select player_id, device_id from p where rk = 1
+with t as ( SELECT player_id, device_id, RANK() OVER(PARTITION BY player_id ORDER BY event_date) As rnk FROM Activity ) SELECT player_id, device_id FROM t WHERE rnk=1
+with t as ( select *, rank() over(partition by player_id order by event_date) as rk from activity ) select a.player_id,a.device_id from t a where rk = 1
+with t as ( select player_id, device_id, event_date, min(event_date) over (partition by player_id) as first_date from activity ) select player_id, device_id from t where event_date = first_date
+with t as (select a.*, rank() over(partition by a.player_id order by a.event_date) as R from activity a) select t.player_id, t.device_id from t where t.R=1
+with t as (select player_id, device_id, row_number() over(partition by player_id order by event_date) as rnk from Activity) select player_id, device_id from t where rnk = 1
+with t as(select player_id, device_id, rank()over(partition by player_id order by event_date)rk from Activity) select player_id, device_id from t where rk =1
+with t1 as ( select *, rank() over(partition by player_id order by event_date asc) as rnk FROM Activity) select player_id, device_id from t1 where rnk=1
+with temp as ( select *, ROW_NUMBER() OVER (PARTITION BY player_id ORDER BY event_date) as 'rank' from Activity ) select player_id, device_id from temp where temp.rank = 1
+with temp as ( select player_id, device_id, event_date, RANK() OVER (PARTITION BY player_id ORDER BY event_date) as odr from Activity ) select player_id, device_id from temp where odr = 1
+with temp as ( select player_id, device_id, rank() over(partition by player_id order by event_date) date_rank from Activity) select player_id, device_id from temp where date_rank = 1
+with temp as( select player_id,device_id, dense_rank() over(partition by player_id order by event_date) as rnk from Activity ) select player_id,device_id from temp where rnk=1
+with temp(pid, date) as ( select player_id, min(event_date) from activity group by player_id ) select distinct t.pid as player_id, a.device_id as device_id from temp t, activity a where t.pid = a.player_id and t.date = a.event_date
+with test as ( select player_id , device_id, event_date, row_number() over (partition by player_id order by event_date asc) as row1 from Activity ) select player_id, device_id from test where row1 = 1
+with tmp as ( select player_id, min(event_date) as event_date from activity group by player_id ) select a.player_id, a.device_id from activity a join tmp on a.player_id = tmp.player_id and a.event_date = tmp.event_date
+with tmp as(select player_id, device_id, event_date, rank() over(partition by player_id order by event_date asc) rnk from Activity) select player_id, device_id from tmp where rnk=1
+with x as ( select player_id, min(event_date) as dt from Activity group by 1 ) select x.player_id, activity.device_id from x join Activity on x.player_id = activity.player_id and x.dt = activity.event_date
+with x as (select player_id , device_id, dense_rank() over(partition by player_id order by event_date ) as rnk from Activity ) select player_id , device_id from x where rnk =1
+with x as (select player_id, device_id, dense_rank() over (partition by player_id order by event_date) as denser from activity ) select distinct player_id, device_id from x where denser =1

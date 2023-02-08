@@ -1,0 +1,646 @@
+DELETE A FROM PERSON A , PERSON B WHERE A.EMAIL = B.EMAIL AND A.ID > B.ID
+DELETE A FROM Person A ,Person B WHERE B.Id<A.Id AND A.Email=B.Email
+DELETE A FROM Person A INNER JOIN Person B WHERE A.Email = B.EMAIL AND A.ID > B.ID
+DELETE A FROM Person A, Person B WHERE A.Email = B.Email AND A.Id > B.Id
+DELETE A FROM Person AS A JOIN (SELECT Email, MIN(ID)AS ID FROM Person GROUP BY Email) B ON A.Email = B.Email WHERE A.ID > B.ID
+DELETE A.* FROM Person A LEFT JOIN Person B ON A.Email = B.Email WHERE A.Id > B.Id
+DELETE FROM PERSON WHERE ID IN (SELECT ID FROM (SELECT ID, EMAIL, ROW_NUMBER() OVER ( PARTITION BY EMAIL ORDER BY EMAIL,id asc) AS NUMBER_EMAIL FROM PERSON) as T1 WHERE T1.NUMBER_EMAIL >1)
+DELETE FROM PERSON WHERE ID IN (SELECT ID FROM (SELECT ID, ROW_NUMBER()OVER(PARTITION BY EMAIL ORDER BY ID ASC) AS RN FROM PERSON)A WHERE A.RN > 1)
+DELETE FROM PERSON WHERE ID NOT IN ( SELECT * FROM (SELECT MIN(ID) FROM PERSON GROUP BY EMAIL) AS TEMP )
+DELETE FROM PERSON WHERE Id NOT IN (SELECT Id FROM (SELECT MIN(Id) as Id FROM Person GROUP BY Email) AS A)
+DELETE FROM Person P WHERE P.Id NOT IN ( SELECT X.Id FROM ( SELECT MIN(Id) as Id FROM Person GROUP BY Email ) as X )
+DELETE FROM Person USING Person,Person b WHERE Person.Email = b.Email AND Person.Id > b.Id
+DELETE FROM Person WHERE CONCAT(ID,EMAIL) NOT IN (select CONCAT(a.ID, a.EMAIL) from (select ID, EMAIL, row_number() OVER (PARTITION BY EMAIL ORDER BY ID ASC) rn from Person) a where rn = 1)
+DELETE FROM Person WHERE ID NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) AS tmp)
+DELETE FROM Person WHERE ID NOT IN (SELECT * FROM( SELECT MIN(ID) FROM Person GROUP BY Email) as P)
+DELETE FROM Person WHERE Id IN ( SELECT Id FROM ( SELECT Id, Email, COUNT(Id) OVER(PARTITION BY Email) As cnt, RANK() OVER(PARTITION BY Email ORDER BY Id ASC) as ranking FROM Person ) as sub WHERE cnt != 1 AND ranking != 1 )
+DELETE FROM Person WHERE Id IN ( SELECT Id FROM (SELECT Id, DENSE_RANK() OVER (PARTITION BY Email ORDER BY Id) rnk FROM Person) a WHERE rnk > 1 )
+DELETE FROM Person WHERE Id IN ( SELECT Id FROM (SELECT Id, DENSE_RANK() OVER(PARTITION BY Email ORDER BY Id) R FROM Person) a WHERE R > 1 )
+DELETE FROM Person WHERE Id IN ( SELECT Id FROM (SELECT Id, DENSE_RANK() OVER(PARTITION BY Email ORDER BY Id) rnk FROM Person) a WHERE rnk > 1 )
+DELETE FROM Person WHERE Id IN ( SELECT Id FROM (SELECT Id, RANK() OVER(PARTITION BY Email order by Id) R from Person) A WHERE R > 1 )
+DELETE FROM Person WHERE Id IN ( SELECT Id FROM (SELECT Id, rank() OVER(partition by Email order by Id ASC) AS r FROM Person ) AS temp WHERE r > 1 )
+DELETE FROM Person WHERE Id IN ( SELECT cake.eyeD FROM ( SELECT a.Id eyeD FROM Person a INNER JOIN Person b ON a.Email = b.Email WHERE a.Id > b.Id ) AS cake )
+DELETE FROM Person WHERE Id IN ( SELECT p4.Id FROM ( SELECT p2.Id, p2.Email FROM Person p2 JOIN Person p3 ON (p2.Email = p3.Email AND p2.Id > p3.Id) ) p4 )
+DELETE FROM Person WHERE Id IN ( SELECT t.Id FROM ( SELECT DISTINCT(p2.Id) FROM Person p1 JOIN Person p2 ON p1.Email = p2.Email AND p1.Id < p2.Id ) t )
+DELETE FROM Person WHERE Id IN (SELECT * FROM (SELECT (SELECT MIN(Id) from Person p2 where p2.id>p1.id AND p1.Email=p2.Email) FROM Person p1) AS T)
+DELETE FROM Person WHERE Id IN (SELECT * FROM (SELECT a.Id FROM Person as a JOIN Person b ON a.Email = b.Email WHERE a.Id > b.Id) as tem)
+DELETE FROM Person WHERE Id IN (SELECT D.Id FROM (SELECT P1.Id FROM Person P1, Person P2 WHERE P1.Id > P2.Id AND P1.Email = P2.Email) AS D)
+DELETE FROM Person WHERE Id IN (SELECT Id FROM (SELECT Id, Email, DENSE_RANK() OVER ( PARTITION BY Email ORDER BY Id ) as rankVal FROM Person) a WHERE rankVal != 1)
+DELETE FROM Person WHERE Id IN (SELECT Id FROM (SELECT Id, ROW_NUMBER() OVER (PARTITION BY Email ORDER BY Id) AS ranking FROM Person) a WHERE ranking > 1)
+DELETE FROM Person WHERE Id IN (SELECT Id FROM (SELECT Id, ROW_NUMBER() OVER (PARTITION BY Email ORDER BY Id) as rnb FROM Person) A WHERE A.rnb <> 1)
+DELETE FROM Person WHERE Id IN (SELECT Id from ( SELECT Id, Email, RANK() OVER(Partition By Email Order by Id) as rnk from Person) as t where rnk > 1)
+DELETE FROM Person WHERE Id NOT IN ( SELECT * FROM ( SELECT MIN(Id) FROM Person GROUP BY Email ) AS P )
+DELETE FROM Person WHERE Id NOT IN ( SELECT * FROM ( SELECT MIN(Id) FROM Person GROUP BY Email ) tmp )
+DELETE FROM Person WHERE Id NOT IN ( SELECT * FROM (SELECT Min(Id) FROM Person GROUP BY Email) as p)
+DELETE FROM Person WHERE Id NOT IN ( SELECT Id FROM ( SELECT MIN(Id) AS Id FROM Person GROUP BY Email ) t )
+DELETE FROM Person WHERE Id NOT IN ( SELECT Id FROM (SELECT MIN(Id) AS Id, Email FROM Person GROUP BY Email) AS tmp )
+DELETE FROM Person WHERE Id NOT IN ( SELECT Id FROM( SELECT MIN(Id) AS Id FROM Person GROUP BY Email) AS sub)
+DELETE FROM Person WHERE Id NOT IN ( SELECT Id FROM( SELECT MIN(id) Id FROM Person GROUP BY Email) AS temp )
+DELETE FROM Person WHERE Id NOT IN ( SELECT a.Id FROM (SELECT MIN(Id) Id FROM Person GROUP BY Email) AS a )
+DELETE FROM Person WHERE Id NOT IN ( SELECT a.eyeD FROM ( SELECT MIN(Id) eyeD FROM Person GROUP BY Email ) AS a )
+DELETE FROM Person WHERE Id NOT IN ( SELECT cake.eyeD FROM ( SELECT MIN(Id) eyeD FROM Person GROUP BY Email ) AS cake )
+DELETE FROM Person WHERE Id NOT IN ( SELECT idToKeep FROM ( SELECT MIN(p.Id) AS idToKeep, p.Email FROM Person p GROUP BY p.Email ) AS e )
+DELETE FROM Person WHERE Id NOT IN ( SELECT p.Id FROM ( SELECT MIN(Id) AS Id FROM Person GROUP BY Email) AS p )
+DELETE FROM Person WHERE Id NOT IN ( SELECT t.Id FROM ( SELECT MIN(Id) AS Id FROM Person GROUP BY Email ) t )
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM ( SELECT MIN(Id) AS Min_Id FROM Person GROUP BY Email) AS derived)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM ( SELECT MIN(Id) FROM Person GROUP BY Email ) AS p )
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM ( SELECT MIN(Id) FROM Person GROUP BY Email) as p )
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM ( SELECT MIN(Id) FROM Person GROUP BY Email) as x)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) AS Id FROM Person GROUP BY Email) AS p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) AS b)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) AS p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) as p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) as p1)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email)P2)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM (SELECT min(Id) FROM Person GROUP BY Email) p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM( SELECT MIN(Id) FROM Person GROUP BY Email) as newform)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM( SELECT MIN(Id) FROM Person GROUP BY Email) as p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM( SELECT MIN(Id) FROM Person GROUP BY Email)as d )
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM( SELECT Min(Id) FROM Person GROUP BY Email) as p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM(SELECT MIN(Id) FROM Person GROUP BY Email) AS P)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM(SELECT MIN(Id) FROM Person GROUP BY Email) AS p)
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM(SELECT MIN(Id) FROM Person GROUP BY Email)as p)
+DELETE FROM Person WHERE Id NOT IN (SELECT A.MIN_Id FROM (SELECT Email, MIN(Id) AS MIN_Id FROM Person GROUP BY Email) AS A )
+DELETE FROM Person WHERE Id NOT IN (SELECT Id FROM (SELECT MIN(Id) AS Id FROM Person GROUP BY Email) temp_table )
+DELETE FROM Person WHERE Id NOT IN (SELECT Id FROM (SELECT MIN(Id) AS Id, Email FROM Person GROUP BY Email) a)
+DELETE FROM Person WHERE Id NOT IN (SELECT Id FROM (SELECT MIN(Id) Id FROM Person GROUP BY Email) p)
+DELETE FROM Person WHERE Id NOT IN (SELECT T.Iden FROM (SELECT MIN(Id) AS Iden FROM Person GROUP BY Email) T)
+DELETE FROM Person WHERE Id NOT IN (SELECT a.Id FROM (SELECT MIN(Id) AS Id, Email FROM Person GROUP BY Email)a)
+DELETE FROM Person WHERE Id NOT IN (SELECT id FROM (SELECT Email, MIN(Id) AS id FROM Person GROUP BY Email) AS tmp)
+DELETE FROM Person WHERE Id NOT IN (SELECT min_id FROM ( SELECT MIN(Id) min_id FROM Person GROUP BY Email)as P)
+DELETE FROM Person WHERE Id NOT IN (SELECT min_id FROM( SELECT MIN(Id) as min_id FROM Person GROUP BY Email) as p)
+DELETE FROM Person WHERE Id NOT IN (SELECT per.Id FROM (SELECT Id, Email, Rank() OVER(Partition by Email ORDER BY ID) as email_rank FROM Person) as per WHERE per.email_rank = 1)
+DELETE FROM Person WHERE Id NOT IN (SELECT t.Id FROM (SELECT MIN(Id) AS Id FROM Person GROUP BY Email) t)
+DELETE FROM Person WHERE Id NOT IN (SELECT t.Id FROM (SELECT MIN(Id) as Id FROM Person GROUP BY Email) t)
+DELETE FROM Person WHERE Id NOT IN (SELECT t.id FROM (SELECT MIN(Id) AS id FROM Person GROUP BY Email) t)
+DELETE FROM Person WHERE Id NOT IN (SELECT temp.Id FROM (SELECT Id, Email, RANK()OVER(PARTITION BY Email ORDER BY Id) AS Rn FROM Person) AS temp WHERE Rn=1)
+DELETE FROM Person WHERE Id NOT IN( SELECT * FROM( SELECT MIN(Id) FROM Person GROUP BY Email) as p)
+DELETE FROM Person WHERE Id NOT in ( SELECT * FROM( SELECT min(Id) FROM Person GROUP By Email) as t)
+DELETE FROM Person WHERE Id in ( SELECT Id FROM ( SELECT P1.Id FROM Person P1 join Person P2 on P1.Email=P2.Email WHERE P1.Id > P2.Id )As Temp_Table )
+DELETE FROM Person WHERE Id not IN ( SELECT Id FROM (SELECT Id, RANK() OVER(PARTITION BY Email order by Id) R from Person) A WHERE R = 1 )
+DELETE FROM Person WHERE Id not in (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email ) t )
+DELETE FROM Person WHERE Id not in (SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) t )
+DELETE FROM Person WHERE Id not in (SELECT Id FROM (SELECT min(Id) as Id FROM Person GROUP BY Email) p1 )
+DELETE FROM Person WHERE Id not in (SELECT id FROM (SELECT MIN(Id) as id FROM Person GROUP BY Email ) temp)
+DELETE FROM Person WHERE Id not in (SELECT t.Id FROM (SELECT Min(Id) AS Id FROM Person GROUP BY Email) t)
+DELETE FROM Person WHERE Id not in (Select * from (select min(Id) from Person group by Email) as t)
+DELETE FROM Person WHERE Id not in (Select a.* From(Select min(Id) From Person Group by Email) a )
+DELETE FROM Person WHERE Person.Id NOT IN ( SELECT MIN(p.Id) as minId FROM (SELECT * FROM Person) AS p GROUP BY p.Email)
+DELETE FROM Person WHERE id NOT IN ( SELECT * FROM ( SELECT FIRST_VALUE(p.Id) OVER(PARTITION BY p.Email ORDER BY p.Id ASC) FROM Person p ) AS tmp )
+DELETE FROM Person WHERE id NOT IN ( SELECT * FROM ( SELECT FIRST_VALUE(p.Id) OVER(PARTITION BY p.Email ORDER BY p.Id ASC) FROM Person p) AS tmp )
+DELETE FROM Person WHERE id NOT IN ( SELECT * FROM ( SELECT MIN(id) FROM Person GROUP BY Email ) AS t)
+DELETE FROM Person WHERE id NOT IN ( SELECT id FROM (SELECT MIN(id) AS id FROM Person GROUP BY Email) AS alias )
+DELETE FROM Person WHERE id in ( select id from (select id, dense_rank() over (partition by Email order by Id asc) as mail_rank from Person) a where mail_rank >= 2 )
+DELETE FROM Person WHERE id not in ( Select * from (select min(id) as id from Person Group by Email) p )
+DELETE FROM Person Where Id NOT IN ( SELECT Id FROM ( SELECT MIN(Id) Id FROM Person GROUP BY Email ) P )
+DELETE FROM Person Where Id NOT IN (SELECT minId FROM (SELECT Email, MIN(Id) as minId FROM Person Group BY Email) as noRepeats)
+DELETE FROM Person as p WHERE p.id NOT IN ( SELECT MIN(p2.id) from (select * from person) as p2 group by p2.email )
+DELETE FROM Person p1 WHERE p1.Email IN ( SELECT p2.Email FROM (select * from Person) p2 WHERE p2.Email = p1.Email AND p1.Id > p2.Id )
+DELETE FROM Person where Person.Id NOT IN (Select * from ((SELECT MIN(Id) as m FROM Person GROUP BY Email)) as P)
+DELETE FROM person WHERE id NOT IN ( SELECT * FROM ( SELECT MIN(id) AS id FROM person GROUP BY email) p )
+DELETE FROM person WHERE id NOT IN (SELECT a.Id FROM (SELECT MIN(id) id FROM Person GROUP BY Email) a)
+DELETE FROM person WHERE id NOT IN (select * FROM (SELECT MIN(Id) FROM person GROUP BY Email ORDER BY Id)AS p)
+DELETE FROM person WHERE id NOT IN( SELECT * FROM( SELECT MIN(id) FROM person GROUP BY email ) as p )
+DELETE From Person Where Id Not In ( Select * From( Select Min(Id) From Person Group By Email ) p )
+DELETE N1 FROM PERSON N1, PERSON N2 WHERE N1.ID > N2.ID AND N1.EMAIL = N2.EMAIL
+DELETE P1 FROM PERSON AS P1 JOIN PERSON AS P2 ON P1.Email = P2.Email AND P1.ID > P2.ID
+DELETE P1 FROM PERSON P1, PERSON P2 WHERE P1.EMAIL = P2.EMAIL AND P1.ID > P2.ID
+DELETE P1 FROM PERSON P1, PERSON P2 WHERE P1.EMAIL = P2.EMAIL AND P1.ID>P2.ID
+DELETE P1 FROM PERSON P1, PERSON P2 WHERE P1.EMAIL=P2.EMAIL AND P1.ID>P2.ID
+DELETE P1 FROM PERSON P1, PERSON P2 WHERE P1.Email = p2.Email AND P1.Id > P2.Id
+DELETE P1 FROM PERSON P1, PERSON P2 WHERE P1.Email = p2.Email AND P1.Id>P2.Id
+DELETE P1 FROM PERSON P1,PERSON P2 WHERE P1.EMAIL = P2.EMAIL AND P1.ID > P2.ID
+DELETE P1 FROM Person AS P1 JOIN Person AS P2 ON P1.Email = P2.Email WHERE p1.Id > p2.Id
+DELETE P1 FROM Person AS P1, Person AS P2 WHERE P1.Id > P2.Id AND P1.Email = P2.Email
+DELETE P1 FROM Person P1 INNER JOIN Person P2 ON P1.Email = P2.Email WHERE P1.ID > P2.Id
+DELETE P1 FROM Person P1 INNER JOIN Person P2 WHERE P1.Id > P2.Id AND P1.Email = P2.Email
+DELETE P1 FROM Person P1 JOIN Person P2 ON P1.Email = P2.Email WHERE P1.Id > P2.Id
+DELETE P1 FROM Person P1 join Person P2 on P1.Email=P2.Email and P1.Id>P2.Id
+DELETE P1 FROM Person P1, Person P2 WHERE P1.Email = P2.Email AND P1.Id > P2.Id
+DELETE P1 FROM Person P1, Person P2 WHERE P1.Email = P2.Email and P1.Id > P2.Id
+DELETE P1 FROM Person P1, Person P2 where P1.Email = P2.email and P1.id > P2.id
+DELETE P1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE P1 from Person P1 , Person P2 where P1.Email = P2.Email AND P1.Id>P2.Id
+DELETE P1.* FROM PERSON P1, PERSON P2 WHERE P1.EMAIL = P2.EMAIL AND P1.ID>P2.ID
+DELETE P2 FROM Person AS P1, Person AS P2 WHERE P1.Email = P2.Email AND P1.Id < P2.Id
+DELETE Person FROM Person LEFT JOIN (SELECT MIN(Id) as minid FROM Person GROUP BY Email) as t2 ON minid=Person.Id WHERE minid is NULL
+DELETE T1 FROM Person T1, Person T2 WHERE T1.Email = T2.Email AND T1.Id > T2.Id
+DELETE a FROM Person AS a JOIN Person AS b ON a.Id > b.Id AND a.Email = b.Email
+DELETE a FROM Person AS a, Person AS b WHERE a.Id > b.Id AND a.Email = b.Email
+DELETE a FROM Person a INNER JOIN Person b ON a.Email = b.Email WHERE a.Id > b.Id
+DELETE a FROM Person a JOIN Person b ON a.Email = b.Email AND a.Id > b.Id
+DELETE a FROM Person a, Person b WHERE a.Email = b.Email &amp;&amp; a.Id > b.Id
+DELETE a FROM Person a, Person b WHERE a.Email = b.Email AND a.Id > b.Id
+DELETE a FROM Person as a join Person as b where a.Email = b.Email and a.id > b.Id
+DELETE a FROM person a , person b WHERE a.email = b.email AND a.id > b.id
+DELETE a from Person as a, Person as b where a.Email = b.Email and a.Id > b.Id
+DELETE a.* FROM Person a, Person b WHERE a.ID > b.ID and a.Email = b.Email
+DELETE dandan1 FROM Person dandan1, Person dandan2 WHERE dandan1.Email = dandan2.Email AND dandan1.Id > dandan2.Id
+DELETE from Person p where id in ( select p.id from (select id,email,row_number() over(partition by Email order by id asc) as rnum from Person)p where p.rnum>1 )
+DELETE from Person where id NOT IN ( Select * from ( SELECT MIN(id) from PERSON GROUP BY Email) as p)
+DELETE from Person where id in ( select id from ( select email, id, row_number() over (partition by email order by id asc) as rnk from Person ) A where rnk <> 1 )
+DELETE from Person where id in (Select Id from (Select *, dense_rank() over(partition by Email order by Id) as rnk from Person) as tbl where tbl.rnk > 1)
+DELETE n1 FROM Person n1, Person n2 WHERE n1.id > n2.id AND n1.Email = n2.Email
+DELETE p FROM Person p INNER JOIN Person p2 ON p.Email = p2.Email AND p.Id > p2.Id
+DELETE p FROM Person p JOIN person p2 ON p.email = p2.email and p.id > p2.id
+DELETE p FROM Person p join ( select Email, min(Id) as min_id, count(*) as cnt from Person group by Email ) o on p.Email = o.Email and cnt > 1 and p.Id != o.min_id
+DELETE p.* FROM Person p, Person p1 WHERE p.Email = p1.Email AND p.Id > p1.Id
+DELETE p1 FROM (Person AS p1 JOIN Person AS p2 ON p1.Email = p2.Email) WHERE p1.Id > p2.Id
+DELETE p1 FROM PERSON P1,Person P2 where P1.EMAIL= P2.EMAIL and P1.ID>P2.ID
+DELETE p1 FROM PERSON p1, PERSON p2 WHERE p1.Email = p2.Email AND p1.ID > p2.ID
+DELETE p1 FROM PERSON p1, PERSON p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person AS p1 INNER JOIN Person AS p2 ON p1.Email = p2.Email AND p2.Id < p1.Id
+DELETE p1 FROM Person AS p1 INNER JOIN Person AS p2 WHERE p1.Id > p2.Id ANd p1.Email = p2.Email
+DELETE p1 FROM Person AS p1 JOIN Person AS p2 ON p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person AS p1 JOIN Person as p2 ON p1.Email = p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM Person AS p1, Person AS p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person AS p1, Person AS p2 WHERE p1.Email = p2.Email And p1.Id > p2.Id
+DELETE p1 FROM Person AS p1, Person AS p2 WHERE p1.Email=p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM Person AS p1,Person AS p2 WHERE p1.Email = p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM Person P1, Person P2 WHERE p1.Email = p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM Person as p1 JOIN Person as p2 ON p1.Email = p2.Email AND p1.Id> p2.Id
+DELETE p1 FROM Person as p1, Person as p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person as p1, Person as p2 WHERE p1.Email = p2.Email And p1.Id > p2.Id
+DELETE p1 FROM Person as p1, Person as p2 WHERE p1.email = p2.email AND p1.id>p2.id
+DELETE p1 FROM Person p1 , Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1 INNER JOIN Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1 INNER JOIN Person p2 WHERE p1.Id > p2.Id AND p1.Email = p2.Email
+DELETE p1 FROM Person p1 INNER JOIN Person p2 WHERE p1.id > p2.id AND p1.email = p2.email
+DELETE p1 FROM Person p1 JOIN Person P2 ON p2.Email = p1.Email and p1.Id > p2.Id
+DELETE p1 FROM Person p1 JOIN Person p2 ON p1.Email = p2.Email WHERE p1.Id > p2.Id
+DELETE p1 FROM Person p1 JOIN Person p2 ON p1.Id > p2.Id AND p1.Email = p2.Email
+DELETE p1 FROM Person p1 JOIN Person p2 ON p1.Id > p2.Id and p1.Email = p2.Email
+DELETE p1 FROM Person p1 LEFT JOIN Person p2 ON p1.Email = p2.Email WHERE p1.Id > p2.Id
+DELETE p1 FROM Person p1 WHERE Id NOT IN (SELECT * FROM (SELECT MIN(Id) FROM Person p2 GROUP BY Email) p)
+DELETE p1 FROM Person p1 WHERE p1.Id IN (SELECT p.Id FROM (SELECT Id, Email, RANK() OVER(PARTITION BY Email ORDER BY Id ASC) as id_rank FROM Person) p WHERE p.id_rank > 1)
+DELETE p1 FROM Person p1 join ( select p.id from Person p join ( select email, min(id) id from Person group by email having count(*) > 1) p2 on p.email = p2.email where p.id <> p2.id ) p2 on p1.id = p2.id
+DELETE p1 FROM Person p1 join Person p2 on p1.Email = p2.Email where p1.Id > p2.Id
+DELETE p1 FROM Person p1 join Person p2 where p1.email = p2.email and p2.id < p1.id
+DELETE p1 FROM Person p1, Person P2 WHERE p1.Id > p2.Id and p1.Email = p2.Email
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id >p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.id > p2.id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email And p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email and P1.Id>p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email and p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email and p1.id > p2.id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email=p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email=p2.Email AND p1.Id> p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Email=p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.Id > p2.Id AND p1.Email = p2.Email
+DELETE p1 FROM Person p1, Person p2 WHERE p1.email = p2.email AND p1.ID > p2.ID
+DELETE p1 FROM Person p1, Person p2 WHERE p1.email = p2.email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.email = p2.email AND p1.id > p2.id
+DELETE p1 FROM Person p1, Person p2 WHERE p1.id > p2.id AND p1.Email = p2.Email
+DELETE p1 FROM Person p1, Person p2 WHERE p1.id > p2.id and p1.Email = p2.Email
+DELETE p1 FROM Person p1, Person p2 Where p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2 where p1.Email = p2.Email and p1.id > p2.id
+DELETE p1 FROM Person p1, Person p2 where p1.Email=p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1, Person p2, Person p3 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM Person p1,Person p2 WHERE p1.Email=p2.Email AND p1.Id>p2.Id
+DELETE p1 FROM person p1 INNER JOIN person p2 ON p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM person p1 INNER JOIN person p2 ON(p1.Email=p2.Email) WHERE(p1.Id>p2.Id)
+DELETE p1 FROM person p1, person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1 FROM person p1,person p2 WHERE p1.Email=P2.Email AND p1.Id>P2.Id
+DELETE p1 from Person p1 INNER JOIN Person p2 WHERE p1.Id > p2.Id and p1.Email = p2.Email
+DELETE p1 from Person p1 join Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+DELETE p1 from Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.id > p2.id
+DELETE p1 from Person p1, Person p2 WHERE p1.Email = p2.Email and p1.id > p2.id
+DELETE p1 from Person p1, Person p2 where p1. Email= p2. Email AND p1.Id > p2.Id
+DELETE p1 from person p1 INNER JOIN Person p2 where p1.Id>p2.Id AND p1.Email = p2.Email
+DELETE p1 from person p1, person p2 where p1.email=p2.email and p1.id>p2.id
+DELETE p1.* FROM Person p1 JOIN Person p2 ON p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1.* FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1.* FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id >p2.Id
+DELETE p1.* FROM Person p1, Person p2 WHERE p1.Email=p2.Email AND p1.Id > p2.Id
+DELETE p1.* FROM Person p1,Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+DELETE p1.* FROM Person p1,Person p2 WHERE p1.Email = p2.Email AND p1.Id>p2.Id
+DELETE p2 FROM Person AS p1, Person AS p2 WHERE p1.Email=p2.Email AND p2.Id>p1.Id
+DELETE p2 FROM Person as p1, Person as p2 WHERE p1.Email = p2.Email AND p1.Id < p2.Id
+DELETE p2 FROM Person p1 INNER JOIN Person p2 WHERE p1.Email = p2.Email AND p1.Id < p2.ID
+DELETE p2 FROM Person p1 INNER JOIN Person p2 WHERE p1.Email = p2.Email AND p2.Id > p1.Id
+DELETE p2 FROM Person p1 JOIN Person p2 ON p1.Email = p2.Email AND p1.Id < p2.Id
+DELETE p2 FROM Person p1 JOIN Person p2 ON p1.Email =p2.Email where p2.id>p1.id
+DELETE p2 FROM Person p1 LEFT JOIN Person p2 ON p2.Email = p1.Email AND p2.Id > p1.Id
+DELETE p2 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND P2.Id > p1.Id
+DELETE p2 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id < p2.Id
+DELETE p2 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p2.Id > p1.Id
+DELETE p2 FROM Person p1, Person p2 WHERE p1.Id < p2.Id AND p1.Email = p2.Email
+DELETE p2.* FROM PERSON p1, PERSON p2 WHERE p1.email = p2.email AND p1.id < p2.id
+DELETE p2.* FROM Person p1 JOIN Person p2 ON p1.Email = p2.Email AND p1.Id < p2.Id
+DELETE t1 FROM PERSON t1 JOIN PERSON t2 WHERE t1.EMAIL = t2.EMAIL AND t1.ID > t2.ID
+DELETE t1 FROM Person AS t1 Where Id NOT IN ( Select Id From (Select MIN(Id) AS id From Person Group by Email) AS t2 )
+DELETE t1 FROM Person as t1, Person as t2 WHERE t1.Email=t2.Email and t1.Id>t2.Id
+DELETE t1 FROM Person t1, Person t2 WHERE t1.Email=t2.Email AND t1.Id>t2.Id
+DELETE t1 FROM Person t1, Person t2 WHERE t1.Id > t2.Id AND t1.Email = t2.Email
+DELETE tb1 FROM Person as tb1, Person as tb2 WHERE tb1.Email = tb2.Email AND tb1.Id > tb2.Id
+DElETE FROM Person WHERE ID NOT IN ( select * from ( select min(id) From Person Group By email) As temp )
+DElETE p1 FROM Person As p1, Person As p2 WHERE p1.Email = p2.Email AND p1.ID > p2.ID
+Delete A from person A inner join Person B WHERE A.Id >B.Id and A.Email=B.Email
+Delete E from Person E, PERSON P WHERE E.EMAIL = P.EMAIL and E.Id>P.Id
+Delete From Person Where Id IN ( Select Id From ( Select Distinct A.Id AS Id From Person A INNER JOIN Person B On A.Email = B.Email Where A.Id > B.Id ) DeleteId )
+Delete From Person Where Id NOT IN (Select * From (Select Min(Id) From Person Group by Email) i)
+Delete From Person Where Id not in (Select * From (Select min(Id) From Person Group by Email) t)
+Delete From Person a where a.Id not in (Select t1.minid from(select Min(ID) as minid From Person Group by email) t1)
+Delete P1 FROM Person P1 INNER JOIN Person P2 ON P1.Id > P2.Id And P1.Email = P2.email
+Delete P1 From Person P1 Inner Join Person P2 On P1.Email = P2.Email and P1.Id > P2.Id
+Delete P1 From Person P1 Join Person P2 on P1.Email =P2.Email Where P1.ID <> P2.ID and P1.ID > P2.ID
+Delete P1 From Person p1, Person p2 Where p1.Email=p2.Email AND p1.Id>P2.Id
+Delete P1 from Person P1 INNER JOIN Person P2 where P1.Id>P2.Id AND P1.Email = P2.Email
+Delete P1 from Person P1 Inner Join Person P2 on p1.Email = P2.Email and p1.Id > p2.Id
+Delete P1 from Person P1, Person P2 where P1.email = P2.email and P1.Id > P2.Id
+Delete P1 from Person P1,Person P2 where P1.email=P2.email and p1.Id>p2.Id
+Delete P1 from Person as p1, Person as p2 where p1.Email = p2.Email and p1.Id>p2.Id
+Delete P1 from Person p1 Inner Join Person p2 where p1.id > p2.id and p1.email = p2.email
+Delete a from Person a, Person b where a.Email=b.Email and a.Id>b.Id
+Delete a.* from Person as a, Person as b where a.Email = b.Email and a.Id > b.Id
+Delete from Person where ID in ( Select ID from (Select ID, Email, row_number() over (partition by Email order by ID) as R from Person ) a where R > 1)
+Delete from Person where ID not in (select * from (select MIN(Id) from Person group by Email) as p)
+Delete from Person where Id Not IN ( Select * from (Select Min(Id) from Person Group by Email ) as tmp )
+Delete from Person where Id in( select * from ( select p2.Id from Person as p1 ,Person p2 where p1.Email=p2.Email and p1.Id<p2.Id ) xy )
+Delete from Person where Id not in ( select minId from (select min(Id) minId, Email from person group by Email )t )
+Delete from Person where Id not in (Select * from(Select min(id) from person group by Email)as p)
+Delete from Person where Id not in (select * from (select min(id) from person group by email) as p)
+Delete from Person where Id not in( SELECT sub.MIN_ID FROM ( SELECT Email,min(Id) AS MIN_ID FROM Person GROUP BY Email ) sub )
+Delete from Person where id not in (select * from (Select min(id) from person p2 group by email) as T)
+Delete from person WHERE Id NOT IN (SELECT A.Id FROM (SELECT MIN(Id) AS Id FROM Person GROUP BY Email) A)
+Delete from person WHERE Id NOT IN (SELECT Id FROM (SELECT MIN(Id) AS Id FROM Person GROUP BY Email) CNM)
+Delete from person WHERE Id NOT IN (SELECT Id FROM (SELECT MIN(Id) AS Id FROM Person GROUP BY Email)A)
+Delete from person WHERE Id Not IN (SELECT A.Id FROM (SELECT MIN(Id) As Id FROM Person GROUP BY Email) A)
+Delete from person WHERE Id Not IN (SELECT Id FROM (SELECT MIN(Id) As Id FROM Person GROUP BY Email) A)
+Delete from person WHERE Id not in (SELECT Id FROM (SELECT min(Id) As Id FROM Person GROUP BY Email) A)
+Delete from person where Id in (select Id from ( select Id, Email, row_number() over (partition by Email order by Id) as row_num from Person) as p where row_num >=2 )
+Delete from person where Id not in (SELECT * FROM (select min(Id) from person group by Email) as p)
+Delete from person where Id not in (select I.id from(select min(id) as id from person group by Email) I )
+Delete from person where Id not in (select t.id from(select min(id) as id from person group by Email) t )
+Delete p From person p, person q where p.email = q.email AND p.Id > q.Id
+Delete p from Person p, Person pero where p.Email = pero.Email and p.Id > pero.Id
+Delete p1 FROM (Person as p1), (Person as p2) WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+Delete p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+Delete p1 FROM Person p1, Person p2 where p1.Email = p2.Email and p1.Id>p2.Id
+Delete p1 FROM Person p1, Person p2 where p1.Email=p2.Email AND p1.Id> p2.Id
+Delete p1 From Person p1, Person p2 Where p1.Email = p2.Email AND p1.Id > p2.Id
+Delete p1 From Person p1, Person p2 Where p1.Email = p2.Email And p1.Id > p2.Id
+Delete p1 From Person p1, Person p2 where p1.Id > p2.Id And p1.Email = p2.Email
+Delete p1 From person p1, person p2 where p1.email =p2.email and P1.Id > p2.Id
+Delete p1 from Person P1 , person p2 where p1.id > p2.id and p1.Email = p2.Email
+Delete p1 from Person as p1 , Person as p2 where p1.Email = p2.Email and p1.ID > p2.id
+Delete p1 from Person p1 inner join Person p2 on p1.Email=p2.Email where p1.Id>p2.Id
+Delete p1 from Person p1 join Person p2 where p1.email=p2.email and p1.Id>p2.Id
+Delete p1 from Person p1 where p1.Id NOT IN (Select M.Id From (Select Id, Email, Rank() OVER(Partition by Email ORDER BY Id) as Rnk From Person) as M Where M.Rnk = 1)
+Delete p1 from Person p1 where p1.Id NOT IN (Select M.Id From(Select Id, Email, Rank() OVER(Partition by Email ORDER BY Id) as Rnk From Person) as M Where M.Rnk = 1)
+Delete p1 from Person p1 where p1.Id NOT IN( Select M.Id From( Select Id, Email, Rank() OVER(Partition by Email ORDER BY Id) as Rnk From Person) as M Where M.Rnk = 1)
+Delete p1 from Person p1 where p1.Id NOT IN( Select M.Id From(Select Id, Email, Rank() OVER(Partition by Email ORDER BY Id) as Rnk From Person) as M Where M.Rnk = 1 )
+Delete p1 from Person p1, Person p2 WHERE p1.Email = p2.Email and p1.Id > p2.Id
+Delete p1 from Person p1, Person p2 Where p1.Email = p2.Email and p1.Id > p2.Id
+Delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+Delete p1 from Person p1, Person p2 where p1.Email=p2.Email and p1.Id >p2.Id
+Delete p1 from Person p1, Person p2 where p1.Email=p2.Email and p1.Id>p2.id
+Delete p1 from Person p1, Person p2 where p1.Email=p2.Email and p1.id>p2.id
+Delete p1 from Person p1, Person p2 where p1.Id > p2.Id and p1.Email = p2.Email
+Delete p1 from Person p1, Person p2 where p1.Id > p2.Id and p1.Email=p2.Email
+Delete p1 from Person p1, person p2 where p1.Email= p2.Email and p1.ID>p2.ID
+Delete p1 from person as p1, person as p2 where p1.email=p2.email and p1.id>p2.id
+Delete p1 from person p1 , person p2 where p1.email =p2.email and p1.id > P2.id
+Delete p1 from person p1, person p2 where p1.email=p2.email and p1.Id>p2.Id
+Delete p1 from person p1,person p2 where p1.email=p2.email and p1.Id > p2.Id
+Delete p1.* FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id >p2.ID
+Delete p1.* from Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+Delete p2 from Person p1 inner join person p2 where p1.Id < p2.Id and p1.Email = p2.Email
+Delete p2 from Person p1 join Person p2 where p1.Email = p2.Email and p1.Id < p2.Id
+Delete p2 from Person p1, Person p2 where p1.Email=p2.Email and p2.Id>p1.Id
+WHERE ID NOT IN ( SELECT ID FROM ( SELECT ID, EMAIL, RANK() OVER(PARTITION BY EMAIL ORDER BY ID) RNK FROM PERSON ) T WHERE RNK = 1 )
+WITH A AS( SELECT Id, Email, RANK() OVER (PARTITION BY Email ORDER BY Id) AS EmailRank FROM Person) DELETE FROM Person WHERE Id IN (SELECT Id FROM A WHERE EmailRank > 1)
+WITH CTE AS ( SELECT ID, EMAIL, DENSE_RANK() OVER (PARTITION BY EMAIL ORDER BY ID) AS RK FROM PERSON ) DELETE FROM PERSON WHERE ID IN (SELECT ID FROM CTE WHERE RK>1)
+WITH CTE AS( SELECT Id,Email, ROW_NUMBER()OVER(PARTITION BY Email ORDER BY Id) r FROM Person ) DELETE FROM Person WHERE Id in ( SELECT Id FROM CTE WHERE r>1 )
+WITH CTE AS( SELECT MIN(Person.Id) as Id FROM Person GROUP BY Person.Email) DELETE from Person WHERE Person.Id NOT IN (SELECT Id FROM CTE)
+WITH CTE(Id, DuplicateCount) AS (SELECT Id, ROW_NUMBER() OVER(PARTITION BY Email ORDER BY ID) AS DuplicateCount FROM Person) DELETE FROM Person p WHERE p.Id NOT IN (SELECT Id FROM CTE WHERE DuplicateCount < 2)
+WITH DUps as ( SELECT p2.Id FROM PERson p1 inner join Person p2 ON p1.Email = p2.Email and p1.Id<p2.Id ) DELETE FROM Person WHERE Id in (Select * FROM DUps)
+WITH IdToKeep AS ( SELECT MIN(Id) AS Id, Email AS Email FROM Person GROUP BY Email ) DELETE Person.* FROM Person LEFT JOIN IdToKeep ON Person.Email = IdToKeep.Email WHERE Person.Id != IdToKeep.Id
+WITH MinimumId AS( SELECT Id , Email , RANK() OVER(PARTITION BY Email Order by Id) AS r FROM Person) DELETE FROM Person WHERE Id NOT IN ( SELECT Id FROM MinimumId WHERE r < 2)
+WITH Ranked as (SELECT id, RANK() OVER(PARTITION BY Email ORDER BY Id) as r FROM person ) DELETE FROM Person WHERE id IN (SELECT id FROM Ranked WHERE r > 1)
+WITH RankedEmails AS ( SELECT *, ROW_NUMBER() OVER (Partition By Email ORDER BY Id) AS N FROM Person ) DELETE p FROM Person p JOIN RankedEmails re ON re.Id = p.Id WHERE re.N <> 1
+WITH UniqueEmails AS ( SELECT Email, MIN(Id) AS FirstId FROM Person GROUP BY Email ) DELETE FROM Person WHERE Id NOT IN ( SELECT FirstId FROM UniqueEmails )
+WITH cte AS ( SELECT Id FROM Person GROUP BY Email HAVING (MIN(Id) AND COUNT(Email) > 1) OR COUNT(Email = 1) ) DELETE FROM Person WHERE Id NOT IN ( SELECT * FROM (SELECT MIN(Id) FROM Person GROUP BY Email) AS P )
+WITH cte AS ( SELECT Id, Email, Dense_RANK() OVER(Partition By Email Order by Id) as rnk from Person) DELETE FROM Person WHERE Id IN (SELECT Id from cte where rnk > 1)
+WITH cte AS ( SELECT Id, Email, RANK() OVER(Partition By Email Order by Id) as rnk from Person) DELETE FROM Person WHERE Id IN (SELECT Id from cte where rnk > 1)
+WITH cte AS ( SELECT Id,ROW_NUMBER() OVER(PARTITION BY Email ORDER BY Email,Id) row_num FROM Person ) DELETE FROM Person WHERE Id IN ( SELECT Id FROM cte WHERE cte.row_num > 1 )
+WITH cte AS (SELECT *, ROW_NUMBER() OVER (PARTITION BY Email ORDER BY Id) AS rnm FROM Person) DELETE FROM Person WHERE Id NOT IN(SELECT Id FROM cte WHERE cte.rnm = 1 ORDER BY Email)
+WITH dup_emails AS ( SELECT Id, Email, RANK() OVER(PARTITION BY Email ORDER BY Id) rk FROM Person ) DELETE FROM Person WHERE Id IN (SELECT Id FROM dup_emails WHERE rk > 1)
+WITH dups as ( select min(Id) as Id, Email, count(Email) as count from Person group by Email having count(Email) > 1 ) DELETE from Person where Email in (select Email from dups) and Id not in (select Id from dups)
+WITH min_id_tbl AS ( SELECT p.Email, MIN(p.Id) AS min_id FROM Person AS p GROUP BY p.Email ) DELETE p FROM Person AS p INNER JOIN min_id_tbl AS mit ON mit.Email = p.Email WHERE mit.min_id != p.Id
+WITH min_ids AS ( SELECT MIN(id) as id FROM Person GROUP BY email ) DELETE FROM Person WHERE id NOT IN (SELECT id from min_ids)
+WITH minids AS (SELECT MIN(Id) as MinId FROM Person GROUP BY Email) DELETE FROM Person WHERE Id NOT IN (SELECT * FROM minids)
+WITH mins AS ( SELECT min(id) FROM person GROUP BY email ) DELETE FROM person WHERE id NOT IN (SELECT * FROM mins)
+WITH pcte AS ( SELECT id, email, rank() over (PARTITION BY email ORDER BY id) AS rnk FROM person ) delete FROM person WHERE id in (SELECT id FROM pcte WHERE rnk > 1)
+WITH t AS ( SELECT Id, Email, RANK() OVER(Partition By Email Order by Id) as rnk from Person) DELETE FROM Person WHERE Id IN ( SELECT Id FROM t WHERE rnk > 1 )
+WITH t AS ( SELECT Id, Email, RANK() OVER(Partition By Email Order by Id) as rnk from Person) DELETE FROM Person WHERE Id IN (SELECT Id from t where rnk > 1)
+WITH t1 AS ( SELECT Id, Email, ROW_NUMBER() OVER(PARTITION BY Email ORDER BY Id ASC) as rn FROM Person ) DELETE FROM Person WHERE Id IN (SELECT Id FROM t1 WHERE rn > 1)
+WITH t1 AS ( SELECT MIN(Id) FROM Person GROUP BY Email) DELETE FROM Person p WHERE p.Id NOT IN (SELECT * FROM t1)
+WITH t1 AS (SELECT *, ROW_NUMBER() OVER(PARTITION BY Email ORDER BY id) as row_num FROM Person) DELETE FROM Person WHERE Person.id IN (SELECT t1.id FROM t1 WHERE t1.row_num > 1)
+WITH t1(Id) AS (SELECT Id FROM Person), t2(Id) AS (SELECT DISTINCT min(Id) FROM Person GROUP BY Email) delete from Person where Id in (select Id from t1) and Id not in (select Id from t2)
+WITH tab as(SELECT DISTINCT *, DENSE_Rank() OVER (PARTITION BY Email ORDER BY Id) as rank_number FROM Person ) DELETE FROM Person WHERE Id NOT IN(SELECT Id FROM tab WHERE rank_number = 1)
+With A as(SELECT Min(Id) as id,Email FROM Person GROUP BY Email) DELETE FROM Person WHERE (Person.Id) NOT IN (SELECT A.id FRom A)
+With DupEmail as ( select id, email, rank() over (partition by Email order by Id) as Ranks from Person ) Delete P from Person as P join DupEmail as D on P.Id = D.Id where D.Ranks > 1
+With UniqueEmails As ( SELECT Id , ROW_NUMBER() OVER (Partition by Email order by Id) RowNum FROM Person ) Delete p from Person p JOIN UniqueEmails dup on dup.Id = p.Id where RowNum > 1
+With UniqueEmails As ( SELECT Id , ROW_NUMBER() OVER (Partition by Email order by Id) RowNum from Person ) Delete p from Person p JOIN UniqueEmails dup on dup.Id = p.Id where RowNum > 1
+With cte as (select min(Id) as Id, Email from Person group by Email) Delete from Person where Id not in (select Id from cte)
+With t AS( SELECT *, RANK() OVER(PARTITION BY Email ORDER BY Id) AS Rnk FROM Person) DELETE FROM Person WHERE Id NOT IN ( SELECT Id FROM t WHERE Rnk = 1)
+With t1 as ( Select *, row_number() over(partition by email order by id) as rk from person ) Delete from person where id in (Select t1.id from t1 where t1.rk>1)
+With uniqueEmail AS (SELECT MIN(Id) as Id, Email FROM Person GROUP BY Email) DELETE P1 FROM Person AS P1 JOIN uniqueEmail AS P2 ON P1.Email = P2.Email WHERE p1.Id > p2.Id
+delete FROM Person where Id in (select Id from (select p2.Id from Person p1, Person p2 where p1.Email = p2.Email and p1.Id < p2.Id) as t)
+delete FROM Person where Id not in (select * from (select Min(Id) from Person group by Email) as p)
+delete From Person where Id not in ( select * from ( select min(p1.Id) from Person as p1, Person as p2 where p1.Email = p2.Email group by p1.Email ) as p )
+delete P1 from Person P1 inner join Person P2 where P1.Id > P2.Id and P1.Email = P2.Email
+delete P1 from Person P1 join Person P2 on P1.Email = P2.Email and P1.Id > P2.Id
+delete P1 from Person P1 join Person P2 where P1.Email = P2.Email and P2.Id < P1.Id
+delete P1 from Person P1 join Person P2 where P1.id>P2.id and P1.Email=P2.Email
+delete P1 from Person P1, Person P2 where P1.Email = P2.Email and P1.Id > P2.Id
+delete P1 from Person P1, Person P2 where P1.Email = P2.Email and P1.id > P2.id
+delete P1 from Person P1, Person P2 where P1.Email=P2.Email and P1.Id > P2.Id
+delete P1 from Person P1, Person P2 where P1.Email=P2.Email and P1.Id>P2.Id
+delete P1 from Person P1, Person P2 where P1.email = P2.email and p1.id > p2.id
+delete P1.* from Person P1 join Person P2 on P1.Email = P2.Email and P1.id > P2.id
+delete P1.* from Person p1,Person p2 where p1.Email=p2.Email and p1.Id>p2.Id
+delete P2.* from Person as P1, Person as P2 where P1.Id < P2.Id and P1.Email = P2.Email
+delete Person from Person left join ( select Email, min(id) as min_id from Person group by Email ) p2 on Person.email = p2.email where p2.min_id != Person.id
+delete Person from Person left join ( select min(Id) as Id from Person group by Email ) as PersonWithUniqueEmail on PersonWithUniqueEmail.Id = Person.Id where PersonWithUniqueEmail.Id is null
+delete a FROM Person a, Person b WHERE a.Email = b.Email AND a.Id > b.Id
+delete a from Person a, Person b WHERE a.Email=b.Email and a.id > b.id
+delete a from Person a, Person b where a.Email = b.Email and a.Id > b.Id
+delete a from Person a, Person b where a.Email =b.Email AND a.Id>b.Id
+delete a from Person a, Person b where a.email = b.email and a.id > b.id
+delete a from person a join person b on a.email = b.email and a.id > b.id
+delete a from person a, person b where a.Id > b.Id And a.email = b.email
+delete a from person a, person b where a.email = b.email and a.id > b.id
+delete a from person as a, person as b where a.Id >b.Id and a.email=b.email
+delete a.* from Person a inner join Person b on a.Email = b.Email where a.Id > b.Id
+delete a.* from Person a join Person b on a.Email=b.Email where a.Id > b.Id
+delete a.* from Person a, Person b where a.Email = b.Email and a.Id > b.Id
+delete a.* from person a, person b where a.email = b.email and a.id>b.id
+delete from Person P1 where Id > ( select min(Id) from (select * from Person) P2 where P1.email = P2.email )
+delete from Person Where id not in ( SELECT MIN(ID) FROM (select * from Person) A WHERE EMAIL IN (SELECT EMAIL FROM (select * from Person) A GROUP BY Email HAVING COUNT(ID)>1 ) Group by EMAIL ) and email not in (SELECT EMAIL FROM (select * from Person) A GROUP BY Email HAVING COUNT(ID)=1 )
+delete from Person p1 where p1.Id not in (select t.Id from (select min(Id) as Id from Person group by Email) t )
+delete from Person t where t.Id not in ( select t1.min_id from ( select p.Email, min(p.id) as min_id from Person p group by p.Email ) t1 )
+delete from Person where (Id, Email) not in ( select * from ( select min(Id), Email from Person group by Email ) t)
+delete from Person where ID NOT IN (SELECT * FROM(SELECT MIN(Id) FROM Person GROUP BY Email) as p)
+delete from Person where ID not in ( select * from (select min(id) from Person group by Email) as p )
+delete from Person where ID not in (Select t.ID from (select min(ID) as ID, email from Person group by 2) t)
+delete from Person where Id != (select Id from (select * from Person) p where Email =Person.Email order by Id limit 1)
+delete from Person where Id NOT IN (Select ID from (Select Email, min(Id) as Id from Person group by Email) a)
+delete from Person where Id in ( select Id from ( select Id, Email, row_number() over(partition by Email order by Id) as row_num from Person ) tbl1 where row_num > 1)
+delete from Person where Id in ( select Id from ( select rank() over (partition by Email order by Id) as r, Id, Email from Person ) a where r>1)
+delete from Person where Id in ( select a.Id from ( select Id, dense_rank() over (partition by Email order by Id) as rnk from Person ) as a where a.rnk > 1 )
+delete from Person where Id in ( select id from ( select id, dense_rank() over (partition by email order by id) as drank from Person ) p where drank > 1 )
+delete from Person where Id in ( select t.id_to_delete from (select distinct b.Id as id_to_delete from Person b join Person a on b.Email = a.Email and b.Id > a.Id) t)
+delete from Person where Id in (select Id from ( select Id, Email, rank() over(partition by Email order by Id) as rnk from Person) a where rnk<>1)
+delete from Person where Id in (select Id from (select Id, row_number() over(partition by Email order by Id) as rn from Person ) a where rn<>1)
+delete from Person where Id not in ( select * from ( select min(Id) from Person group by Email ) as a )
+delete from Person where Id not in ( select * from ( select min(Id) from Person group by Email ) as p )
+delete from Person where Id not in ( select * from ( select min(p1.Id) from Person as p1 group by p1.Email ) as p )
+delete from Person where Id not in ( select * from ( select min(p1.Id) from Person as p1, Person as p2 where p1.Email = p2.Email group by p1.Email ) as p )
+delete from Person where Id not in ( select * from (select min(Id) from Person group by Email) x )
+delete from Person where Id not in ( select A.Id from (select min(Id) as Id from Person GROUP BY Email) A )
+delete from Person where Id not in ( select Id from ( select min(Id) AS Id from Person group by Email ) as M )
+delete from Person where Id not in ( select Id from ( select min(Id) as Id from Person group by Email ) p )
+delete from Person where Id not in ( select Id from ( select min(Id) as Id from Person group by Email) as p)
+delete from Person where Id not in ( select Id from ( select min(Id) as `Id` from Person group by Email ) as p )
+delete from Person where Id not in ( select a.Id from ( select min(Id) as Id, Email from Person group by Email ) a )
+delete from Person where Id not in ( select id from ( select id, email, row_number() over (partition by email order by id asc) as r from Person p ) a where r = 1 )
+delete from Person where Id not in ( select* from (select min(Id) from Person group by Email) e )
+delete from Person where Id not in ( with a as( select Email, min(Id) as Id from Person group by 1 ) select Id from a )
+delete from Person where Id not in (Select * from(Select MIN(Id) from Person Group by Email) as p)
+delete from Person where Id not in (Select min_Id from (Select min(Id) as min_Id from Person group by Email) as temp)
+delete from Person where Id not in (select * from (Select Min(Id) from Person Group By Email)as K)
+delete from Person where Id not in (select * from (select Min(Id) from Person Group by Email) as p)
+delete from Person where Id not in (select * from (select min(Id) from Person group by Email) a)
+delete from Person where Id not in (select * from (select min(Id) from Person group by Email) as p)
+delete from Person where Id not in (select * from (select min(Id) from Person group by Email) as qq)
+delete from Person where Id not in (select * from (select min(Id) from Person group by Email) new_p)
+delete from Person where Id not in (select * from (select min(Id) from Person group by Email) p)
+delete from Person where Id not in (select * from (select min(Id) from Person group by Email) t)
+delete from Person where Id not in (select * from (select min(Id) from Person group by email) as p)
+delete from Person where Id not in (select * from( select min(Id) from Person group by Email) as p)
+delete from Person where Id not in (select FirstId from (select min(Id) as FirstId from Person group by Email) as p)
+delete from Person where Id not in (select Id from ( select Email, min(Id) as Id from Person group by 1) a )
+delete from Person where Id not in (select Id from (select min(Id) as Id from Person group by Email ) p )
+delete from Person where Id not in (select Id from (select min(Id) as Id from Person group by Email) as a)
+delete from Person where Id not in (select Id from (select min(Id) as Id from Person group by Email) person )
+delete from Person where Id not in (select a.minid from (select min(Id) minid from Person group by Email) a)
+delete from Person where Id not in (select min_id from (select min(Id) as min_id from Person group by Email) as Cid)
+delete from Person where Id not in (select t.Id from (select min(id) as id from Person group by email) t)
+delete from Person where Id not in (select t.id from (select Min(Id) as id, Email from Person Group by Email) t)
+delete from Person where Id not in (select* from (select min(Id) from Person group by Email) as p )
+delete from Person where Id not in( select Id from (select min(Id) as Id, Email from Person group by Email ) t1 )
+delete from Person where Id not in( select Id from( select min(Id) as Id, Email from Person group by Email)a)
+delete from Person where Person.Id not in ( select * from ( select min(id) from Person group by Email ) as f )
+delete from Person where id in ( select id from ( select id, row_number() over (partition by Email order by Id) as r from Person) a where r > 1 )
+delete from Person where id in ( select id from ( select p1.id from Person p1 inner join Person p2 on p1.email = p2.email and p1.id > p2.id ) temp )
+delete from Person where id in ( with cte as (select id, email, row_number() over (partition by email order by id) as user_rank from Person) select id from cte where user_rank>1 )
+delete from Person where id in (select id from ( select id, Row_Number() over (Partition by Email order by Id) RowNumber from Person ) t where t.RowNumber > 1 )
+delete from Person where id not in ( select * from (select min(id) from Person p group by p.Email) T )
+delete from Person where id not in ( select id from (select min(id) as Id,Email from Person group by Email order by Id) i )
+delete from Person where id not in ( select id from (select min(id) as id, email from Person group by 2) x )
+delete from Person where id not in ( select m.id from ( select min(id) as id from Person group by email ) m )
+delete from Person where id not in ( select sub.min_id from ( select min(id) as min_id from Person group by Email ) sub )
+delete from Person where id not in (select * from ( select min(id) from Person group by Email) as p)
+delete from Person where id not in (select * from (select min(id) from Person group by email) as p)
+delete from Person where id not in (select * from(select min(id) from Person group by email) as p)
+delete from Person where id not in (select id from (select email, min(id) as id from Person group by email) a )
+delete from Person where id not in (select id from (select min(id) as Id, Email from Person group by Email order by Id) tabl)
+delete from Person where id not in (select id from (select min(id) as id from Person GROUP BY Email) m)
+delete from Person where id not in (select p.Id from (select *,ROW_NUMBER() OVER (partition by TRIM(Email) order by Id) as row_rank from Person) p where p.row_rank = 1)
+delete from Person where id not in (select p.id from (select min(id) as id from Person group by email) as p)
+delete from Person where id not in (select t.id from (select min(id) as Id from person group by email) t)
+delete from Person where id not in( select t.id from ( select min(id) as id from Person group by email ) t )
+delete from Person where id not in( select t.id from( select min(p.id) id from Person p group by p.email )t)
+delete from p1 using person p1 join person p2 on p1.email = p2.email where p1.id > p2.id
+delete from person a where exists( select * from ( select id,email from ( select id, email, dense_rank() over (partition by email order by id) as rankseq from Person group by id, email )x where x.rankseq>1 )b where b.id =a.id )
+delete from person p where p.id in(select p2.id from (select id, email, dense_rank() over (partition by email order by id ) rnk from person p1 ) p2 where p2.rnk<>1 )
+delete from person p1 where p1.id not in ( select id from ( select min(p2.id) as id from person p2 group by lower(p2.email) ) as p3 )
+delete from person where ID not in (select * from( select min(ID) from person group by email ) as p)
+delete from person where Id not in (select * from (select min(id) from person group by email) as p)
+delete from person where id in (select id from (select p.*, row_number() over (partition by email order by id) rn from person p) a where rn <> 1)
+delete from person where id in (select t.id from (select id, dense_rank() over (partition by email order by id ) rnk from person ) t where rnk >1 )
+delete from person where id in(select id from (select p1.id from person p1 join person p2 on p1.email = p2.email and p1.id>p2.id) t)
+delete from person where id not in ( select * from ( select min(id) as id from person group by email) as t)
+delete from person where id not in ( select * from ( select min(id) from person group by email ) tmp )
+delete from person where id not in ( select * from (select min(id) from person group by email) as p)
+delete from person where id not in ( select * from (select min(p.id) from person p group by email) prn)
+delete from person where id not in ( select * from(select min(Id)from Person group by email) as p)
+delete from person where id not in ( select id from (select min(id) as id from person group by email)t1)
+delete from person where id not in ( select id from( select min(id) as id from person group by email )t )
+delete from person where id not in ( select t.id from (select min(id) as id from person group by email) t)
+delete from person where id not in (Select * from (select min(id) as id from person group by email)as p)
+delete from person where id not in (select * from (select min(id) as id from person group by email) p)
+delete from person where id not in (select * from (select min(id) as id from person group by email)as p)
+delete from person where id not in (select * from (select min(id) from person group by email ) as p )
+delete from person where id not in (select * from (select min(id) from person group by email) as a)
+delete from person where id not in (select * from (select min(id) from person group by email) as p)
+delete from person where id not in (select * from (select min(id) from person group by email) as p2)
+delete from person where id not in (select * from (select min(id) from person group by email) as temp)
+delete from person where id not in (select * from (select min(p.id) from person p group by p.email) tmp)
+delete from person where id not in (select b.id from (select min(a.id) as 'id' from person a group by a.email) b)
+delete from person where id not in (select b.id1 from (select min(id) as id1 from person group by email)as b)
+delete from person where id not in (select id from (select min(id)as id from person group by email) as temp)
+delete from person where id not in (select min(id) from (select * from person)a group by email)
+delete from person where id not in (select min1 from (select min(id) as min1, email from person group by email) as t1)
+delete from person where id not in (select s.id1 from (select min(id) as id1, email from person group by email) as s)
+delete from person where id not in (select t.id from ( select min(id) as id from person group by email ) t)
+delete from person where id not in (select t.id from (select min(id) as id from person group by email)t)
+delete from person where id not in (select tbl.id from(select min(id) as id from person group by email)tbl)
+delete from person where id not in( select id from( select id, rank()over(partition by email order by id) as rn from person)t where rn=1)
+delete from person where id not in( select id from( select id, row_number() over(partition by email order by id) rn from person)a where rn=1)
+delete from person where id not in( select x.id from( select min(id) as id from Person group by email )x )
+delete l1 from person l1 inner join person l2 on l1.id>l2.id and l1.email=l2.email
+delete p from Person p ,Person p1 where p.Email=p1.Email and p1.id<p.id
+delete p from Person p cross join Person p2 where p.Email = p2.Email and p.Id > p2.Id
+delete p from Person p left join Person d on p.id > d.id where p.Email = d.Email
+delete p from Person p, Person d where p.Email = d.Email and p.id > d.id
+delete p from Person p, Person pp where p.Email = pp.Email and p.Id > pp.Id
+delete p from Person p, Person q where p.Email = q.Email and p.Id > q.Id
+delete p from person p , person ref where p.email = ref.email and ref.id < p.id
+delete p from person p, person p2 where p.email = p2.email AND p.id > p2.id
+delete p from person p, person q where p.id > q.id and p.email = q.email
+delete p1 FROM Person p1 inner join Person p2 on p1.Email = p2.Email and p1.id > p2.id
+delete p1 FROM Person p1 join Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+delete p1 FROM Person p1, Person p2 WHERE p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 From Person p1, Person p2 Where p1.Email=p2.Email AND p1.Id>p2.Id
+delete p1 from Person as p1 inner join Person as p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person as p1 join Person as p2 on p1.Email=p2.Email and p1.Id>p2.Id
+delete p1 from Person as p1 left join Person as p2 on p1.Email = p2.Email where p1.Id > p2.Id
+delete p1 from Person as p1, Person as p2 where p1.Email = p2.Email And p1.Id > p2.Id
+delete p1 from Person as p1, Person as p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person as p1, Person as p2 where p1.Email = p2.Email and p1.id > p2.id
+delete p1 from Person p1 , Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person p1 inner join (select min(id) id,Email from Person group by Email having count(*)>1) p2 where p1.Id>p2.id and p1.Email=p2.Email
+delete p1 from Person p1 inner join Person p2 on p1.Email = P2.Email and p1.Id > p2.Id
+delete p1 from Person p1 inner join Person p2 on p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person p1 inner join Person p2 on p1.Email = p2.Email and p2.Id < p1.Id
+delete p1 from Person p1 inner join Person p2 on p1.Email = p2.Email where p1.Id > p2.Id
+delete p1 from Person p1 inner join Person p2 on p1.email=p2.email and p1.id>p2.id
+delete p1 from Person p1 inner join Person p2 using (Email) where p1.id > p2.id
+delete p1 from Person p1 inner join Person p2 where p1.Id > p2.Id and p1.Email=p2.Email
+delete p1 from Person p1 join Person p2 on p1.Email = p2.Email And p1.Id > p2.Id
+delete p1 from Person p1 join Person p2 on p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person p1 join Person p2 on p1.Email=p2.Email where p1.id > p2.id
+delete p1 from Person p1 join Person p2 where p1.Email=p2.Email and p1.Id>p2.Id
+delete p1 from Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email AND p1.Id > p2.Id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.ID > p2.ID
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id >p2.Id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id> p2.Id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id>p2.Id
+delete p1 from Person p1, Person p2 where p1.Email = p2.Email and p1.id > p2.id
+delete p1 from Person p1, Person p2 where p1.Email = p2.email and p1.Id > p2.Id
+delete p1 from Person p1, Person p2 where p1.Email =p2.Email and p1.id>p2.id
+delete p1 from Person p1, Person p2 where p1.Email=p2.Email and p1.Id >p2.Id
+delete p1 from Person p1, Person p2 where p1.Email=p2.Email and p1.Id>p2.Id
+delete p1 from Person p1, Person p2 where p1.email = p2.email and p1.id > p2.id
+delete p1 from Person p1, Person p2 where p1.email=p2.email and p1.Id>p2.Id
+delete p1 from Person p1, Person p2 where p1.email=p2.email and p1.id > p2.id
+delete p1 from Person p1, person p2 where p1.id > p2.id and p1.Email = p2.email
+delete p1 from Person p1,Person p2 where p1.Email = p2.Email AND p1.id > p2.id
+delete p1 from Person p1,Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from Person p1,Person p2 where p1.Email=p2.Email and p1.Id>p2.Id
+delete p1 from person as p1 , person as p2 where p1.email = p2.email and p1.id > p2.id
+delete p1 from person as p1, person as p2 where p1.email = p2.email AND p1.id > p2.id
+delete p1 from person as p1, person as p2 where p1.email = p2.email and p1.Id > p2.Id
+delete p1 from person as p1, person as p2 where p1.email = p2.email and p1.id > p2.id
+delete p1 from person as p1, person as p2 where p1.email=p2.email and p1.id > p2.id
+delete p1 from person as p1, person as p2 where p1.email=p2.email and p1.id>p2.id
+delete p1 from person p1 ,person p2 where p1.email = p2.email and p1.id > p2.id
+delete p1 from person p1 INNER JOIN person p2 ON p1.email = p2.email and p1.id > p2.id
+delete p1 from person p1 cross join person p2 where p1.id > p2.id and p1.email = p2.email
+delete p1 from person p1 inner join person p2 on p1.Email=p2.Email and p1.id>p2.id
+delete p1 from person p1 inner join person p2 on p1.email = p2.email where p1.id > p2.id
+delete p1 from person p1 inner join person p2 on p1.email= p2.email and p1.id> p2.id
+delete p1 from person p1 inner join person p2 on p1.email=p2.email and p1.Id>p2.Id
+delete p1 from person p1 inner join person p2 on p1.email=p2.email and p1.id>p2.id
+delete p1 from person p1 inner join person p2 on p1.id > p2.id and p1.email = p2.email
+delete p1 from person p1 join (select id, email, dense_rank() over (partition by email order by id asc) as row_rank from person) p2 on p2.id = p1.id and p2.email = p1.email and p2.row_rank > 1
+delete p1 from person p1 join person p2 on p1.email = p2.email and p1.id > p2.id
+delete p1 from person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1 from person p1, person p2 where p1. Email = p2.Email and p1.ID > p2.ID
+delete p1 from person p1, person p2 where p1.Email = p2.Email AND p1.Id > p2.Id
+delete p1 from person p1, person p2 where p1.email = p2.email &amp;&amp; p1.id > p2.id
+delete p1 from person p1, person p2 where p1.email = p2.email and p1.id > p2.id
+delete p1 from person p1, person p2 where p1.email = p2.email and p1.id>p2.id
+delete p1 from person p1, person p2 where p1.email=p2.email and p1.Id>p2.Id
+delete p1 from person p1, person p2 where p1.email=p2.email and p1.id>p2.id
+delete p1 from person p1, person p2 where p1.email=p2.email and p2.id<p1.id
+delete p1 from person p1, person p2 where p1.id > p2.id and p1.email = p2.email
+delete p1 from person p1,person p2 where p1.Email=p2.Email and p1.id>p2.id
+delete p1 from person p1,person p2 where p1.email = p2.email and p1.id>p2.id
+delete p1 from person p1,person p2 where p1.email=p2.email and p1.Id>p2.Id
+delete p1 from person p1,person p2 where p1.email=p2.email and p1.id>p2.id
+delete p1.* FROM Person p1, Person p2 WHERE p1.Email = p2.Email AND p1.Id > p2.Id
+delete p1.* FROM person p1, person p2 WHERE p1.email=p2.email AND p1.Id > p2.Id
+delete p1.* FROM person p1, person p2 where p1.email = p2.email and p1.id > p2.id
+delete p1.* from Person as p1 where p1.Id not in (select Id from (select min(p2.Id) as Id from Person as p2 group by p2.Email ) x)
+delete p1.* from Person as p1, Person as p2 where p1.Email=p2.Email and p1.Id>p2.Id
+delete p1.* from Person p1, Person p2 where p1.Email = p2.Email AND p1.Id > p2.Id
+delete p1.* from Person p1, Person p2 where p1.Email = p2.Email and p1.Id > p2.Id
+delete p1.* from Person p1, Person p2 where p1.Email = p2.Email and p1.Id >p2.Id
+delete p1.* from person p1 cross join person p2 on p1.email = p2.email where p1.id > p2.id
+delete p1.* from person p1 inner join person p2 on p1.email = p2.email and p1.id > p2.id
+delete p1.* from person p1, person p2 where p1.email = p2.email and p1.Id > p2.Id
+delete p1.* from person p1, person p2 where p1.email = p2.email and p1.id > p2.id
+delete p1.* from person p1, person p2 where p1.email=p2.email and p1.id>p2.id
+delete p2 from Person as p1, Person as p2 where p1.email = p2.email and p1.id < p2.id
+delete p2 from Person p1 JOIN Person p2 on p1.Email=p2.Email and p1.ID<p2.ID
+delete p2 from Person p1 inner join Person p2 where p1.Id < p2.Id and p1.Email = p2.Email
+delete p2 from Person p1 join Person p2 on p1.Email = p2.Email and p2.id > p1.id
+delete p2 from Person p1, Person p2 where p1.Email = p2.Email and p1.Id < p2.Id
+delete p2 from Person p1, Person p2 where p1.Email = p2.Email and p2.Id > p1.Id
+delete p2 from Person p1, Person p2 where p1.Email = p2.Email and p2.id > p1.id
+delete p2 from Person p1, Person p2 where p1.Email=p2.Email and p1.Id <p2.Id
+delete p2 from Person p2, person p1 where p1.Email = p2.Email and P2.Id > p1.id
+delete p2 from person as p1 join person as p2 on p1.email = p2.email where p1.id < p2.id
+delete p2 from person as p1, person as p2 where p1.email = p2.email and p2.id>p1.id
+delete p2 from person p1 inner join person p2 on p1.email = p2.email and p1.id < p2.id
+delete p2 from person p1 join person p2 on p1.email = p2.email and p1.id < p2.id
+delete p2 from person p1 join person p2 on p2.Email = p1.Email and p1.Id < p2.Id
+delete p2 from person p1, person p2 where p1.email = p2.email and p1.id < p2.id
+delete person1 from person as person1, person as person2 where person1.email = person2.email and person1.id > person2.id
+delete pr from Person as pr left join (select min(id) id, email from Person group by email) as p on pr.id =p.id where p.id is null
+delete q from Person as p, Person as q where p.Email = q.Email AND p.Id < q.Id
+delete t1 from Person t1 inner join Person t2 on t1.Email = t2.Email and t1.Id > t2.Id
+delete tb1 from Person as tb1, Person as tb2 where tb1.Email = tb2.Email and tb1.Id > tb2.Id
+with CTE as ( select email, min(id) as minid from person where email in( select email from ( select count(*) as qty ,email from person group by email having count(*)>1 )x ) group by email) delete from person a where exists ( select * from CTE b where a.email =b.email ) and not exists(select * from CTE c where a.email=c.email and a.id=c.minid )
+with a as ( select id, rank() over (partition by email order by id) as rnk from person ) delete from person p1 where p1.id in (select a.id from a where rnk > 1)
+with cte (Id,Email,rm) as ( select Id,Email,Row_Number() over (Partition by Email order by Id) as rm from Person) delete from person where Id in (select Id from cte where rm>1)
+with cte as ( select Id, Email, rank() over (partition by Email order by Id) as rnk from Person ) delete from Person where Id in ( select Id from cte where rnk > 1 )
+with cte as ( select id, RANK () over (partition by Email order by Id asc) as r from Person ) delete from Person where Id in (select id from cte where r >1 )
+with cte as ( select id, email, row_number() over(partition by email order by id) as rnk from person ) delete from person where id in (select id from cte where rnk >= 2)
+with cte as ( select id, row_number() over(partition by email order by id) as rn from Person order by id ) delete person from person join cte on cte.id = person.id where cte.rn > 1
+with cte as ( select min(id) as id from person group by email ) delete from person where id not in (select * from cte)
+with cte as (select * , row_number()over(partition by email order by id asc ) as id_rank from person ) delete from person where id not in ( select id from cte where id_rank = 1)
+with cte as( select id, email, row_number() over(partition by email order by id) as rn from person) delete from person where id in (select id from cte where rn > 1)
+with cte as( select min(id) from person group by email) delete from person where id not in (select * from cte)
+with cte_1 as (select min(Id) as m, Email as e from Person group by Email) delete from Person where Id not in (select m from cte_1)
+with data as (select *,row_number() over(partition by email order by id) as `num` from person) delete from person where id in (select id from data where num>1)
+with dt as ( select p.Id as Id from Person p join Person q on (p.Email = q.Email) where p.Id > q.Id ) delete from Person where Id in (select dt.Id from dt)
+with dups as(SELECT ID, EMAIL, row_number() over (partition by email order by id asc) row_num FROM PERSON) DELETE FROM Person USING Person JOIN dups on dups.id=Person.id WHERE row_num<>1
+with email_with_rank_table as ( select Id, rank() over (partition by Email order by Id) as r from Person ), top_rank_id_table as ( select Id from email_with_rank_table where r=1 ) delete from Person where Id not in (select id from top_rank_id_table)
+with id_comp as ( select distinct Email, min(id) as id from Person group by Email) delete from Person where id not in (select id from id_comp)
+with min_id as ( select min(id) as id from Person group by email ) delete from Person where id not in (select id from min_id)
+with rnk as ( select id,email,rank() over(partition by email order by id ) as rnk from person) delete from person where id in (select id from rnk where rnk != 1)
+with summary as ( select id, row_number() over (partition by email order by id ASC) as rk from person ) DELETE from person where id in (SELECT id from summary where summary.rk <> 1)
+with t as ( select * , rank() over (partition by email order by id) as rnk from person) delete from person where id in (select id from t where rnk>1)
+with t as( select id ,email ,rank()over (partition by email order by id) as rnk from person) DELETE FROM person where id in(select id from t where rnk>1)
+with t as( select id, email, rank() over(partition by email order by id) as rnk from person) delete from person where id in (select id from t where rnk > 1)
+with temp as ( select min(Id) as Id from person group by email) delete from person where id not in(select id from temp)
+with temp as (SELECT min(Id) as ID FROM person GROUP BY email) DELETE FROM person WHERE Id NOT IN (select ID FROM temp)
+with temp as (select id, email, row_number() over(partition by email order by id) as _row_number from Person) delete from Person where id in (select id from temp where _row_number > 1)
+with temp as (select min(Id) as Id from Person group by Email) delete from Person where Id not in (select Id from temp)
+with temp as( select min(Id)as id, email from person group by email ) delete person from person inner join temp on temp.email=person.email and temp.id !=person.id
+with toDeleteIds as ( select p1.id from person p1 join person p2 on p1.email = p2.email and p1.id > p2.id ) delete from person where id in (select id from toDeleteIds)
+with unik as ( SELECT MIN(Id) as id FROM Person GROUP BY Email ) DELETE FROM Person WHERE Id NOT IN (select id from unik)
+with unik as ( SELECT MIN(Id) as id FROM Person GROUP BY Email ) DELETE FROM Person p WHERE p.Id NOT IN (select id from unik)
+with unique_cte(Id) as ( select min(Id) from Person group by Email ) delete from Person where Id not in ( select * from unique_cte )

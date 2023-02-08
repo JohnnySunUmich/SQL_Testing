@@ -1,0 +1,299 @@
+SELECT A.id, A.name FROM (SELECT S.id, S.name, D.id as dep_id FROM students AS S LEFT JOIN Departments As D ON S.department_id=D.id) AS A WHERE A.dep_id IS NULL
+SELECT A.id, A.name FROM Students A LEFT JOIN Departments B ON A.department_id = B.id WHERE B.id IS NULL
+SELECT S.ID , S.NAME FROM STUDENTS S LEFT JOIN DEPARTMENTS D ON S.DEPARTMENT_ID = D.ID WHERE D.ID IS NULL
+SELECT S.ID, S.NAME FROM Students S WHERE S.department_id NOT IN (SELECT Departments.id FROM Departments)
+SELECT S.id , S.name FROM Students S LEFT JOIN Departments D on S.department_id = D.id Where D.id IS NULL
+SELECT S.id AS ID,S.name as name FROM Students S LEFT OUTER join Departments D ON S.department_id = D.id WHERE D.id IS NULL
+SELECT S.id AS ID,S.name as name FROM Students S LEFT join Departments D ON S.department_id = D.id WHERE D.id IS NULL
+SELECT S.id, S.name FROM Departments AS D RIGHT JOIN Students AS S ON D.id = S.department_id WHERE D.id IS NULL
+SELECT S.id, S.name FROM Departments d RIGHT JOIN Students S ON d.id=S.department_id WHERE d.id IS NULL
+SELECT S.id, S.name FROM Students AS S LEFT JOIN Departments AS D ON S.department_id = D.id WHERE D.id IS NULL
+SELECT S.id, S.name FROM Students S LEFT JOIN Departments D ON S.department_id = D.id WHERE ISNULL(D.id)
+SELECT S.id,S.name FROM STUDENTS AS S LEFT JOIN DEPARTMENTS as D on S.department_id=D.id WHERE d.id is NULL
+SELECT Students.id, Students.name FROM Students LEFT JOIN Departments ON Departments.id = Students.department_id WHERE Departments.name IS NULL
+SELECT Students.id, Students.name FROM Students LEFT JOIN Departments ON Students.department_id = Departments.id WHERE Departments.id IS NULL
+SELECT Students.id, Students.name FROM Students LEFT JOIN Departments ON Students.department_id = Departments.id WHERE Departments.name IS NULL
+SELECT Students.id, Students.name FROM Students LEFT JOIN Departments ON Students.department_id = Departments.id WHERE ISNULL(Departments.name)
+SELECT Students.id, Students.name FROM Students LEFT JOIN Departments ON Students.department_id=Departments.id WHERE Departments.name IS NULL
+SELECT Students.id, Students.name FROM Students WHERE Students.department_id NOT IN (SELECT Departments.id FROM Departments)
+SELECT Students.id,Students.name FROM Departments RIGHT JOIN Students ON Departments.id = Students.department_id WHERE Departments.id iS NULL
+SELECT Students.id,Students.name FROM Students LEFT JOIN Departments ON Students.department_id = Departments.id WHERE Departments.id is NULL
+SELECT Students.id,Students.name FROM Students LEFT OUTER JOIN Departments ON Students.department_id=Departments.id WHERE Departments.name IS NULL
+SELECT a.id AS id, a.name AS name FROM Students a LEFT JOIN Departments b ON a.department_id = b.id WHERE b.name IS NULL
+SELECT a.id, a.Name FROM Students AS a LEFT JOIN Departments as b on a.department_id = b.id WHERE b.id IS NULL
+SELECT a.id, a.Name FROM Students AS a WHERE a. department_id NOT IN (SELECT DISTINCT id AS department_id from Departments)
+SELECT a.id, a.name FROM students a LEFT JOIN departments b ON a.department_id = b.id WHERE b.name IS NULL
+SELECT a.id, a.name from students a left join departments b on a.department_id = b.id where b.id IS NULL
+SELECT a.id,a.name FROM students a LEFT JOIN departments b ON a.department_id=b.id WHERE b.id is null
+SELECT a.id,a.name from Students as a left join Departments as b on a.department_id = b.id where b.id is Null
+SELECT b.id, b.name FROM Students b LEFT JOIN Departments a ON b.department_id = a.id WHERE a.id IS NULL
+SELECT id , name FROM Students WHERE department_id NOT IN (SELECT id FROM Departments)
+SELECT id, name FROM ( SELECT s.id, s.name AS name, d.name AS department FROM Students s LEFT JOIN Departments d ON s.department_id = d.id ) tmp WHERE department IS NULL
+SELECT id, name FROM ( SELECT s.id, s.name, d.name as dpt_name FROM Students AS s LEFT JOIN Departments AS d ON s.department_id = d.id) sub WHERE sub.dpt_name IS NULL
+SELECT id, name FROM STUDENTS WHERE department_id NOT IN (select id FROM Departments)
+SELECT id, name FROM Students AS A WHERE NOT EXISTS(SELECT 1 FROM Departments AS B WHERE B.id = A.department_id)
+SELECT id, name FROM Students S WHERE department_id NOT IN(SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE Students.department_id NOT IN (SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE Students.department_id NOT IN (SELECT id from Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN ( SELECT id FROM Departments )
+SELECT id, name FROM Students WHERE department_id NOT IN ( SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN ( Select id FROM Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN (SELECT DISTINCT id FROM Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN (SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN (SELECT id FROM Departments) ORDER BY id
+SELECT id, name FROM Students WHERE department_id NOT IN (SELECT id from Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN (select id from Departments)
+SELECT id, name FROM Students WHERE department_id NOT IN(SELECT id from Departments)
+SELECT id, name FROM Students WHERE department_id NOT in (SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE department_id not in ( SELECT id FROM Departments )
+SELECT id, name FROM Students WHERE department_id not in ( SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE department_id not in (SELECT id FROM Departments)
+SELECT id, name FROM Students WHERE department_id not in (SELECT id from Departments)
+SELECT id, name FROM Students s WHERE NOT EXISTS ( SELECT id FROM Departments WHERE id = s.department_id )
+SELECT id, name FROM Students s WHERE s.department_id NOT IN (SELECT id FROM Departments d)
+SELECT id, name FROM Students s WHERE s.department_id not in (SELECT id FROM Departments)
+SELECT id, name FROM students WHERE department_id NOT IN ( SELECT id FROM Departments)
+SELECT id, name FROM students WHERE department_id NOT IN (SELECT id FROM Departments)
+SELECT id, name FROM students WHERE department_id NOT IN (SELECT id FROM departments)
+SELECT id, name from Students where department_id not in (SELECT id from Departments)
+SELECT id,name FROM Students WHERE department_id NOT IN ( SELECT id FROM Departments)
+SELECT id,name FROM Students WHERE department_id NOT IN (SELECT id FROM Departments)
+SELECT id,name FROM Students WHERE department_id not in ( SELECT distinct id from departments )
+SELECT id,name FROM Students WHERE department_id not in (select id from Departments)
+SELECT id,name FROM Students WHERE id not in (SELECT s.id FROM Students s JOIN Departments d on d.id=s.department_id )
+SELECT id,name FROM students WHERE department_id NOT IN ( SELECT id FROM Departments )
+SELECT id,name from students where department_id NOT IN (Select id from departments)
+SELECT s.id , s.name FROM Students s LEFT JOIN Departments d on d.id = s.department_id WHERE d.id IS NULL
+SELECT s.id , s.name FROM Students s WHERE s.department_id not in (SELECT id from Departments)
+SELECT s.id ,s.name FROM Students s LEFT JOIN Departments d ON s.department_id =d.id WHERE d.id IS NULL
+SELECT s.id AS id , s.name AS name FROM Students AS s LEFT JOIN Departments AS d ON s.department_id = d.id WHERE s.department_id NOT IN ( SELECT d.id FROM Departments AS d)
+SELECT s.id AS id, s.name AS name FROM Departments d RIGHT OUTER JOIN Students s ON s.department_id = d.id WHERE d.id IS NULL
+SELECT s.id AS id, s.name AS name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.name IS NULL
+SELECT s.id id, s.name name FROM students s WHERE department_id NOT IN (SELECT DISTINCT id FROM departments)
+SELECT s.id, s.name FROM Departments AS d RIGHT JOIN Students AS s ON d.id = s.department_id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Departments d RIGHT JOIN Students s ON d.id = s.department_id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students AS s LEFT JOIN Departments AS d ON s.department_id = d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students AS s LEFT JOIN Departments AS d ON s.department_id = d.id WHERE d.id IS Null
+SELECT s.id, s.name FROM Students AS s LEFT JOIN Departments AS d ON s.department_id = d.id WHERE d.name IS NULL
+SELECT s.id, s.name FROM Students AS s LEFT JOIN Departments as d ON s.department_id = d.id WHERE d.id is Null
+SELECT s.id, s.name FROM Students as s LEFT JOIN Departments as d ON s.department_id = d.id WHERE d.name IS NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON d.id = s.department_id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON d.id = s.department_id WHERE d.id is NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.id IS Null
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.id IS null
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.name IS NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.name IS NULL ORDER BY s.department_id ASC
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id = d.id WHERE d.name is NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d ON s.department_id=d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students s LEFT JOIN Departments d on s.department_id= d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students s WHERE NOT EXISTS ( SELECT d.id FROM Departments d WHERE s.department_id = d.id )
+SELECT s.id, s.name FROM Students s WHERE NOT EXISTS (SELECT * FROM Departments WHERE id = s.department_id)
+SELECT s.id, s.name FROM Students s WHERE NOT s.department_id IN (SELECT d.id FROM Departments d)
+SELECT s.id, s.name FROM Students s WHERE s.department_id NOT IN ( SELECT id FROM Departments )
+SELECT s.id, s.name FROM Students s WHERE s.department_id NOT IN (SELECT DISTINCT id FROM Departments)
+SELECT s.id, s.name FROM Students s WHERE s.department_id NOT IN (SELECT d.id FROM Departments d)
+SELECT s.id, s.name FROM Students s WHERE s.department_id NOT IN (SELECT id FROM Departments)
+SELECT s.id, s.name FROM Students s lEFT JOIN Departments d on s.department_id = d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM Students s left JOIN departments d ON d.id = s.department_id WHERE d.id IS NULL
+SELECT s.id, s.name FROM students AS s LEFT JOIN departments AS d ON s.department_id = d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM students as s WHERE s.department_id NOT IN( select id FROM departments )
+SELECT s.id, s.name FROM students s LEFT JOIN departments d ON s.department_id = d.id WHERE d.id IS NULL
+SELECT s.id, s.name FROM students s LEFT JOIN departments d ON s.department_id = d.id WHERE d.name IS NULL
+SELECT s.id, s.name FROM students s LEFT OUTER JOIN departments d on d.id = s.department_id where d.id is null
+SELECT s.id, s.name FROM students s WHERE s.department_id NOT IN (select id from departments)
+SELECT s.id, s.name FROM students s left join departments d on d.id=s.department_id where d.id is null
+SELECT s.id, s.name from students s left join departments d on s.department_id = d.id where d.name is null
+SELECT s.id,s.name FROM Students as s LEFT JOIN Departments as d ON d.id=s.department_id WHERE d.name IS NULL
+SELECT s.name, s.id FROM Students as s LEFT JOIN Departments as d ON d.id= s.department_id WHERE d.id IS NULL
+SELECT stuID AS id, stuName as name FROM (SELECT D.id as ddepID, D.name as depName, S.id as stuID, S.name as stuName, S.department_id as sdepID FROM Departments AS D RIGHT JOIN Students AS S ON S.department_id= D.id) as new WHERE ddepID IS NULL
+SELECT students.id, students.name FROM students LEFT JOIN departments ON students.department_id = departments.id WHERE departments.name IS NULL
+SELECT studs.id, studs.name FROM Students studs LEFT JOIN Departments deps ON studs.department_id = deps.id WHERE deps.id IS NULL
+SELECT t1.id, t1.name FROM Students as t1 LEFT JOIN Departments as t2 ON t1.department_id = t2.id WHERE t2.id IS NULL
+Select S.id, S.name from Students S where department_id not in( select id from departments )
+Select a.id as id, a.name as name from Students as a LEFT JOIN Departments as b ON a.department_id = b.id where b.id IS NULL
+Select b.id, b.name From Students b Where department_id not in (select id from Departments)
+Select id, name FROM students WHERE department_id not in (SELECT s.department_id FROM students s inner join departments d on s.department_id = d.id )
+Select id, name from Students where Students.department_id not in (select id from Departments)
+Select id, name from Students where department_id not in ( select id from Departments)
+Select id, name from Students where department_id not in (Select id from Departments)
+Select id,name from Students where department_id not in (select id from departments)
+Select s.id, s.name from students s left join departments d on s.department_id=d.id where d.id is null
+Select s.id,s.name FROM Students as s Where department_id NOT IN (Select id From Departments)
+Select t1.id,t1.name From Students As t1 Left join Departments as t2 on t1.department_id=t2.id where t2.id is Null
+WITH temp AS ( SELECT S.id, S.name, D.id AS department_id FROM Students S LEFT OUTER JOIN Departments D ON S.department_id = D.id ) SELECT id, name FROM temp WHERE department_id is null
+select A.id,A.name from Students as A where A.department_id not in (select id from departments)
+select S.id, S.name from Students S LEFT JOIN Departments D on S.department_id = D.id where D.id is null order by 1,2
+select S.id, S.name from Students S LEFT JOIN Departments D on S.department_id = D.id where D.name is null order by 1,2
+select S.id, S.name from Students S left join Departments D on D.id = S.department_id where D.name is null
+select S.id, S.name from Students S left join Departments D on S.department_id = D.id where D.Id is null
+select S.id, S.name from Students S left join Departments D on S.department_id = D.id where D.name is Null
+select S.id,S.name from Students S left join Departments D on S.department_id = D.id where D.id is null
+select Students.id, Students.name from Departments right outer join Students on Students.department_id = Departments.id where Departments.name is null
+select Students.id, Students.name from Students left join Departments on Students.department_id = Departments.id where Departments.id is NULL
+select Students.id, Students.name from Students left join Departments on Students.department_id = Departments.id where Departments.id is null
+select Students.id, Students.name from Students left join Departments on Students.department_id = Departments.id where Departments.name is NULL
+select Students.id, Students.name from Students left join Departments on Students.department_id = Departments.id where Departments.name is null
+select Students.id, Students.name from Students left outer join Departments on Students.department_id = Departments.id where Departments.name is null
+select Students.id, Students.name from Students where Students.department_id not in (select id from Departments)
+select Students.id,Students.name from Students left join Departments on Students.department_id = Departments.id where Departments.id is null
+select Students.id,Students.name from Students left join Departments on Students.department_id = Departments.id where Departments.name is null
+select Students.id,Students.name from Students where department_id not in (select id from Departments)
+select a.id, a.name from Students a left join Departments b on a.department_id = b.id where b.id is null
+select a.id, a.name from Students a left join Departments b on a.department_id = b.id where b.name is null
+select a.id, a.name from Students a left join Departments b on a.department_id=b.id where b.id is null
+select a.id, a.name from Students a where a.department_id not in (select id from Departments)
+select a.id, a.name from students a left join departments b on a.department_id = b.id where b.id is null
+select a.id, a.name from students a left join departments b on a.department_id=b.id where b.id is null
+select a.id, a.name from students a left join departments b on a.department_id=b.id where isnull(b.id)=1
+select a.id, a.name from students a where a.department_id not in (select distinct id from departments)
+select a.id, a.name from students a where a.department_id not in (select id from departments)
+select a.id,a.name FROM students a WHERE department_id NOT IN (SELECT DISTINCT id FROM departments)
+select a.id,a.name from Students as a left join Departments as b on a.department_id = b.id where b.name is null
+select a.name, a.id from Students a left join Departments b on a.department_id=b.id where b.name is NULL
+select b.id as id, b.name as name from students b left join departments a on a.id=b.department_id where a.id is null
+select b.id, b.name from Departments a right join Students b on a.id = b.department_id where a.id is null
+select b.id,b.name from Departments a right join Students b on a.id = b.department_id where a.id is null
+select distinct S.id, S.name from Students S LEFT JOIN Departments D ON D.id=S.department_id where D.id IS NULL
+select distinct a.id, a.name from students a left join departments b on a.department_id = b.id where b.name is null
+select distinct id, name from (select s.*, d.name as dep_name from students s left join departments d on s.department_id = d.id ) temp where dep_name is null
+select distinct id, name from Students where department_id not in ( select id from Departments )
+select distinct id, name from Students where department_id not in (select id from Departments)
+select distinct s.id, s.name from Students s left join Departments d on s.department_id = d.id where s.department_id not in (select id from Departments)
+select distinct s.id, s.name from Students s where s.department_id not in (select id from Departments)
+select distinct s.id, s.name from students s left join departments d on d.id=s.department_id where d.id is null
+select distinct s.id, s.name from students s left join departments d on s.department_id = d.id where d.id is null
+select distinct s.id,s.name from students s where s.department_id not in (select id from departments)
+select id , name from Students where department_id not in (select id from Departments)
+select id , name from students s where department_id not in (select id from departments)
+select id , name from students where department_id NOT IN (select id from Departments)
+select id , name from students where department_id not in (select id from departments)
+select id ,name from Students where department_id not in (select id from Departments)
+select id ,name from students where department_id not in (select id from departments)
+select id, name from ( select s.id, s.name, d.id did from Students s left join Departments d on s.department_id = d.id ) q where did is null
+select id, name from Students WHERE department_id not in (select distinct id from Departments)
+select id, name from Students where (department_id) not in (select id from Departments)
+select id, name from Students where Students.department_id not in ( select Departments.id from Students join Departments on Students.department_id = Departments.id)
+select id, name from Students where department_id <> all (select id from Departments)
+select id, name from Students where department_id NOT IN (select distinct id from Departments)
+select id, name from Students where department_id NOT IN (select id from Departments)
+select id, name from Students where department_id NOT IN (select id from departments)
+select id, name from Students where department_id not in ( select id from Departments )
+select id, name from Students where department_id not in ( select id from Departments)
+select id, name from Students where department_id not in (Select id from Departments group by 1)
+select id, name from Students where department_id not in (select Id from Departments)
+select id, name from Students where department_id not in (select distinct id from Departments)
+select id, name from Students where department_id not in (select id from Departments )
+select id, name from Students where department_id not in (select id from Departments)
+select id, name from Students where department_id not in (select id from departments)
+select id, name from Students where not exists (select id from Departments where Departments.id = Students.department_id)
+select id, name from Students where students.department_id not in (select id from Departments)
+select id, name from students as s where s.department_id not in (select id from departments)
+select id, name from students s where department_id not in (select distinct id from departments)
+select id, name from students s where s.department_id not in (select id from departments)
+select id, name from students where department_id NOT IN (select id from departments)
+select id, name from students where department_id not in ( select id from Departments)
+select id, name from students where department_id not in (select distinct id from Departments )
+select id, name from students where department_id not in (select distinct id from departments)
+select id, name from students where department_id not in (select id from Departments )
+select id, name from students where department_id not in (select id from departments )
+select id, name from students where department_id not in (select id from departments)
+select id, name from students where department_id not in (select id from departments) order by 1,2
+select id, name from students where department_id not in( select id from departments )
+select id, name from students where department_id not in(select d.id from departments d)
+select id,name from (select a.id, a.name,a.department_id,b.name as depart_name from Students a left join Departments b on a.department_id=b.id) c where depart_name is null
+select id,name from Students where department_id NOT IN (select id from Departments)
+select id,name from Students where department_id NOT IN (select id from departments)
+select id,name from Students where department_id in ( Select distinct department_id from students where department_id not in ( select id from Departments ) )
+select id,name from Students where department_id not in ( select id from Departments )
+select id,name from Students where department_id not in (Select id from Departments)
+select id,name from Students where department_id not in (select id from Departments)
+select id,name from Students where id not in ( select s.id from Students s join Departments d on s.department_id = d.id )
+select id,name from students where department_id not in ( select id from departments )
+select id,name from students where department_id not in (select distinct id from departments)
+select id,name from students where department_id not in (select id from Departments)
+select id,name from students where department_id not in (select id from departments)
+select id,name from students where department_id not in(select id from departments)
+select p.id , p.name from Students p where p.department_id not in (select r.id from Departments r)
+select r.id, r.name from (select s.id,s.name,d.id as dept from students s left join departments d on s.department_id = d.id) r where dept is null
+select s.id , s.name from students s left join Departments d on s.department_id = d.id where d.id is null
+select s.id ,s.name from Students s left join Departments d on s.department_id=d.id where d.name is null
+select s.id as id , s.name as name from students as s left join departments as d on s.department_id=d.id where d.id is null
+select s.id as id, s.name as name from Students s left join Departments d on s.department_id = d.id where d.id is null
+select s.id as id, s.name as name from Students s left join Departments d on s.department_id = d.id where d.name is null
+select s.id as id, s.name as name from departments d right outer join students s on s.department_id = d.id where d.id is NULL
+select s.id id, s.name name from Students s left join Departments d on s.department_id = d.id where d.id is null
+select s.id, s.name FROM Students s WHERE s.department_id NOT IN (Select id from Departments)
+select s.id, s.name from Departments RIGHT JOIN Students s ON departments.id = s.department_id where departments.id IS NULL
+select s.id, s.name from Departments as d right join Students as s on d.id = s.department_id where d.id is null
+select s.id, s.name from Departments as d right join Students as s on d.id = s.department_id where d.name is NULL
+select s.id, s.name from Departments d right join Students s on d.id = s.department_id where d.id is null
+select s.id, s.name from Departments d right join Students s on d.id=s.department_id where d.id is null
+select s.id, s.name from Students as s left join Departments as d on d.id=s.department_id where d.id is NULL
+select s.id, s.name from Students as s left join Departments as d on s.department_id = d.id where d.id is null
+select s.id, s.name from Students as s where s.department_id not in (select id from Departments)
+select s.id, s.name from Students as s where s.department_id not in (select id from departments)
+select s.id, s.name from Students s left join Departments d on d.id = s.department_id where d.id IS NULL
+select s.id, s.name from Students s left join Departments d on d.id = s.department_id where d.id is null
+select s.id, s.name from Students s left join Departments d on s.department_id = d.id where d.id is NULL
+select s.id, s.name from Students s left join Departments d on s.department_id = d.id where d.id is null
+select s.id, s.name from Students s left join Departments d on s.department_id = d.id where d.name is null
+select s.id, s.name from Students s left join Departments d on s.department_id = d.id where s.department_id = d.id is null
+select s.id, s.name from Students s left outer join Departments d on s.department_id = d.id where d.id is null
+select s.id, s.name from Students s where department_id not in (select id from Departments)
+select s.id, s.name from Students s where s.department_id NOT IN ( select d.id from Departments D)
+select s.id, s.name from Students s where s.department_id not in (select d.id from Departments d join students s on d. id= s. department_id )
+select s.id, s.name from Students s where s.department_id not in (select distinct d.id from Departments d)
+select s.id, s.name from Students s where s.department_id not in (select id from Departments d)
+select s.id, s.name from Students s where s.department_id not in (select id from Departments)
+select s.id, s.name from Students s where s.department_id not in(select id from Departments)
+select s.id, s.name from students as s LEFT join departments as d on s.department_id = d.id where d.id is null
+select s.id, s.name from students as s left join departments as d on s.department_id=d.id where d.name is null
+select s.id, s.name from students s left join Departments d on s.department_id = d.id where d.id is NULL
+select s.id, s.name from students s left join Departments d on s.department_id=d.id where d.id is null
+select s.id, s.name from students s left join departments d ON s.department_id = d.id where d.id is NULL
+select s.id, s.name from students s left join departments d on d.id = s.department_id where d.id is null
+select s.id, s.name from students s left join departments d on d.id = s.department_id where d.name is null
+select s.id, s.name from students s left join departments d on d.id=s.department_id where d.id is null
+select s.id, s.name from students s left join departments d on d.id=s.department_id where d.name is null
+select s.id, s.name from students s left join departments d on s.department_id = d.id where d.id is null
+select s.id, s.name from students s left join departments d on s.department_id = d.id where d.id is null group by 1,2
+select s.id, s.name from students s left join departments d on s.department_id = d.id where d.name is null
+select s.id, s.name from students s left join departments d on s.department_id = d.id where s.department_id not in (select id from departments)
+select s.id, s.name from students s left join departments d on s.department_id= d.id where d.name is null order by s.id
+select s.id, s.name from students s left join departments d on s.department_id=d.id where d.id is NUll
+select s.id, s.name from students s left join departments d on s.department_id=d.id where d.id is null
+select s.id, s.name from students s left join departments d on s.department_id=d.id where d.name is null
+select s.id, s.name from students s left outer join departments d on s.department_id = d.id where d.id is null
+select s.id, s.name from students s where NOT EXISTS (select id from departments d where s.department_id = d.id)
+select s.id, s.name from students s where department_id NOT IN (select id from departments s)
+select s.id, s.name from students s where s.department_id not in (select distinct id from departments)
+select s.id, s.name from students s where s.department_id not in (select id from departments)
+select s.id, s.name from students s where s.department_id not in(select id from departments)
+select s.id,s.name from Students as s where department_id not in (select id from Departments)
+select s.id,s.name from Students s left join Departments d on d.id=s.department_id where d.name is NULL
+select s.id,s.name from Students s left join Departments d on s.department_id = d.id where d.id is null
+select s.id,s.name from Students s left join Departments d on s.department_id = d.id where d.name is null
+select s.id,s.name from Students s left join Departments d on s.department_id =d.id where d.id is null
+select s.id,s.name from Students s left join Departments d on s.department_id=d.id where d.id is Null
+select s.id,s.name from Students s left join Departments d on s.department_id=d.id where d.id is null
+select s.id,s.name from Students s left join departments d on s.department_id = d.id where d.id is null
+select s.id,s.name from Students s where s.department_id not in(select d.id from Departments d)
+select s.id,s.name from students as s left join departments as d on d.id = s.department_id where d.name is null
+select s.id,s.name from students s left join Departments d on s.department_id=d.id where d.id is null
+select s.id,s.name from students s left join departments d on d.id = s.department_id where d.id is null
+select s.id,s.name from students s left join departments d on d.id=s.department_id where d.id is null
+select s.id,s.name from students s left join departments d on s.department_id = d.id where d.id IS NULL
+select s.id,s.name from students s left join departments d on s.department_id = d.id where d.id is null
+select s.id,s.name from students s left join departments d on s.department_id=d.id where d.id is null
+select s.id,s.name from students s where s.department_id not in (select id from departments)
+select s1.id, s1.name from students s1 left join departments d1 on s1.department_id = d1.id where d1.name is null
+select students.ID,Students.name from students LEFT JOIN Departments ON students.department_id=departments.ID where Departments.name is null
+select students.ID,students.name from Students Left Join departments ON students.department_id=departments.id where departments.name is null
+select students.id as id, students.name as name from students left join departments on students.department_id = departments.id where departments.name is null
+select students.id, students.name from students where not exists (select departments.id from departments where departments.id=students.department_id)
+select students.id,students.name from students left join departments on students.department_id = departments.id where students.department_id not in (select id from departments)
+select students.id,students.name from students left outer join departments on students.department_id = departments.id where departments.id is null
+select t.id, t.name from ( select s.id, s.name, d.id as dept_id from Students s left join Departments d on s.department_id = d.id ) t where t.dept_id is null
+select t.id, t.name from Students t where department_id not in (select id from Departments)
+with student_depts as ( select s.id as id, s.name as name, d.id as dept_id from students s left join departments d on s.department_id = d.id ) select id, name from student_depts where dept_id is null
