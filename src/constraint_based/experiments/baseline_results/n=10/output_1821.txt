@@ -1,0 +1,56 @@
+########## all testcases generated ##########
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [1, 1, 1, 1, 1]), ('customer_id', [0, 2, 3, 4, 1])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [2, 2, 2, 2, 2]), ('customer_id', [2, 3, 0, 1, 4])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [3, 3, 3, 3, 3]), ('customer_id', [4, 3, 2, 1, 0])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [4, 4, 4, 4, 4]), ('customer_id', [4, 3, 1, 0, 2])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [5, 5, 5, 5, 5]), ('customer_id', [0, 1, 4, 2, 3])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [6, 6, 6, 6, 6]), ('customer_id', [4, 0, 2, 1, 3])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [7, 7, 7, 7, 7]), ('customer_id', [0, 3, 2, 1, 4])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [8, 8, 8, 8, 8]), ('customer_id', [1, 2, 4, 0, 3])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [9, 9, 9, 9, 9]), ('customer_id', [0, 2, 3, 4, 1])])]
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [10, 10, 10, 10, 10]), ('customer_id', [4, 2, 0, 3, 1])])]
+########## killing mutants ##########
+killed mutant 3
+killed mutant 4
+killed mutant 5
+killed mutant 6
+killed mutant 7
+killed mutant 8
+killed mutant 9
+killed mutant 10
+killed mutant 12
+killed mutant 13
+killed mutant 16
+killed mutant 17
+killed mutant 20
+killed mutant 21
+killed mutant 22
+killed mutant 23
+killed mutant 24
+killed mutant 25
+killed mutant 26
+killed mutant 27
+killed mutant 28
+killed mutant 32
+killed mutant 33
+killed mutant 34
+killed mutant 35
+killed mutant 38
+killed mutant 42
+killed mutant 44
+killed mutant 45
+killed mutant 46
+killed mutant 48
+killed mutant 50
+killed mutant 52
+killed mutant 54
+killed mutant 55
+killed mutant 56
+killed mutant 57
+killed mutants: 37/58
+error mutants: 0/58
+########## testcases left after mutation filtering ##########
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [1, 1, 1, 1, 1]), ('customer_id', [0, 2, 3, 4, 1])])]
+########## testing submitted queries ##########
+successfully kill wrong query 157 using database
+[OrderedDict([('year', [2021, 2021, 2021, 2021, 2021]), ('revenue', [1, 1, 1, 1, 1]), ('customer_id', [0, 2, 3, 4, 1])])]

@@ -1,0 +1,42 @@
+########## all testcases generated ##########
+[OrderedDict([('action_date', ['2019-7-4', '2019-7-4', '2019-7-4', '2019-7-4', '2019-7-4']), ('action', ["report", "report", "report", "report", "report"]), ('user_id', [0, 1, 4, 2, 4]), ('post_id', [4, 1, 1, 1, 4]), ('extra', ['David Buck', 'Roberta Mosley', 'David Bell', 'Megan Wells', 'Amy Stevens'])])]
+########## killing mutants ##########
+killed mutant 1
+killed mutant 2
+killed mutant 4
+killed mutant 5
+killed mutant 6
+killed mutant 7
+killed mutant 8
+killed mutant 9
+killed mutant 17
+killed mutant 18
+killed mutant 21
+killed mutant 22
+killed mutant 24
+killed mutant 25
+killed mutant 26
+killed mutant 30
+fail to run mutant 31
+fail to run mutant 32
+fail to run mutant 33
+killed mutant 36
+killed mutant 39
+killed mutant 40
+killed mutant 41
+killed mutant 42
+killed mutant 46
+fail to run mutant 47
+fail to run mutant 48
+killed mutant 49
+killed mutant 50
+killed mutant 51
+killed mutants: 25/52
+error mutants: 5/52
+########## testcases left after mutation filtering ##########
+[OrderedDict([('action_date', ['2019-7-4', '2019-7-4', '2019-7-4', '2019-7-4', '2019-7-4']), ('action', ["report", "report", "report", "report", "report"]), ('user_id', [0, 1, 4, 2, 4]), ('post_id', [4, 1, 1, 1, 4]), ('extra', ['David Buck', 'Roberta Mosley', 'David Bell', 'Megan Wells', 'Amy Stevens'])])]
+########## testing submitted queries ##########
+fail to kill wrong query 80
+fail to kill wrong query 120
+fail to kill wrong query 199
+fail to kill wrong query 213

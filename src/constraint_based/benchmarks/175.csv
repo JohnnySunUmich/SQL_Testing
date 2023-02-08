@@ -1,0 +1,7 @@
+qid,psql_query
+-1,"select firstname, lastname, city, state from person as p left outer join address as a on p.personid = a.personid"
+0,"select distinct firstname, lastname, city, state from person as p left outer join address as a on p.personid = a.personid;"
+1,"select distinct a.firstname, a.lastname, b.city, b.state from person as a left outer join address as b on a.personid = b.personid;"
+14,"select firstname, lastname, city, state from person left outer join address on person.personid = address.personid where person.personid > 0;"
+155,"select firstname, lastname, city, state from person as p left outer join address as a on p.personid = a.personid group by 1, 2, 3, 4;"
+187,"select firstname, lastname, city, state from person as p left outer join address as a on p.personid = a.personid group by 1, 2, 3, 4;"

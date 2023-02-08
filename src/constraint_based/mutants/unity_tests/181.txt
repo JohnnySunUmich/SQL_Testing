@@ -1,0 +1,4 @@
+select a.name as Employee from Employee as a join Employee as b on (a.managerid = b.id and a.salary > b.salary)
+select a.name as Employee from Employee as a natural join Employee as b
+select a.name as Employee from Employee as a join Employee as b on (a.managerid = b.id and a.salary >= b.salary)
+select a.name as Employee from Employee as a join Employee as b on (a.managerid = b.id or a.salary > b.salary)

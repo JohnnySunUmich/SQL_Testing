@@ -1,0 +1,4 @@
+select firstname, lastname, city, state from person as p left outer join address as a on p.personid = a.personid
+select firstname, lastname, city, state from person as p natural left join address as a
+select firstname, lastname, city, state from person as p right outer join address as a on p.personid = a.personid
+select firstname, lastname, city, state from person as p inner join address as a on p.personid = a.personid

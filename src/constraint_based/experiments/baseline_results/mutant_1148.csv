@@ -1,0 +1,37 @@
+SELECT author_id AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT ABS(author_id) AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT (-ABS(author_id)) AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT ((author_id)+1) AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT ((author_id)-1) AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT (-(author_id)) AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT 1 AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT views.article_id AS id FROM views WHERE author_id = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.author_id IS NULL OR author_id = viewer_id ) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.author_id IS NULL OR NOT author_id = viewer_id ) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.author_id IS NULL) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.author_id IS NOT NULL) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.viewer_id IS NULL OR author_id = viewer_id ) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.viewer_id IS NULL OR NOT author_id = viewer_id ) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.viewer_id IS NULL) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (views.viewer_id IS NOT NULL) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE ABS(author_id) = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (-ABS(author_id)) = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE ((author_id)+1) = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE ((author_id)-1) = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (-(author_id)) = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE 1 = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE views.article_id = viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id <> viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id > viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id < viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id >= viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id <= viewer_id ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (1=1) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE (1=0) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = ABS(viewer_id) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = (-ABS(viewer_id)) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = ((viewer_id)+1) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = ((viewer_id)-1) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = (-(viewer_id)) ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = 1 ORDER BY 1
+SELECT DISTINCT author_id AS id FROM views WHERE author_id = views.article_id ORDER BY 1

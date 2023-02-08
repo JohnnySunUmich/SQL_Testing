@@ -1,0 +1,4 @@
+select seller_id from Sales group by seller_id having sum(price) = (select sum(price) as total_price from Sales group by seller_id order by total_price desc limit 1)
+select seller_id from Sales group by seller_id 
+select seller_id from Sales group by seller_id having sum(distinct price) = (select sum(price) as total_price from Sales group by seller_id order by total_price desc limit 1)
+select distinct seller_id from Sales group by seller_id having sum(price) = (select sum(price) as total_price from Sales group by seller_id order by total_price desc limit 1)

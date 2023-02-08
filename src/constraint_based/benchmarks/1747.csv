@@ -1,0 +1,11 @@
+qid,psql_query
+-1,select distinct i1.account_id from loginfo as i1 join loginfo as i2 on (i1.account_id = i2.account_id and i1.ip_address <> i2.ip_address and i2.login between i1.login and i1.logout)
+65,select l1.account_id from loginfo as l1 join loginfo as l2 on (l1.account_id = l2.account_id and l1.login < l2.login and l1.logout >= l2.login and l1.ip_address <> l2.ip_address) group by l1.account_id having count(distinct l1.ip_address) >= 1;
+134,select distinct a.account_id from loginfo as a join loginfo as b on (a.account_id = b.account_id and a.ip_address <> b.ip_address and a.login > b.login and a.login <= b.logout);
+159,"select distinct a.account_id from loginfo as a, loginfo as b where (a.login < b.login and a.logout >= b.login and a.account_id = b.account_id and a.ip_address <> b.ip_address);"
+205,"select distinct l1.account_id from loginfo as l1, loginfo as l2 where (l1.account_id = l2.account_id and l1.logout >= l2.login and l1.login < l2.login and l1.ip_address <> l2.ip_address);"
+209,select distinct l1.account_id from loginfo as l1 join loginfo as l2 on l1.account_id = l2.account_id where (l1.ip_address <> l2.ip_address and l2.login > l1.login and l2.login <= l1.logout);
+211,select distinct l1.account_id from loginfo as l1 join loginfo as l2 on (l1.account_id = l2.account_id and l1.ip_address <> l2.ip_address) where (l1.logout >= l2.login and l1.login < l2.login);
+213,select distinct l1.account_id from loginfo as l1 join loginfo as l2 on (l1.account_id = l2.account_id and l1.ip_address <> l2.ip_address and l1.login > l2.login and l1.login <= l2.logout);
+233,"select distinct t1.account_id from loginfo as t1, loginfo as t2 where (t1.account_id = t2.account_id and t1.ip_address <> t2.ip_address and t1.login < t2.login and t1.logout >= t2.login);"
+261,"with tmp2 as (select t1.account_id, t1.ip_address, t1.logout, t2.login, case when (t1.login < t2.login and t1.logout < t2.login) then 'not banned' else 'banned' end as label from loginfo as t1 left outer join loginfo as t2 on (t1.account_id = t2.account_id and t1.ip_address <> t2.ip_address and t1.login < t2.login) where t2.login <= t1.logout) select distinct account_id from tmp2 where label = 'banned';"

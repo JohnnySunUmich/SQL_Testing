@@ -1,0 +1,46 @@
+########## all testcases generated ##########
+[OrderedDict([('author_id', [2, 2, 2, 2, 2]), ('viewer_id', [2, 2, 2, 2, 2]), ('article_id', [0, 1, 4, 2, 4]), ('view_date', [datetime.date(2001, 2, 7), datetime.date(2008, 7, 17), datetime.date(2018, 2, 2), datetime.date(2004, 4, 9), datetime.date(2019, 2, 16)])])]
+[OrderedDict([('author_id', [3, 3, 3, 3, 3]), ('viewer_id', [3, 3, 3, 3, 3]), ('article_id', [4, 1, 1, 1, 4]), ('view_date', [datetime.date(2020, 2, 2), datetime.date(2010, 1, 9), datetime.date(2009, 5, 3), datetime.date(2016, 1, 26), datetime.date(2007, 12, 16)])])]
+[OrderedDict([('author_id', [4, 4, 4, 4, 4]), ('viewer_id', [4, 4, 4, 4, 4]), ('article_id', [3, 2, 2, 0, 2]), ('view_date', [datetime.date(2017, 5, 26), datetime.date(2011, 12, 10), datetime.date(2002, 6, 28), datetime.date(2019, 2, 2), datetime.date(2022, 12, 8)])])]
+[OrderedDict([('author_id', [5, 5, 5, 5, 5]), ('viewer_id', [5, 5, 5, 5, 5]), ('article_id', [2, 3, 2, 3, 0]), ('view_date', [datetime.date(2021, 1, 1), datetime.date(2016, 2, 10), datetime.date(2018, 4, 1), datetime.date(2018, 1, 3), datetime.date(2009, 4, 25)])])]
+[OrderedDict([('author_id', [6, 6, 6, 6, 6]), ('viewer_id', [6, 6, 6, 6, 6]), ('article_id', [4, 2, 2, 2, 3]), ('view_date', [datetime.date(2001, 11, 28), datetime.date(2020, 4, 19), datetime.date(2015, 8, 19), datetime.date(2015, 10, 9), datetime.date(2004, 10, 14)])])]
+[OrderedDict([('author_id', [7, 7, 7, 7, 7]), ('viewer_id', [7, 7, 7, 7, 7]), ('article_id', [2, 3, 0, 2, 4]), ('view_date', [datetime.date(2020, 10, 5), datetime.date(2014, 10, 4), datetime.date(2003, 7, 8), datetime.date(2007, 6, 25), datetime.date(2005, 11, 25)])])]
+[OrderedDict([('author_id', [8, 8, 8, 8, 8]), ('viewer_id', [8, 8, 8, 8, 8]), ('article_id', [1, 2, 1, 1, 0]), ('view_date', [datetime.date(2008, 3, 10), datetime.date(2015, 4, 24), datetime.date(2017, 3, 24), datetime.date(2000, 1, 20), datetime.date(2019, 3, 17)])])]
+[OrderedDict([('author_id', [9, 9, 9, 9, 9]), ('viewer_id', [9, 9, 9, 9, 9]), ('article_id', [2, 0, 3, 3, 0]), ('view_date', [datetime.date(2015, 7, 17), datetime.date(2015, 1, 16), datetime.date(2003, 11, 7), datetime.date(2018, 9, 30), datetime.date(2018, 5, 3)])])]
+[OrderedDict([('author_id', [10, 10, 10, 10, 10]), ('viewer_id', [10, 10, 10, 10, 10]), ('article_id', [3, 2, 4, 1, 1]), ('view_date', [datetime.date(2013, 5, 22), datetime.date(2012, 4, 14), datetime.date(2015, 7, 14), datetime.date(2008, 5, 17), datetime.date(2011, 5, 15)])])]
+[OrderedDict([('author_id', [11, 11, 11, 11, 11]), ('viewer_id', [11, 11, 11, 11, 11]), ('article_id', [3, 2, 3, 1, 0]), ('view_date', [datetime.date(2008, 8, 14), datetime.date(2006, 5, 23), datetime.date(2019, 7, 24), datetime.date(2006, 6, 6), datetime.date(2000, 8, 8)])])]
+########## killing mutants ##########
+killed mutant 0
+killed mutant 2
+killed mutant 3
+killed mutant 4
+killed mutant 5
+killed mutant 6
+killed mutant 7
+killed mutant 9
+killed mutant 10
+killed mutant 13
+killed mutant 14
+killed mutant 17
+killed mutant 18
+killed mutant 19
+killed mutant 20
+killed mutant 21
+killed mutant 23
+killed mutant 24
+killed mutant 25
+killed mutant 29
+killed mutant 31
+killed mutant 32
+killed mutant 33
+killed mutant 34
+killed mutant 35
+killed mutant 6
+killed mutant 11
+killed mutants: 27/37
+error mutants: 0/37
+########## testcases left after mutation filtering ##########
+[OrderedDict([('author_id', [2, 2, 2, 2, 2]), ('viewer_id', [2, 2, 2, 2, 2]), ('article_id', [0, 1, 4, 2, 4]), ('view_date', [datetime.date(2001, 2, 7), datetime.date(2008, 7, 17), datetime.date(2018, 2, 2), datetime.date(2004, 4, 9), datetime.date(2019, 2, 16)])])]
+[OrderedDict([('author_id', [3, 3, 3, 3, 3]), ('viewer_id', [3, 3, 3, 3, 3]), ('article_id', [4, 1, 1, 1, 4]), ('view_date', [datetime.date(2020, 2, 2), datetime.date(2010, 1, 9), datetime.date(2009, 5, 3), datetime.date(2016, 1, 26), datetime.date(2007, 12, 16)])])]
+########## testing submitted queries ##########
+fail to kill wrong query 64

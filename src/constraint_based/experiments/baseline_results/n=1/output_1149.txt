@@ -1,0 +1,33 @@
+########## all testcases generated ##########
+[OrderedDict([('article_id', [2, 2, 2, 2, 2]), ('author_id', [0, 1, 4, 2, 4]), ('viewer_id', [4, 1, 1, 1, 4]), ('view_date', [datetime.date(2001, 2, 7), datetime.date(2008, 7, 17), datetime.date(2018, 2, 2), datetime.date(2004, 4, 9), datetime.date(2019, 2, 16)])])]
+########## killing mutants ##########
+killed mutant 18
+killed mutant 19
+killed mutant 20
+killed mutant 21
+killed mutant 22
+killed mutant 23
+killed mutant 39
+killed mutant 42
+killed mutant 43
+killed mutant 46
+killed mutant 47
+killed mutant 48
+killed mutants: 12/53
+error mutants: 0/53
+########## testcases left after mutation filtering ##########
+[OrderedDict([('article_id', [2, 2, 2, 2, 2]), ('author_id', [0, 1, 4, 2, 4]), ('viewer_id', [4, 1, 1, 1, 4]), ('view_date', [datetime.date(2001, 2, 7), datetime.date(2008, 7, 17), datetime.date(2018, 2, 2), datetime.date(2004, 4, 9), datetime.date(2019, 2, 16)])])]
+########## testing submitted queries ##########
+fail to kill wrong query 13
+fail to kill wrong query 50
+fail to kill wrong query 57
+fail to kill wrong query 66
+fail to kill wrong query 69
+fail to kill wrong query 103
+fail to kill wrong query 104
+fail to kill wrong query 105
+fail to kill wrong query 163
+fail to kill wrong query 178
+fail to kill wrong query 191
+fail to kill wrong query 198
+fail to kill wrong query 199

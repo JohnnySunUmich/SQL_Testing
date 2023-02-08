@@ -1,0 +1,4 @@
+select w2.id from weather as w1, weather as w2 where (w2.recorddate = (w1.recorddate + cast('0 years 0 mons 1 days 0 hours 0 mins 0.0 secs' as interval day to second)) and w2.temperature > w1.temperature)
+select w2.id from weather as w1, weather as w2 where (w2.recorddate = (w1.recorddate + cast('0 years 0 mons 1 days 0 hours 0 mins 0.0 secs' as interval day to second)) or w2.temperature > w1.temperature)
+select w2.id from weather as w1, weather as w2 where (w2.recorddate = (w1.recorddate + cast('0 years 0 mons 1 days 0 hours 0 mins 0.0 secs' as interval day to second)) and w2.temperature >= w1.temperature)
+select w2.id from weather as w1, weather as w2 where 1 = 1

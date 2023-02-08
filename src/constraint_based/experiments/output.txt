@@ -1,0 +1,571 @@
+##################################################
+select distinct author_id as id from views where author_id = viewer_id order by author_id
+
+AND(=(views.author_id, views.viewer_id))
+
+T1 = views
+T1.article_id->views.article_id, T1.author_id->views.author_id, T1.viewer_id->views.viewer_id, T1.view_date->views.view_date, 
+
+AND(=(T1.author_id, T1.viewer_id))
+
+T2 = Filter(T1, =(views.author_id, views.viewer_id))
+T2.article_id->T1.article_id, T2.author_id->T1.author_id, T2.viewer_id->T1.viewer_id, T2.view_date->T1.view_date, 
+
+AND()
+
+T3 = Project(T2, [*.author_id, ])
+T3.id->T2.author_id, 
+
+AND()
+
+
+##################################################
+select distinct author_id as id from views where author_id = viewer_id order by 1 asc
+
+AND(=(views.author_id, views.viewer_id))
+
+T4 = views
+T4.article_id->views.article_id, T4.author_id->views.author_id, T4.viewer_id->views.viewer_id, T4.view_date->views.view_date, 
+
+AND(=(T4.author_id, T4.viewer_id))
+
+T5 = Filter(T4, =(views.author_id, views.viewer_id))
+T5.article_id->T4.article_id, T5.author_id->T4.author_id, T5.viewer_id->T4.viewer_id, T5.view_date->T4.view_date, 
+
+AND()
+
+T6 = Project(T5, [*.author_id, ])
+T6.id->T5.author_id, 
+
+AND()
+
+
+##################################################
+select distinct viewer_id as id from views where viewer_id = author_id order by 1 asc
+
+AND(=(views.viewer_id, views.author_id))
+
+T7 = views
+T7.article_id->views.article_id, T7.author_id->views.author_id, T7.viewer_id->views.viewer_id, T7.view_date->views.view_date, 
+
+AND(=(T7.viewer_id, T7.author_id))
+
+T8 = Filter(T7, =(views.viewer_id, views.author_id))
+T8.article_id->T7.article_id, T8.author_id->T7.author_id, T8.viewer_id->T7.viewer_id, T8.view_date->T7.view_date, 
+
+AND()
+
+T9 = Project(T8, [*.viewer_id, ])
+T9.id->T8.viewer_id, 
+
+AND()
+
+
+##################################################
+select distinct viewer_id as id from views where author_id = viewer_id order by viewer_id
+
+AND(=(views.author_id, views.viewer_id))
+
+T10 = views
+T10.article_id->views.article_id, T10.author_id->views.author_id, T10.viewer_id->views.viewer_id, T10.view_date->views.view_date, 
+
+AND(=(T10.author_id, T10.viewer_id))
+
+T11 = Filter(T10, =(views.author_id, views.viewer_id))
+T11.article_id->T10.article_id, T11.author_id->T10.author_id, T11.viewer_id->T10.viewer_id, T11.view_date->T10.view_date, 
+
+AND()
+
+T12 = Project(T11, [*.viewer_id, ])
+T12.id->T11.viewer_id, 
+
+AND()
+
+
+##################################################
+select distinct product_id from products where (low_fats = 'Y' and recyclable = 'Y')
+
+AND(AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+
+T13 = products
+T13.product_id->products.product_id, T13.low_fats->products.low_fats, T13.recyclable->products.recyclable, 
+
+AND(AND(=(T13.low_fats, Y), =(T13.recyclable, Y)))
+
+T14 = Filter(T13, AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+T14.product_id->T13.product_id, T14.low_fats->T13.low_fats, T14.recyclable->T13.recyclable, 
+
+AND()
+
+T15 = Project(T14, [*.product_id, ])
+T15.product_id->T14.product_id, 
+
+AND()
+
+
+##################################################
+select product_id from products where (low_fats = 'Y' and recyclable = 'Y')
+
+AND(AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+
+T16 = products
+T16.product_id->products.product_id, T16.low_fats->products.low_fats, T16.recyclable->products.recyclable, 
+
+AND(AND(=(T16.low_fats, Y), =(T16.recyclable, Y)))
+
+T17 = Filter(T16, AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+T17.product_id->T16.product_id, T17.low_fats->T16.low_fats, T17.recyclable->T16.recyclable, 
+
+AND()
+
+T18 = Project(T17, [*.product_id, ])
+T18.product_id->T17.product_id, 
+
+AND()
+
+
+##################################################
+select product_id from products where (low_fats = 'Y' and recyclable = 'Y') order by 1 asc
+
+AND(AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+
+T19 = products
+T19.product_id->products.product_id, T19.low_fats->products.low_fats, T19.recyclable->products.recyclable, 
+
+AND(AND(=(T19.low_fats, Y), =(T19.recyclable, Y)))
+
+T20 = Filter(T19, AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+T20.product_id->T19.product_id, T20.low_fats->T19.low_fats, T20.recyclable->T19.recyclable, 
+
+AND()
+
+T21 = Project(T20, [*.product_id, ])
+T21.product_id->T20.product_id, 
+
+AND()
+
+
+##################################################
+select product_id from products where (low_fats = 'Y' and recyclable = 'Y') order by product_id
+
+AND(AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+
+T22 = products
+T22.product_id->products.product_id, T22.low_fats->products.low_fats, T22.recyclable->products.recyclable, 
+
+AND(AND(=(T22.low_fats, Y), =(T22.recyclable, Y)))
+
+T23 = Filter(T22, AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+T23.product_id->T22.product_id, T23.low_fats->T22.low_fats, T23.recyclable->T22.recyclable, 
+
+AND()
+
+T24 = Project(T23, [*.product_id, ])
+T24.product_id->T23.product_id, 
+
+AND()
+
+
+##################################################
+select product_id from products where (recyclable = 'Y' and low_fats = 'Y')
+
+AND(AND(=(products.recyclable, Y), =(products.low_fats, Y)))
+
+T25 = products
+T25.product_id->products.product_id, T25.low_fats->products.low_fats, T25.recyclable->products.recyclable, 
+
+AND(AND(=(T25.recyclable, Y), =(T25.low_fats, Y)))
+
+T26 = Filter(T25, AND(=(products.recyclable, Y), =(products.low_fats, Y)))
+T26.product_id->T25.product_id, T26.low_fats->T25.low_fats, T26.recyclable->T25.recyclable, 
+
+AND()
+
+T27 = Project(T26, [*.product_id, ])
+T27.product_id->T26.product_id, 
+
+AND()
+
+
+##################################################
+select product_id from products where (low_fats = 'Y' and recyclable = 'Y') order by product_id desc
+
+AND(AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+
+T28 = products
+T28.product_id->products.product_id, T28.low_fats->products.low_fats, T28.recyclable->products.recyclable, 
+
+AND(AND(=(T28.low_fats, Y), =(T28.recyclable, Y)))
+
+T29 = Filter(T28, AND(=(products.low_fats, Y), =(products.recyclable, Y)))
+T29.product_id->T28.product_id, T29.low_fats->T28.low_fats, T29.recyclable->T28.recyclable, 
+
+AND()
+
+T30 = Project(T29, [*.product_id, ])
+T30.product_id->T29.product_id, 
+
+AND()
+
+
+##################################################
+select product_id from products where (1 = 1 and low_fats = 'Y' and recyclable = 'Y')
+
+AND(AND(=(1, 1), =(products.low_fats, Y), =(products.recyclable, Y)))
+
+T31 = products
+T31.product_id->products.product_id, T31.low_fats->products.low_fats, T31.recyclable->products.recyclable, 
+
+AND(AND(=(1, 1), =(T31.low_fats, Y), =(T31.recyclable, Y)))
+
+T32 = Filter(T31, AND(=(1, 1), =(products.low_fats, Y), =(products.recyclable, Y)))
+T32.product_id->T31.product_id, T32.low_fats->T31.low_fats, T32.recyclable->T31.recyclable, 
+
+AND()
+
+T33 = Project(T32, [*.product_id, ])
+T33.product_id->T32.product_id, 
+
+AND()
+
+
+##################################################
+select r.product_id from (select product_id, low_fats from products as p1 where recyclable = 'Y') as r where r.low_fats = 'Y'
+
+AND(=(products.low_fats, Y), =(products.recyclable, Y))
+
+p1 = products
+p1.product_id->products.product_id, p1.low_fats->products.low_fats, p1.recyclable->products.recyclable, 
+
+AND(=(p1.low_fats, Y), =(p1.recyclable, Y))
+
+T34 = Filter(p1, =(products.recyclable, Y))
+T34.product_id->p1.product_id, T34.low_fats->p1.low_fats, T34.recyclable->p1.recyclable, 
+
+AND(=(T34.low_fats, Y))
+
+T35 = Project(T34, [*.product_id, *.low_fats, ])
+T35.product_id->T34.product_id, T35.low_fats->T34.low_fats, 
+
+AND(=(T35.low_fats, Y))
+
+r = T35
+r.product_id->T35.product_id, r.low_fats->T35.low_fats, 
+
+AND(=(r.low_fats, Y))
+
+T36 = Filter(r, =(products.low_fats, Y))
+T36.product_id->r.product_id, T36.low_fats->r.low_fats, 
+
+AND()
+
+T37 = Project(T36, [r.product_id, ])
+T37.product_id->T36.product_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (year = 2021 and revenue > 0)
+
+AND(AND(=(customers.year, 2021), >(customers.revenue, 0)))
+
+T38 = customers
+T38.customer_id->customers.customer_id, T38.year->customers.year, T38.revenue->customers.revenue, 
+
+AND(AND(=(T38.year, 2021), >(T38.revenue, 0)))
+
+T39 = Filter(T38, AND(=(customers.year, 2021), >(customers.revenue, 0)))
+T39.customer_id->T38.customer_id, T39.year->T38.year, T39.revenue->T38.revenue, 
+
+AND()
+
+T40 = Project(T39, [*.customer_id, ])
+T40.customer_id->T39.customer_id, 
+
+AND()
+
+
+##################################################
+select distinct customer_id from customers where (revenue > 0 and year = 2021)
+
+AND(AND(>(customers.revenue, 0), =(customers.year, 2021)))
+
+T41 = customers
+T41.customer_id->customers.customer_id, T41.year->customers.year, T41.revenue->customers.revenue, 
+
+AND(AND(>(T41.revenue, 0), =(T41.year, 2021)))
+
+T42 = Filter(T41, AND(>(customers.revenue, 0), =(customers.year, 2021)))
+T42.customer_id->T41.customer_id, T42.year->T41.year, T42.revenue->T41.revenue, 
+
+AND()
+
+T43 = Project(T42, [*.customer_id, ])
+T43.customer_id->T42.customer_id, 
+
+AND()
+
+
+##################################################
+select distinct customer_id from customers where (year = '2021' and revenue > 0)
+
+AND(AND(=(customers.year, 2021), >(customers.revenue, 0)))
+
+T44 = customers
+T44.customer_id->customers.customer_id, T44.year->customers.year, T44.revenue->customers.revenue, 
+
+AND(AND(=(T44.year, 2021), >(T44.revenue, 0)))
+
+T45 = Filter(T44, AND(=(customers.year, 2021), >(customers.revenue, 0)))
+T45.customer_id->T44.customer_id, T45.year->T44.year, T45.revenue->T44.revenue, 
+
+AND()
+
+T46 = Project(T45, [*.customer_id, ])
+T46.customer_id->T45.customer_id, 
+
+AND()
+
+
+##################################################
+select distinct customer_id from customers where (year = 2021 and revenue > 0)
+
+AND(AND(=(customers.year, 2021), >(customers.revenue, 0)))
+
+T47 = customers
+T47.customer_id->customers.customer_id, T47.year->customers.year, T47.revenue->customers.revenue, 
+
+AND(AND(=(T47.year, 2021), >(T47.revenue, 0)))
+
+T48 = Filter(T47, AND(=(customers.year, 2021), >(customers.revenue, 0)))
+T48.customer_id->T47.customer_id, T48.year->T47.year, T48.revenue->T47.revenue, 
+
+AND()
+
+T49 = Project(T48, [*.customer_id, ])
+T49.customer_id->T48.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (1 = 1 and year = 2021 and revenue > 0)
+
+AND(AND(=(1, 1), =(customers.year, 2021), >(customers.revenue, 0)))
+
+T50 = customers
+T50.customer_id->customers.customer_id, T50.year->customers.year, T50.revenue->customers.revenue, 
+
+AND(AND(=(1, 1), =(T50.year, 2021), >(T50.revenue, 0)))
+
+T51 = Filter(T50, AND(=(1, 1), =(customers.year, 2021), >(customers.revenue, 0)))
+T51.customer_id->T50.customer_id, T51.year->T50.year, T51.revenue->T50.revenue, 
+
+AND()
+
+T52 = Project(T51, [*.customer_id, ])
+T52.customer_id->T51.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (revenue > 0 and year = '2021')
+
+AND(AND(>(customers.revenue, 0), =(customers.year, 2021)))
+
+T53 = customers
+T53.customer_id->customers.customer_id, T53.year->customers.year, T53.revenue->customers.revenue, 
+
+AND(AND(>(T53.revenue, 0), =(T53.year, 2021)))
+
+T54 = Filter(T53, AND(>(customers.revenue, 0), =(customers.year, 2021)))
+T54.customer_id->T53.customer_id, T54.year->T53.year, T54.revenue->T53.revenue, 
+
+AND()
+
+T55 = Project(T54, [*.customer_id, ])
+T55.customer_id->T54.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (revenue > 0 and year = 2021)
+
+AND(AND(>(customers.revenue, 0), =(customers.year, 2021)))
+
+T56 = customers
+T56.customer_id->customers.customer_id, T56.year->customers.year, T56.revenue->customers.revenue, 
+
+AND(AND(>(T56.revenue, 0), =(T56.year, 2021)))
+
+T57 = Filter(T56, AND(>(customers.revenue, 0), =(customers.year, 2021)))
+T57.customer_id->T56.customer_id, T57.year->T56.year, T57.revenue->T56.revenue, 
+
+AND()
+
+T58 = Project(T57, [*.customer_id, ])
+T58.customer_id->T57.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (year = '2021' and revenue > 0)
+
+AND(AND(=(customers.year, 2021), >(customers.revenue, 0)))
+
+T59 = customers
+T59.customer_id->customers.customer_id, T59.year->customers.year, T59.revenue->customers.revenue, 
+
+AND(AND(=(T59.year, 2021), >(T59.revenue, 0)))
+
+T60 = Filter(T59, AND(=(customers.year, 2021), >(customers.revenue, 0)))
+T60.customer_id->T59.customer_id, T60.year->T59.year, T60.revenue->T59.revenue, 
+
+AND()
+
+T61 = Project(T60, [*.customer_id, ])
+T61.customer_id->T60.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (revenue > 0 and year = '2021') order by customer_id
+
+AND(AND(>(customers.revenue, 0), =(customers.year, 2021)))
+
+T62 = customers
+T62.customer_id->customers.customer_id, T62.year->customers.year, T62.revenue->customers.revenue, 
+
+AND(AND(>(T62.revenue, 0), =(T62.year, 2021)))
+
+T63 = Filter(T62, AND(>(customers.revenue, 0), =(customers.year, 2021)))
+T63.customer_id->T62.customer_id, T63.year->T62.year, T63.revenue->T62.revenue, 
+
+AND()
+
+T64 = Project(T63, [*.customer_id, ])
+T64.customer_id->T63.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (year = 2021 and revenue > 1)
+
+AND(AND(=(customers.year, 2021), >(customers.revenue, 1)))
+
+T65 = customers
+T65.customer_id->customers.customer_id, T65.year->customers.year, T65.revenue->customers.revenue, 
+
+AND(AND(=(T65.year, 2021), >(T65.revenue, 1)))
+
+T66 = Filter(T65, AND(=(customers.year, 2021), >(customers.revenue, 1)))
+T66.customer_id->T65.customer_id, T66.year->T65.year, T66.revenue->T65.revenue, 
+
+AND()
+
+T67 = Project(T66, [*.customer_id, ])
+T67.customer_id->T66.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from (select customer_id, year, revenue from customers where (revenue > 0 and year = 2021)) as a
+
+AND(AND(>(customers.revenue, 0), =(customers.year, 2021)))
+
+T68 = customers
+T68.customer_id->customers.customer_id, T68.year->customers.year, T68.revenue->customers.revenue, 
+
+AND(AND(>(T68.revenue, 0), =(T68.year, 2021)))
+
+T69 = Filter(T68, AND(>(customers.revenue, 0), =(customers.year, 2021)))
+T69.customer_id->T68.customer_id, T69.year->T68.year, T69.revenue->T68.revenue, 
+
+AND()
+
+T70 = Project(T69, [*.customer_id, *.year, *.revenue, ])
+T70.customer_id->T69.customer_id, T70.year->T69.year, T70.revenue->T69.revenue, 
+
+AND()
+
+a = T70
+a.customer_id->T70.customer_id, a.year->T70.year, a.revenue->T70.revenue, 
+
+AND()
+
+T71 = Project(a, [*.customer_id, ])
+T71.customer_id->a.customer_id, 
+
+AND()
+
+
+##################################################
+select distinct customer_id from customers where (revenue > 0 and year = '2021')
+
+AND(AND(>(customers.revenue, 0), =(customers.year, 2021)))
+
+T72 = customers
+T72.customer_id->customers.customer_id, T72.year->customers.year, T72.revenue->customers.revenue, 
+
+AND(AND(>(T72.revenue, 0), =(T72.year, 2021)))
+
+T73 = Filter(T72, AND(>(customers.revenue, 0), =(customers.year, 2021)))
+T73.customer_id->T72.customer_id, T73.year->T72.year, T73.revenue->T72.revenue, 
+
+AND()
+
+T74 = Project(T73, [*.customer_id, ])
+T74.customer_id->T73.customer_id, 
+
+AND()
+
+
+##################################################
+select customer_id from customers where (year = '2021' and revenue > '0')
+
+AND(AND(=(customers.year, 2021), >(customers.revenue, 0)))
+
+T75 = customers
+T75.customer_id->customers.customer_id, T75.year->customers.year, T75.revenue->customers.revenue, 
+
+AND(AND(=(T75.year, 2021), >(T75.revenue, 0)))
+
+T76 = Filter(T75, AND(=(customers.year, 2021), >(customers.revenue, 0)))
+T76.customer_id->T75.customer_id, T76.year->T75.year, T76.revenue->T75.revenue, 
+
+AND()
+
+T77 = Project(T76, [*.customer_id, ])
+T77.customer_id->T76.customer_id, 
+
+AND()
+
+
+##################################################
+select distinct customer_id from customers where (revenue = abs(revenue) and year = '2021' and revenue <> 0)
+
+AND(AND(=(customers.revenue, abs(None.revenue)), =(customers.year, 2021), <>(customers.revenue, 0)))
+
+T78 = customers
+T78.customer_id->customers.customer_id, T78.year->customers.year, T78.revenue->customers.revenue, 
+
+AND(AND(=(T78.revenue, abs(None.revenue)), =(T78.year, 2021), <>(T78.revenue, 0)))
+
+T79 = Filter(T78, AND(=(customers.revenue, abs(None.revenue)), =(customers.year, 2021), <>(customers.revenue, 0)))
+T79.customer_id->T78.customer_id, T79.year->T78.year, T79.revenue->T78.revenue, 
+
+AND()
+
+T80 = Project(T79, [*.customer_id, ])
+T80.customer_id->T79.customer_id, 
+
+AND()
+
+

@@ -1,0 +1,1 @@
+select d.dept_name, coalesce(count(student_id), 0) as student_number from department as d left outer join student as s on d.dept_id = s.dept_id group by d.dept_id, d.dept_name order by student_number desc, dept_name

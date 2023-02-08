@@ -1,0 +1,5 @@
+select distinct num as consecutivenums from (select num, lead(num) over () as lead_num, lag(num) over () as lag_num from logs) as num_lead_lag_num where (num = lead_num and num = lag_num)
+select distinct num as consecutivenums from (select num, lead(num) over () as lead_num, lag(num) over () as lag_num from logs) as num_lead_lag_num where 1 = 1
+select distinct num as consecutivenums from (select num, lead(num) over () as lead_num, lag(num) over () as lag_num from logs) as num_lead_lag_num where (num = lead_num or num = lag_num)
+select distinct num as consecutivenums from (select num, lead(num) over () as lead_num, lag(num) over () as lag_num from logs) as num_lead_lag_num where (num = lead_num and num >= lag_num)
+select distinct num as consecutivenums from (select num, lead(num) over () as lead_num, lag(num) over () as lag_num from logs) as num_lead_lag_num where (num <= lead_num and num = lag_num)

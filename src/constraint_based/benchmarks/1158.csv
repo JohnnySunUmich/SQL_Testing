@@ -1,0 +1,4 @@
+qid,psql_query
+-1,"SELECT A.USER_ID AS buyer_id, A.JOIN_DATE, COUNT(ORDER_ID) AS orders_in_2019 FROM USERS AS A LEFT JOIN ( SELECT ORDER_ID, BUYER_ID FROM ORDERS WHERE order_date>'2018-12-31' AND order_date<'2020-01-01' ) AS B ON A.USER_ID = B.BUYER_ID GROUP BY A.USER_ID, A.JOIN_DATE"
+295,"select user_id as buyer_id, join_date, case when orders_in_2019 is null then 0 else orders_in_2019 end as orders_in_2019 from users as a left outer join (select buyer_id, count(distinct order_id) as orders_in_2019 from orders where order_date >= '2019-01-01' group by buyer_id) as b on a.user_id = b.buyer_id;"
+370,"with temp1 as (select buyer_id, count(*) as total_orders from orders where order_date >= '2019-01-01' group by buyer_id) select users.user_id as buyer_id, users.join_date, coalesce(temp1.total_orders, 0) as orders_in_2019 from users left outer join temp1 on users.user_id = temp1.buyer_id;"

@@ -1,0 +1,203 @@
+fail to load as labeled query file does not exist for problem 196
+##################################################
+problem 181 groundtruth: select a.name as Employee from Employee as a join Employee as b on (a.managerid = b.id and a.salary > b.salary) 
+problem 181 mutants:
+predicate
+SELECT a.name AS employee FROM employee AS a CROSS JOIN employee AS b
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid > b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid < b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid >= b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid <= b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid != b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary = b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary < b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary >= b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary <= b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary != b.salary)
+SELECT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON ((a.managerid = b.id) OR (a.salary > b.salary))
+join_type
+SELECT a.name AS employee FROM employee AS a NATURAL INNER JOIN employee AS b
+SELECT a.name AS employee FROM employee AS a JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a FULL JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a LEFT JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a RIGHT JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+SELECT a.name AS employee FROM employee AS a JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+distinct
+SELECT DISTINCT a.name AS employee FROM employee AS a INNER JOIN employee AS b ON (a.managerid = b.id) AND (a.salary > b.salary)
+##################################################
+problem 1821 groundtruth: select distinct customer_id from customers where (revenue > 0 and year = 2021) 
+problem 1821 mutants:
+predicate
+SELECT DISTINCT customer_id FROM customers WHERE 1 = 1
+SELECT DISTINCT customer_id FROM customers WHERE (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue = 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue < 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue >= 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue <= 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue != 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year = 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year > 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year < 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year >= 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year <= 2021)
+SELECT DISTINCT customer_id FROM customers WHERE (revenue > 0) AND (year != 2021)
+SELECT DISTINCT customer_id FROM customers WHERE ((revenue > 0) OR (year = 2021))
+join_type
+distinct
+SELECT customer_id FROM customers WHERE (revenue > 0) AND (year = 2021)
+fail to load as labeled query file does not exist for problem 595
+fail to load as labeled query file does not exist for problem 1270
+fail to load as labeled query file does not exist for problem 1517
+##################################################
+problem 1068 groundtruth: select p.product_name, s.year, s.price from sales as s join product as p on s.product_id = p.product_id 
+problem 1068 mutants:
+predicate
+SELECT p.product_name, s.year, s.price FROM sales AS s CROSS JOIN product AS p
+SELECT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id > p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id < p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id >= p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id <= p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id != p.product_id
+join_type
+SELECT p.product_name, s.year, s.price FROM sales AS s NATURAL INNER JOIN product AS p
+SELECT p.product_name, s.year, s.price FROM sales AS s JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s FULL JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s LEFT JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s RIGHT JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s JOIN product AS p ON s.product_id = p.product_id
+SELECT p.product_name, s.year, s.price FROM sales AS s JOIN product AS p ON s.product_id = p.product_id
+distinct
+SELECT DISTINCT p.product_name, s.year, s.price FROM sales AS s INNER JOIN product AS p ON s.product_id = p.product_id
+##################################################
+problem 1378 groundtruth: select a.unique_id, b.name from employees as b left outer join employeeuni as a on a.id = b.id 
+problem 1378 mutants:
+predicate
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id > b.id
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id < b.id
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id >= b.id
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id <= b.id
+SELECT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id != b.id
+join_type
+SELECT a.unique_id, b.name FROM employees AS b NATURAL LEFT JOIN employeeuni AS a
+SELECT a.unique_id, b.name FROM employees AS b JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b FULL JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b INNER JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b RIGHT JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b JOIN employeeuni AS a ON a.id = b.id
+SELECT a.unique_id, b.name FROM employees AS b JOIN employeeuni AS a ON a.id = b.id
+distinct
+SELECT DISTINCT a.unique_id, b.name FROM employees AS b LEFT JOIN employeeuni AS a ON a.id = b.id
+##################################################
+problem 175 groundtruth: select firstname, lastname, city, state from person as p left outer join address as a on p.personid = a.personid 
+problem 175 mutants:
+predicate
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid > a.personid
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid < a.personid
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid >= a.personid
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid <= a.personid
+SELECT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid != a.personid
+join_type
+SELECT firstname, lastname, city, state FROM person AS p NATURAL LEFT JOIN address AS a
+SELECT firstname, lastname, city, state FROM person AS p JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p FULL JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p INNER JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p RIGHT JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p JOIN address AS a ON p.personid = a.personid
+SELECT firstname, lastname, city, state FROM person AS p JOIN address AS a ON p.personid = a.personid
+distinct
+SELECT DISTINCT firstname, lastname, city, state FROM person AS p LEFT JOIN address AS a ON p.personid = a.personid
+##################################################
+problem 1623 groundtruth: select a.student_name as member_a, b.student_name as member_b, c.student_name as member_c from schoola as a, schoolb as b, schoolc as c where (a.student_id <> b.student_id and b.student_id <> c.student_id and a.student_id <> c.student_id and a.student_name <> b.student_name and a.student_name <> c.student_name and b.student_name <> c.student_name) 
+problem 1623 mutants:
+predicate
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE 1 = 1
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id = b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id > b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id < b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id >= b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <= b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id != b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id = c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id > c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id < c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id >= c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <= c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id != c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id = c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id > c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id < c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id >= c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <= c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id != c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name = b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name > b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name < b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name >= b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <= b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name != b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name = c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name > c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name < c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name >= c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <= c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name != c.student_name) AND (b.student_name <> c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name = c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name > c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name < c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name >= c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <= c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name != c.student_name)
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (((a.student_id <> b.student_id)) OR ((b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)))
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (((a.student_id <> b.student_id) AND (b.student_id <> c.student_id)) OR ((a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)))
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (((a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id)) OR ((a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)))
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (((a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name)) OR ((a.student_name <> c.student_name) AND (b.student_name <> c.student_name)))
+SELECT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (((a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name)) OR ((b.student_name <> c.student_name)))
+join_type
+distinct
+SELECT DISTINCT a.student_name AS member_a, b.student_name AS member_b, c.student_name AS member_c FROM schoola AS a, schoolb AS b, schoolc AS c WHERE (a.student_id <> b.student_id) AND (b.student_id <> c.student_id) AND (a.student_id <> c.student_id) AND (a.student_name <> b.student_name) AND (a.student_name <> c.student_name) AND (b.student_name <> c.student_name)
+fail to load as labeled query file does not exist for problem 1421
+##################################################
+problem 1757 groundtruth: select product_id from products where (low_fats = 'Y' and recyclable = 'Y') 
+problem 1757 mutants:
+predicate
+SELECT product_id FROM products WHERE 1 = 1
+SELECT product_id FROM products WHERE (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats > 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats < 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats >= 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats <= 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats != 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable = 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable > 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable < 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable >= 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable <= 'Y')
+SELECT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable != 'Y')
+SELECT product_id FROM products WHERE ((low_fats = 'Y') OR (recyclable = 'Y'))
+join_type
+distinct
+SELECT DISTINCT product_id FROM products WHERE (low_fats = 'Y') AND (recyclable = 'Y')

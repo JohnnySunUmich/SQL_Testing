@@ -1,0 +1,3 @@
+qid,psql_query
+-1,select customer_id from customers where (year = 2021 and revenue > 0)
+157,select customer_id from customers where (year = extract(year from current_date) and revenue > 0);

@@ -1,0 +1,49 @@
+########## all testcases generated ##########
+[OrderedDict([('activity_date', ['2019-6-28', '2019-6-28', '2019-6-28', '2019-6-28', '2019-6-28']), ('user_id', [0, 1, 4, 2, 4]), ('session_id', [4, 1, 1, 1, 4]), ('activity_type', ['scroll_down', 'end_session', 'scroll_down', 'open_session', 'end_session'])])]
+[OrderedDict([('activity_date', ['2019-6-29', '2019-6-29', '2019-6-29', '2019-6-29', '2019-6-29']), ('user_id', [2, 3, 2, 3, 0]), ('session_id', [4, 2, 2, 2, 3]), ('activity_type', ['end_session', 'scroll_down', 'open_session', 'scroll_down', 'send_message'])])]
+[OrderedDict([('activity_date', ['2019-6-30', '2019-6-30', '2019-6-30', '2019-6-30', '2019-6-30']), ('user_id', [1, 2, 1, 1, 0]), ('session_id', [2, 0, 3, 3, 0]), ('activity_type', ['scroll_down', 'scroll_down', 'send_message', 'open_session', 'open_session'])])]
+[OrderedDict([('activity_date', ['2019-7-1', '2019-7-1', '2019-7-1', '2019-7-1', '2019-7-1']), ('user_id', [3, 2, 3, 1, 0]), ('session_id', [3, 3, 3, 1, 2]), ('activity_type', ['send_message', 'send_message', 'open_session', 'open_session', 'end_session'])])]
+[OrderedDict([('activity_date', ['2019-7-2', '2019-7-2', '2019-7-2', '2019-7-2', '2019-7-2']), ('user_id', [1, 4, 4, 3, 3]), ('session_id', [0, 2, 2, 0, 3]), ('activity_type', ['scroll_down', 'scroll_down', 'send_message', 'scroll_down', 'end_session'])])]
+[OrderedDict([('activity_date', ['2019-7-3', '2019-7-3', '2019-7-3', '2019-7-3', '2019-7-3']), ('user_id', [3, 1, 0, 2, 2]), ('session_id', [1, 3, 0, 3, 1]), ('activity_type', ['scroll_down', 'send_message', 'scroll_down', 'scroll_down', 'open_session'])])]
+[OrderedDict([('activity_date', ['2019-7-4', '2019-7-4', '2019-7-4', '2019-7-4', '2019-7-4']), ('user_id', [3, 1, 0, 1, 1]), ('session_id', [3, 3, 0, 2, 2]), ('activity_type', ['scroll_down', 'end_session', 'send_message', 'send_message', 'scroll_down'])])]
+[OrderedDict([('activity_date', ['2019-7-5', '2019-7-5', '2019-7-5', '2019-7-5', '2019-7-5']), ('user_id', [2, 0, 4, 2, 2]), ('session_id', [0, 0, 1, 1, 3]), ('activity_type', ['scroll_down', 'send_message', 'send_message', 'end_session', 'open_session'])])]
+[OrderedDict([('activity_date', ['2019-7-6', '2019-7-6', '2019-7-6', '2019-7-6', '2019-7-6']), ('user_id', [1, 3, 3, 3, 4]), ('session_id', [4, 1, 3, 2, 4]), ('activity_type', ['end_session', 'scroll_down', 'send_message', 'open_session', 'send_message'])])]
+[OrderedDict([('activity_date', ['2019-7-7', '2019-7-7', '2019-7-7', '2019-7-7', '2019-7-7']), ('user_id', [2, 2, 3, 3, 1]), ('session_id', [4, 2, 2, 4, 1]), ('activity_type', ['send_message', 'scroll_down', 'send_message', 'scroll_down', 'scroll_down'])])]
+########## killing mutants ##########
+killed mutant 0
+killed mutant 1
+killed mutant 2
+killed mutant 4
+killed mutant 5
+killed mutant 6
+killed mutant 12
+killed mutant 14
+killed mutant 15
+killed mutant 18
+killed mutant 19
+killed mutant 20
+killed mutant 23
+killed mutant 24
+killed mutant 27
+killed mutant 30
+killed mutant 32
+killed mutant 34
+killed mutant 36
+killed mutant 8
+killed mutant 9
+killed mutant 18
+killed mutant 0
+killed mutants: 23/40
+error mutants: 0/40
+########## testcases left after mutation filtering ##########
+[OrderedDict([('activity_date', ['2019-6-28', '2019-6-28', '2019-6-28', '2019-6-28', '2019-6-28']), ('user_id', [0, 1, 4, 2, 4]), ('session_id', [4, 1, 1, 1, 4]), ('activity_type', ['scroll_down', 'end_session', 'scroll_down', 'open_session', 'end_session'])])]
+[OrderedDict([('activity_date', ['2019-6-29', '2019-6-29', '2019-6-29', '2019-6-29', '2019-6-29']), ('user_id', [2, 3, 2, 3, 0]), ('session_id', [4, 2, 2, 2, 3]), ('activity_type', ['end_session', 'scroll_down', 'open_session', 'scroll_down', 'send_message'])])]
+[OrderedDict([('activity_date', ['2019-6-30', '2019-6-30', '2019-6-30', '2019-6-30', '2019-6-30']), ('user_id', [1, 2, 1, 1, 0]), ('session_id', [2, 0, 3, 3, 0]), ('activity_type', ['scroll_down', 'scroll_down', 'send_message', 'open_session', 'open_session'])])]
+########## testing submitted queries ##########
+fail to kill wrong query 100
+fail to kill wrong query 115
+fail to kill wrong query 169
+fail to kill wrong query 218
+fail to kill wrong query 225
+fail to kill wrong query 231
+fail to kill wrong query 235
