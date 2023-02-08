@@ -1,0 +1,10 @@
+PyYAML == 6.0
+Faker == 8.8.1
+psycopg2
+pglast~=3.14
+mysql-connector-python~=8.0.30
+requests~=2.28.1
+psycopg~=3.0.8
+lark~=1.1.5
+z3-solver==4.11.1.0
+sql-formatter

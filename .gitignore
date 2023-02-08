@@ -1,0 +1,10 @@
+__pycache__/
+logs/
+config.yml
+**/results/
+**mutants_all
+data/mutants_all
+.idea/
+*.ipynb
+drive.py
+**/TODO
